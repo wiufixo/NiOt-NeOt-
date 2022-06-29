@@ -1,4 +1,4 @@
-package com.sist.nono.controller;
+package com.sist.nono.test;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
