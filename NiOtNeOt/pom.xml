@@ -10,10 +10,10 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sist</groupId>
-	<artifactId>NONO_MetaCoding</artifactId>
+	<artifactId>NiOtNeOt</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>NONO_MetaCoding</name>
+	<name>NiOtNeOt</name>
 	<description>My First Project</description>
 	<properties>
 		<java.version>17</java.version>
