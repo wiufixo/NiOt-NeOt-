@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/mjko?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/test2?serverTimezone=Asia/Seoul
     username: manager
     password: manager33
-    
-  mvc:
-    view:
-      prefix: /WEB-INF/views/
-      suffix: .jsp
+#    
+#  mvc:
+#    view:
+#      prefix: /WEB-INF/views/
+#      suffix: .jsp
       
   jpa:
     open-in-view: true

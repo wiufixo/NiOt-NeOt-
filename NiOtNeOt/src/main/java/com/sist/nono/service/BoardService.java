@@ -5,17 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.nono.model.Board;
 import com.sist.nono.model.BoardComment;
-import com.sist.nono.model.RoleType;
 import com.sist.nono.model.User;
 import com.sist.nono.repository.BoardCommentRepository;
 import com.sist.nono.repository.BoardRepository;
-import com.sist.nono.repository.UserRepository;
 
 @Service
 public class BoardService {
