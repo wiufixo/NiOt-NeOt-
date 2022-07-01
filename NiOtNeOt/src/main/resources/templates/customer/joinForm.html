@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>joinForm</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="../js/customer.js"></script>
+</head>
+<body>
+ <form th:action="@{/customer/joinOK}" id="joinForm" method="post">
+ 	id : <input type="text" name="cu_id" th:name="cu_id" id="cu_id"><br>
+ 	pwd : <input type="text" name="cu_pwd" th:name="cu_pwd" id="cu_pwd"><br>
+ 	email : <input type="text" name="cu_email" th:name="cu_email" id="cu_email"><br>
+ 	name : <input type="text" name="cu_name" th:name="cu_name" id="<cu></cu>_name"><br>
+ 	nickname : <input type="text" name="cu_nickname" th:name="cu_nickname" id="cu_nickname"><br>
+ 	gender<br>
+ 	<input type="radio" name="cu_gender" value=0 checked> 여자
+ 	<input type="radio" name="cu_gender" value=1 > 남자
+ 	<br>
+ 	height : <input type="number" name="cu_height" th:name="cu_height" id="cu_height"><br>
+ 	weight : <input type="number" name="cu_weight" th:name="cu_weight" id="cu_weight"><br>
+ 	birth<br>
+ 	<input type="date" name="cu_birth" th:name="cu_birth" id="cu_birth"><br>
+ 	개인정보 공개 동의 여부<br>
+ 	<input type="radio" name="privacy_agree" value=0 checked> 거부
+ 	<input type="radio" name="privacy_agree" value=1> 동의
+ 	<br> 	
+ 	
+ 	<input type="submit" value="회원가입">
+ </form>
+</body>
+</html>

@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,7 +40,10 @@ public class Customer {
 	private int cu_height;
 	private int cu_weight;
 	private int privacy_agree;
-	private Date cu_created;
+	
+	@CreationTimestamp
+	private Timestamp cu_created;
+	
 	private Date cu_deleted;
 	
 	@Enumerated(EnumType.STRING) //db에는 enumtype 자료형이 없으므로 string으로 변환해준다
