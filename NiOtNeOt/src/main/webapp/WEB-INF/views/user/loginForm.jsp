@@ -9,6 +9,7 @@
 			<label for="cu_pwd">PWD:</label> <input type="password" name="password" class="form-control" placeholder="Enter password" id="cu_pwd">
 		</div>
 		<button id="btn-login" class="btn btn-primary">로그인</button>
+		<a href="https://kauth.kakao.com/oauth/authorize?client_id=00e34125548339316c0af9949d7e464a&redirect_uri=http://localhost:8080/auth/kakao/callback&response_type=code"><img height="38px" src="/image/kakao_login_medium.png"></a>
 	</form>
 </div>
 

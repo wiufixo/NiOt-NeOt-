@@ -20,6 +20,7 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
+#      hibernate.hbm2ddl.auto: update
 
   jackson:
     serialization:
@@ -27,6 +28,8 @@ spring:
       
 ---
 
+sist:
+  key: sist1234
       
 server:
   port: 8080
