@@ -15,10 +15,13 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,6 +64,8 @@ public class Board {
 	private int b_hit;
 	
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //테이블의 칼럼으로 생성하지 말아주세요, 반드시 갖고와주세요
+	@JsonIgnoreProperties({"board"})
+	@OrderBy("bc_no desc")
 	private List<BoardComment> boardComment;
 	
 }
