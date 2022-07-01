@@ -34,7 +34,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //프로젝트에서 연결된 DB의 넘버링 전략을 따라간다 ===> auto_increment
 	private int cu_no;
 	
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String cu_id;
 	
 	@Column(nullable = false, length = 100)
@@ -46,6 +46,9 @@ public class User {
 //	@ColumnDefault("'user'")
 	@Enumerated(EnumType.STRING) //db에는 enumtype 자료형이 없으므로 string으로 변환해준다
 	private RoleType role;
+	
+	//kakao, google 등 간편로그인할때 들어가는 칼럼
+	private String oauth;
 	
 	@CreationTimestamp //비워놔도 자동으로 등록한 현재시간을 입력해준다
 	private Timestamp cu_created;

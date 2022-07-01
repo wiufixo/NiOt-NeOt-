@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.nono.model.Board;
+import com.sist.nono.model.BoardComment;
 import com.sist.nono.model.RoleType;
 import com.sist.nono.model.User;
+import com.sist.nono.repository.BoardCommentRepository;
 import com.sist.nono.repository.BoardRepository;
 import com.sist.nono.repository.UserRepository;
 
@@ -21,6 +23,9 @@ public class BoardService {
 	@Autowired
 	private BoardRepository repository;
 	
+	@Autowired
+	private BoardCommentRepository commentRepository;
+	
 	@Transactional
 	public void save(Board board, User user) {
 		board.setB_hit(0);
@@ -28,9 +33,8 @@ public class BoardService {
 		board.setB_step(0);
 		board.setB_level(0);
 		board.setUser(user);
-		Board board2 = repository.save(board);
-		board.setB_ref(board2.getB_no());
-		repository.save(board);
+		int b_ref = repository.save(board).getB_no();
+		board.setB_ref(b_ref);
 	}
 
 	@Transactional(readOnly = true)
@@ -59,5 +63,17 @@ public class BoardService {
 		board.setB_title(r_board.getB_title());
 		board.setB_content(r_board.getB_content()); 
 	} // 메소드가 끝날때 트랜잭션 종료. 영속화 되어있는 정보와 db정보를 비교하여(더티체킹) 따로 save() 호출안해도 자동 업데이트 하기위해 flush한다
+	
+	@Transactional
+	public void commentSave(int b_no, BoardComment comment, User user) {
+		comment.setUser(user);
+		comment.setBoard(repository.findById(b_no).orElseThrow(()->{
+					return new IllegalArgumentException("댓글의 게시글 찾기 실패!");
+				}));
+		comment.setBc_step(0);
+		comment.setBc_level(0);
+		int b_ref = commentRepository.save(comment).getBc_no();
+		comment.setBc_ref(b_ref);
+	}
 	
 }
