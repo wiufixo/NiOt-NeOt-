@@ -28,10 +28,6 @@ public class CustomersController {
 	public String joinOK(String cu_id,String cu_pwd,String cu_email,String cu_name,
 			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree) {
 		
-		
-		
-		SimpleDateFormat format = new SimpleDateFormat("yyyyy-MM-dd");
-		
 		Customer c=new Customer();
 		c.setCu_id(cu_id);
 		c.setCu_pwd(cu_pwd);
