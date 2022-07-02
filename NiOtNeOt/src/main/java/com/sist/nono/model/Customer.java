@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +35,8 @@ public class Customer {
 	private String cu_name;
 	private String cu_nickname;
 	private String cu_email;
-	private Date cu_birth;
+	
+	private String cu_birth;
 	private String cu_img;
 	private int cu_gender;
 	private int cu_height;

@@ -1,5 +1,6 @@
 package com.sist.nono.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,16 @@ public class CustomersController {
 	
 	@Autowired
 	private AddressService addressService;
+	
 
 	@PostMapping("/customer/joinOK")
 	@Transactional
 	public String joinOK(String cu_id,String cu_pwd,String cu_email,String cu_name,
-			String cu_nickname,int cu_gender,int cu_height,int cu_weight,Date cu_birth,int privacy_agree) {
+			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree) {
+		
+		
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyyy-MM-dd");
 		
 		Customer c=new Customer();
 		c.setCu_id(cu_id);
@@ -40,7 +46,7 @@ public class CustomersController {
 		
 		customerService.saveCustomer(c);
 		
-		return "/";
+		return "/customer/joinForm.html";
 	}
 	
 }
