@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.sist.nono.model.Customer;
 import com.sist.nono.service.CustomerService;
 
+import lombok.Setter;
+
 @Controller
+@Setter
 public class CustomerController {
 
 	@Autowired
@@ -24,6 +27,21 @@ public class CustomerController {
 		model.addAttribute("customer",new Customer());
 		
 		return "customer/joinForm.html";
+	}
+	
+	@GetMapping("customer/login")
+	public String userlogin() {
+		return "customer/login.html";
+	}
+	
+	@GetMapping("customer/findPwd")
+	public String findPwd() {	
+		return "customer/findPwd.html";
+	}
+	
+	@GetMapping("customer/findPwdOK")
+	public String findPwdOK() {
+		return "customer/findPwd.html";
 	}
 
 }

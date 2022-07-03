@@ -31,5 +31,12 @@ public class FollowService {
 		return repository.findById(fo_no);
 	}
 	
+	public int countFollower(int cu_no) {
+		return repository.countFollower(cu_no);
+	}
+	
+	public int countFollow(int cu_no) {
+		return repository.countFollow(cu_no);
+	}
 	
 }

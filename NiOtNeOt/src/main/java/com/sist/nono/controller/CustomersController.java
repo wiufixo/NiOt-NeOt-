@@ -6,14 +6,24 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sist.nono.model.Address;
 import com.sist.nono.model.Customer;
 import com.sist.nono.service.AddressService;
 import com.sist.nono.service.CustomerService;
+import com.sist.nono.service.FollowService;
+import com.sist.nono.service.LoginListService;
+import com.sist.nono.service.TransHistoryService;
+import com.sist.nono.service.WishService;
+
+import lombok.Setter;
 
 @Controller
+@Setter
 public class CustomersController {
 	
 	@Autowired
@@ -22,13 +32,26 @@ public class CustomersController {
 	@Autowired
 	private AddressService addressService;
 	
+	@Autowired
+	private FollowService followService;
+	
+	@Autowired
+	private LoginListService loginListService;
+	
+	@Autowired
+	private TransHistoryService transHistoryService;
+	
+	@Autowired
+	private WishService wishService;
 
 	@PostMapping("/customer/joinOK")
 	@Transactional
 	public String joinOK(String cu_id,String cu_pwd,String cu_email,String cu_name,
-			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree) {
+			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail) {
 		
 		Customer c=new Customer();
+		Address a=new Address();
+
 		c.setCu_id(cu_id);
 		c.setCu_pwd(cu_pwd);
 		c.setCu_email(cu_email);
@@ -42,7 +65,27 @@ public class CustomersController {
 		
 		customerService.saveCustomer(c);
 		
+		int cu_no=c.getCu_no();
+		
+		a.setCu_no(cu_no);
+		a.setMain_adr(address);
+		a.setMain_adr_detail(address_detail);
+		
+		addressService.saveAddress(a);
+		
 		return "/customer/joinForm.html";
+	}
+	
+	@GetMapping("/customer/mypage")
+	public String mypage(Model model,int cu_no) {
+		
+		model.addAttribute("customer",customerService.findById(cu_no));
+		model.addAttribute("follower",followService.countFollower(cu_no));
+		model.addAttribute("follow",followService.countFollow(cu_no));
+		model.addAttribute("transHistory",transHistoryService.countTransHistory(cu_no));
+		
+		
+		return "/customer/mypage.html";
 	}
 	
 }

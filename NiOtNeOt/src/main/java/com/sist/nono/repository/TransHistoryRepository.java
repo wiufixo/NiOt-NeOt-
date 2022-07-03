@@ -6,4 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.sist.nono.model.TransHistory;
 
 public interface TransHistoryRepository extends JpaRepository<TransHistory, Integer> {
+	
+	@Query(value = "select count(*) from transHistoryRepository where cu_no=?1", nativeQuery = true)
+	int countTransHistory(int cu_no);
 }

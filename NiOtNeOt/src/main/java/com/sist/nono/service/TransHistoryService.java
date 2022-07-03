@@ -31,4 +31,8 @@ public class TransHistoryService {
 		return repository.findById(tr_no);
 	}
 	
+	public int countTransHistory(int cu_no) {
+		return repository.countTransHistory(cu_no);
+	}
+	
 }

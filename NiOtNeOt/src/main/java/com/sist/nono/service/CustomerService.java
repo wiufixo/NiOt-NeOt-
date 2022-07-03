@@ -1,6 +1,7 @@
 package com.sist.nono.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.RoleType;
+import com.sist.nono.model.User;
 import com.sist.nono.repository.CustomerRepository;
 
 
@@ -40,12 +42,18 @@ public class CustomerService {
 		repository.save(c);
 	}
 	
-	public void deleteCustomer(int cust_no) {
-		repository.deleteById(cust_no);
+	public void deleteCustomer(int cu_no) {
+		repository.deleteById(cu_no);
 	}
 	
-	public Object findById(int cust_no) {
-		return repository.findById(cust_no);
+	public Object findById(int cu_no) {
+		return repository.findById(cu_no);
+	}
+	
+	@Transactional(readOnly = true)
+	public Customer findByCu_id(String cu_id) {
+		Customer cu=repository.findByCu_id(cu_id).orElseGet(()->new Customer());
+		return cu;
 	}
 	
 }
