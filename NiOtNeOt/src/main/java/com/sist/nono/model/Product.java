@@ -2,6 +2,7 @@ package com.sist.nono.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -25,15 +26,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Product {
 	@Id
+	@Column(name="pr_no")
 	private int pr_no;
 	
-	//@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cu_no")
 	private User user;
 	
-	//@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="ca_no")
-	private int category;
+	private Category category;
 	
 	private String pr_name;
 	private int pr_cost;
