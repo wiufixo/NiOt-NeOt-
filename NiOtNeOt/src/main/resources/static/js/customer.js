@@ -1,4 +1,40 @@
 $(document).ready(function() {
+	
+	//mypage_product 클릭
+	$("#mypage_product").on("click",function(){
+		window.location.href="/customer/productExpantion"
+	})
+
+	//mypage_board 클릭
+	$("#mypage_board").on("click",function(){
+		window.location.href="/customer/boardExpantion"
+	})
+	
+	//mypage_feed 클릭
+	$("#mypage_feed").on("click",function(){
+		window.location.href="/customer/feedExpantion"
+	})
+	
+	//mypage_trans 클릭
+	$("#mypage_trans").on("click",function(){
+		window.location.href="/customer/transExpantion"
+	})
+	
+	//mypage_wish 클릭
+	$("#mypage_wish").on("click",function(){
+		window.location.href="/customer/wishExpantion"
+	})
+	
+	//mypage follwered 클릭
+	$("#mypage_follower").on("click",function(){
+		window.location.href="/customer/followerExpantion";
+	})
+	
+	//mypage following 클릭
+	$("#mypage_following").on("click",function(){
+		window.location.href="/customer/followingExpantion";
+	})
+	
 	//mypage 회원 정보 수정 클릭
 	$("#mypage_update_button").on("click",function(){
 		window.location.href="/customer/update";
