@@ -78,11 +78,24 @@ public class CustomersController {
 	@GetMapping("customer/update")
 	public String updateCu(HttpSession session,Model model) {
 	//	int cu_no = (Integer)session.getAttribute("cu_no");
-		int cu_no = 2; //test용
+		int cu_no=1;
 		model.addAttribute("customer",customerService.findById(cu_no));
 		model.addAttribute("address",addressService.findById(cu_no));
 		
 		return "customer/updateForm.html";
+	}
+	
+	@GetMapping("customer/mypage")
+	public String mypage(HttpSession session, Model model) {
+	//	int cu_no=(Integer)session.getAttribute("cu_no");
+		int cu_no=1;
+		model.addAttribute("customer",customerService.findById(cu_no));
+		model.addAttribute("follower",followService.countFollower(cu_no));
+		model.addAttribute("follow",followService.countFollow(cu_no));
+		model.addAttribute("transHistory",transHistoryService.countTransHistory(cu_no));
+		
+		
+		return "customer/mypage.html";
 	}
 	
 	@PostMapping("customer/updateOK")
@@ -111,17 +124,4 @@ public class CustomersController {
 		
 		return "redirect:/customer/join";
 	}
-	
-	@GetMapping("customer/mypage")
-	public String mypage(Model model,int cu_no) {
-		
-		model.addAttribute("customer",customerService.findById(cu_no));
-		model.addAttribute("follower",followService.countFollower(cu_no));
-		model.addAttribute("follow",followService.countFollow(cu_no));
-		model.addAttribute("transHistory",transHistoryService.countTransHistory(cu_no));
-		
-		
-		return "customer/mypage.html";
-	}
-	
 }

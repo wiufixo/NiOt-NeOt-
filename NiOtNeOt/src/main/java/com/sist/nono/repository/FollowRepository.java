@@ -11,7 +11,7 @@ import com.sist.nono.model.User;
 
 public interface FollowRepository extends JpaRepository<Follow, Integer> {
 	
-	@Query(value = "select count(*) from follow where follow=?1", nativeQuery = true)
+	@Query(value = "select count(*) from follow where followed=?1", nativeQuery = true)
 	int countFollower(int cu_no);
 	
 	@Query(value = "select count(*) from follow where follower=?1", nativeQuery = true)

@@ -47,5 +47,10 @@ public class CustomerAPIController {
 		cu_no=service.findByCu_nickCustomer(cu_nickname).getCu_no();
 		return cu_no;
 	}
+	
+	@PostMapping("customer/deleteCustomer")
+	public void deleteCustomer(@RequestParam("cu_no") int cu_no) {
+		service.deleteCustomer(cu_no);
+	}
 
 }
