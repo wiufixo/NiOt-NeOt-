@@ -18,12 +18,12 @@ public class ChatController {
 		return "chat/chatList";
 	}
 	
-	@GetMapping("/listGoods/{cu_no}")
-	public void listGoods(@PathVariable int cu_no, Model model) {
+	@GetMapping("/listChat/{cu_no}")
+	public void listChat(@PathVariable int cu_no, Model model) {
 		model.addAttribute("chatlist", service.findAll(cu_no));
 	}
 	
-	@GetMapping("/alert/{cu_no}")
+	@GetMapping("/chat/{cu_no}")
 	public String findById(@PathVariable int cu_no, Model model) {
 		model.addAttribute("alert",service.findAll(cu_no));
 		return "alert/detail";
