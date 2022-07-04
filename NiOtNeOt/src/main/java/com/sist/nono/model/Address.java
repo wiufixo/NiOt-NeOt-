@@ -24,11 +24,14 @@ public class Address {
 	private int cu_no;
 	
 	private String main_adr;
+	private int main_adr_no;
 	private String main_adr_detail;
 	
 	private String sub_adr1;
+	private int sub_adr1_no;
 	private String sub_adr1_detail;
 	
 	private String sub_adr2;
+	private int sub_adr2_no;
 	private String sub_adr2_detail;
 }

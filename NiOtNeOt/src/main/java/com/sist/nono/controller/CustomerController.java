@@ -1,5 +1,8 @@
 package com.sist.nono.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +21,9 @@ public class CustomerController {
 	@Autowired
 	private CustomerService service;
 
-	@GetMapping("/customer/join")
+	@GetMapping("customer/join")
 	public String join(Model model) {
-//		System.out.println(service.findAll().toString());
-//		if (service.findAll() != null) {
-//			model.addAttribute("list_customer", service.findAll());
-//		}
-		model.addAttribute("customer",new Customer());
-		
+		model.addAttribute("list",service.findAll());
 		return "customer/joinForm.html";
 	}
 	
@@ -43,5 +41,5 @@ public class CustomerController {
 	public String findPwdOK() {
 		return "customer/findPwd.html";
 	}
-
+	
 }

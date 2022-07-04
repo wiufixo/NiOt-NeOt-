@@ -3,6 +3,8 @@ package com.sist.nono.controller;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,27 +29,27 @@ import lombok.Setter;
 public class CustomersController {
 	
 	@Autowired
-	private CustomerService customerService;
+	CustomerService customerService;
 	
 	@Autowired
-	private AddressService addressService;
+	AddressService addressService;
 	
 	@Autowired
-	private FollowService followService;
+	FollowService followService;
 	
 	@Autowired
-	private LoginListService loginListService;
+	LoginListService loginListService;
 	
 	@Autowired
-	private TransHistoryService transHistoryService;
+	TransHistoryService transHistoryService;
 	
 	@Autowired
-	private WishService wishService;
+	WishService wishService;
 
-	@PostMapping("/customer/joinOK")
+	@PostMapping("customer/joinOK")
 	@Transactional
 	public String joinOK(String cu_id,String cu_pwd,String cu_email,String cu_name,
-			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail) {
+			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
 		
 		Customer c=new Customer();
 		Address a=new Address();
@@ -68,15 +70,52 @@ public class CustomersController {
 		int cu_no=c.getCu_no();
 		
 		a.setCu_no(cu_no);
+		a.setMain_adr_no(postcode);
 		a.setMain_adr(address);
 		a.setMain_adr_detail(address_detail);
 		
 		addressService.saveAddress(a);
-		
-		return "/customer/joinForm.html";
+		return "redirect:/customer/join";
 	}
 	
-	@GetMapping("/customer/mypage")
+	@GetMapping("customer/update")
+	public String updateCu(HttpSession session,Model model) {
+	//	int cu_no = (Integer)session.getAttribute("cu_no");
+		int cu_no = 2; //test용
+		model.addAttribute("customer",customerService.findById(cu_no));
+		model.addAttribute("address",addressService.findById(cu_no));
+		
+		return "customer/updateForm.html";
+	}
+	
+	@PostMapping("customer/updateOK")
+	@Transactional
+	public String updateOK(int cu_no,String cu_pwd,String cu_email,String cu_name,
+			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
+		Customer c=customerService.findById(cu_no);
+		Address a=addressService.findById(cu_no);
+		
+		c.setCu_pwd(cu_pwd);
+		c.setCu_email(cu_email);
+		c.setCu_name(cu_name);
+		c.setCu_nickname(cu_nickname);
+		c.setCu_gender(cu_gender);
+		c.setCu_height(cu_height);
+		c.setCu_weight(cu_weight);
+		c.setCu_birth(cu_birth);
+		c.setPrivacy_agree(privacy_agree);
+		
+		a.setMain_adr_no(postcode);
+		a.setMain_adr(address);
+		a.setMain_adr_detail(address_detail);
+		
+		customerService.saveCustomer(c);
+		addressService.saveAddress(a);
+		
+		return "redirect:/customer/join";
+	}
+	
+	@GetMapping("customer/mypage")
 	public String mypage(Model model,int cu_no) {
 		
 		model.addAttribute("customer",customerService.findById(cu_no));
@@ -85,7 +124,7 @@ public class CustomersController {
 		model.addAttribute("transHistory",transHistoryService.countTransHistory(cu_no));
 		
 		
-		return "/customer/mypage.html";
+		return "customer/mypage.html";
 	}
 	
 }

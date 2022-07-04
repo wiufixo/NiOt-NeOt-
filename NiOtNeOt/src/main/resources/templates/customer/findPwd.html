@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>find_pwd</title>
+<meta charset="UTF-8">
+<title>find_pwd</title>
+<link rel="stylesheet" href="/css/customer.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/customer.js"></script>
 
-
-	
-	<script type="text/javascript" src="/js/customer.js"></script>
-	
 </head>
 <body>
 	<form>
-		<input type="text" id="cu_id"><br>
-		<button type="button" id="find_pwd">비밀번호 찾기</button>
-		<p class="red_warning">존재하지 않는 ID입니다</p>
+		<input type="text" id="cu_id">
+		<span id="find_warning" class="red_warning">존재하지 않는 ID입니다</span><br>
+		<button type="button" id="find_pwd_button">비밀번호 찾기</button>
 	</form>
 </body>
 </html>

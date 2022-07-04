@@ -26,8 +26,8 @@ public class AddressService {
 		repository.deleteById(cust_no);
 	}
 	
-	public Object findById(int cust_no) {
-		return repository.findById(cust_no);
+	public Address findById(int cust_no) {
+		return repository.findById(cust_no).orElseGet(()->new Address());
 	}
 
 }

@@ -46,14 +46,19 @@ public class CustomerService {
 		repository.deleteById(cu_no);
 	}
 	
-	public Object findById(int cu_no) {
-		return repository.findById(cu_no);
+	public Customer findById(int cu_no) {
+		return repository.findById(cu_no).orElseGet(()->new Customer());
 	}
 	
-	@Transactional(readOnly = true)
 	public Customer findByCu_id(String cu_id) {
-		Customer cu=repository.findByCu_id(cu_id).orElseGet(()->new Customer());
-		return cu;
+		return repository.findByCu_id(cu_id).orElseGet(()->new Customer());
 	}
 	
+	public Customer findByCu_email(String cu_email) {
+		return repository.findByCu_email(cu_email).orElseGet(()->new Customer());
+	}
+	
+	public Customer findByCu_nickCustomer(String cu_nickname) {
+		return repository.findByCu_nickname(cu_nickname).orElseGet(()->new Customer());
+	}
 }

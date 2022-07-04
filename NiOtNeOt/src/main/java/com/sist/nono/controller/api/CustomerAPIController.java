@@ -25,10 +25,27 @@ public class CustomerAPIController {
 	public Customer findByCu_id(@RequestParam("cu_id") String cu_id) {
 		return service.findByCu_id(cu_id);
 	}
-	
-	@GetMapping("customer/test")
-	public Customer test() {
-		return service.findByCu_id("tiger");
+
+	@PostMapping("customer/idCheck")
+	public int idCheck(@RequestParam("cu_id") String cu_id) {
+		int cu_no=0;
+		Customer cu=service.findByCu_id(cu_id);
+		cu_no=cu.getCu_no();
+		return cu_no;
 	}
 	
+	@PostMapping("customer/emailCheck")
+	public int emailCheck(@RequestParam("cu_email") String cu_email) {
+		int cu_no=0;
+		cu_no=service.findByCu_email(cu_email).getCu_no();
+		return cu_no;
+	}
+	
+	@PostMapping("customer/nicknameCheck")
+	public int nicknameCheck(@RequestParam("cu_nickname") String cu_nickname) {
+		int cu_no=0;
+		cu_no=service.findByCu_nickCustomer(cu_nickname).getCu_no();
+		return cu_no;
+	}
+
 }

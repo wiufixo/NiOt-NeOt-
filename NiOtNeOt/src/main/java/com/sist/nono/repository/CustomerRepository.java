@@ -12,4 +12,10 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 	
 	@Query(value = "select * from customer where cu_id=?1", nativeQuery = true)
 	Optional<Customer> findByCu_id(String cu_id);
+	
+	@Query(value = "select * from customer where cu_email=?1", nativeQuery = true)
+	Optional<Customer> findByCu_email(String cu_email);
+	
+	@Query(value = "select * from customer where cu_nickname=?1", nativeQuery = true)
+	Optional<Customer> findByCu_nickname(String cu_nickname);
 }
