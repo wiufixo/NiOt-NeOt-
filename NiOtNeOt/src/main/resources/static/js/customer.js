@@ -150,7 +150,6 @@ $(document).ready(function() {
 			$("#updateForm").submit();
 		}
 	})
-	})
 	
 	//findpwd 비밀번호 찾기 버튼 클릭
 	$("#find_pwd_button").on("click", function() {
@@ -162,11 +161,20 @@ $(document).ready(function() {
 				cu_id: cu_id
 			},
 			success: function(data) {
+				
 				if (data.cu_no != 0) {
-					window.location.href = "";
-					//email test 후 비밀번호 전송
+					//email로 비밀번호 전송
+					$.ajax({
+						url:"/customer/pwdSend",
+						method:"post",
+						data:{
+							cu_id:cu_id
+						},
+						success:function(data){
+							window.location.href="/customer/findPwd";
+						}
+					})
 				} else if (data.cu_no == 0) {
-					//hidden된 메시지 출력
 					$("#find_warning").css({
 						"display": "inline"
 					})
@@ -174,7 +182,7 @@ $(document).ready(function() {
 			}
 		});
 	})
-
+	})
 
 window.onload = function(){
 	//update에서 체크박스 표시
