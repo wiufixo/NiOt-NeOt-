@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tranhistory")
+@Table(name = "transhistory")
 public class TransHistory {
 
 	@Id

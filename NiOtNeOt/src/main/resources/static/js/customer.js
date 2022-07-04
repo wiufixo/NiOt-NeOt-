@@ -1,5 +1,24 @@
 $(document).ready(function() {
-	//회원 가입 버튼 클릭
+	//mypage 회원 정보 수정 클릭
+	$("#mypage_update_button").on("click",function(){
+		window.location.href="/customer/update";
+	})
+	
+	//mypage 회원 탈퇴 버튼 클릭
+	$("#mypage_delete_customer_button").on("click",function(){
+		$.ajax({
+			url:"/customer/deleteCustomer",
+			method:"post",
+			data:{
+				cu_no:$("mypage_no").val()
+			},
+			success:function(data){
+				window.location.href="/customer/join";
+			}
+		})
+	})
+	
+	//join 회원 가입 버튼 클릭
 	$("#join_button").on("click",function(){
 		var check=0;
 		
@@ -86,7 +105,7 @@ $(document).ready(function() {
 		}
 	})
 	
-	//회원 정보 수정 버튼 클릭
+	//update 회원 정보 수정 버튼 클릭
 	$("#update_button").on("click",function(){
 		var check=0;
 		
@@ -172,6 +191,7 @@ $(document).ready(function() {
 						},
 						success:function(data){
 							window.location.href="/customer/findPwd";
+							alert("비밀번호가 발송되었습니다");
 						}
 					})
 				} else if (data.cu_no == 0) {
@@ -196,5 +216,11 @@ window.onload = function(){
 		$("#update_deny").prop("checked", true);
 	} else if ($("#update_privacy_agree").val() == 1) {
 		$("#update_agree").prop("checked", true);
+	}
+	
+	if($("#mypage_gender").val()==0){
+		$("#mypage_gender").text("여");
+	}else if($("#mypage_gender").val()==1){
+		$("#mypage_gender").text("남");
 	}
 }

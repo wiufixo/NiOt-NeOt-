@@ -41,5 +41,4 @@ public class CustomerController {
 	public String findPwdOK() {
 		return "customer/findPwd.html";
 	}
-	
 }

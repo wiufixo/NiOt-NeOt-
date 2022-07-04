@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/customer.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/customer.js"></script>
+</head>
+<body>
+	<input type="hidden" id="mypage_no" th:value="${customer.getCu_no}">
+
+	<div id="mypage_status1">
+		<img alt="mypage_img"><br>
+		<span id="mypage_nickname" th:text="${customer.getCu_nickname}"></span><br>
+		<span id="mypage_name" th:text="${customer.getCu_name}"></span><br>
+		<span id="mypage_email" th:text="${customer.getCu_email}"></span><br>
+		<span id="mypage_trans_score>" th:text="${transHistory}"></span>
+	</div>
+	
+	<div id="mypage_status2">
+		<span id="mypage_height" th:text="${customer.getCu_height}"></span><br>
+		<span id="mypage_weight" th:text="${customer.getCu_weight}"></span><br>
+		<span id="mypage_gender" th:text="${customer.getCu_gender}"></span><br>
+		<button type="button" id="mypage_update_button">개인정보 수정</button>
+	</div>
+	
+	<div>
+		<span id="mypage_wish"></span>
+	</div>
+	
+	<div>
+		<span id="mypage_following"></span>
+	</div>
+	
+	<div>
+		<span id="mypage_follower"></span>
+	</div>
+	
+	<div>
+		<span id="mypage_trans"></span>
+	</div>
+	
+	<div id="mypage_product_list"></div>
+	
+	<div id="mypage_feed_list"></div>
+	
+	<div id="mypage_board_list"></div>
+	
+	<button type="button" id="mypage_delete_customer_button">회원 탈퇴</button>
+</body>
+</html>
