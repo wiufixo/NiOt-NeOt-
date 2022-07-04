@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h2>채팅목록</h2>
+	<hr>
+	<table border="1" width="80%">
+		<tr>
+			<th>채팅번호</th>
+			<th>유저번호</th>
+			<th>제품번호</th>
+			<th>채팅내용</th>
+			<th>생성시간</th>
+		</tr>
+
+		<tr th:each="a : ${alert}">
+			<td th:text="${a.al_no}"></td>
+			<td th:text="${a.al_title}"></td>
+			<td th:text="${a.al_content}"></td>
+			<td th:text="${a.al_created}"></td>
+			<td th:text="${a.al_type}"></td>
+		</tr>
+
+	</table>
+</body>
+</html>
