@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -37,6 +38,8 @@ public class Customer {
 	private String cu_email;
 	
 	private String cu_birth;
+	
+	@ColumnDefault("'defaultUserImg'")
 	private String cu_img;
 	private int cu_gender;
 	private int cu_height;
@@ -49,5 +52,6 @@ public class Customer {
 	private Date cu_deleted;
 	
 	@Enumerated(EnumType.STRING) //db에는 enumtype 자료형이 없으므로 string으로 변환해준다
+	@ColumnDefault("'USER'")
 	private RoleType role;
 }

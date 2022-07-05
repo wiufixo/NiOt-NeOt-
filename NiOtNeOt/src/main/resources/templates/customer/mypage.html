@@ -11,7 +11,7 @@
 	<input type="hidden" id="mypage_no" th:value="${customer.getCu_no}">
 
 	<div id="mypage_status1" class="inline_block">
-		<img alt="mypage_my_img" th:src="@{/image/jjapyap.jpg}"><br>
+		<img id="mypage_my_img" alt="mypage_my_img" th:src="@{/image/}+${customer.getCu_img}"><br>
 		<span id="mypage_nickname" th:text="${customer.getCu_nickname}"></span><br>
 		<span id="mypage_name" th:text="${customer.getCu_name}"></span><br>
 		<span id="mypage_email" th:text="${customer.getCu_email}"></span><br>

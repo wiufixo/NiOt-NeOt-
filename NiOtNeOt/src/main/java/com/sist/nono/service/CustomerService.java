@@ -61,4 +61,8 @@ public class CustomerService {
 	public Customer findByCu_nickCustomer(String cu_nickname) {
 		return repository.findByCu_nickname(cu_nickname).orElseGet(()->new Customer());
 	}
+	
+	public void updateCu_img(String cu_img,int cu_no) {
+		repository.updateCu_img(cu_img, cu_no);
+	}
 }

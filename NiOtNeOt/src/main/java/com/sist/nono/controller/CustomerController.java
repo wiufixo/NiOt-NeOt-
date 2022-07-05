@@ -1,11 +1,18 @@
 package com.sist.nono.controller;
 
+import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.sist.nono.service.CustomerService;
 
 import lombok.Setter;
@@ -19,31 +26,36 @@ public class CustomerController {
 
 	@GetMapping("customer/join")
 	public String join(Model model) {
-		model.addAttribute("list",service.findAll());
+		model.addAttribute("list", service.findAll());
 		return "customer/joinForm.html";
 	}
-	
+
 	@GetMapping("customer/login")
 	public String userlogin() {
 		return "customer/login.html";
 	}
-	
+
 	@GetMapping("customer/findPwd")
-	public String findPwd() {	
+	public String findPwd() {
 		return "customer/findPwd.html";
 	}
-	
+
 	@GetMapping("customer/findPwdOK")
 	public String findPwdOK() {
 		return "customer/findPwd.html";
 	}
-	
+
 	@GetMapping("customer/deleteCheck")
 	public String delete(Authentication auth, Model model) {
-		int cu_no=1;
-		
-		model.addAttribute("cu_no",cu_no);
-		model.addAttribute("cu_email",service.findById(cu_no).getCu_email());
+		int cu_no = 2;
+
+		model.addAttribute("cu_no", cu_no);
+		model.addAttribute("cu_email", service.findById(cu_no).getCu_email());
 		return "customer/deleteCheck.html";
+	}
+
+	@GetMapping("customer/changeImg")
+	public String changeImg() {
+		return "customer/changeImg.html";
 	}
 }

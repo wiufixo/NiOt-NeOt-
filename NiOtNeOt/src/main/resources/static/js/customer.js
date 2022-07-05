@@ -1,4 +1,34 @@
 $(document).ready(function() {
+	//changeImg에서 confirm 클릭
+	$("#change_img_confirm").on("click",function(){
+		var img=$("#change_img_file_upload")[0].files[0];
+		var formData=new FormData();
+		var inputFile=$("input[name='change_img_file_upload']");
+		var files=inputFile[0].files;
+		if(img==null){
+			alert("이미지를 넣어주세요");
+		}else if(img!=null){
+				formData.append("uploadFile",files[0]);
+			$.ajax({
+				url:"/customer/changeImgProcess",
+				processData:false,
+				contentType:false,
+				data:formData,
+				type:"post",
+				success:function(){
+					alert("uploaded");
+					window.close();
+					opener.location.href="/customer/mypage";
+				},
+				async: false,
+			})
+		}
+	})
+	
+	//mypage my_img 클릭
+	$("#mypage_my_img").on("click",function(){
+		window.open("/customer/changeImg","_blank","height:300,width:300");
+	})
 	
 	//deleteCheck에서 인증 후 회원 탈퇴 클릭
 	$("#delete_delete_button").on("click",function(){
