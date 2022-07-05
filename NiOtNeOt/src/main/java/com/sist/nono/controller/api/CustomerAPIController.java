@@ -59,16 +59,16 @@ public class CustomerAPIController {
 	@PostMapping("customer/changeImgProcess")
 	public void changeImgProcess(@RequestParam("uploadFile") MultipartFile uploadFile,Authentication auth) {
 
-
-		// auth로 받아온 데이터로 filename이 defaultuser가 아니면 이 부분에서 미리 원본 파일 삭제해줘야함!!!!!!!!!! 중요
-		
 		String uploadFolder="C:\\Users\\sonm4\\git\\NiOt-NeOt-\\NiOtNeOt\\src\\main\\resources\\static\\image";
 		String uploadFileName=uploadFile.getOriginalFilename();
 		uploadFileName=uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 		
+		//파일명 바꿔줘야함 !!!!!!!!!!!!!!!!!
+		File originFile=new File(uploadFolder,"jjapyap.jpg");
+		originFile.delete();
+		
 		if(uploadFileName!="defaultUserImg") {
 			File saveFile=new File(uploadFolder,uploadFileName);
-				
 			try {
 				uploadFile.transferTo(saveFile);
 			}catch(Exception e) {
