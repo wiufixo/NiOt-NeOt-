@@ -1,0 +1,18 @@
+@charset "EUC-KR";
+
+.red_warning{
+	color: red;
+	display: none;
+}
+
+.inline_block{
+	display: inline-block;
+}
+
+#delete_check_num_span{
+	visibility: hidden;
+}
+
+#delete_delete_button{
+	visibility: hidden;
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/customer.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/customer.js"></script>
+</head>
+<body>
+	<input type="hidden" th:value="${cu_no}" id="delete_no">
+	<input type="hidden" th:value="${cu_email}" id="delete_email_origin">
+	<input type="hidden" id="delete_check_num_true">
+	
+	email : <input type="text" id="delete_email">
+ 	<span id="delete_email_warning" class="red_warning">등록된 email과 다릅니다</span><br>
+ 	
+ 	<span id="delete_check_num_span">인증번호 : <input type="text" id="delete_check_num"></span>
+	<span id="delete_delete_warning" class="red_warning">인증번호가 다릅니다</span><br>
+ 	
+	<button type="button" id="delete_check_button">인증번호 발송</button><br>
+	
+	<button type="button" id="delete_delete_button">회원 탈퇴</button>
+	
+</body>
+</html>
