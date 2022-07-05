@@ -1,6 +1,7 @@
 package com.sist.nono.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,22 +14,26 @@ import com.sist.nono.repository.WishRepository;
 public class WishService {
 
 	@Autowired
-	private WishRepository dao;
+	private WishRepository repository;
 	
 	public List<Wish> findAll(){
-		return dao.findAll();
+		return repository.findAll();
 	}
 	
 	public void saveWish(Wish w) {
-		dao.save(w);
+		repository.save(w);
 	}
 	
 	public void deleteWish(int ws_no) {
-		dao.deleteById(ws_no);
+		repository.deleteById(ws_no);
 	}
 	
-	public Object findById(int ws_no) {
-		return dao.findById(ws_no);
+	public Wish findById(int ws_no) {
+		return repository.findById(ws_no).orElseGet(()->new Wish());
+	}
+	
+	public int countWish(int cu_no) {
+		return repository.countWish(cu_no);
 	}
 	
 }

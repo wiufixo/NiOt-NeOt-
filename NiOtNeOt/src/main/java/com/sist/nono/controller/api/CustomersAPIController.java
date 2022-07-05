@@ -1,5 +1,7 @@
 package com.sist.nono.controller.api;
 
+import java.util.Random;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
@@ -49,7 +51,7 @@ public class CustomersAPIController {
 	private JavaMailSender javaMailSender;
 
 	@PostMapping("/customer/pwdSend")
-	public String send(@RequestParam("cu_id") String cu_id) {
+	public String pwdSend(@RequestParam("cu_id") String cu_id) {
 		javaMailSender.send(new MimeMessagePreparator() {
 			public void prepare(MimeMessage mimeMessage) throws MessagingException {
 				Customer cu= customerService.findByCu_id(cu_id);
@@ -63,5 +65,30 @@ public class CustomersAPIController {
 			}
 		});
 		return "OK";
+	}
+	
+	@PostMapping("/customer/checkSend")
+	public String checkSend(@RequestParam("cu_email") String cu_email) {
+		Random r=new Random();
+		String check_num="";
+
+		for(int i=0;i<4;i++) {
+			String num=Integer.toString(r.nextInt(9));
+			check_num+=num;
+		}
+		
+		final String a=check_num;
+		
+		javaMailSender.send(new MimeMessagePreparator() {
+			public void prepare(MimeMessage mimeMessage) throws MessagingException {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+				message.setFrom("sonm2468@gmail.com");
+		//		message.setTo(cu_email);
+				message.setTo("sonm446@naver.com");
+				message.setSubject("nono 인증번호 발송");
+				message.setText("<h1>"+a+"</h1>", true);
+			}
+		});
+		return a;
 	}
 }

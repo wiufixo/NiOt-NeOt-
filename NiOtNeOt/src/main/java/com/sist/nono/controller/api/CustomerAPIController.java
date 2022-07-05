@@ -48,9 +48,4 @@ public class CustomerAPIController {
 		return cu_no;
 	}
 	
-	@PostMapping("customer/deleteCustomer")
-	public void deleteCustomer(@RequestParam("cu_no") int cu_no) {
-		service.deleteCustomer(cu_no);
-	}
-
 }

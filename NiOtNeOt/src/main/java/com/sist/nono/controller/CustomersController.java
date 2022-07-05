@@ -3,11 +3,13 @@ package com.sist.nono.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sist.nono.model.Address;
@@ -76,9 +78,9 @@ public class CustomersController {
 	}
 	
 	@GetMapping("customer/update")
-	public String updateCu(HttpSession session,Model model) {
-	//	int cu_no = (Integer)session.getAttribute("cu_no");
-		int cu_no=1;
+	public String updateCu(Authentication auth,Model model) {
+		int cu_no=2;
+		
 		model.addAttribute("customer",customerService.findById(cu_no));
 		model.addAttribute("address",addressService.findById(cu_no));
 		
@@ -86,14 +88,14 @@ public class CustomersController {
 	}
 	
 	@GetMapping("customer/mypage")
-	public String mypage(HttpSession session, Model model) {
-	//	int cu_no=(Integer)session.getAttribute("cu_no");
-		int cu_no=1;
-		model.addAttribute("customer",customerService.findById(cu_no));
-		model.addAttribute("follower",followService.countFollower(cu_no));
-		model.addAttribute("follow",followService.countFollow(cu_no));
-		model.addAttribute("transHistory",transHistoryService.countTransHistory(cu_no));
+	public String mypage(Authentication auth, Model model) {
+		int cu_no=2;
 		
+		model.addAttribute("customer",customerService.findById(cu_no));
+		model.addAttribute("followerNum",followService.countFollower(cu_no));
+		model.addAttribute("followingNum",followService.countFollow(cu_no));
+		model.addAttribute("transNum",transHistoryService.countTransHistory(cu_no));
+		model.addAttribute("wishNum",wishService.countWish(cu_no));
 		
 		return "customer/mypage.html";
 	}
@@ -102,6 +104,7 @@ public class CustomersController {
 	@Transactional
 	public String updateOK(int cu_no,String cu_pwd,String cu_email,String cu_name,
 			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
+		
 		Customer c=customerService.findById(cu_no);
 		Address a=addressService.findById(cu_no);
 		
@@ -124,4 +127,55 @@ public class CustomersController {
 		
 		return "redirect:/customer/join";
 	}
+	
+	@PostMapping("customer/deleteCustomer")
+	@Transactional
+	public void deleteCustomer(@RequestParam("cu_no") int cu_no) {
+		addressService.deleteAddress(cu_no);
+		customerService.deleteCustomer(cu_no);
+	}
+
+	@GetMapping("customer/boardExpantion")
+	public String boardExpantion(Authentication auth,Model model) {
+		
+		return "customer/boardExpantion.html";
+	}
+
+	@GetMapping("customer/productExpantion")
+	public String productExpantion(Authentication auth,Model model) {
+		
+		return "customer/productExpantion.html";
+	}
+	
+	@GetMapping("customer/feedExpantion")
+	public String feedExpantion(Authentication auth,Model model) {
+		
+		return "customer/feedExpantion.html";
+	}
+	
+	@GetMapping("customer/transExpantion")
+	public String transExpantion(Authentication auth,Model model) {
+		
+		return "customer/transExpantion.html";
+	}
+	
+	@GetMapping("customer/wishExpantion")
+	public String wishExpantion(Authentication auth,Model model) {
+		
+		return "customer/wishExpantion.html";
+	}
+	
+	@GetMapping("customer/followerExpantion")
+	public String followerExpantion(Authentication auth,Model model) {
+		
+		return "customer/followerExpantion.html";
+	}
+	
+	@GetMapping("customer/followingExpantion")
+	public String folllowerExpantion(Authentication auth,Model model) {
+		
+		return "customer/followingExpantion.html";
+	}
+	
+	
 }

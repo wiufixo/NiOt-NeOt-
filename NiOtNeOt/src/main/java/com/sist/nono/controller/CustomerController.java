@@ -1,15 +1,11 @@
 package com.sist.nono.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import com.sist.nono.model.Customer;
 import com.sist.nono.service.CustomerService;
 
 import lombok.Setter;
@@ -40,5 +36,14 @@ public class CustomerController {
 	@GetMapping("customer/findPwdOK")
 	public String findPwdOK() {
 		return "customer/findPwd.html";
+	}
+	
+	@GetMapping("customer/deleteCheck")
+	public String delete(Authentication auth, Model model) {
+		int cu_no=1;
+		
+		model.addAttribute("cu_no",cu_no);
+		model.addAttribute("cu_email",service.findById(cu_no).getCu_email());
+		return "customer/deleteCheck.html";
 	}
 }

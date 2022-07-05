@@ -27,8 +27,4 @@ public class Wish {
 
 	private int cu_no;
 	private int pr_no;
-	
-	@CreationTimestamp
-	private Timestamp ws_created;
-	
 }

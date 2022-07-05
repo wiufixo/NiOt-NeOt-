@@ -1,31 +1,93 @@
 $(document).ready(function() {
 	
-	//mypage_product 클릭
-	$("#mypage_product").on("click",function(){
-		window.location.href="/customer/productExpantion"
-	})
-
-	//mypage_board 클릭
-	$("#mypage_board").on("click",function(){
-		window.location.href="/customer/boardExpantion"
+	//deleteCheck에서 인증 후 회원 탈퇴 클릭
+	$("#delete_delete_button").on("click",function(){
+		console.log($("#delete_check_num_true").val());
+		if($("#delete_check_num_true").val()!=$("#delete_check_num").val()){
+			$("#delete_delete_warning").css({
+				"display":"inline"
+			});
+		}else{
+			$("delete_delete_warning").css({
+				"display":"none"
+			});
+			$.ajax({
+				url:"/customer/deleteCustomer",
+				method:"post",
+				data:{
+					cu_no:$("#delete_no").val()
+				},
+				success:function(data){
+					alert("customer deleted");
+					window.location.href="/customer/join";
+				}
+			})
+		}
 	})
 	
-	//mypage_feed 클릭
-	$("#mypage_feed").on("click",function(){
-		window.location.href="/customer/feedExpantion"
+	//deleteCheck에서 이메일 인증 클릭
+	$("#delete_check_button").on("click",function(){
+		if($("#delete_email").val()!=$("#delete_email_origin").val()){
+			$("#delete_email_warning").css({
+				"display":"inline"
+			});
+		}else{
+			$("#delete_email_warning").css({
+				"display":"none"
+			});
+			
+			$("#delete_check_num_span").css({
+				"visibility":"visible"
+			});
+			$("#delete_delete_button").css({
+				"visibility":"visible"
+			});
+			$.ajax({
+				url:"/customer/checkSend",
+				method:"post",
+				data:{
+					cu_email:$("#delete_email_origin").val()
+				},
+				success:function(data){
+					$("#delete_check_num_true").val(data);
+					console.log(data);
+				}
+				})
+			}
+		})
+		
+	//mypage my_img 클릭
+	$("#mypage_my_image").on("click"),function(){
+		
+	}
+		
+	//mypage_feed_more 클릭
+	$("#mypage_feed_more").on("click",function(){
+		window.location.href="/customer/feedExpantion";
 	})
+	
+	//mypage_product_more 클릭
+	$("#mypage_product_more").on("click",function(){
+		window.location.href="/customer/productExpantion";
+	})
+
+	//mypage_board_more 클릭
+	$("#mypage_board_more").on("click",function(){
+		window.location.href="/customer/boardExpantion";
+	})
+
 	
 	//mypage_trans 클릭
 	$("#mypage_trans").on("click",function(){
-		window.location.href="/customer/transExpantion"
+		window.location.href="/customer/transExpantion";
 	})
 	
 	//mypage_wish 클릭
 	$("#mypage_wish").on("click",function(){
-		window.location.href="/customer/wishExpantion"
+		window.location.href="/customer/wishExpantion";
 	})
 	
-	//mypage follwered 클릭
+	//mypage follwer 클릭
 	$("#mypage_follower").on("click",function(){
 		window.location.href="/customer/followerExpantion";
 	})
@@ -41,17 +103,8 @@ $(document).ready(function() {
 	})
 	
 	//mypage 회원 탈퇴 버튼 클릭
-	$("#mypage_delete_customer_button").on("click",function(){
-		$.ajax({
-			url:"/customer/deleteCustomer",
-			method:"post",
-			data:{
-				cu_no:$("mypage_no").val()
-			},
-			success:function(data){
-				window.location.href="/customer/join";
-			}
-		})
+	$("#mypage_delete_button").on("click",function(){
+		window.location.href="/customer/deleteCheck"
 	})
 	
 	//join 회원 가입 버튼 클릭
@@ -201,6 +254,7 @@ $(document).ready(function() {
 			});
 		}
 		
+		//updateForm 보내기
 		if(check==0){
 			$("#updateForm").submit();
 		}
@@ -227,7 +281,7 @@ $(document).ready(function() {
 						},
 						success:function(data){
 							window.location.href="/customer/findPwd";
-							alert("비밀번호가 발송되었습니다");
+							alert("이메일로 비밀번호가 발송되었습니다");
 						}
 					})
 				} else if (data.cu_no == 0) {
@@ -241,6 +295,7 @@ $(document).ready(function() {
 	})
 
 window.onload = function(){
+
 	//update에서 체크박스 표시
 	if ($("#update_cu_gender").val() == 0) {
 		$("#update_woman").prop("checked", true);
@@ -254,6 +309,7 @@ window.onload = function(){
 		$("#update_agree").prop("checked", true);
 	}
 	
+	//mypage에서 성별 표시
 	if($("#mypage_gender").val()==0){
 		$("#mypage_gender").text("여");
 	}else if($("#mypage_gender").val()==1){

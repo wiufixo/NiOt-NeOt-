@@ -10,57 +10,61 @@
 <body>
 	<input type="hidden" id="mypage_no" th:value="${customer.getCu_no}">
 
-	<div id="mypage_status1">
-		<img alt="mypage_img"><br>
+	<div id="mypage_status1" class="inline_block">
+		<img alt="mypage_my_img" th:src="@{/image/jjapyap.jpg}"><br>
 		<span id="mypage_nickname" th:text="${customer.getCu_nickname}"></span><br>
 		<span id="mypage_name" th:text="${customer.getCu_name}"></span><br>
 		<span id="mypage_email" th:text="${customer.getCu_email}"></span><br>
 		<span id="mypage_trans_score>" th:text="${transHistory}"></span>
 	</div>
 	
-	<div id="mypage_status2">
+	<div id="mypage_status2" class="inline_block">
 		<span id="mypage_height" th:text="${customer.getCu_height}"></span><br>
 		<span id="mypage_weight" th:text="${customer.getCu_weight}"></span><br>
-		<span id="mypage_gender" th:text="${customer.getCu_gender}"></span><br>
-		<button type="button" id="mypage_update_button">개인정보 수정</button>
-	</div>
+		<span id="mypage_gender" th:text="${customer.getCu_gender}"></span>
+	</div><br>
 	
-	<div id="mypage_wish">
+	<button type="button" id="mypage_update_button">개인정보 수정</button><br>
+	
+	<div id="mypage_wish_more" class="inline_block">
 		<h2>Wish</h2>
-		<span></span>
+		<span th:text=${wishNum}></span>
 	</div>
 	
-	<div id="mypage_following">
+	<div id="mypage_following" class="inline_block">
 		<h2>Following</h2>
-		<span></span>
+		<span th:text=${followingNum}></span>
 	</div>
 	
-	<div id="mypage_follower">
+	<div id="mypage_follower" class="inline_block">
 		<h2>Follower</h2>
-		<span></span>
+		<span th:text=${followerNum}></span>
 	</div>
 	
-	<div id="mypage_trans">
+	<div id="mypage_trans" class="inline_block">
 		<h2>Trans</h2>
-		<span></span>
+		<span th:text=${transNum}></span>
 	</div>
 	<hr>
+
+	<div id="mypage_feed_list">
+		<h2 class="inline_block">Feed</h2>
+		<div id="mypage_feed_more" class="inline_block">more</div>
+	</div>
+	<hr>	
 	
 	<div id="mypage_product_list">
-		<h2>Product</h2>
-	</div>
-	<hr>
-	
-	<div id="mypage_feed_list">
-		<h2>Feed</h2>
+		<h2 class="inline_block">Product</h2>
+		<div id="mypage_product_more" class="inline_block">more</div>
 	</div>
 	<hr>
 	
 	<div id="mypage_board_list">
-		<h2>Board</h2>
+		<h2 class="inline_block">Board</h2>
+		<div id="mypage_board_more" class="inline_block">more</div>
 	</div>
 	<hr>
 	
-	<button type="button" id="mypage_delete_customer_button">회원 탈퇴</button>
+	<button type="button" id="mypage_delete_button">회원 탈퇴</button>
 </body>
 </html>
