@@ -3,8 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
 </head>
 <body>
-
+	<form action="/customer/pageChoice" method="get">
+		<input type="hidden" name="user_no" value=1>
+		<h3 id="pageChoice">no.1 userpage</h3>
+		<input type="submit" value="page">
+	</form><br>
+	
+	<h3 id="logout">logout</h3><br>
+	<h3 id="join">join</h3><br>
+	<h3 id="login">login</h3><br>
+	<h3 id="findPwd">findPwd</h3><br>
 </body>
 </html>

@@ -49,7 +49,7 @@ $(document).ready(function() {
 				},
 				success:function(data){
 					alert("customer deleted");
-					window.location.href="/customer/join";
+					window.location.href="/";
 				}
 			})
 		}
@@ -308,8 +308,8 @@ $(document).ready(function() {
 							cu_id:cu_id
 						},
 						success:function(data){
-							window.location.href="/customer/findPwd";
 							alert("이메일로 비밀번호가 발송되었습니다");
+							window.location.href="/customer/login";
 						}
 					})
 				} else if (data.cu_no == 0) {
