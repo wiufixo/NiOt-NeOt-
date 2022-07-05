@@ -79,17 +79,33 @@ public class CustomersController {
 	
 	@GetMapping("customer/update")
 	public String updateCu(Authentication auth,Model model) {
-		int cu_no=2;
-		
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		model.addAttribute("customer",customerService.findById(cu_no));
 		model.addAttribute("address",addressService.findById(cu_no));
 		
 		return "customer/updateForm";
 	}
+	@GetMapping("customer/pageChoice")
+	public String pageChoice(Authentication auth, Model model,@RequestParam("user_no") int user_no) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
+		model.addAttribute("user_no",user_no);
+		model.addAttribute("cu_no",cu_no);
+		
+		if(user_no==cu_no) {
+			return "redirect:/customer/mypage";
+		}else if(user_no!=cu_no) {
+			return "redirect:/customer/userpage?user_no="+user_no;
+		}
+		
+		return "customer/mypage";
+	}
 	
 	@GetMapping("customer/mypage")
 	public String mypage(Authentication auth, Model model) {
-		int cu_no=2;
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		model.addAttribute("customer",customerService.findById(cu_no));
 		model.addAttribute("followerNum",followService.countFollower(cu_no));
@@ -98,6 +114,22 @@ public class CustomersController {
 		model.addAttribute("wishNum",wishService.countWish(cu_no));
 		
 		return "customer/mypage";
+	}
+	
+	@GetMapping("customer/userpage")
+	public String userpage(@RequestParam("user_no") int user_no, Authentication auth, Model model) {
+
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
+		
+		model.addAttribute("customer",customerService.findById(cu_no));
+		model.addAttribute("user",customerService.findById(user_no));
+		model.addAttribute("followerNum",followService.countFollower(user_no));
+		model.addAttribute("followingNum",followService.countFollow(user_no));
+		model.addAttribute("transNum",transHistoryService.countTransHistory(user_no));
+		model.addAttribute("wishNum",wishService.countWish(user_no));
+		
+		return "customer/userpage";
 	}
 	
 	@PostMapping("customer/updateOK")
@@ -137,45 +169,57 @@ public class CustomersController {
 
 	@GetMapping("customer/boardExpantion")
 	public String boardExpantion(Authentication auth,Model model) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		return "customer/boardExpantion";
 	}
 
 	@GetMapping("customer/productExpantion")
 	public String productExpantion(Authentication auth,Model model) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		return "customer/productExpantion";
 	}
 	
 	@GetMapping("customer/feedExpantion")
 	public String feedExpantion(Authentication auth,Model model) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		return "customer/feedExpantion";
 	}
 	
 	@GetMapping("customer/transExpantion")
 	public String transExpantion(Authentication auth,Model model) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		return "customer/transExpantion";
 	}
 	
 	@GetMapping("customer/wishExpantion")
 	public String wishExpantion(Authentication auth,Model model) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		return "customer/wishExpantion";
 	}
 	
 	@GetMapping("customer/followerExpantion")
 	public String followerExpantion(Authentication auth,Model model) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		return "customer/followerExpantion";
 	}
 	
 	@GetMapping("customer/followingExpantion")
 	public String folllowerExpantion(Authentication auth,Model model) {
+		Customer cu=customerService.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 		
 		return "customer/followingExpantion";
 	}
-	
-	
 }

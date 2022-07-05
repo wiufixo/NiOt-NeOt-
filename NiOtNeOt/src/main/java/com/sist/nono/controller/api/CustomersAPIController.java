@@ -10,6 +10,8 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,6 +51,9 @@ public class CustomersAPIController {
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 
 	@PostMapping("/customer/pwdSend")
 	public String pwdSend(@RequestParam("cu_id") String cu_id) {
@@ -60,6 +65,8 @@ public class CustomersAPIController {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 				message.setFrom("sonm2468@gmail.com");
 				message.setTo(cu_email);
+				
+				//복호화 필요!!!!!!!!!!!!!!!!!!! 모르겠음....
 				message.setSubject("nono 비밀번호 발송");
 				message.setText("<h1>"+cu_pwd+"</h1>", true);
 			}
@@ -71,7 +78,7 @@ public class CustomersAPIController {
 	public String checkSend(@RequestParam("cu_email") String cu_email) {
 		Random r=new Random();
 		String check_num="";
-
+		
 		for(int i=0;i<4;i++) {
 			String num=Integer.toString(r.nextInt(9));
 			check_num+=num;
@@ -84,7 +91,7 @@ public class CustomersAPIController {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 				message.setFrom("sonm2468@gmail.com");
 		//		message.setTo(cu_email);
-				message.setTo("sonm446@naver.com");
+				message.setTo(cu_email);
 				message.setSubject("nono 인증번호 발송");
 				message.setText("<h1>"+a+"</h1>", true);
 			}

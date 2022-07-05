@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sist.nono.model.Customer;
 import com.sist.nono.service.CustomerService;
 
 import lombok.Setter;
@@ -37,7 +38,8 @@ public class CustomerController {
 
 	@GetMapping("customer/deleteCheck")
 	public String delete(Authentication auth, Model model) {
-		int cu_no = 2;
+		Customer cu=service.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 
 		model.addAttribute("cu_no", cu_no);
 		model.addAttribute("cu_email", service.findById(cu_no).getCu_email());

@@ -218,7 +218,6 @@ $(document).ready(function() {
 				"display":"none"
 			});
 		}
-		console.log(check);
 		if(check==0){
 			$("#joinForm").submit();
 		}
@@ -300,7 +299,6 @@ $(document).ready(function() {
 				cu_id: cu_id
 			},
 			success: function(data) {
-				
 				if (data.cu_no != 0) {
 					//email로 비밀번호 전송
 					$.ajax({

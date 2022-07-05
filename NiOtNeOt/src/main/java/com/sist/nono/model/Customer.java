@@ -14,6 +14,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
 @Table(name="customer")
 public class Customer {
 
@@ -39,8 +41,9 @@ public class Customer {
 	
 	private String cu_birth;
 	
-	@ColumnDefault("'defaultUserImg'")
+	@ColumnDefault("'defaultUserImg.jpg'")
 	private String cu_img;
+	
 	private int cu_gender;
 	private int cu_height;
 	private int cu_weight;

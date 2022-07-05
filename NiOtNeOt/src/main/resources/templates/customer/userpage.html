@@ -1,10 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/customer.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/customer.js"></script>
 </head>
 <body>
+	<input type="hidden" id="userpage_user_no" th:value="${user.getCu_no}">
+	<input type="hidden" id="userpage_cu_no" th:value="${customer.getCu_no}">
 
+	<div id="userpage_status1" class="inline_block">
+		<img id="userpage_my_img" alt="userpage_my_img" th:src="@{/image/}+${user.getCu_img}"><br>
+		<span id="userpage_nickname" th:text="${user.getCu_nickname}"></span><br>
+		<span id="userpage_name" th:text="${user.getCu_name}"></span><br>
+		<span id="userpage_email" th:text="${user.getCu_email}"></span><br>
+		<span id="userpage_trans_score>" th:text="${transHistory}"></span>
+	</div>
+	
+	<div id="userpage_status2" class="inline_block">
+		<span id="userpage_height" th:text="${user.getCu_height}"></span><br>
+		<span id="userpage_weight" th:text="${user.getCu_weight}"></span><br>
+		<span id="userpage_gender" th:text="${user.getCu_gender}"></span>
+	</div><br>
+	
+	<div id="userpage_wish_more" class="inline_block">
+		<h2>Wish</h2>
+		<span th:text=${wishNum}></span>
+	</div>
+	
+	<div id="userpage_following" class="inline_block">
+		<h2>Following</h2>
+		<span th:text=${followingNum}></span>
+	</div>
+	
+	<div id="userpage_follower" class="inline_block">
+		<h2>Follower</h2>
+		<span th:text=${followerNum}></span>
+	</div>
+	
+	<div id="userpage_trans" class="inline_block">
+		<h2>Trans</h2>
+		<span th:text=${transNum}></span>
+	</div>
+	<hr>
+
+	<div id="userpage_feed_list">
+		<h2 class="inline_block">Feed</h2>
+		<div id="userpage_feed_more" class="inline_block">more</div>
+	</div>
+	<hr>	
+	
+	<div id="userpage_product_list">
+		<h2 class="inline_block">Product</h2>
+		<div id="userpage_product_more" class="inline_block">more</div>
+	</div>
+	<hr>
+	
+	<div id="userpage_board_list">
+		<h2 class="inline_block">Board</h2>
+		<div id="userpage_board_more" class="inline_block">more</div>
+	</div>
 </body>
 </html>

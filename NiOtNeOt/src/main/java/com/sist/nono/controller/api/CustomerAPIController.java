@@ -58,13 +58,16 @@ public class CustomerAPIController {
 	@Modifying
 	@PostMapping("customer/changeImgProcess")
 	public void changeImgProcess(@RequestParam("uploadFile") MultipartFile uploadFile,Authentication auth) {
+		Customer cu=service.findByCu_id(auth.getName());
+		int cu_no=cu.getCu_no();
 
 		String uploadFolder="C:\\Users\\sonm4\\git\\NiOt-NeOt-\\NiOtNeOt\\src\\main\\resources\\static\\image";
 		String uploadFileName=uploadFile.getOriginalFilename();
 		uploadFileName=uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 		
-		//파일명 바꿔줘야함 !!!!!!!!!!!!!!!!!
-		File originFile=new File(uploadFolder,"jjapyap.jpg");
+		String originalFileName;
+		originalFileName=cu.getCu_img();
+		File originFile=new File(uploadFolder,originalFileName);
 		originFile.delete();
 		
 		if(uploadFileName!="defaultUserImg") {
@@ -76,7 +79,6 @@ public class CustomerAPIController {
 			}
 			System.out.println(uploadFileName);
 		}
-		int cu_no = 2;
 		service.updateCu_img(uploadFileName, cu_no);	
 	}
 	
