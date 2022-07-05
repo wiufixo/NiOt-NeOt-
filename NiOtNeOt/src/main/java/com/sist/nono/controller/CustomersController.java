@@ -64,7 +64,7 @@ public class CustomersController {
 		c.setCu_birth(cu_birth);
 		c.setPrivacy_agree(privacy_agree);
 		
-		customerService.saveCustomer(c);
+		customerService.join(c);
 		
 		int cu_no=c.getCu_no();
 		
@@ -84,7 +84,7 @@ public class CustomersController {
 		model.addAttribute("customer",customerService.findById(cu_no));
 		model.addAttribute("address",addressService.findById(cu_no));
 		
-		return "customer/updateForm.html";
+		return "customer/updateForm";
 	}
 	
 	@GetMapping("customer/mypage")
@@ -97,7 +97,7 @@ public class CustomersController {
 		model.addAttribute("transNum",transHistoryService.countTransHistory(cu_no));
 		model.addAttribute("wishNum",wishService.countWish(cu_no));
 		
-		return "customer/mypage.html";
+		return "customer/mypage";
 	}
 	
 	@PostMapping("customer/updateOK")
@@ -138,43 +138,43 @@ public class CustomersController {
 	@GetMapping("customer/boardExpantion")
 	public String boardExpantion(Authentication auth,Model model) {
 		
-		return "customer/boardExpantion.html";
+		return "customer/boardExpantion";
 	}
 
 	@GetMapping("customer/productExpantion")
 	public String productExpantion(Authentication auth,Model model) {
 		
-		return "customer/productExpantion.html";
+		return "customer/productExpantion";
 	}
 	
 	@GetMapping("customer/feedExpantion")
 	public String feedExpantion(Authentication auth,Model model) {
 		
-		return "customer/feedExpantion.html";
+		return "customer/feedExpantion";
 	}
 	
 	@GetMapping("customer/transExpantion")
 	public String transExpantion(Authentication auth,Model model) {
 		
-		return "customer/transExpantion.html";
+		return "customer/transExpantion";
 	}
 	
 	@GetMapping("customer/wishExpantion")
 	public String wishExpantion(Authentication auth,Model model) {
 		
-		return "customer/wishExpantion.html";
+		return "customer/wishExpantion";
 	}
 	
 	@GetMapping("customer/followerExpantion")
 	public String followerExpantion(Authentication auth,Model model) {
 		
-		return "customer/followerExpantion.html";
+		return "customer/followerExpantion";
 	}
 	
 	@GetMapping("customer/followingExpantion")
 	public String folllowerExpantion(Authentication auth,Model model) {
 		
-		return "customer/followingExpantion.html";
+		return "customer/followingExpantion";
 	}
 	
 	

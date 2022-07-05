@@ -23,7 +23,7 @@ public class AlertController {
 	
 	@GetMapping("/alertLists")
 	public ModelAndView listAlerts() {
-		ModelAndView mav = new ModelAndView("redirect:/alertListss.html");
+		ModelAndView mav = new ModelAndView("redirect:/alertListss");
 		return mav;
 	}
 	

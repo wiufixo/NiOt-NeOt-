@@ -34,7 +34,7 @@ public class BoardComment {
 	
 	@ManyToOne
 	@JoinColumn(name = "cu_no")
-	private User user;
+	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "b_no")

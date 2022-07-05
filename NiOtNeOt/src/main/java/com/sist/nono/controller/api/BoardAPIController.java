@@ -30,7 +30,7 @@ public class BoardAPIController {
 	
 	@PostMapping("/api/board")
 	public ResponseDTO<Integer> save(@RequestBody Board board, @AuthenticationPrincipal PrincipalDetail principal) {
-		service.save(board, principal.getUser());
+		service.save(board, principal.getCustomer());
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(),1);
 	}
 	
@@ -48,7 +48,7 @@ public class BoardAPIController {
 	
 	@PostMapping("/api/board/{b_no}/comment")
 	public ResponseDTO<Integer> commentSave(@PathVariable int b_no, @RequestBody BoardComment comment, @AuthenticationPrincipal PrincipalDetail principal){
-		service.commentSave(b_no, comment, principal.getUser());
+		service.commentSave(b_no, comment, principal.getCustomer());
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(),1);
 	}
 	

@@ -27,22 +27,12 @@ public class CustomerController {
 	@GetMapping("customer/join")
 	public String join(Model model) {
 		model.addAttribute("list", service.findAll());
-		return "customer/joinForm.html";
-	}
-
-	@GetMapping("customer/login")
-	public String userlogin() {
-		return "customer/login.html";
+		return "customer/joinForm";
 	}
 
 	@GetMapping("customer/findPwd")
 	public String findPwd() {
-		return "customer/findPwd.html";
-	}
-
-	@GetMapping("customer/findPwdOK")
-	public String findPwdOK() {
-		return "customer/findPwd.html";
+		return "customer/findPwd";
 	}
 
 	@GetMapping("customer/deleteCheck")
@@ -51,11 +41,16 @@ public class CustomerController {
 
 		model.addAttribute("cu_no", cu_no);
 		model.addAttribute("cu_email", service.findById(cu_no).getCu_email());
-		return "customer/deleteCheck.html";
+		return "customer/deleteCheck";
 	}
 
 	@GetMapping("customer/changeImg")
 	public String changeImg() {
-		return "customer/changeImg.html";
+		return "customer/changeImg";
+	}
+	
+	@GetMapping("customer/login")
+	public String customerLogin() {
+		return "customer/loginForm";
 	}
 }

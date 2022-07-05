@@ -51,8 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.anyRequest().authenticated()
 			.and()
 				.formLogin()
-				.loginPage("/auth/loginForm")
-				.loginProcessingUrl("/auth/loginProc") //시큐리티가 해당 주소로 요청하는 로그인을 가로채서 대신 로그인 해준다
+				.loginPage("/customer/loginForm")
+				.loginProcessingUrl("/customer/loginProc") //시큐리티가 해당 주소로 요청하는 로그인을 가로채서 대신 로그인 해준다
 				.defaultSuccessUrl("/");
 		http
 			.logout()

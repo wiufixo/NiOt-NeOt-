@@ -6,6 +6,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.sist.nono.model.Customer;
 import com.sist.nono.model.User;
 
 import lombok.Data;
@@ -15,20 +16,20 @@ import lombok.Getter;
 @Getter
 public class PrincipalDetail implements UserDetails{
 	
-	private User user; //composition(has a 관계)
+	private Customer customer; //composition(has a 관계)
 	
-	public PrincipalDetail(User user) {
-		this.user = user;
+	public PrincipalDetail(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
 	public String getPassword() {
-		return user.getCu_pwd();
+		return customer.getCu_pwd();
 	}
 
 	@Override
 	public String getUsername() {
-		return user.getCu_id();
+		return customer.getCu_id();
 	}
 
 	@Override // true ===> 계정 만료되지않음
@@ -55,7 +56,7 @@ public class PrincipalDetail implements UserDetails{
 	@Override // 계정이 갖고있는 권한 목록을 리턴
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> colletors = new ArrayList<>();
-		colletors.add(()->{return "ROLE_"+user.getRole();
+		colletors.add(()->{return "ROLE_"+customer.getRole();
 		});
 		return colletors;
 	}
