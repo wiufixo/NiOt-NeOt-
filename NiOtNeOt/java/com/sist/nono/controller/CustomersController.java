@@ -17,6 +17,7 @@ import com.sist.nono.model.Address;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
 import com.sist.nono.service.AddressService;
+import com.sist.nono.service.BoardService;
 import com.sist.nono.service.CustomerService;
 import com.sist.nono.service.FollowService;
 import com.sist.nono.service.LoginListService;
@@ -46,6 +47,9 @@ public class CustomersController {
 	
 	@Autowired
 	WishService wishService;
+	
+	@Autowired
+	BoardService boardService;
 
 	@PostMapping("customer/joinOK")
 	@Transactional
@@ -103,6 +107,7 @@ public class CustomersController {
 			model.addAttribute("followingNum",followService.countFollow(user_no));
 			model.addAttribute("transNum",transHistoryService.countTransHistory(user_no));
 			model.addAttribute("wishNum",wishService.countWish(user_no));
+			model.addAttribute("board",boardService.findAllByCu_no(cu_no));
 			
 			return "customer/userpage";
 		}

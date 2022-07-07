@@ -41,7 +41,7 @@ public class BoardService {
 	private FileUploadDTO fu;
 	
 	//!!!!송승민 만듦!!!
-	public List<Board> findAllBoardByCu_no(int cu_no){
+	public List<Board> findAllByCu_no(int cu_no){
 		return repository.findAllByCu_no(cu_no);
 	}
 	//
