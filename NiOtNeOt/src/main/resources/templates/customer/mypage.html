@@ -11,17 +11,18 @@
 	<input type="hidden" id="mypage_no" th:value="${customer.getCu_no}">
 
 	<div id="mypage_status1" class="inline_block">
-		<img id="mypage_my_img" alt="mypage_my_img" th:src="@{/image/}+${customer.getCu_img}"><br>
+		<img id="mypage_my_img" alt="mypage_my_img" th:src="@{/image/}+${customer.getCu_img}" class="profile_img_big"><br>
 		<span id="mypage_nickname" th:text="${customer.getCu_nickname}"></span><br>
 		<span id="mypage_name" th:text="${customer.getCu_name}"></span><br>
 		<span id="mypage_email" th:text="${customer.getCu_email}"></span><br>
 		<span id="mypage_trans_score>" th:text="${transHistory}"></span>
 	</div>
 	
-	<div id="mypage_status2" class="inline_block">
+	<div id="mypage_status2" class="inline_block" th:if="${customer.getPrivacy_agree!=0}">
 		<span id="mypage_height" th:text="${customer.getCu_height}"></span><br>
 		<span id="mypage_weight" th:text="${customer.getCu_weight}"></span><br>
-		<span id="mypage_gender" th:text="${customer.getCu_gender}"></span>
+		<span id="mypage_gender" th:if="${customer.getCu_gender=='0'}">여</span>
+		<span id="mypage_gender" th:if="${customer.getCu_gender=='1'}">남</span>
 	</div><br>
 	
 	<button type="button" id="mypage_update_button">개인정보 수정</button><br>

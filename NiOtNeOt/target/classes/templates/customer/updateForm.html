@@ -72,9 +72,9 @@
  	<input type="hidden" id="cu_nickname_origin" th:value="${customer.getCu_nickname}"}>
  	<span id="update_nickname_warning" class="red_warning">중복된 nickname입니다</span><br>
  	gender<br>
- 	<input type="hidden" id="update_cu_gender" th:value="${customer.getCu_gender}">
- 	<input type="radio" name="cu_gender" id="update_woman" value=0> 여자
- 	<input type="radio" name="cu_gender" id="update_man" value=1> 남자
+ 	<input type="hidden" id="update_cu_gender">
+ 	<input type="radio" name="cu_gender" id="update_woman" value=0 th:checked="${customer.getCu_gender==0}"> 여자
+ 	<input type="radio" name="cu_gender" id="update_man" value=1 th:checked="${customer.getCu_gender!=0}"> 남자
  	<br>
  	height : <input type="number" name="cu_height" th:name="cu_height" id="cu_height" th:value="${customer.getCu_height}"><br>
  	weight : <input type="number" name="cu_weight" th:name="cu_weight" id="cu_weight" th:value="${customer.getCu_weight}"><br>
@@ -82,8 +82,8 @@
  	<input type="date" name="cu_birth" th:name="cu_birth" id="cu_birth" th:value="${customer.getCu_birth}"><br>
  	개인정보 공개 동의 여부<br>
  	<input type="hidden" id="update_privacy_agree" th:value="${customer.getPrivacy_agree}">
- 	<input type="radio" name="privacy_agree" id="update_deny" value=0> 거부
- 	<input type="radio" name="privacy_agree" id="update_agree" value=1> 동의 <br>
+ 	<input type="radio" name="privacy_agree" id="update_deny" value=0 th:checked="${customer.getPrivacy_agree==0}"> 거부
+ 	<input type="radio" name="privacy_agree" id="update_agree" value=1 th:checked="${customer.getPrivacy_agree!=0}"> 동의 <br>
  	
  	address <br>
 	<input type="text" id="postcode" placeholder="우편번호" th:name="postcode" th:value="${address.getMain_adr_no}">

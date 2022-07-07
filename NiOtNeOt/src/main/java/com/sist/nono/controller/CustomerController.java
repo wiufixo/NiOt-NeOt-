@@ -2,6 +2,8 @@ package com.sist.nono.controller;
 
 import java.io.File;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.Authentication;
@@ -52,7 +54,12 @@ public class CustomerController {
 	}
 	
 	@GetMapping("customer/login")
-	public String customerLogin() {
+	public String customerLogin(HttpServletRequest request) {
+		String uri=request.getHeader("Referer");
+		if(uri!=null&&!uri.contains("/login")) {
+			request.getSession().setAttribute("prevPage", uri);
+		}
+		
 		return "customer/loginForm";
 	}
 }

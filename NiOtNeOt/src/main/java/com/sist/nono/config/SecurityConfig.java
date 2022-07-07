@@ -57,7 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.invalidateHttpSession(true); //로그아웃 페이지들어가면 저장되어 있는 session 모두 파기
+				.invalidateHttpSession(true)
+				.logoutSuccessUrl("/"); //로그아웃 페이지들어가면 저장되어 있는 session 모두 파기
 			
 	}
 }

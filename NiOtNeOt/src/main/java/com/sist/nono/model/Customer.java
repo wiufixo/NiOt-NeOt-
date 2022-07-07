@@ -38,10 +38,7 @@ public class Customer {
 	private String cu_name;
 	private String cu_nickname;
 	private String cu_email;
-	
 	private String cu_birth;
-	
-	@ColumnDefault("'defaultUserImg.jpg'")
 	private String cu_img;
 	
 	private int cu_gender;

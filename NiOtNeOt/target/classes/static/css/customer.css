@@ -1,12 +1,33 @@
 @charset "EUC-KR";
+.hidden{
+	visibility: hidden;
+}
+
+.none{
+	display: none;
+}
+
+.inline_block{
+	display: inline-block;
+}
 
 .red_warning{
 	color: red;
 	display: none;
 }
 
-.inline_block{
-	display: inline-block;
+.profile_img_big{
+	height: 150px;
+	width: 150px;
+	object-fit: cover;
+	border-radius: 40%;
+}
+
+.profile_img_small{
+	height: 100px;
+	width: 100px;
+	object-fit: cover;
+	border-radius: 40%;
 }
 
 #delete_check_num_span{

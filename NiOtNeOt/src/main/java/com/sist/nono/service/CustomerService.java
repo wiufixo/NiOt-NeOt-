@@ -29,6 +29,7 @@ public class CustomerService {
 		String encPwd = encoder.encode(rawPwd); //해쉬화
 		c.setCu_pwd(encPwd);
 		c.setRole(RoleType.USER);
+		c.setCu_img("defaultUserImg.jpg");
 		repository.save(c);
 		return 1;
 	}
@@ -39,6 +40,7 @@ public class CustomerService {
 	}
 	
 	public void saveCustomer(Customer c) {
+		c.setCu_pwd(encoder.encode(c.getCu_pwd()));
 		repository.save(c);
 	}
 	

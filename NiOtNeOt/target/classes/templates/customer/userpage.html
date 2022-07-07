@@ -8,21 +8,21 @@
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
 <body>
-	<input type="hidden" id="userpage_user_no" th:value="${user.getCu_no}">
-	<input type="hidden" id="userpage_cu_no" th:value="${customer.getCu_no}">
-
 	<div id="userpage_status1" class="inline_block">
-		<img id="userpage_my_img" alt="userpage_my_img" th:src="@{/image/}+${user.getCu_img}"><br>
+		<img id="userpage_my_img" alt="userpage_my_img" th:src="@{/image/}+${user.getCu_img}" class="profile_img_big"><br>
 		<span id="userpage_nickname" th:text="${user.getCu_nickname}"></span><br>
 		<span id="userpage_name" th:text="${user.getCu_name}"></span><br>
 		<span id="userpage_email" th:text="${user.getCu_email}"></span><br>
-		<span id="userpage_trans_score>" th:text="${transHistory}"></span>
+		<span id="userpage_trans_score>" th:text="${transHistory}"></span><br>
+		<button type="button" id="userpage_follow_button" th:if="${checkFollow==0}">follow</button>
+		<button type="button" id="userpage_unfollow_button" th:if="${checkFollow!=0}">followed</button>
 	</div>
 	
-	<div id="userpage_status2" class="inline_block">
+	<div id="userpage_status2" class="inline_block" th:if="${user.getPrivacy_agree!=0}">
 		<span id="userpage_height" th:text="${user.getCu_height}"></span><br>
 		<span id="userpage_weight" th:text="${user.getCu_weight}"></span><br>
-		<span id="userpage_gender" th:text="${user.getCu_gender}"></span>
+		<span id="userpage_gender" th:if="${user.getCu_gender==0}">여</span>
+		<span id="userpage_gender" th:if="${user.getCu_gender!=0}">남</span>
 	</div><br>
 	
 	<div id="userpage_wish_more" class="inline_block">
@@ -62,5 +62,10 @@
 		<h2 class="inline_block">Board</h2>
 		<div id="userpage_board_more" class="inline_block">more</div>
 	</div>
+	
+	<input type="hidden" id="userpage_user_no" th:value="${user.getCu_no}">
+	<input type="hidden" id="userpage_cu_no" th:value="${customer.getCu_no}">
+	<input type="hidden" id="userpage_follow_check" th:value="${checkFollow}">
+	
 </body>
 </html>

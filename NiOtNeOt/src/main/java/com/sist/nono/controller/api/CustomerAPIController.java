@@ -1,6 +1,7 @@
 package com.sist.nono.controller.api;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.nono.model.Customer;
 import com.sist.nono.service.CustomerService;
+import com.sist.nono.service.FollowService;
 
 import lombok.Setter;
 
@@ -53,7 +56,8 @@ public class CustomerAPIController {
 		cu_no=service.findByCu_nickCustomer(cu_nickname).getCu_no();
 		return cu_no;
 	}
-	
+
+	//이미지 변경
 	@Transactional
 	@Modifying
 	@PostMapping("customer/changeImgProcess")
@@ -81,5 +85,5 @@ public class CustomerAPIController {
 		}
 		service.updateCu_img(uploadFileName, cu_no);	
 	}
-	
+
 }

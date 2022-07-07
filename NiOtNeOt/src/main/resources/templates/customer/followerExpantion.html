@@ -1,10 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/customer.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/customer.js"></script>
 </head>
 <body>
-
+	<div th:each="follower, num : ${follower}" class="follower_status" th:id="follower_+${num.index}"> 
+		<img alt="follower_img" th:src="@{/image/}+${follower.getCu_img}" class="profile_img_small">
+		<input type="hidden" th:value="${follower.getCu_no}" th:class="follower_+${num.index}">
+		<span th:text="${follower.getCu_name}"></span>
+		<span th:text="${follower.getCu_nickname}"></span>
+		<span th:text="${follower.getCu_email}"></span>
+	</div><br>
+		
+	<input type="hidden" id="follower_cu_no" th:value="${customer.getCu_no}">
 </body>
 </html>

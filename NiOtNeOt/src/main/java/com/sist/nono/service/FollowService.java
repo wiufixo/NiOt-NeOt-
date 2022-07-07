@@ -3,6 +3,7 @@ package com.sist.nono.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PrePostInvocationAttributeFactory;
 import org.springframework.stereotype.Service;
 
 import com.sist.nono.model.Follow;
@@ -39,4 +40,19 @@ public class FollowService {
 		return repository.countFollow(cu_no);
 	}
 	
+	public int checkFollow(int cu_no, int user_no) {
+		return repository.checkFollow(cu_no, user_no);
+	}
+	
+	public int findFo_no(int cu_no, int user_no) {
+		return repository.checkFollow(cu_no, user_no);
+	}
+	
+	public List<Follow> findByFollower(int cu_no) {
+		return repository.findByFollower(cu_no);
+	}
+	
+	public List<Follow> findByFollowed(int cu_no) {
+		return repository.findByFollowed(cu_no);
+	}
 }
