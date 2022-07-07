@@ -61,6 +61,11 @@
 	<div id="userpage_board_list">
 		<h2 class="inline_block">Board</h2>
 		<div id="userpage_board_more" class="inline_block">more</div>
+		
+			<div id="userpage_board" th:each="b,boardNum:${board}" th:if="${boardNum.count<4}">
+				<span th:text="${b.getB_title}"></span>1
+			</div>
+			
 	</div>
 	
 	<input type="hidden" id="userpage_user_no" th:value="${user.getCu_no}">

@@ -255,6 +255,7 @@ $(document).on("click","#userpage_following",function(){
 
 //mypage my_img 클릭
 $(document).on("click","#mypage_my_img",function(){
+	console.log("good");
 	window.open("/customer/changeImg","_blank","height:300,width:300");
 })
 	

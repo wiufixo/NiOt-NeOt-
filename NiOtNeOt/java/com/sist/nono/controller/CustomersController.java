@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sist.nono.model.Address;
+import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
 import com.sist.nono.service.AddressService;
@@ -80,7 +81,7 @@ public class CustomersController {
 		a.setMain_adr_detail(address_detail);
 		
 		addressService.saveAddress(a);
-		return "customer/login";
+		return "customer/loginForm";
 	}
 	
 	@GetMapping("customer/update")
@@ -107,7 +108,7 @@ public class CustomersController {
 			model.addAttribute("followingNum",followService.countFollow(user_no));
 			model.addAttribute("transNum",transHistoryService.countTransHistory(user_no));
 			model.addAttribute("wishNum",wishService.countWish(user_no));
-			model.addAttribute("board",boardService.findAllByCu_no(cu_no));
+			model.addAttribute("board",boardService.findAllByCu_no(user_no));
 			
 			return "customer/userpage";
 		}
@@ -121,10 +122,13 @@ public class CustomersController {
 			model.addAttribute("followingNum",followService.countFollow(cu_no));
 			model.addAttribute("transNum",transHistoryService.countTransHistory(cu_no));
 			model.addAttribute("wishNum",wishService.countWish(cu_no));
+			model.addAttribute("board",boardService.findAllByCu_no(cu_no));
 			return "customer/mypage";
 		
 		//다른 유저의 유저페이지로 들어갈 때
 		}else if(user_no!=cu_no) {
+			
+			List<Board> board = boardService.findAllByCu_no(user_no);
 			model.addAttribute("customer",customerService.findById(cu_no));
 			model.addAttribute("user",customerService.findById(user_no));
 			model.addAttribute("checkFollow",followService.checkFollow(cu_no, user_no));
@@ -132,6 +136,7 @@ public class CustomersController {
 			model.addAttribute("followingNum",followService.countFollow(user_no));
 			model.addAttribute("transNum",transHistoryService.countTransHistory(user_no));
 			model.addAttribute("wishNum",wishService.countWish(user_no));
+			model.addAttribute("board",board);
 			return "customer/userpage";
 		}
 		
