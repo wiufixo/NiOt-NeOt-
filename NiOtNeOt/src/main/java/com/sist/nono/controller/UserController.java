@@ -47,12 +47,12 @@ public class UserController {
 	//인증이 안된 사용자들이 출입가능한 경로 ===> /auth/** , / , /js/** , /css/** , /image/**
 	@GetMapping("/auth/loginForm")
 	public String loginForm() {
-		return "user/loginForm";
+		return "/WEB-INF/views/user/loginForm.jsp";
 	}
 	
 	@GetMapping("/auth/joinForm")
 	public String JoinForm() {
-		return "user/joinForm";
+		return "/WEB-INF/views/user/joinForm.jsp";
 	}
 	
 	@GetMapping("/auth/kakao/callback")
@@ -148,7 +148,7 @@ public class UserController {
 	
 	@GetMapping("/user/updateForm")
 	public String updateForm() {
-		return "user/updateForm";
+		return "/WEB-INF/views/user/updateForm.jsp";
 	}
 	
 	

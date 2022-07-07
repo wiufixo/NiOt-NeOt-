@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+	<meta charset="UTF-8" />
+	<th:block layout:fragment="title">
+		<title>list page</title>
+	</th:block>
+
+	<th:block layout:fragment="search">
+		<div th:replace="fragments/common :: search"></div>
+
+	</th:block>
+
+
+	<th:block layout:fragment="content">
+		<div class="table-responsive clearfix">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>제목</th>
+					<th>작성자</th>
+					<th>등록일</th>
+					<th>조회수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:if="${not #lists.isEmpty(board)}" th:each="row : ${board}">
+					<td th:text="${row.b_no}"></td>
+					<td class="text-left"><a th:href="@{'/board/'+${pagination.page}+'/'+${row.b_no}}"
+						th:text="${row.b_title}"></a></td>
+					<td th:text="${row.user.cu_id}"></td>
+					<td th:text="${row.b_created}"></td>
+					<td th:text="${row.b_hit}"></td>
+				</tr>
+				<tr th:unless="${not #lists.isEmpty(board)}">
+					<td colspan="5">조회된 결과가 없습니다.</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<div class="btn_wrap text-right">
+			<a th:href="@{/board/saveForm}"
+				class="btn btn-primary waves-effect waves-light">Write</a>
+		</div>
+		
+		<th:block layout:fragment="paging">
+				<nav th:replace="fragments/common :: pagination"></nav>
+		</th:block>
+			
+		</div>
+		
+	</th:block>
+</html>
