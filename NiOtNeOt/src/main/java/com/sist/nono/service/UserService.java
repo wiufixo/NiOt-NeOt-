@@ -56,6 +56,12 @@ public class UserService {
 		User user = repository.findByCu_id(cu_id).orElseGet(()->new User());
 		return user;
 	}
+
+	@Transactional(readOnly = true)
+	public User findByNo(int cu_no) {
+		User user = repository.findById(cu_no).orElseGet(()->new User());
+		return user;
+	}
 	
 //	@Transactional(readOnly = true) //트랜잭션 시작, 서비스 종료시에 트랜잭션 종료(정합성)
 //	public User login(User user) {

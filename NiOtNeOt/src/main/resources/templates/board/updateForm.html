@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+<meta charset="UTF-8">
+<th:block layout:fragment="title">
+	<title>update board</title>
+</th:block>
+
+<th:block layout:fragment="content">
+	<div class="container">
+		<form id="frm" class="form-horizontal" enctype="multipart/form-data">
+			<input type="hidden" id="page" th:value="${page}">
+			<input type="hidden" id="no" th:value="${board.b_no}">
+			
+			<!--/* 파일이 변경된 경우, 해당 파라미터를 이용하여 파일 삭제 및 재등록 처리 */-->
+			<input type="hidden" id="isFileChanged" th:value="N" >
+			
+			<div class="form-group">
+				<label for="title">title:</label> 
+				<input th:value="${board.b_title}" type="text" class="form-control" id="title">
+			</div>
+			<div class="form-group">
+				<label for="user">user:</label> 
+				<input th:value="${board.user.cu_id}" type="text" class="form-control" readonly="readonly" id="user">
+			</div>
+			<div class="form-group">
+				<label for="content">content:</label>
+				<textarea class="form-control" rows="5" id="content" th:text="${board.b_content}"></textarea>
+			</div>
+			
+		
+			<!--/* 저장된 파일이 없는 파일 영역 */-->
+			<div th:if="${#lists.isEmpty( fileList )}" data-name="fileDiv" class="form-group filebox bs3-primary">
+				<label for="file_0" class="col-sm-2 control-label">파일1</label>
+				<div class="col-sm-10">
+					<input type="text" class="upload-name" value="파일 찾기" readonly />
+					<label for="file_0" class="control-label">찾아보기</label>
+					<input type="file" name="files" id="file_0" class="upload-hidden files" onchange="changeFilename(this)" style="display:none;"/>
+				
+					<button type="button" onclick="addFile()" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+						<i class="fa fa-plus" aria-hidden="true"></i>
+					</button>
+					<button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+						<i class="fa fa-minus" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
+			
+			<!--/* 저장된 파일이 있는 파일 영역 */-->
+			<div th:unless="${#lists.isEmpty( fileList )}" th:each="row, status : ${fileList}" data-name="fileDiv" class="form-group filebox bs3-primary">
+				<label th:for="|file_${status.index}|" class="col-sm-2 control-label">[[ |파일${status.count}| ]]</label>
+				<div class="col-sm-10">
+					<input type="hidden" name="fileIdxs" th:value="${row.bf_no}" />
+					<input type="text" class="upload-name" th:value="${row.original_name}" readonly />
+					<label th:for="|file_${status.index}|" class="control-label">찾아보기</label>
+					<input type="file" name="files" th:id="|file_${status.index}|" class="upload-hidden files" onchange="changeFilename(this)" style="display:none;" />
+				
+					<button th:if="${status.first}" type="button" onclick="addFile()" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+						<i class="fa fa-plus" aria-hidden="true"></i>
+					</button>
+					<button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+						<i class="fa fa-minus" aria-hidden="true"></i>
+					</button>
+				</div>
+			</div>
+			
+			<span id="myspan"></span>
+			
+		</form>
+	
+	<div id="btnDiv" class="btn_wrap text-center">
+		<button id="btn-update" class="btn btn-primary waves-effect waves-light">수정하기</button>
+		<a th:href="@{/board/list?page={page} (page = ${page})}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
+	</div>
+	
+	
+	
+	</div>
+
+</html>
+

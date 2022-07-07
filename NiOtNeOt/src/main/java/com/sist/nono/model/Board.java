@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -42,7 +44,7 @@ public class Board {
 	
 	@ManyToOne(fetch = FetchType.EAGER) //기본패치전략, 반드시 들고와야하는 칼럼
 	@JoinColumn(name="cu_no")
-	private Customer customer; // db에서는 안되지만 orm에서는 object를 사용할수있다
+	private User user; // db에서는 안되지만 orm에서는 object를 사용할수있다
 	
 	@Column(nullable = false, length = 100)
 	private String b_title;
@@ -63,9 +65,15 @@ public class Board {
 	
 	private int b_hit;
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //테이블의 칼럼으로 생성하지 말아주세요, 반드시 갖고와주세요
+	private String isFileChanged;
+	
+	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) //테이블의 칼럼으로 생성하지 말아주세요, 반드시 갖고와주세요
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("bc_no desc")
 	private List<BoardComment> boardComment;
+	
+	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //테이블의 칼럼으로 생성하지 말아주세요, 반드시 갖고와주세요
+	@JsonIgnoreProperties({"board"})
+	private List<BoardFile> boardFile;
 	
 }
