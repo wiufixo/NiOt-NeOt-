@@ -1,9 +1,4 @@
 package com.sist.nono.model;
-
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;

@@ -15,6 +15,12 @@ import com.sist.nono.paging.PaginationInfo;
 //자동으로 bean등록이 되어 @Repository 생략가능
 public interface BoardRepository extends JpaRepository<Board, Integer>{
 	
+	
+	// !!!!!!!송승민이 만듬!!!!!!!!!
+	@Query(value = "select * from board where cu_no=?1 order by b_created desc",nativeQuery = true)
+	public List<Board> findAllByCu_no(int cu_no);
+	//
+	
 	@Modifying
 	@Query(value = "update board set b_title=?1, b_content=?2, b_update=now() where b_no=?3", nativeQuery = true)
 	public int boardUpdate(String b_title, String b_content, int b_no);
@@ -22,10 +28,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer>{
 	@Modifying
 	@Query(value = "update board set b_hit=b_hit+1 where b_no=?1", nativeQuery = true)
 	public void increaseHit(int b_no);
-	
-	
-	
-	
 	
 	@Query(value = "select count(*) from board order by b_no desc", nativeQuery = true)
 	public int getTotalRecordCnt();

@@ -40,6 +40,12 @@ public class BoardService {
 	@Autowired
 	private FileUploadDTO fu;
 	
+	//!!!!송승민 만듦!!!
+	public List<Board> findAllBoardByCu_no(int cu_no){
+		return repository.findAllByCu_no(cu_no);
+	}
+	//
+	
 	@Transactional
 	public Board save(Board board, User user) {
 		user = userRepository.findById(2).get();

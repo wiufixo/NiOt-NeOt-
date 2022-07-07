@@ -385,6 +385,7 @@ $(document).on("click","#join_button",function(){
 			"display":"none"
 		});
 	}
+	//join 실행
 	if(check==0){
 		$("#joinForm").submit();
 	}
