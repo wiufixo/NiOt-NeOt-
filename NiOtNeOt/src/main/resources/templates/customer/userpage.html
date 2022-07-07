@@ -63,8 +63,10 @@
 		<div id="userpage_board_more" class="inline_block">more</div>
 		
 			<div id="userpage_board" th:each="b,boardNum:${board}" th:if="${boardNum.count<4}">
-				<span th:text="${b.getB_title}"></span>1
-			</div>
+				<span th:text="${b.getB_title}"></span>
+				<span th:text="${b.getB_content}"></span>
+				<span th:text="${b.getB_created}"></span>
+			</div><br>
 			
 	</div>
 	

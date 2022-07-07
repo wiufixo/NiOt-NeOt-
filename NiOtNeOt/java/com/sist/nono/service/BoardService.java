@@ -14,12 +14,14 @@ import com.sist.nono.dto.FileUploadDTO;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.BoardComment;
 import com.sist.nono.model.BoardFile;
+import com.sist.nono.model.Customer;
 import com.sist.nono.model.RoleType;
 import com.sist.nono.model.User;
 import com.sist.nono.paging.PaginationInfo;
 import com.sist.nono.repository.BoardCommentRepository;
 import com.sist.nono.repository.BoardFileRepository;
 import com.sist.nono.repository.BoardRepository;
+import com.sist.nono.repository.CustomerRepository;
 import com.sist.nono.repository.UserRepository;
 
 @Service
@@ -35,6 +37,9 @@ public class BoardService {
 	private UserRepository userRepository;
 	
 	@Autowired
+	private CustomerRepository customerRepository;
+	
+	@Autowired
 	private BoardFileRepository fileRepository;
 	
 	@Autowired
@@ -47,13 +52,13 @@ public class BoardService {
 	//
 	
 	@Transactional
-	public Board save(Board board, User user) {
-		user = userRepository.findById(2).get();
+	public Board save(Board board, Customer customer) {
+		customer = customerRepository.findById(2).get();
 		board.setB_hit(0);
 		board.setB_ref(board.getB_no());
 		board.setB_step(0);
 		board.setB_level(0);
-		board.setUser(user);
+		board.setCustomer(customer);
 		Board b = repository.save(board);
 		int b_ref = b.getB_no();
 		b.setB_ref(b_ref);
@@ -64,9 +69,9 @@ public class BoardService {
 	}
 	
 	@Transactional
-	public void save(Board board, User user, List<MultipartFile> files) {
+	public void save(Board board, Customer customer, List<MultipartFile> files) {
 		
-		Board b = save(board, user);
+		Board b = save(board, customer);
 		if(b != null) {
 			List<BoardFile> fileList = fu.uploadFiles(files, b.getB_no());
 			System.out.println(fileList);

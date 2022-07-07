@@ -2,6 +2,30 @@
 var loading = false;
 var scrollPage = 1;
 
+//boardExpantion 무한 스크롤 함수
+var boardExpantionScroll = function(page){
+	if(!loading){
+		loading=true;
+		
+		$.ajax({
+		url:"/customer/boardLoad",
+		type:"get",
+		data:{
+			"page":page,
+			"customer":$("#board_cu_no").val()
+			},
+		dataType:"json",
+		success:function(data){
+			console.log(data);
+			for(var i=0;i<data.length;i++){
+			}
+			loading=false;
+			scrollPage+=1;
+		}
+		});
+	}
+}
+
 //following 무한 스크롤 함수
 var followingScroll = function(page){
 	if(!loading){
@@ -494,12 +518,16 @@ $(document).ready(function() {
 	//무한 스크롤 페이지 불러오기
 	$(window).scroll(function(){
 		var scrollNow=$(window).scrollTop();
+		console.log(scrollNow);
+		console.log($(window).height());
 		if(scrollNow+$(window).height()+100>=$("body").height()){
 			//page 이름으로 불러올 무한스크롤 정보 탐색
 			if(location.pathname=="/customer/followerExpantion"){
 				followerScroll(scrollPage);
 			}else if(location.pathname=="/customer/followingExpantion"){
 				followingScroll(scrollPage);
+			}else if(location.pathname=="/customer/boardExpation"){
+				boardExpantionScroll(scrollPage);
 			}
 		}
 	})

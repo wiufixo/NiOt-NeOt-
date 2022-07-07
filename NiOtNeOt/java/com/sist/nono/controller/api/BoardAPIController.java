@@ -22,10 +22,12 @@ import com.sist.nono.auth.PrincipalDetail;
 import com.sist.nono.dto.ResponseDTO;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.BoardComment;
+import com.sist.nono.model.Customer;
 import com.sist.nono.model.RoleType;
 import com.sist.nono.model.User;
 import com.sist.nono.repository.UserRepository;
 import com.sist.nono.service.BoardService;
+import com.sist.nono.service.CustomerService;
 import com.sist.nono.service.UserService;
 
 @RestController
@@ -34,18 +36,22 @@ public class BoardAPIController {
 	@Autowired
 	private BoardService service;
 	
+	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private CustomerService customerService;
+	
 	@PostMapping("/api/board")
-	public ResponseDTO<Integer> save(@RequestPart(value = "key") Board board, User user, @RequestPart(value = "files",required = false) List<MultipartFile> files) {
+	public ResponseDTO<Integer> save(@RequestPart(value = "key") Board board, Customer customer, @RequestPart(value = "files",required = false) List<MultipartFile> files) {
 		System.out.println(board);
-		System.out.println(user);
+		System.out.println(customer);
 		System.out.println(files);
 		System.out.println("**********************controller");
 		if(files==null) {
-			service.save(board, user);
+			service.save(board, customer);
 		}else {
-			service.save(board, user, files);
+			service.save(board, customer, files);
 		}
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(),1);
 	}

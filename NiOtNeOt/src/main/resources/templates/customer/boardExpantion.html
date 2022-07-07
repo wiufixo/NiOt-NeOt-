@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/customer.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/customer.js"></script>
+</head>
+<body>
+	<div th:each="board, num : ${board}" class="board_status" th:id="board_+${num.index}"> 
+		<span th:text="${board.getB_no}" th:class="board_+${num.index}"></span>
+		<span th:text="${board.getB_title}"></span>
+		<span th:text="${board.getB_content}"></span>
+		<span th:text="${board.getB_created}"></span>
+	</div><br>
+		
+	<input type="hidden" id="board_cu_no" th:value="${customer.getCu_no}">
+</body>
+</html>

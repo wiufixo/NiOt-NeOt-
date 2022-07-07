@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
 import com.sist.nono.service.AddressService;
@@ -70,17 +71,38 @@ public class CustomersAPIController {
 		return followService.findByFollower(id);
 	}
 	
+	@GetMapping("customer/boardLoad")
+	public ArrayList<Board> boardLoad(Model model,HttpServletRequest request) {
+		int page=Integer.parseInt(request.getParameter("page"));
+		//30개씩 호출
+		int count=page*30;
+		int cu_no=Integer.parseInt(request.getParameter("customer"));
+		ArrayList<Board> list=new ArrayList<Board>();
+		
+		List<Board> list1=boardService.findAllByCu_no(cu_no);
+		
+		for(int i=count-30;i<count;i++) {
+			//i가 가진 값보다 많아졌을 경우 오류 방지
+			if(i>=list1.size()) {
+				break;
+			}
+			//정해진 번호의 유저정보 넣기
+			list.add(list1.get(i));
+		}
+		return list;
+	}
+	
 	@GetMapping("customer/followingLoad")
 	public ArrayList<Customer> followingLoad(Model model,HttpServletRequest request) {
 		int page=Integer.parseInt(request.getParameter("page"));
-		//10개씩 호출
-		int count=page*10;
+		//30개씩 호출
+		int count=page*30;
 		int cu_no=Integer.parseInt(request.getParameter("customer"));
 		ArrayList<Customer> list=new ArrayList<Customer>();
 		
 		List<Follow> list1=followService.findByFollower(cu_no);
 		
-		for(int i=count-10;i<count;i++) {
+		for(int i=count-30;i<count;i++) {
 			//i가 가진 값보다 많아졌을 경우 오류 방지
 			if(i>=list1.size()) {
 				break;
@@ -94,15 +116,15 @@ public class CustomersAPIController {
 	@GetMapping("customer/followerLoad")
 	public ArrayList<Customer> followLoad(Model model,HttpServletRequest request) {
 		int page=Integer.parseInt(request.getParameter("page"));
-		//10개씩 호출
-		int count=page*10;
+		//30개씩 호출
+		int count=page*30;
 		int cu_no=Integer.parseInt(request.getParameter("customer"));
 		ArrayList<Customer> list=new ArrayList<Customer>();
 		
 		List<Follow> list1=followService.findByFollowed(cu_no);
 		
 		
-		for(int i=count-10;i<count;i++) {
+		for(int i=count-30;i<count;i++) {
 			//i가 가진 값보다 많아졌을 경우 오류 방지
 			if(i>=list1.size()) {
 				break;

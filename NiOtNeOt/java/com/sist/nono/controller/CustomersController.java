@@ -123,6 +123,7 @@ public class CustomersController {
 			model.addAttribute("transNum",transHistoryService.countTransHistory(cu_no));
 			model.addAttribute("wishNum",wishService.countWish(cu_no));
 			model.addAttribute("board",boardService.findAllByCu_no(cu_no));
+			
 			return "customer/mypage";
 		
 		//다른 유저의 유저페이지로 들어갈 때
@@ -183,6 +184,9 @@ public class CustomersController {
 		if(user_no==0) {
 			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
 		}
+		
+		model.addAttribute("customer",customerService.findById(user_no));
+		model.addAttribute("board",boardService.findAllByCu_no(user_no));
 		
 		return "customer/boardExpantion";
 	}
@@ -249,6 +253,7 @@ public class CustomersController {
 	
 	@GetMapping("customer/followingExpantion")
 	public String folllowingExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no){
+		//user_no가 0이면 로그인한 유저의 요소로 고려
 		if(user_no==0) {
 			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
 		}
