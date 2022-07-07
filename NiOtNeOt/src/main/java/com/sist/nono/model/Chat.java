@@ -43,8 +43,6 @@ public class Chat {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "pr_no")
 	private Product product;
-
-	private int bcu_no;
 	
 	@ColumnDefault("0")
 	private int ch_checked;

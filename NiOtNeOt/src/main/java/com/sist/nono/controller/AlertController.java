@@ -10,21 +10,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sist.nono.model.Alert;
 import com.sist.nono.service.AlertService;
 
+import lombok.Setter;
+
 
 @Controller
+@Setter
 public class AlertController { 
 	@Autowired
 	private AlertService service;
 	
 	@GetMapping("/alertList")
-	public void listAlert(Model model) {
+	public String listAlert(Model model) {
 		model.addAttribute("alertlist", service.findAllByCu_no(1));
-	}
-	
-	@GetMapping("/alertLists")
-	public ModelAndView listAlerts() {
-		ModelAndView mav = new ModelAndView("redirect:/alertListss.html");
-		return mav;
+		return "alert/alertList.html";
 	}
 	
 	@GetMapping("/alerts/{al_no}")

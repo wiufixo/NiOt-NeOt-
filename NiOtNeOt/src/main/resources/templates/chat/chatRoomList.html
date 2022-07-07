@@ -7,25 +7,24 @@
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<h2>채팅목록</h2>
+	<h2>채팅방 목록</h2>
 	<hr>
 	<table border="1" width="80%">
 		<tr>
-			<th>채팅번호</th>
+			<th>채팅방번호</th>
 			<th>유저번호</th>
 			<th>제품번호</th>
-			<th>채팅내용</th>
+			<th>구매자번호</th>
 			<th>생성시간</th>
 		</tr>
 
-		<tr th:each="c : ${chatlist}">
-			<td th:text="${g.no}"></td>
-			<td th:text="${g.name}"></td>
-			<td th:text="${g.price}"></td>
-			<td th:text="${g.qty}"></td>
-			<td th:text="${g.fname}"></td>
+		<tr th:each="cr : ${roomlist}">
+			<td th:text="${cr.cr_no}"></td>
+			<td th:text="${cr.user.cu_no}"></td>
+			<td th:text="${cr.cr_no}"></td>
+			<td th:text="${cr.bcu_no}"></td>
+			<td th:text="${cr.cr_created}"></td>
 		</tr>
-
 	</table>
 </body>
 </html>

@@ -7,7 +7,7 @@
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<h2>채팅목록</h2>
+	<h2>알림목록</h2>
 	<hr>
 	<table border="1" width="80%">
 		<tr>
@@ -18,7 +18,7 @@
 			<th>알림종류</th>
 		</tr>
 
-		<tr th:each="a : ${alert}">
+		<tr th:each="a : ${alertlist}">
 			<td th:text="${a.al_no}"></td>
 			<td th:text="${a.al_title}"></td>
 			<td th:text="${a.al_content}"></td>

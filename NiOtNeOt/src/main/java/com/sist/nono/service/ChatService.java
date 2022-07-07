@@ -16,8 +16,9 @@ public class ChatService {
 		return repository.findAllByCu_no(cu_no);
 	}
 	
-	public void save(Chat c) {
-		repository.save(c);
+	public void insertChat(int cu_no, int cr_no, int pr_no, String ch_content) {
+		System.out.println("채팅 서비스 인서트");
+		repository.insertChat(cu_no, cr_no, pr_no, ch_content);
 	}
 	
 	public Chat getOne(int ch_no) {
