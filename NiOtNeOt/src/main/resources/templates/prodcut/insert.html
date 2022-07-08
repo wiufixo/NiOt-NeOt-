@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="container">
+	<div>
+		<h2>상품 등록</h2>
+	</div>
+	<hr>
+	<form action="detail.html" th:action method="post" enctype="multi-form"></form>
+	<div>
+		<label th:for="pr_name">상품명</label>
+		<input type="text" th:field="*{pr_name} class="form-control" placeholder="상품명을 입력하세요">
+	</div>
+	
+	<div>
+		<label th:for="pr_cost">가격</label>
+		<input type="text" th:field="*{pr_cost}" class="form-control" placeholder="가격을 입력하세요">
+	</div>
+
+	<!-- 카테고리 -->
+	<div>
+		<label th:for="category">카테고리</label>
+		<option value="ARRAREL">ARRAREL</option>
+		<option value="BAG">BAG</option>
+		<option	value="SHOES">SHOES</option>
+		<option value="ACC">ACC</option>
+		<option value="ETC">ETC</option>
+	</div>
+		
+	<div>
+		<label for="pr_content">내용</label>
+		<textarea rows="" cols="" th:field="*{pr_content}" class="form-control" placeholder="상품설명을 입력하세요" ></textarea>
+	</div>
+	
+	<!-- 
+	<div>
+		<label for="image">이미지</label>
+		<div>
+			<input type="file" multiple id="pr_image" name="pr_image" class=form-control>
+		</div>
+	</div>
+	 --!>	
+	<!-- 대여여부 -->
+	<div>
+	<label for="deal">거래여부</label>
+		<option value="Tradeable">거래가능</option>
+		<option value="Untradeable">거래불가능</option>
+	</div>
+	
+	<!-- 공개여부 -->
+	<div>
+	<label for="status">공개여부</label>
+		<option value="Open">공개</option>
+		<option value="Private">비공개</option>
+	</div>
+</div>
+<div>
+	<button type="submit">등록</button>
+</div>
+<div>
+	<button th:onclick="|location.href='@{/product/list}'|" type="button">취소</button>
+</div>
+</body>
+</html>
