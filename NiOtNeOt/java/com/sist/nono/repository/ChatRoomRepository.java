@@ -10,6 +10,6 @@ import com.sist.nono.model.ChatRoom;
 //DAO
 //자동으로 bean등록이 되어 @Repository 생략가능
 public interface ChatRoomRepository extends JpaRepository<ChatRoom, Integer>{
-	@Query(value = "select * from chatroom where cu_no=:cu_no", nativeQuery = true)
-	List<ChatRoom> findAllByCu_no(@Param("cu_no") int cu_no);
+	@Query(value = "select * from chatroom where cr_no=:cr_no", nativeQuery = true)
+	List<ChatRoom> findAllByCu_no(@Param("cr_no") int cr_no);
 }                                                                         
