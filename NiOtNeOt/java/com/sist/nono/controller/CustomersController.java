@@ -4,6 +4,8 @@ package com.sist.nono.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -54,12 +56,12 @@ public class CustomersController {
 
 	@PostMapping("customer/joinOK")
 	@Transactional
-	public String joinOK(String cu_id,String cu_pwd,String cu_email,String cu_name,
+	public String joinOK(HttpServletRequest request,String cu_id,String cu_pwd,String cu_email,String cu_name,
 			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
 		
 		Customer c=new Customer();
 		Address a=new Address();
-
+		
 		c.setCu_id(cu_id);
 		c.setCu_pwd(cu_pwd);
 		c.setCu_email(cu_email);
@@ -96,7 +98,6 @@ public class CustomersController {
 	
 	@GetMapping("customer/pageChoice")
 	public String pageChoice(Authentication auth, Model model,@RequestParam("user_no") int user_no) {
-		//cu_no=0은 빈 가짜 유저로 만들 것
 		int cu_no=0;
 		
 		//로그인하지 않고 유저페이지로 들어갈 때
@@ -146,14 +147,13 @@ public class CustomersController {
 
 	@PostMapping("customer/updateOK")
 	@Transactional
-	public String updateOK(int cu_no,String cu_pwd,String cu_email,String cu_name,
+	public String updateOK(int cu_no,String cu_pwd,String cu_name,
 			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
 		
 		Customer c=customerService.findById(cu_no);
 		Address a=addressService.findById(cu_no);
 		
 		c.setCu_pwd(cu_pwd);
-		c.setCu_email(cu_email);
 		c.setCu_name(cu_name);
 		c.setCu_nickname(cu_nickname);
 		c.setCu_gender(cu_gender);

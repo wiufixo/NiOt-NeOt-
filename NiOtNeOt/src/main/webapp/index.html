@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>DD23_project</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -46,17 +46,19 @@
                      --><li><a href="javascript:;">Sale/Rental</a></li><!--
                      --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
                      --><li><a href="javascript:;">Community</a></li><!--
-                     --><li><a style="position:relative;z-index:1" id="login">Login</a></li>
+                     --><li><a href="javascript:;" style="position:relative;z-index:1" id="login">Login</a></li>
                     </ul>
-                     	<div style="position:relative;left:88%;bottom:25px;z-index:2;display:none;background-color:whie;height:50" id="loginForm">
-                     		<form action="/customer/loginProc" method="post">
+                
+                     	<div style="outline:solid 3px black;position:relative;left:88%;bottom:25px;z-index:2;display:none;background-color:white;height:150;width:fit-content" id="loginForm">
+                     		<form action="/customer/loginProc" method="post" style="">
                      			<button type="button" id="x">x</button><br>	
                      			<input type="text" name="username"><br>
                      			<input type="password" name="password"><br>
                      			<input type="submit" value="login"><br>
-                     			<button type="button">findPwd</button>
+                     			<button type="button" id="findPwd">findPwd</button>
                      		</form>
                      	</div>
+                     	
                 </div>
             </div>
             <div class="blurred_cover"></div>

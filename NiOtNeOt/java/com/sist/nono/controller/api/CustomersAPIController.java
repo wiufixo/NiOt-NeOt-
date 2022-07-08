@@ -64,9 +64,28 @@ public class CustomersAPIController {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	@GetMapping("customer/feedLoad")
+	public ArrayList<Board> feedLoad(Model model,HttpServletRequest request) {
+		int page=Integer.parseInt(request.getParameter("page"));
+		//10개씩 호출
+		int count=page*10;
+		int cu_no=Integer.parseInt(request.getParameter("customer"));
+		ArrayList<Board> list=new ArrayList<Board>();
+		
+		List<Board> list1=boardService.findAllByCu_no(cu_no);
+		for(int i=count-10;i<count;i++) {
+			//i가 가진 값보다 많아졌을 경우 오류 방지
+			if(i>=list1.size()) {
+				break;
+			}
+			//정해진 번호의 유저정보 넣기
+			list.add(list1.get(i));
+		}
+		return list;
+	}
+	
 	@GetMapping("customer/boardLoad")
 	public ArrayList<Board> boardLoad(Model model,HttpServletRequest request) {
-		System.out.println("on");
 		int page=Integer.parseInt(request.getParameter("page"));
 		//10개씩 호출
 		int count=page*10;

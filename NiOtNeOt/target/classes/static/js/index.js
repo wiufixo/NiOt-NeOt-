@@ -19,6 +19,10 @@ $(document).ready(function(){
 		window.location.href="/customer/findPwd";
 	})
 	
+	$("#login").on("click",function(){
+		window.location.href="/customer/login";
+	})
+	
 	$("#logout").on("click",function(){
 		location.href="/logout";
 	})
