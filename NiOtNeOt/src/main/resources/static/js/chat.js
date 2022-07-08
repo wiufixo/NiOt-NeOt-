@@ -20,14 +20,14 @@ $(function() {
 		success: function(data) {
 			$.each(data, function(index, item) {
 				var css;
-				if (data[index].user.cu_id == cu_id.value) {
+				if (data[index].customer.cu_id == cu_id.value) {
 					css = 'class=me';
 				} else {
 					css = 'class=other';
 				}
 
 				var item = `<div ${css} >
-		                <span><b>${data[index].user.cu_id}</b></span> [ ${data[index].ch_created} ]<br/>
+		                <span><b>${data[index].customer.cu_id}</b></span> [ ${data[index].ch_created} ]<br/>
                      	<span>${data[index].ch_content}</span>
 						</div>`;
 
