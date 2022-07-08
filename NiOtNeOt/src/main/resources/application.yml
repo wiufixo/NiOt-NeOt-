@@ -1,10 +1,12 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/test2?serverTimezone=Asia/Seoul
+
+    url: jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/sdh7811?serverTimezone=Asia/Seoul
+
     username: manager
     password: manager33
-    
+#    
 #  mvc:
 #    view:
 #      prefix: /WEB-INF/views/
@@ -13,7 +15,11 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-#      ddl-auto: create
+
+      ddl-auto: none
+
+
+
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false #JPA가 사용하는 기본 넘버링 전략을 따라가지 않는다
@@ -26,7 +32,6 @@ spring:
     serialization:
       fail-on-empty-beans: false
       
----
 
 sist:
   key: sist1234
@@ -39,4 +44,3 @@ server:
       charset: UTF-8
       enabled: true
       force: true
-    

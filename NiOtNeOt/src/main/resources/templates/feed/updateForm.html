@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/feed.js"></script>
+
+
+</head>
+<body>
+	<h2>수정</h2>
+	
+	<div>
+
+		<form>
+		<input type="hidden" id="f_no" name="f_no" th:value="${f.f_no}">
+			<div>
+				<label for="title">피드 제목</label> 
+				<input type="text" id="title" name="f_title" th:name="f_title" th:value=${f.f_title} placeholder="제목을 입력하세요">
+			</div>
+
+			<div>
+				<label for="content">content</label>
+				<textarea rows="5" id="content" name="f_content" th:name="f_content" th:value=${f.f_content} th:text=${f.f_content} 
+					placeholder="내용을 입력해주세요"></textarea>
+			</div>
+
+		</form>
+		<button id="feed-update">피드 수정</button>
+		<button id="feed-cancle">취소</button>
+	</div>
+	
+	
+</body>
+</html>

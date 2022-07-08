@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+</head>
+<body>
+	<h2>피드 리스트</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>피드 번호 <td>
+				<td>피드 제목 <td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each = "f:${list}">
+			<td th:text="${f.f_no}"></td>
+			<td><a th:href="@{'/feed/detailFeed/'+${f.f_no}}" th:text="${f.f_title}"></a></td>
+			
+			
+			</tr>
+		
+		</tbody>
+
+	</table>
+	<hr>
+	<a th:href ="@{/feed/insertForm}">피드 등록</a>
+</body>
+</html>
