@@ -39,10 +39,6 @@ public class Chat {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cr_no")
 	private ChatRoom chatroom;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "pr_no")
-	private Product product;
 	
 	@ColumnDefault("0")
 	private int ch_checked;

@@ -43,7 +43,7 @@ public class User {
 	@Column(nullable = false, length = 50)
 	private String cu_email;
 	
-//	@ColumnDefault("'user'")
+	@ColumnDefault("'user'")
 	@Enumerated(EnumType.STRING) //db에는 enumtype 자료형이 없으므로 string으로 변환해준다
 	private RoleType role;
 	
