@@ -31,7 +31,7 @@ public class Product {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cu_no")
-	private User user;
+	private Customer customer;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="ca_no")

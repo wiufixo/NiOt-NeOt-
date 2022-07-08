@@ -64,25 +64,32 @@ public class CustomerAPIController {
 	public void changeImgProcess(@RequestParam("uploadFile") MultipartFile uploadFile,Authentication auth) {
 		Customer cu=service.findByCu_id(auth.getName());
 		int cu_no=cu.getCu_no();
-
-		String uploadFolder="C:\\Users\\sonm4\\git\\NiOt-NeOt-\\NiOtNeOt\\src\\main\\resources\\static\\image";
+		
+		String uploadFolder="C:\\Users\\sonm4\\git\\NiOt-NeOt-\\NiOtNeOt\\src\\main\\resources\\static\\image\\customer\\"+cu_no;
+		
+		//해당 유저의 이미지 폴더 생성
+		File folder=new File(uploadFolder);
+		folder.mkdir();
+		
 		String uploadFileName=uploadFile.getOriginalFilename();
 		uploadFileName=uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
 		
 		String originalFileName;
 		originalFileName=cu.getCu_img();
+		
+		//원래있던 이미지 파일 삭제
 		File originFile=new File(uploadFolder,originalFileName);
 		originFile.delete();
 		
-		if(uploadFileName!="defaultUserImg") {
-			File saveFile=new File(uploadFolder,uploadFileName);
-			try {
-				uploadFile.transferTo(saveFile);
-			}catch(Exception e) {
-				System.out.println("에러:"+e.getMessage());
-			}
-			System.out.println(uploadFileName);
+		//파일 다운로드
+		File saveFile=new File(uploadFolder,uploadFileName);
+		try {
+			uploadFile.transferTo(saveFile);
+		}catch(Exception e) {
+			System.out.println("에러:"+e.getMessage());
 		}
+		System.out.println(uploadFileName);
+		
 		service.updateCu_img(uploadFileName, cu_no);	
 	}
 

@@ -18,11 +18,20 @@ var boardExpantionScroll = function(page){
 		success:function(data){
 			console.log(data);
 			for(var i=0;i<data.length;i++){
+				var div=$("<div></div>");
+				$(div).attr("id","board_"+i);
+				$(div).attr("class","board_status");
+				$(div).attr("value",data[i].b_no)
+				div.append($("<span></span>",{text:data[i].b_no}));
+				div.append($("<span></span>",{text:data[i].b_title}));
+				div.append($("<span></span>",{text:data[i].b_content}));
+				div.append($("<span></span>",{text:data[i].b_created}));
+				div.appendTo("body");
 			}
 			loading=false;
 			scrollPage+=1;
 		}
-		});
+	});
 	}
 }
 
@@ -45,7 +54,11 @@ var followingScroll = function(page){
 				$(div).attr("class","following_status");
 				$(div).attr("id","following_"+i);
 				$(div).attr("value",data[i].cu_no);
-				div.append($('<img/>',{src:"/image/"+data[i].cu_img, class:"profile_img_small"}));
+				if(data[i].cu_img=="defaultUserImg.jpg"){
+					div.append($('<img/>',{src:"/image/customer/defaultUserImg", class:"profile_img_small"}))
+				}else{
+					div.append($('<img/>',{src:"/image/customer/"+data[i].cu_no+"/"+data[i].cu_img, class:"profile_img_small"}));
+				}
 				div.append($("<span></span>",{text:data[i].cu_name}));
 				div.append($("<span></span>",{text:data[i].cu_nickname}));
 				div.append($("<span></span>",{text:data[i].cu_email}));
@@ -77,7 +90,11 @@ var followerScroll = function(page){
 				$(div).attr("class","follower_status");
 				$(div).attr("id","follower_"+i);
 				$(div).attr("value",data[i].cu_no);
-				div.append($('<img/>',{src:"/image/"+data[i].cu_img, class:"profile_img_small"}));
+				if(data[i].cu_img=="defaultUserImg.jpg"){
+					div.append($('<img/>',{src:"/image/customer/defaultUserImg", class:"profile_img_small"}))
+				}else{
+					div.append($('<img/>',{src:"/image/customer/"+data[i].cu_no+"/"+data[i].cu_img, class:"profile_img_small"}));
+				}
 				div.append($("<span></span>",{text:data[i].cu_name}));
 				div.append($("<span></span>",{text:data[i].cu_nickname}));
 				div.append($("<span></span>",{text:data[i].cu_email}));
@@ -144,6 +161,15 @@ $(document).on("click","#userpage_follow_button",function(){
 		})
 	}
 })
+
+	//boardExpantion에서 board 클릭
+$(document).on("click",".board_status",function(e){
+	e.stopImmediatePropagation();
+	var board_id=$(this).attr("id");
+	var board_no=$("."+board_id).text();
+	window.location.href="/board/1/"+board_no;
+})
+
 
 	//followerExpantion에서 user 클릭
 $(document).on("click",".follower_status",function(e){
@@ -329,6 +355,47 @@ $(document).on("click","#mypage_delete_button",function(){
 	window.location.href="/customer/deleteCheck"
 })
 
+//join 이메일 인증 클릭
+$(document).on("click","#join_email_check_start",function(){
+	
+	//email 중복 체크
+	$.ajax({
+		url:"/customer/emailCheck",
+		method:"post",
+		data:{
+			cu_email:$("#cu_email").val()
+		},
+		success: function(data){
+			//이메일 중복 체크
+			if(data==0){
+				$("#join_email_warning").css({
+					"display":"none"
+				})
+				//이메일로 인증번호 발송
+				$.ajax({
+					url:"/customer/checkSend",
+					method:"post",
+					data:{
+						cu_email:$("#cu_email").val()
+					},
+					success:function(data){
+						alert("인증번호를 발송했습니다");
+						$("#join_email_check_true").val(data);
+						$("#join_email_check_hidden").css({
+							"visibility":"visible"
+						})
+					}
+				})
+			}else if(data!=0){
+				$("#join_email_warning").css({
+					"display":"inline"
+				});
+		}
+		},
+		async: false
+	})
+})
+
 //join 회원 가입 버튼 클릭
 $(document).on("click","#join_button",function(){
 	var check=0;
@@ -410,6 +477,17 @@ $(document).on("click","#join_button",function(){
 			"display":"none"
 		});
 	}
+	//이메일 인증했는지 확인
+	if($("#join_email_check").val()!=$("#join_email_check_true").val()){
+		check++;
+		$("#join_email_check_warning").css({
+			"display":"inline"
+		});
+	}else{
+		$("#join_email_check_warning").css({
+			"display":"none"
+		});
+	}
 	//join 실행
 	if(check==0){
 		$("#joinForm").submit();
@@ -475,6 +553,7 @@ $(document).on("click","#update_button",function(){
 			"display":"none"
 		});
 	}
+
 	
 	//updateForm 보내기
 	if(check==0){
@@ -493,7 +572,7 @@ $(document).on("click","#find_pwd_button", function() {
 		},
 		success: function(data) {
 			if (data.cu_no != 0) {
-				//email로 비밀번호 전송
+				//email로 새로운 비밀번호 전송
 				$.ajax({
 					url:"/customer/pwdSend",
 					method:"post",
@@ -518,15 +597,13 @@ $(document).ready(function() {
 	//무한 스크롤 페이지 불러오기
 	$(window).scroll(function(){
 		var scrollNow=$(window).scrollTop();
-		console.log(scrollNow);
-		console.log($(window).height());
 		if(scrollNow+$(window).height()+100>=$("body").height()){
 			//page 이름으로 불러올 무한스크롤 정보 탐색
 			if(location.pathname=="/customer/followerExpantion"){
 				followerScroll(scrollPage);
 			}else if(location.pathname=="/customer/followingExpantion"){
 				followingScroll(scrollPage);
-			}else if(location.pathname=="/customer/boardExpation"){
+			}else if(location.pathname=="/customer/boardExpantion"){
 				boardExpantionScroll(scrollPage);
 			}
 		}

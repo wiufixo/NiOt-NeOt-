@@ -8,8 +8,10 @@
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
 <body>
-	<div id="userpage_status1" class="inline_block">
-		<img id="userpage_my_img" alt="userpage_my_img" th:src="@{/image/}+${user.getCu_img}" class="profile_img_big"><br>
+	<div id="userpage_status1" class="inline_block" th:switch="${user.getCu_img}">
+		<img id="user_my_img" th:case="'defaultUserImg.jpg'" alt="user_default_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_img_big" >
+		<img id="user_my_img" th:case="*" alt="user_user_img" th:src="@{/image/customer/}+${user.getCu_no}+'/'+${user.getCu_img}" class="profile_img_big">
+		
 		<span id="userpage_nickname" th:text="${user.getCu_nickname}"></span><br>
 		<span id="userpage_name" th:text="${user.getCu_name}"></span><br>
 		<span id="userpage_email" th:text="${user.getCu_email}"></span><br>
