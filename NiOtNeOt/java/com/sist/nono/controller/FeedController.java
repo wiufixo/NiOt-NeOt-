@@ -30,7 +30,7 @@ public class FeedController {
 	@GetMapping(value = "/feed/test")
 	public String test() {
 		
-		return "feed/test";
+		return "layout/basic2.html";
 	}
 	
 	@GetMapping(value = "/feed/list")

@@ -1,134 +1,81 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
-	<meta charset="UTF-8" />
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="board/layout/basic">
 	<th:block layout:fragment="title">
-		<title>view page</title>
-	</th:block>
-
-	<th:block layout:fragment="modal">
-		<div id="commentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-		    <div class="modal-dialog" role="document">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                <span aria-hidden="true">&times;</span>
-		                </button>
-		            </div>
-		            <div class="modal-body">
-		                <form>
-		                    <div class="form-group">
-		                        <label for="modalWriter" class="col-form-label">ì‘ì„±ì</label>
-		                        <input type="text" id="modalWriter" class="form-control" readonly="readonly" />
-		                    </div>
-		                    <div class="form-group">
-		                        <label for="modalContent" class="col-form-label">ë‚´ìš©</label>
-		                        <textarea id="modalContent" class="form-control" placeholder="ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”."></textarea>
-		                    </div>
-		                </form>
-		            </div>
-		            <div class="modal-footer">
-		                <button type="button" id="btnModalCancel" class="btn btn-default waves-effect waves-light" data-dismiss="modal">ì·¨ì†Œí•˜ê¸°</button>
-		                <button type="button" id="btnCommentUpdate" class="btn btn-primary waves-effect waves-light" onclick="updateComment()">ìˆ˜ì •í•˜ê¸°</button>
-		            </div>
-		        </div>
-		    </div>
-		</div>
+		<title>thiThe page is a write page</title>
 	</th:block>
 
 	<th:block layout:fragment="content">
 		<div class="card-content">
-			<form class="form-horizontal form-view" th:object="${board}">
-				<input type="hidden" id="page" th:value="${page}">
-				<input type="hidden" id="no" th:value="${board.b_no}">
+			<form class="form-horizontal" th:action="@{/board/register.do}" th:object="${board}" method="post" onsubmit="return registerBoard(this)">
+				<!--/* updateÀÇ °æ¿ì ¼­¹ö·Î Àü´ŞÇÒ °Ô½Ã±Û ¹øÈ£ (PK) */-->
+				<input type="hidden" th:if="*{idx != null and idx > 0}" th:field="*{idx}" />
+
 				<div class="form-group">
-					<label for="inp-type-1" class="col-sm-2 control-label">ì œëª©</label>
-					<div class="col-sm-10">
-						<p class="form-control" th:text="*{b_title}"></p>
+					<label for="noticeYn" class="col-sm-2 control-label">°øÁö±Û ¼³Á¤</label>
+					<div class="col-sm-10" style="margin-top: 10px;">
+						<input type="checkbox" th:value="*{noticeYn}" id="noticeYn" name="noticeYn" th:checked="*{#strings.equals( noticeYn, 'Y' )}" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="inp-type-2" class="col-sm-2 control-label">ì•„ì´ë””</label>
-					<div class="col-sm-10">
-						<p class="form-control" th:text="*{user.cu_id}"></p>
+					<label for="secretYn" class="col-sm-2 control-label">ºñ¹Ğ±Û ¼³Á¤</label>
+					<div class="col-sm-10" style="margin-top: 10px;">
+						<input type="checkbox" th:value="*{secretYn}" id="secretYn" name="secretYn" th:checked="*{#strings.equals( secretYn, 'Y' )}" />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="inp-type-5" class="col-sm-2 control-label">ë‚´ìš©</label>
+					<label for="title" class="col-sm-2 control-label">Á¦¸ñ</label>
 					<div class="col-sm-10">
-						<p class="form-control" th:text="*{b_content}"></p>
+						<input type="text" th:field="*{title}" class="form-control" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä." />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="inp-type-5" class="col-sm-2 control-label">ë“±ë¡ì¼</label>
+					<label for="writer" class="col-sm-2 control-label">ÀÌ¸§</label>
 					<div class="col-sm-10">
-						<p class="form-control" th:text="*{b_created}"></p>
+						<input type="text" th:field="*{writer}" class="form-control" placeholder="ÀÌ¸§À» ÀÔ·ÂÇØ ÁÖ¼¼¿ä." />
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="inp-type-5" class="col-sm-2 control-label">ì¡°íšŒìˆ˜</label>
+					<label for="content" class="col-sm-2 control-label">³»¿ë</label>
 					<div class="col-sm-10">
-						<p class="form-control" th:text="*{b_hit}"></p>
+						<textarea th:field="*{content}" class="form-control" placeholder="³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä."></textarea>
 					</div>
 				</div>
-				
-				<div th:if="${not #lists.isEmpty( fileList )}" class="form-group">
-					<label for="inp-type-4" class="col-sm-2 control-label">File</label>
-					<div class="col-sm-10">
-						<div class="form-control file_list">
-							<a th:each="row, status : ${fileList}" th:href="@{/board/download(bf_no=${row.bf_no})}">
-								<i class="fa fa-file-o" aria-hidden="true"></i>
-								[[ ${row.original_name} ]]
-							</a>
-						</div>
-					</div>
+
+				<div class="btn_wrap text-center">
+					<a th:href="@{/board/list.do}" class="btn btn-default waves-effect waves-light">µÚ·Î°¡±â</a>
+					<button type="submit" class="btn btn-primary waves-effect waves-light">ÀúÀåÇÏ±â</button>
 				</div>
 			</form>
-
-			<div class="btn_wrap text-center">
-				<a th:href="@{/board/list?page={page} (page = ${page})}" class="btn btn-default waves-effect waves-light" th:text="ëª©ë¡ìœ¼ë¡œ"></a>
-				<button class="btn btn-secondary" onclick="history.back()">ëŒì•„ê°€ê¸°</button>
-				<a th:href="@{'/board/'+${page}+'/'+${board.b_no }+'/updateForm'}" id="btn-updateForm" class="btn btn-warning">ìˆ˜ì •</a>
-				<button id="btn-delete" class="btn btn-danger">ì‚­ì œ</button>
-				<button class="btn btn-danger" th:onclick="deleteBoard([[${board.b_no}]],[[${page}]])">ì‚­ì œí•˜ê¸°</button>
-			</div>
 		</div>
+		<!-- /.card-content -->
 	</th:block>
 
-	<th:block layout:fragment="add-content">
-		<div class="box-content">
-			<div class="card-content">
-				<div class="clearfix">
-					<h4 class="box-title pull-left">Comment</h4>
-					<!-- /.box-title -->
-				</div>
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
 
-				<form class="form-horizontal form-view">
-					<div class="input-group margin-bottom-20">
-						<input id="comment-content" type="text" class="form-control">
-						<div class="input-group-btn">
-							<button type="button" id="btn-comment-save" class="btn waves-effect waves-light"><i class="fa fa-commenting" aria-hidden="true"></i></button>
-						</div>
-					</div>
-					
-					<ul class="notice-list" th:each="bc : ${board.boardComment}">
-						<li>
-							<span class="name" th:text="${bc.user.cu_id }">Betty Simmons</span>
-							<span class="desc" th:text="${bc.bc_content }">There are new settings available</span>
-							<span class="time">
-								<span id="my_span" th:text="${bc.bc_created }"></span>
-								<span class="btn btn-xs btn-circle "><i th:onclick="index.commentDelete([[${board.b_no}]],[[${bc.bc_no}]])" class="fa fa-close" aria-hidden="true"></i></span>
-								<span class="btn btn-xs btn-circle "><i th:onclick="openModal([[${bc.bc_no}]], [[${bc.user.cu_id}]], [[${bc.bc_content}]] )" class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
-							</span>
-						</li>
-					</ul>
-				</form>
-			</div>
-			<!-- /.card-content -->
-		</div>
-		<!-- /.box-content -->
+			function registerBoard(form) {
+
+				form.noticeYn.value = form.noticeYn.checked == false ? 'N' : 'Y';
+				form.secretYn.value = form.secretYn.checked == false ? 'N' : 'Y';
+
+				var result = (
+						   isValid(form.title, "Á¦¸ñ", null, null)
+						&& isValid(form.writer, "ÀÌ¸§", null, null)
+						&& isValid(form.content, "³»¿ë", null, null)
+				);
+
+				if ( result == false ) {
+					return false;
+				}
+			}
+			/*[- end of function -]*/
+
+			/*]]>*/
+		</script>
 	</th:block>
-</html>l>
+</html>

@@ -1,131 +1,65 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
-	<meta charset="UTF-8" />
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/feed.js"></script>
-	<th:block layout:fragment="title">
-		<title>view page</title>
+
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div>
+	<div>
+	글번호 : <span id="f_no" th:text="${f.f_no}" th:value="${f.f_no}" ></span>	
+	</div>
+	
+	<div>
+	<p> 피드 제목 : <span th:text="${f.f_title}"></span>
+	<p> 피드	내용 : <span th:text="${f.f_content}"></span>
+	<p> 피드 조회수 : <span th:text="${f.f_hit}"></span>
+	<p> 피드 생성날짜 : <span th:text="${f.f_created}"></span>
+	<p> 피드 수정날짜 : <span th:text="${f.f_updated}"></span> 
+	</div>
+	<!--<a th:href="@{'/feed/updateForm/'+${f.f_no}}" th:text="수정"></a>  -->
+ 
+ <button id="feed-updatemove">수정</button>
+ &nbsp;
+
+<button id="feed-delete">삭제</button>
+
+<hr>
+
+<div>
+	<div>
+		<textarea id = "fc_content" rows=1 placeholder="댓글을 입력해주세요"></textarea>
+	</div>
+	<div>
+		<button id="fc-save">댓글 등록</button>
+	</div>
+
+</div>
+	<br>
+	<div>댓글 리스트</div>
+	<th:block>
+	<form th:each="fc:${f.feedComment}" >
+	<input type="hidden" id="fc_no" name="fc_no" th:name="fc_no" th:value="${fc.fc_no}">&nbsp;
+	<span id="fc_comment" th:text="${fc.fc_comment}" th:value="${fc.fc_comment}"></span> &nbsp;
+	<button id="fc-delete">삭제</button> &times; <button id="fc-move">수정</button><br>
+	
+	</form>
+	<textarea class="fc_comment2" id="fc_comment2" th:value=${fc.fc_comment} th:text=${fc.fc_comment} rows="1"></textarea>
+	<button id="fc-update" >수정하기</button>
 	</th:block>
+	</div>
+	
+	
+	
 
-	<th:block layout:fragment="modal">
-		<div id="commentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-		    <div class="modal-dialog" role="document">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                <span aria-hidden="true">&times;</span>
-		                </button>
-		            </div>
-		            <div class="modal-body">
-		                <form>
-		                    <div class="form-group">
-		                        <label for="modalWriter" class="col-form-label">작성자</label>
-		                        <input type="text" id="modalWriter" class="form-control" readonly="readonly" />
-		                    </div>
-		                    <div class="form-group">
-		                        <label for="modalContent" class="col-form-label">내용</label>
-		                        <textarea id="modalContent" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
-		                    </div>
-		                </form>
-		            </div>
-		            <div class="modal-footer">
-		                <button type="button" id="btnModalCancel" class="btn btn-default waves-effect waves-light" data-dismiss="modal">취소하기</button>
-		                <button type="button" id="btnCommentUpdate" class="btn btn-primary waves-effect waves-light">수정하기</button>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-	</th:block>
 
-	<th:block layout:fragment="content">
-		<div class="card-content">
-			<form class="form-horizontal form-view" th:object="${f}" >
-				<input type="hidden" id="f_no" th:vlaue="${f.f_no}">
-				<div class="form-group">
-					<label for="inp-type-1" class="col-sm-2 control-label">제목</label>
-					<div class="col-sm-10">
-						<p class="form-control" th:text="*{f_title}"></p>
-					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="inp-type-2" class="col-sm-2 control-label">아이디</label>
-					<div class="col-sm-10">
-						
-					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="inp-type-5" class="col-sm-2 control-label">내용</label>
-					<div class="col-sm-10">
-						<p class="form-control" th:text="*{f_content}">
-					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="inp-type-5" class="col-sm-2 control-label">등록일</label>
-					<div class="col-sm-10">
-						<p class="form-control" th:text="*{f_created}"></p>
-					</div>
-				</div>
-				
-					<div class="form-group">
-					<label for="inp-type-5" class="col-sm-2 control-label">등록일</label>
-					<div class="col-sm-10">
-						<p class="form-control" th:text="*{f_updated}"></p>
-					</div>
-				</div>
 
-				<div class="form-group">
-					<label for="inp-type-5" class="col-sm-2 control-label">조회수</label>
-					<div class="col-sm-10">
-						<p class="form-control" th:text="*{f_hit}"></p>
-					</div>
-				</div>
-				
-				
-			</form>
-
-			<div class="btn_wrap text-center">
-				<a class="btn btn-default waves-effect waves-light" ></a>
-				<button class="btn btn-secondary" id="feedback" >돌아가기</button>
-				<button id="feed-update" class="btn btn-warning">수정</button>
-				<button id="feed-delete" class="btn btn-danger">삭제</button>
-				<button class="btn btn-danger">삭제하기</button>
-			</div>
-		</div>
-	</th:block>
-
-	<th:block layout:fragment="add-content">
-		<div class="box-content">
-			<div class="card-content">
-				<div class="clearfix">
-					<h4 class="box-title pull-left">Comment</h4>
-					<!-- /.box-title -->
-				</div>
-
-				<form class="form-horizontal form-view">
-					<div class="input-group margin-bottom-20">
-						<input id="fc_content " type="text" class="form-control">
-						<div class="input-group-btn">
-							<button type="button" id="fc-save" class="btn waves-effect waves-light"><i>댓글 등록</i></button>
-						</div>
-					</div>
-					
-					<ul class="notice-list"  th:each="fc : ${f.feedComment}">
-						<li>
-							<span class="name" >Betty Simmons</span>
-							<span class="desc" th:text="${fc.fc_comment}" >There are new settings available</span>
-							<span class="time">
-								<span id="my_span" th:text="${fc.fc_created }"></span>
-								<button id="fc-delete">삭제</button> &nbsp; <button id="fc_move">수정</button>
-							</span>
-						</li>
-					</ul>
-				</form>
-			</div>
-			<!-- /.card-content -->
-		</div>
-		<!-- /.box-content -->
-	</th:block>
+</body>
 </html>

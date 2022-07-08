@@ -91,7 +91,7 @@ let openModal=function(bc_no, cu_id, bc_content){
 		document.getElementById("modalWriter").value = cu_id;
 		document.getElementById("modalContent").value = bc_content;
 
-		document.getElementById("btnCommentUpdate").setAttribute("onclick", "updateComment("+ bc_no +")");
+		document.getElementById("btnCommentUpdate").setAttribute("onclick", "update("+ bc_no +")");
 }
 
 

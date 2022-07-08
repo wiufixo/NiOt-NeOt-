@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -67,6 +69,14 @@ public class Feed {
 	@Column(nullable = false)
 	private int f_hit;
 
+	
+//	@Enumerated(EnumType.STRING)
+//	private Public noticeYn;
+//	
+//	@Enumerated(EnumType.STRING)
+//	private Public sercetYn;
+	
+	
 //-----------------------------------------------------------------------------------------------------------------------
 	// User Join (부모)
 	@ManyToOne

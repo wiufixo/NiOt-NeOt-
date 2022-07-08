@@ -66,19 +66,20 @@ var fcdelete = function() {
 	
 	var f_no = $("#f_no").text();
 	var fc_no = $("#fc_no").val();
+	console.log(f_no);
 	console.log(fc_no)
 	
 	$.ajax({
-		url: `/feed/deleteComment/${fc_no}`,
-		type: "DELETE",
+		url: `/feed/deleteComment/${f_no}/${fc_no}`,
+		type: "POST",
+		dataType:"json",
+		success: function(re) {
+		alert("성공")
+		console.log(f_no);
 		
-	}).done(function(resp) {
-		console.log(resp)
-		alert("댓글 삭제 성공하였습니다!");
 		location.href = `/feed/detailFeed/${f_no}`
-		
-	}).fail(function(error) {
-		alert(error);
+		}
+
 	})
 }
 
@@ -105,23 +106,7 @@ var fupdate = function() {
 	});
 }
 
-var fc_move = function() {
-	var fc_no = $("#fc_no").val();
-	var fc_commnet = $("#fc_comment").text();
-	
-	var html ="";
-	html += '<div>'
-	
-	html += '</div>'
-	
-	
-	//<input type="text" id="fc_no" name="fc_no" th:name="fc_no" th:value="${fc.fc_no}">
-	//<textarea id="fc_comment2" th:value=${fc.fc_comment} th:text=${fc.fc_comment} rows="3"></textarea>
 
-	console.log(fc_no)
-	console.log(fc_commnet);
-	
-}
 
 
 var fcupdate = function() {
@@ -133,7 +118,7 @@ var fcupdate = function() {
 	} 
 	$.ajax({
 		url:"/feed/updateComment",
-		type:"POST",
+		type:"PUT",
 		data : data,
 		success:function() {
 			alert("피드 수정 성공")
@@ -151,6 +136,7 @@ $(document).ready(function() {
 
 	let f_no = $("#f_no").text(); //피드 	번호 (f_no),div(text())
 	let fc_no = $("fc_no").val(); //피드 댓글 번호 (fc_no),input(val())
+	$(".fc_comment2").css("display","none")
 //------------------------------------------------------------------------
 	$("#feed-save").on("click", function() {
 
@@ -186,10 +172,10 @@ $(document).ready(function() {
 	})
 	
 	
-	$("#fc_move").on("click",".commentMod",function() {
+	$("#fc-move").on("click",function() {
 		alert("버튼 동작함")
-		fc_move();
+		$(".fc_comment2").css("display","inline");
 	})
- 
+	
 })
 
