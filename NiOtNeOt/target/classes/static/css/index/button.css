@@ -1,0 +1,57 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+hr{margin: 40px 0;}
+.btn{position: relative; padding: 0 15px; margin: 0; width: auto; height: 40px; display: inline-block; *display: inline; *zoom: 1; outline: none; box-sizing: border-box; font-size: 14px; text-align: center; line-height: 40px; text-decoration: none; cursor: pointer; vertical-align: top; transition: all 250ms ease-in-out; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);}
+
+.btn:active{transform:scale(0.975); }
+
+.btn span,
+.btn i{color: #fff;}
+
+.btn.icn_rt{text-align: center;}
+.btn.icn_rt i{float: right; margin-top: 12px;}
+.btn.icn_rt span{}
+
+.btn.icn_lt{text-align: right;}
+.btn.icn_lt i{float: left; margin-top: 12px; margin-right: 0;}
+.btn.icn_lt span{}
+
+.btn.btn_large{width: 200px;}
+.btn.btn_small{width: auto;}
+.btn.btn_mini{padding: 0; width: 40px;}
+
+.btn.btn_mini.wipe{text-align: right;}
+.btn.btn_mini.wipe:hover{ width: 200px;}
+.btn.btn_mini.wipe span{ position: absolute; left:15px; text-align: left; padding: 0; width: 0; overflow: hidden; white-space: nowrap; transition: inherit;}
+.btn.btn_mini.wipe:hover span{ width: 150px; }
+.btn.btn_mini.wipe i{margin-right:14px; transition: margin-right 250ms ease-out;}
+.btn.btn_mini.wipe:hover i{ margin-right:15px;}
+
+.btn.btn_tiny{padding: 0; width: 24px; height: 24px; line-height: 24px; font-size: 12px;}
+
+.btn.btn_icon i{font-size: 20px; color: #666;}
+.btn.btn_icon:hover i{color: #fff;}
+
+.btn.btn_a{color: #000; background: rgba(255,255,255,0.7); box-shadow: 0 2px 6px -2px #000;}
+.btn.btn_a:hover,
+.btn.btn_a:focus{background: #fff; box-shadow: 0 3px 9px -3px #000;}
+.btn.btn_a:active{box-shadow: 0 0 0 0 #000;}
+.btn.btn_a:hover span,
+.btn.btn_a:focus span{color: inherit;}
+.btn.btn_a span{color: #000; font-weight: bold;}
+
+.btn.btn_b{background: rgba(0,0,0,0.7); box-shadow: inset 0 0 0 2px #fff, 0 3px 9px -3px #000;}
+.btn.btn_b:hover,
+.btn.btn_b:focus{color: #000; background: #fff; box-shadow: inset 0 0 0 0 #fff, 0 3px 9px -3px #000;}
+.btn.btn_b:hover span,
+.btn.btn_b:focus span{color: inherit;}
+.btn.btn_b:active{box-shadow: 0 0 0 0 #000;}
+
+.btn.btn_c{box-shadow: inset 0 0 0 2px #999;}
+.btn.btn_c:hover,
+.btn.btn_c:focus{box-shadow: inset 0 0 0 2px #fff;}
+
+.btn.btn_d{color: #999; box-shadow: inset 0 0 0 2px #ddd; cursor: no-drop; transform: scale(1);}
+
+

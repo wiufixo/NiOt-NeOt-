@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<!-- 사용자 스크립트 추가 
+<th:block layout:fragment="script">
+
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if(errorMessage != null){
+                alert(errorMessage);
+            }
+
+            bindDomEvent();
+
+        });
+
+        function bindDomEvent(){
+            $(".custom-file-input").on("change", function() {
+                var fileName = $(this).val().split("\\").pop();  //이미지 파일명
+                var fileExt = fileName.substring(fileName.lastIndexOf(".")+1); // 확장자 추출
+                fileExt = fileExt.toLowerCase(); //소문자 변환
+
+                // 클라가 개발자도구로 밑의 세팅을 바꿀 수도 있어서 validation 해줘야함!!
+                if(fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp"){
+                    alert("이미지 파일만 등록이 가능합니다.");
+                    return;
+                }
+
+                // label 태그 안의 내용을 jquery 의 html 함수를 이용해서 파일명을 입력해준다.
+                $(this).siblings(".custom-file-label").html(fileName);
+            });
+        }
+
+    </script>
+
+</th:block>
+-->
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div class="container">
+	<div>
+		<h2>상품 등록</h2>
+	</div>
+	<hr>
+	<form action="detail.html" th:action method="post" enctype="multi-form"></form>
+	<div>
+		<label th:for="pr_name">상품명</label>
+		<input type="text" th:field="*{pr_name} class="form-control" placeholder="상품명을 입력하세요">
+	</div>
+	
+	<div>
+		<label th:for="pr_cost">가격</label>
+		<input type="text" th:field="*{pr_cost}" class="form-control" placeholder="가격을 입력하세요">
+	</div>
+
+	<!-- 카테고리 -->
+	<div>
+		<label th:for="category">카테고리</label>
+		<option value="ARRAREL">ARRAREL</option>
+		<option value="BAG">BAG</option>
+		<option	value="SHOES">SHOES</option>
+		<option value="ACC">ACC</option>
+		<option value="ETC">ETC</option>
+	</div>
+		
+	<div>
+		<label for="pr_content">내용</label>
+		<textarea rows="" cols="" th:field="*{pr_content}" class="form-control" placeholder="상품설명을 입력하세요" ></textarea>
+	</div>
+	
+	<!-- 
+	<div>
+		<label for="image">이미지</label>
+		<div>
+			<input type="file" multiple id="pr_image" name="pr_image" class=form-control>
+		</div>
+	</div>
+	 --!>	
+	<!-- 대여여부  if문으로 바꿀 예정-->
+	<div>
+	<label for="deal">거래여부</label>
+		<option value="Tradeable">거래가능</option>
+		<option value="Untradeable">거래불가능</option>
+	</div>
+	
+	<!-- 공개여부  if문으로 바꿀 예정-->
+	<div>
+	<label for="status">공개여부</label>
+		<option value="Open">공개</option>
+		<option value="Private">비공개</option>
+	</div>
+</div>
+	<!-- 상품 아이디가 있는경우(수정), 없는경우(등록) th:if문으로 해줄예정 -->
+
+<div>
+	<button type="submit">등록</button>
+</div>
+<div>
+	<button th:onclick="|location.href='@{/product/list}'|" type="button">취소</button>
+</div>
+</body>
+</html>

@@ -1,27 +1,32 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
-	<th:block layout:frgment="title">
-		<title>Feed insert Page</title>
-	</th:block>
-	
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/js/feed.js"></script>
+
+
+</head>
+<body>
 	<div>
 
 		<form>
 			<div>
-				<label for="title">ÇÇµå Á¦¸ñ</label> 
-				<input type="text" id="title" placeholder="Á¦¸ñÀ» ÀÔ·ÂÇÏ¼¼¿ä">
+				<label for="title">í”¼ë“œ ì œëª©</label> 
+				<input type="text" id="title" placeholder="ì œëª©ì„ ìž…ë ¥í•˜ì„¸ìš”">
 			</div>
 
 			<div>
 				<label for="content">content</label>
-				<textarea rows="5" id="content" placeholder="³»¿ëÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä"></textarea>
+				<textarea rows="5" id="content" placeholder="ë‚´ìš©ì„ ìž…ë ¥í•´ì£¼ì„¸ìš”"></textarea>
 			</div>
 
 		</form>
-		<button id="feed-save">ÇÇµå ¾²±â</button>
+		<button id="feed-save">í”¼ë“œ ì“°ê¸°</button>
 	</div>
 
 
 
-
+</body>
 </html>

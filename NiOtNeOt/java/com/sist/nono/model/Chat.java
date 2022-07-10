@@ -34,17 +34,11 @@ public class Chat {
 
 	@ManyToOne(fetch = FetchType.EAGER) // 기본패치전략, 반드시 들고와야하는 칼럼
 	@JoinColumn(name = "cu_no")
-	private User user; // db에서는 안되지만 orm에서는 object를 사용할수있다
+	private Customer customer; // db에서는 안되지만 orm에서는 object를 사용할수있다
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cr_no")
 	private ChatRoom chatroom;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "pr_no")
-	private Product product;
-
-	private int bcu_no;
 	
 	@ColumnDefault("0")
 	private int ch_checked;

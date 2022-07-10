@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div class="container">
+	<div>
+		<h2>상품 상세</h2>
+	</div>
+	<div>
+		<label for="productNo"> 상품번호</label>
+			<input type="text" id="productNo" name="productNo" class="from-control"
+			value="1" th:value="${product.pr_no}" readonly="readonly">
+	</div>
+	<div>
+		<label for="productName">상품명</label>
+			<input type="text" id="prodcutName" name="prpdcutName" class="form-control"
+			th:value="${product.pr_name}" readonly="readonly">
+	</div>
+	<div>
+		<label for="productCost">가격</label>
+			<input type="text" id="cost" name="cost" sclass="form-control"
+			th:value="${product.pr_cost}" readonly="readonly">
+	</div>
+	<div>
+		<label for="productContent">상품설명</label>
+			<textarea rows="" cols="" id="content" name="content" sclass="form-control"
+			th:value="${prdouct.pr_content" readonly="readonly"></textarea>
+	</div>
+	<div>
+		<label for="productStatus">상품 상태</label>
+			<input type="text" id="status" name="status" sclass="form-control"
+			th:value="${product.status}" readonly="readonly">
+	</div>
+	<div>
+		<label for="productHit">좋아요</label>
+			<input type="text" id="hit" name="hit" sclass="form-control"
+			th:value="${product.pr_hit}" readonly="readonly">
+	</div>
+	
+	
+	<!-- 상품 이미지 -->
+	
+			
+	<!-- 수정/삭제/목록 -->
+		<div class="col">
+			<button th:onclick="|location.href='@{/product/{productNo}/update(productNo=${product.pr_no})}'|" type="button">수정</button>
+		</div>
+		
+		<div class="col">
+			<button th:onclick="|location.href='@{/product/{productNo}/delete(productNo=${product.pr_no})}'|" type="button">삭제</button>
+		</div>
+		
+		<div class="col">
+			<button th:onclick="|location.href='@{/product/list}'|" type="button">목록</button>	
+		</div>
+
+</div>
+</body>
+</html>

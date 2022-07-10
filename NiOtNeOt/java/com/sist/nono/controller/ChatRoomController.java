@@ -13,7 +13,14 @@ public class ChatRoomController {
 	@Autowired
 	private ChatRoomService service;
 	
-	@GetMapping("/listChatRoom/{cu_no}")
+	@GetMapping("/listChatRoom")
+	public String listchatRoom(Model model) {
+		model.addAttribute("roomlist", service.findAll(2));
+		System.out.println(model);
+		return "chat/chatRoomList.html";
+	}
+	
+	@GetMapping("/listChatRooms/{cu_no}")
 	public void listChatRoom(@PathVariable int cu_no, Model model) {
 		model.addAttribute("chatroomlist", service.findAll(cu_no));
 	}

@@ -10,8 +10,10 @@
 <body>
 	<input type="hidden" id="mypage_no" th:value="${customer.getCu_no}">
 
-	<div id="mypage_status1" class="inline_block">
-		<img id="mypage_my_img" alt="mypage_my_img" th:src="@{/image/}+${customer.getCu_img}" class="profile_img_big"><br>
+	<div id="mypage_status1" class="inline_block" th:switch="${customer.getCu_img}">
+		<img id="mypage_my_img" th:case="'defaultUserImg.jpg'" alt="mypage_default_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_img_big" >
+		<img id="mypage_my_img" th:case="*" alt="mypage_my_img" th:src="@{/image/customer/}+${customer.getCu_no}+'/'+${customer.getCu_img}" class="profile_img_big">
+		
 		<span id="mypage_nickname" th:text="${customer.getCu_nickname}"></span><br>
 		<span id="mypage_name" th:text="${customer.getCu_name}"></span><br>
 		<span id="mypage_email" th:text="${customer.getCu_email}"></span><br>
@@ -51,12 +53,27 @@
 	<div id="mypage_feed_list">
 		<h2 class="inline_block">Feed</h2>
 		<div id="mypage_feed_more" class="inline_block">more</div>
+		
+		<div id="mypage_feed" th:each="f,feedNum:${feed}" th:if="${feedNum.count<4}">
+				<span th:text="${f.getF_title}"></span>
+				<span th:text="${f.getF_content}"></span>
+				<span th:text="${f.getF_created}"></span>
+		</div><br>
+			
 	</div>
 	<hr>	
 	
 	<div id="mypage_product_list">
 		<h2 class="inline_block">Product</h2>
 		<div id="mypage_product_more" class="inline_block">more</div>
+		
+		<div id="mypage_product" th:each="p,productNum:${product}" th:if="${productNum.count<4}">
+				<span th:text="${p.getPr_title}"></span>
+				<span th:text="${p.getPr_name}"></span>
+				<span th:text="${p.getPr_status}"></span>
+				<span th:text="${p.getPr_cost}"></span>
+				<span th:text="${p.getPr_created}"></span>
+		</div><br>
 	</div>
 	<hr>
 	

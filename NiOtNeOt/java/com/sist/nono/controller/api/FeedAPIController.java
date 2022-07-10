@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.nono.dto.ResponseDTO;
+import com.sist.nono.model.BoardComment;
 import com.sist.nono.model.Feed;
 import com.sist.nono.model.FeedComment;
 import com.sist.nono.service.FeedService;
@@ -87,12 +89,19 @@ public class FeedAPIController {
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
-	@PostMapping(value = "/feed/updateComment") 
-	public ResponseDTO<Integer> updateComment(FeedComment fc){
-		
+	@PutMapping(value = "/feed/updateComment/{f_no}") 
+	public ResponseDTO<Integer> updateComment(@PathVariable int f_no, @RequestBody FeedComment fc){
+		System.out.println("데이터 전달 됨");
+		System.out.println(fc);
 		fs.updateFeedComment(fc);
-		
-		return new ResponseDTO<>(HttpStatus.OK.value(), 1);
+		return new ResponseDTO<Integer>(HttpStatus.OK.value(),1);
+	
 	}
+	/*
+	 * @PutMapping("/api/board/{b_no}/comment") public ResponseDTO<Integer>
+	 * commentUpdate(@PathVariable int b_no, @RequestBody BoardComment comment) {
+	 * service.commentUpdate(comment.getBc_no(), comment); return new
+	 * ResponseDTO<Integer>(HttpStatus.OK.value(),1); }
+	 */
  	
 }
