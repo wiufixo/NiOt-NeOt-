@@ -224,7 +224,7 @@ let index={
 			}).done(function(resp){
 				alert("글쓰기를 성공하였습니다!");
 				console.log(resp)
-				location.href="/board/list";
+				location.href="/list";
 			}).fail(function(error){
 				alert(JSON.stringify(error));
 			}); //ajax통신을 이용하여 3개의 데이터를 json의 형식으로 회원가입정보 insert요청

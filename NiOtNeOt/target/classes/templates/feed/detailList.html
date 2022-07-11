@@ -1,58 +1,150 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="feed/layout/basic2">
+<meta charset="UTF-8" />
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		function fdelete(f_no) {
+			alert("함수동작")
+			console.log(f_no)
+			$.ajax({
+				url : "/feed/deleteSubmit/" + f_no,
+				type : "DELETE",
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/js/feed.js"></script>
+			}).done(function(resp) {
+				alert("피드 삭제를 성공하였습니다!");
+				console.log(resp)
+				location.href = "/feed/list";
+			}).fail(function(error) {
+				alert(error);
+			})
+		}
+	</script>
 
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<div>
-	<div>
-	글번호 : <span id="f_no" th:text="${f.f_no}" th:value="${f.f_no}" ></span>	
-	</div>
+</th:block>
+
+<th:block layout:fragment="modal">
+	<div id="commentModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="commentModallabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<form >
+			<!--
+				<div class="form-group">
+				  
+					<label for="modalWriter" class="col-form-label">작성자</label>
+					<input type="text" id="modalWriter" class="form-control" readonly="readonly"/>				
+				</div>
+			-->
+				<div class="form-group">
+					<label for="modalContent" class="col-form-label">내용</label>
+					<textarea id="modalContent" class="form-control" placeholder="내용을 입력해주세요"></textarea>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button type="button" id="btnModalCancel" class="btn btn-default waves-effect waves-light" data-dismiss="modal">취소하기</button>
+			<button type="button" id="btnCommentUpdate" class="btn btn-primary waves-effect waves-light" onclick="updateComment()">수정하기</button>
+		</div>
 	
-	<div>
-	<p> 피드 제목 : <span th:text="${f.f_title}"></span>
-	<p> 피드	내용 : <span th:text="${f.f_content}"></span>
-	<p> 피드 조회수 : <span th:text="${f.f_hit}"></span>
-	<p> 피드 생성날짜 : <span th:text="${f.f_created}"></span>
-	<p> 피드 수정날짜 : <span th:text="${f.f_updated}"></span> 
-	</div>
-	<!--<a th:href="@{'/feed/updateForm/'+${f.f_no}}" th:text="수정"></a>  -->
- 
- <button id="feed-updatemove">수정</button>
- &nbsp;
-
-<button id="feed-delete">삭제</button>
-
-<hr>
-
-<div>
-	<div>
-		<textarea id = "fc_content" rows=1 placeholder="댓글을 입력해주세요"></textarea>
-	</div>
-	<div>
-		<button id="fc-save">댓글 등록</button>
-	</div>
-
-</div>
-	<br>
-	<div>댓글 리스트</div> <br>
-	<th:block th:each="fc:${f.feedComment}">
-
-	<input type="text" id="fc_no" name="fc_no" th:name="fc_no" th:value="${fc.fc_no}">&nbsp; <br>
-	<span id="fc_comment" th:text="${fc.fc_comment}" th:value="${fc.fc_comment}"></span> &nbsp;
 	
-	<span></span>
-	<button type="button" th:onclick="fcdelete([[${f.f_no}]],[[${fc.fc_no}]])">삭제</button> &nbsp; 
-	<button type="button" th:onclick="fcmove([[${fc.fc_no}]], [[${fc.fc_comment}]] )">수정</button> &nbsp; <br>
-	<textarea id="fc-comment2" rows="3"></textarea>
-	<button  id="fc-update">수정하기</button><br>
 	</div>
 </th:block>
 
-</body>
+
+<th:block layout:fragment="title">
+	<title>this is view page</title>
+</th:block>
+<th:block layout:fragment="content">
+	<div class="card-content">
+		<form class="form-horizontal form-view" th:object="${f}">
+			<input type="hidden" id="f_no" th:value="${f_no}">
+			<div class="form-group">
+				<label for="inp-type-1" class="col-sm-2 control-label">제목</label>
+				<div class="col-sm-10">
+					<p class="form-control" th:text="*{f_title}"></p>
+				</div>
+			</div>
+			<!-- 
+				<div class="form-group">
+					<label for="inp-type-2" class="col-sm-2 control-label">아이디</label>
+					<div class="col-sm-10">
+						<p class="form-control" th:text="*{user.cu_id}"></p>
+					</div>
+				</div>
+ -->
+			<div class="form-group">
+				<label for="inp-type-5" class="col-sm-2 control-label">내용</label>
+				<div class="col-sm-10">
+					<p class="form-control" th:text="*{f_content}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inp-type-5" class="col-sm-2 control-label">등록일</label>
+				<div class="col-sm-10">
+					<p class="form-control"
+						th:text="*{#temporals.format(f_created , 'yyyy-MM-dd' )}"></p>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inp-type-5" class="col-sm-2 control-label">조회수</label>
+				<div class="col-sm-10">
+					<p class="form-control" th:text="*{f_hit}"></p>
+				</div>
+			</div>
+
+
+		</form>
+
+		<div class="btn_wrap text-center">
+			<a th:href="@{/feed/list}"
+				class="btn btn-default waves-effect waves-light">뒤로가기</a> <a
+				th:href="@{'/feed/updateForm/'+${f.f_no}}" class="btn btn-warning">수정하기</a>
+			<button type="button" class="btn btn-danger waves-effect waves-light"
+				th:onclick="fdelete([[ ${f.f_no} ]])">삭제하기</button>
+		</div>
+	</div>
+</th:block>
+
+<th:block layout:fragment="add-content">
+	<div class="box-content">
+		<div class="card-content">
+			<div class="clearfix">
+				<h4 class="box-title pull-left">Comment</h4>
+				<!-- /.box-title -->
+			</div>
+
+			<form class="form-horizontal form-view">
+				<div class="input-group margin-bottom-20">
+					<input id="fc_content" type="text" class="form-control">
+					<div class="input-group-btn">
+						<button type="button" id="fc-save"
+							class="btn waves-effect waves-light">
+							<i class="fa fa-commenting" aria-hidden="true"></i>
+						</button>
+					</div>
+				</div>
+
+				<ul class="notice-list" th:each="fc:${f.feedComment}">
+					<li><span class="name">Betty Simmons</span> <span
+						class="desc" th:text="${fc.fc_comment}">There are new
+							settings available</span> <span class="time"> <span id="my_span"
+							th:text="${fc.fc_created }"></span> <span
+							class="btn btn-xs btn-circle "><i>삭제</i></span> <span
+							class="btn btn-xs btn-circle "><i>수정</i></span>
+					</span></li>
+				</ul>
+			</form>
+		</div>
+		<!-- /.card-content -->
+	</div>
+	<!-- /.box-content -->
+</th:block>
+
+
 </html>

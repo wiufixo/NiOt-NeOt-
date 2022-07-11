@@ -139,6 +139,11 @@
 			<artifactId>stomp-websocket</artifactId>
 			<version>2.3.3</version>
 		</dependency>
+		<!-- 레이아웃을 쓰기 위한 dependency -->
+		<dependency>
+         <groupId>nz.net.ultraq.thymeleaf</groupId>
+         <artifactId>thymeleaf-layout-dialect</artifactId>
+      </dependency>
 	</dependencies>
 
 	<build>
