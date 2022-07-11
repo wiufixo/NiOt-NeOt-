@@ -1,5 +1,6 @@
 package com.sist.nono.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,10 @@ public class WishService {
 	
 	public int countWish(int cu_no) {
 		return repository.countWish(cu_no);
+	}
+	
+	public ArrayList<Wish> findAllByCu_no(int cu_no){
+		return repository.findAllByCu_no(cu_no);
 	}
 	
 }

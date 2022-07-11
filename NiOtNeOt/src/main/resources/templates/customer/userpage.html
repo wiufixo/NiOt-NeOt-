@@ -27,7 +27,7 @@
 		<span id="userpage_gender" th:if="${user.getCu_gender!=0}">남</span>
 	</div><br>
 	
-	<div id="userpage_wish_more" class="inline_block">
+	<div id="userpage_wish" class="inline_block">
 		<h2>Wish</h2>
 		<span th:text=${wishNum}></span>
 	</div>
@@ -52,12 +52,9 @@
 		<h2 class="inline_block">Feed</h2>
 		<div id="userpage_feed_more" class="inline_block">more</div>
 		
-		<div id="user_product" th:each="p,productNum:${product}" th:if="${productNum.count<4}">
-			<span th:text="${p.getPr_content}"></span>
-			<span th:text="${p.getPr_created}"></span>
-			<span th:text="${p.getPr_cost}"></span>
-			<span th:text="${p.getPr_status}"></span>
-			<span th:text="${p.getPr_hit}"></span>
+		<div id="user_feed" th:each="f,feedNum:${feed}" th:if="${feedNum.count<4}">
+			<span th:text="${p.getF_content}"></span>
+			<span th:text="${p.getF_created}"></span>
 		</div><br>
 	</div>
 	<hr>	
@@ -66,11 +63,12 @@
 		<h2 class="inline_block">Product</h2>
 		<div id="userpage_product_more" class="inline_block">more</div>
 				
-		<div id="mypage_board" th:each="b,boardNum:${board}" th:if="${boardNum.count<4}">
-			<span th:text="${b.getB_title}"></span>
-			<span th:text="${b.getB_content}"></span>
-			<span th:text="${b.getB_created}"></span>
-			<span th:text="${b.getB_hit}"></span>
+		<div id="mypage_product" th:each="p,productNum:${product}" th:if="${productNum.count<4}">
+			<span th:text="${p.getPr_content}"></span>
+			<span th:text="${p.getPr_created}"></span>
+			<span th:text="${p.getPr_cost}"></span>
+			<span th:text="${p.getPr_status}"></span>
+			<span th:text="${p.getPr_hit}"></span>
 		</div><br>
 	</div>
 	<hr>

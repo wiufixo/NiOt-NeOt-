@@ -2,6 +2,63 @@
 var loading = true;
 var scrollPage = 1;
 
+//transExpantion paging 처리 함수
+var transExpantionPaging = function(page){
+	$.ajax({
+		url:"/customer/transPaging",
+		type:"get",
+		data:{
+			"page":page,
+			"cu_no":$("#trans_cu_no").val()
+			},
+		success:function(data){
+			$("#trans_product").empty();
+			//반복문
+			for(var i=0;i<data.length;i++){
+				var product=data[i].product;
+				var div=$("<div></div>");
+				$(div).attr("id","product_"+i);
+				$(div).attr("class","product_status");
+				$(div).attr("value",data[i].p_no)
+				div.append($("<span></span>",{text:product.pr_no}));
+				div.append($("<span></span>",{text:product.pr_title}));
+				div.append($("<span></span>",{text:product.pr_content}));
+				div.append($("<span></span>",{text:product.pr_created}));
+				div.appendTo("#trans_product");
+			}
+		}
+	})
+}
+
+//wishExpantion paging 처리 함수
+var wishExpantionPaging = function(page){
+	$.ajax({
+		url:"/customer/wishPaging",
+		type:"get",
+		data:{
+			"page":page,
+			"cu_no":$("#wish_cu_no").val()
+			},
+		success:function(data){
+			$("#wish_product").empty();
+			//반복문
+			for(var i=0;i<data.length;i++){
+				var product=data[i].product;
+				var div=$("<div></div>");
+				$(div).attr("id","product_"+i);
+				$(div).attr("class","product_status");
+				$(div).attr("value",data[i].p_no)
+				div.append($("<span></span>",{text:product.pr_no}));
+				div.append($("<span></span>",{text:product.pr_title}));
+				div.append($("<span></span>",{text:product.pr_content}));
+				div.append($("<span></span>",{text:product.pr_created}));
+				div.appendTo("#wish_product");
+			}
+		}
+	})
+}
+
+//productExpantion paging 처리 함수
 var productExpantionPaging = function(page){
 	$.ajax({
 		url:"/customer/productPaging",
@@ -11,43 +68,22 @@ var productExpantionPaging = function(page){
 			"cu_no":$("#product_cu_no").val()
 			},
 		success:function(data){
-			
 			console.log(data);
-		}
-	})
-}
-
-//productExpantion 무한 스크롤 함수
-var productExpantionScroll = function(page){
-	if(!loading){
-		loading=true;
-		
-		$.ajax({
-		url:"/customer/productLoad",
-		type:"get",
-		data:{
-			"page":page,
-			"customer":$("#product_cu_no").val()
-			},
-		dataType:"json",
-		success:function(data){
-			console.log(data);
+			$("#product_product").empty();
+			//반복문
 			for(var i=0;i<data.length;i++){
 				var div=$("<div></div>");
 				$(div).attr("id","product_"+i);
 				$(div).attr("class","product_status");
-				$(div).attr("value",data[i].f_no)
+				$(div).attr("value",data[i].p_no)
 				div.append($("<span></span>",{text:data[i].pr_no}));
 				div.append($("<span></span>",{text:data[i].pr_title}));
 				div.append($("<span></span>",{text:data[i].pr_content}));
 				div.append($("<span></span>",{text:data[i].pr_created}));
-				div.appendTo("body");
+				div.appendTo("#product_product");
 			}
-			loading=false;
-			scrollPage+=1;
 		}
-	});
-	}
+	})
 }
 
 //feedExpantion 무한 스크롤 함수
@@ -64,7 +100,6 @@ var feedExpantionScroll = function(page){
 			},
 		dataType:"json",
 		success:function(data){
-			console.log(data);
 			for(var i=0;i<data.length;i++){
 				var div=$("<div></div>");
 				$(div).attr("id","feed_"+i);
@@ -625,8 +660,16 @@ $(document).on("click","#find_pwd_button", function() {
 	});
 })
 
-$(document).on("click",".product_paging_button",function(){
-	productExpantionPaging($(this).val());
+$(document).on("click",".product_paging_number",function(){
+	productExpantionPaging($(this).text());
+})
+
+$(document).on("click",".wish_paging_number",function(){
+	wishExpantionPaging($(this).text());
+})
+
+$(document).on("click",".trans_paging_number",function(){
+	transExpantionPaging($(this).text());
 })
 
 $(document).ready(function() {
@@ -650,6 +693,12 @@ $(document).ready(function() {
 
 window.onload = function(){
 	if(location.pathname=="/customer/productExpantion"){
-		productExpantionPaging($(this).val());
+		productExpantionPaging(1);
+	}
+	if(location.pathname=="/customer/wishExpantion"){
+		wishExpantionPaging(1);
+	}
+	if(location.pathname=="/customer/transExpantion"){
+		transExpantionPaging(1);
 	}
 }

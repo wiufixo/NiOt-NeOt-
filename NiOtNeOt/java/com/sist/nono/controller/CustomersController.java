@@ -2,6 +2,7 @@ package com.sist.nono.controller;
 
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
 import com.sist.nono.model.Product;
+import com.sist.nono.model.Wish;
 import com.sist.nono.service.AddressService;
 import com.sist.nono.service.BoardService;
 import com.sist.nono.service.CustomerService;
@@ -106,6 +108,8 @@ public class CustomersController {
 		return "customer/updateForm";
 	}
 	
+	
+	//user_no에 보려는 유저의 cu_no 입력
 	@GetMapping("customer/pageChoice")
 	public String pageChoice(Authentication auth, Model model,@RequestParam("user_no") int user_no) {
 		int cu_no=0;
@@ -184,7 +188,7 @@ public class CustomersController {
 			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
 		}
 		
-		model.addAttribute("customer",customerService.findById(user_no));
+		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("board",boardService.findAllByCu_no(user_no));
 		
 		return "customer/boardExpantion";
@@ -195,9 +199,11 @@ public class CustomersController {
 		if(user_no==0) {
 			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
 		}
+		System.out.println(user_no);
 		
-		model.addAttribute("customer",customerService.findById(user_no));
+		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("product",productService.findAllByCu_no(user_no));
+		
 		
 		return "customer/productExpantion";
 	}
@@ -217,7 +223,8 @@ public class CustomersController {
 		if(user_no==0) {
 			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
 		}
-		
+		model.addAttribute("user",customerService.findById(user_no));
+		model.addAttribute("trans",transHistoryService.findAllByCu_no(user_no));
 		
 		return "customer/transExpantion";
 	}
@@ -227,7 +234,8 @@ public class CustomersController {
 		if(user_no==0) {
 			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
 		}
-		
+		model.addAttribute("user",customerService.findById(user_no));
+		model.addAttribute("wish",wishService.findAllByCu_no(user_no));
 		
 		return "customer/wishExpantion";
 	}

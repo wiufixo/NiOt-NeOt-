@@ -4,9 +4,12 @@ package com.sist.nono.model;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,8 +30,16 @@ public class TransHistory {
 	private int tr_no;
 
 	private int buy_no;
-	private int pr_no;
-	private int cu_no;
+	
+	@ManyToOne(fetch = FetchType.EAGER) //기본패치전략, 반드시 들고와야하는 칼럼
+	@JoinColumn(name="pr_no")
+	private Product product;
+	
+	@ManyToOne(fetch = FetchType.EAGER) //기본패치전략, 반드시 들고와야하는 칼럼
+	@JoinColumn(name="cu_no")
+	private Customer customer;
+	
+	
 	private int sell_score;
 	private int buy_score;
 	

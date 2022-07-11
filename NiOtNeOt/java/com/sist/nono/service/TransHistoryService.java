@@ -1,5 +1,6 @@
 package com.sist.nono.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class TransHistoryService {
 	
 	public int countTransHistory(int cu_no) {
 		return repository.countTransHistory(cu_no);
+	}
+	
+	public ArrayList<TransHistory> findAllByCu_no(int cu_no){
+		return repository.findAllByCu_no(cu_no);
 	}
 	
 }

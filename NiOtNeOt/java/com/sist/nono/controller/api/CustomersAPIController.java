@@ -27,6 +27,8 @@ import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
 import com.sist.nono.model.Product;
+import com.sist.nono.model.TransHistory;
+import com.sist.nono.model.Wish;
 import com.sist.nono.service.AddressService;
 import com.sist.nono.service.BoardService;
 import com.sist.nono.service.CustomerService;
@@ -64,52 +66,67 @@ public class CustomersAPIController {
 	BoardService boardService;
 	
 	@Autowired
-	private JavaMailSender javaMailSender;
-	
-	@Autowired
 	ProductService productService;
 	
-	@GetMapping("customer/feedLoad")
-	public ArrayList<Board> feedLoad(Model model,HttpServletRequest request) {
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
+	@GetMapping("customer/transPaging")
+	public ArrayList<TransHistory> transPaging(Model model,HttpServletRequest request) {
 		int page=Integer.parseInt(request.getParameter("page"));
-		//10개씩 호출
-		int count=page*10;
-		int cu_no=Integer.parseInt(request.getParameter("customer"));
-		ArrayList<Board> list=new ArrayList<Board>();
+		int count=page*12;
+		int cu_no=Integer.parseInt(request.getParameter("cu_no"));
+		ArrayList<TransHistory> list=new ArrayList<TransHistory>();
 		
-		List<Board> list1=boardService.findAllByCu_no(cu_no);
-		for(int i=count-10;i<count;i++) {
+		List<TransHistory> list1=transHistoryService.findAllByCu_no(cu_no);
+		for(int i=count-12;i<count;i++) {
 			//i가 가진 값보다 많아졌을 경우 오류 방지
 			if(i>=list1.size()) {
 				break;
 			}
-			//정해진 번호의 유저정보 넣기
+			list.add(list1.get(i));
+		}
+		return list;
+	}
+	
+	@GetMapping("customer/wishPaging")
+	public ArrayList<Wish> wishPaging(Model model,HttpServletRequest request) {
+		int page=Integer.parseInt(request.getParameter("page"));
+		int count=page*12;
+		int cu_no=Integer.parseInt(request.getParameter("cu_no"));
+		ArrayList<Wish> list=new ArrayList<Wish>();
+		
+		List<Wish> list1=wishService.findAllByCu_no(cu_no);
+		for(int i=count-12;i<count;i++) {
+			//i가 가진 값보다 많아졌을 경우 오류 방지
+			if(i>=list1.size()) {
+				break;
+			}
 			list.add(list1.get(i));
 		}
 		return list;
 	}
 	
 	@GetMapping("customer/productPaging")
-	public ArrayList<Product> productPaging(HttpServletRequest request){
+	public ArrayList<Product> productPaging(Model model,HttpServletRequest request) {
 		int page=Integer.parseInt(request.getParameter("page"));
-		int count=12*page;
+		int count=page*12;
 		int cu_no=Integer.parseInt(request.getParameter("cu_no"));
 		ArrayList<Product> list=new ArrayList<Product>();
 		
 		List<Product> list1=productService.findAllByCu_no(cu_no);
 		for(int i=count-12;i<count;i++) {
-			
+			//i가 가진 값보다 많아졌을 경우 오류 방지
 			if(i>=list1.size()) {
 				break;
 			}
-			
 			list.add(list1.get(i));
 		}
 		return list;
 	}
 	
 	@GetMapping("customer/boardLoad")
-	public ArrayList<Board> boardLoad(HttpServletRequest request) {
+	public ArrayList<Board> boardLoad(Model model,HttpServletRequest request) {
 		int page=Integer.parseInt(request.getParameter("page"));
 		//10개씩 호출
 		int count=page*10;
