@@ -80,8 +80,8 @@ public class Feed {
 //-----------------------------------------------------------------------------------------------------------------------
 	// User Join (부모)
 	@ManyToOne
-	@JoinColumn(name = "cu_no", insertable = true, updatable = true)
-	private User user;
+	@JoinColumn(name = "cu_id", insertable = true, updatable = true)
+	private Customer customer;
 
 	//---------------------------------------------------------------------------------------------------------------------
 	//자식 , 자식 들과 많은 관계를 맺게 되면 은 jpa 에서 처리 하기 힘들기 때문에 , 데이터를 직접 받아올 한개의 클래스에게만 fetch = FetchType.EAGER 을 붙이고

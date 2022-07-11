@@ -72,8 +72,8 @@ public class FeedComment {
 	
 	//User Join
 	@ManyToOne
-	@JoinColumn(name = "cu_no", insertable = true, updatable =true)
-	private User user;
+	@JoinColumn(name = "cu_id", insertable = true, updatable =true)
+	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "f_no", insertable = true, updatable =true)
