@@ -2,6 +2,21 @@
 var loading = true;
 var scrollPage = 1;
 
+var productExpantionPaging = function(page){
+	$.ajax({
+		url:"/customer/productPaging",
+		type:"get",
+		data:{
+			"page":page,
+			"cu_no":$("#product_cu_no").val()
+			},
+		success:function(data){
+			
+			console.log(data);
+		}
+	})
+}
+
 //productExpantion 무한 스크롤 함수
 var productExpantionScroll = function(page){
 	if(!loading){
@@ -380,7 +395,6 @@ $(document).on("click","#userpage_following",function(){
 
 //mypage my_img 클릭
 $(document).on("click","#mypage_my_img",function(){
-	console.log("good");
 	window.open("/customer/changeImg","_blank","height:300,width:300");
 })
 	
@@ -440,21 +454,21 @@ $(document).on("click","#join_email_check_start",function(){
 		data:{cu_email:$("#cu_email").val()},
 		success: function(data){
 			//이메일 중복 체크
-			if(data==0){
+			if(data==0 && $("#cu_email").val()!=""){
 				$("#join_email_warning").css({
 					"display":"none"
 				})
+				alert("인증번호가 발송되었습니다");
+				$("#join_email_check_hidden").css({
+					"visibility":"visible"
+				})
 				//이메일로 인증번호 발송
-				alert("인증번호를 발송했습니다");
 				$.ajax({
 					url:"/customer/checkSend",
 					method:"post",
 					data:{cu_email:$("#cu_email").val()},
 					success:function(data){
 						$("#join_email_check_true").val(data);
-						$("#join_email_check_hidden").css({
-							"visibility":"visible"
-						})
 					}
 				})
 			}else if(data!=0){
@@ -470,14 +484,13 @@ $(document).on("click","#join_email_check_start",function(){
 //join 회원 가입 버튼 클릭
 $(document).on("click","#join_button",function(){
 	var check=0;
-	
 	//id 중복 체크
 	$.ajax({
 		url:"/customer/idCheck",
 		method:"post",
 		data:{cu_id:$("#cu_id").val()},
 		success: function(data){
-			if(data==0){
+			if(data==0 && $("#cu_id").val()!=""){
 				$("#join_id_warning").css({
 					"display":"none"
 				})
@@ -497,7 +510,7 @@ $(document).on("click","#join_button",function(){
 		method:"post",
 		data:{cu_email:$("#cu_email").val()},
 		success: function(data){
-			if(data==0){
+			if(data==0 && $("#cu_email").val()!=""){
 				$("#join_email_warning").css({
 					"display":"none"
 				})
@@ -517,7 +530,7 @@ $(document).on("click","#join_button",function(){
 		method:"post",
 		data:{cu_nickname:$("#cu_nickname").val()},
 		success:function(data){
-			if(data==0){
+			if(data==0 && $("#cu_nickname").val()!=""){
 				$("#join_nickname_warning").css({
 					"display":"none"
 				})
@@ -532,7 +545,7 @@ $(document).on("click","#join_button",function(){
 	})
 	
 	//비밀번호 확인 체크
-	if($("#cu_pwd").val()!=$("#cu_pwd_check").val()){
+	if($("#cu_pwd").val()!=$("#cu_pwd_check").val() || $("#cu_pwd").val()==""){
 		check++;
 		$("#join_pwd_warning").css({
 			"display":"inline"
@@ -543,6 +556,7 @@ $(document).on("click","#join_button",function(){
 		});
 	}
 	//이메일 인증했는지 확인
+	console.log($("#join_email_check_warning").val());
 	if($("#join_email_check").val()!=$("#join_email_check_true").val()){
 		check++;
 		$("#join_email_check_warning").css({"display":"inline"});
@@ -611,6 +625,10 @@ $(document).on("click","#find_pwd_button", function() {
 	});
 })
 
+$(document).on("click",".product_paging_button",function(){
+	productExpantionPaging($(this).val());
+})
+
 $(document).ready(function() {
 	//무한 스크롤 페이지 불러오기
 	$(window).scroll(function(){
@@ -625,13 +643,13 @@ $(document).ready(function() {
 				boardExpantionScroll(scrollPage);
 			}else if(location.pathname=="/customer/feedExpantion"){
 				feedExpantionScroll(scrollPage);
-			}else if(location.pathname=="/customer/productExpantion"){
-				productExpantionScroll(scrollPage);
 			}
 		}
 	})
 })
 
 window.onload = function(){
-
+	if(location.pathname=="/customer/productExpantion"){
+		productExpantionPaging($(this).val());
+	}
 }

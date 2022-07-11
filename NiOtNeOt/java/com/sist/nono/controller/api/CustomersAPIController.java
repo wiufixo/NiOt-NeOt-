@@ -26,11 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
+import com.sist.nono.model.Product;
 import com.sist.nono.service.AddressService;
 import com.sist.nono.service.BoardService;
 import com.sist.nono.service.CustomerService;
 import com.sist.nono.service.FollowService;
 import com.sist.nono.service.LoginListService;
+import com.sist.nono.service.ProductService;
 import com.sist.nono.service.TransHistoryService;
 import com.sist.nono.service.WishService;
 
@@ -64,6 +66,9 @@ public class CustomersAPIController {
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	@Autowired
+	ProductService productService;
+	
 	@GetMapping("customer/feedLoad")
 	public ArrayList<Board> feedLoad(Model model,HttpServletRequest request) {
 		int page=Integer.parseInt(request.getParameter("page"));
@@ -84,8 +89,27 @@ public class CustomersAPIController {
 		return list;
 	}
 	
+	@GetMapping("customer/productPaging")
+	public ArrayList<Product> productPaging(HttpServletRequest request){
+		int page=Integer.parseInt(request.getParameter("page"));
+		int count=12*page;
+		int cu_no=Integer.parseInt(request.getParameter("cu_no"));
+		ArrayList<Product> list=new ArrayList<Product>();
+		
+		List<Product> list1=productService.findAllByCu_no(cu_no);
+		for(int i=count-12;i<count;i++) {
+			
+			if(i>=list1.size()) {
+				break;
+			}
+			
+			list.add(list1.get(i));
+		}
+		return list;
+	}
+	
 	@GetMapping("customer/boardLoad")
-	public ArrayList<Board> boardLoad(Model model,HttpServletRequest request) {
+	public ArrayList<Board> boardLoad(HttpServletRequest request) {
 		int page=Integer.parseInt(request.getParameter("page"));
 		//10개씩 호출
 		int count=page*10;

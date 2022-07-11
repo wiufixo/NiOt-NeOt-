@@ -19,11 +19,14 @@ import com.sist.nono.model.Address;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
+import com.sist.nono.model.Product;
 import com.sist.nono.service.AddressService;
 import com.sist.nono.service.BoardService;
 import com.sist.nono.service.CustomerService;
 import com.sist.nono.service.FollowService;
 import com.sist.nono.service.LoginListService;
+import com.sist.nono.service.ProductImageService;
+import com.sist.nono.service.ProductService;
 import com.sist.nono.service.TransHistoryService;
 import com.sist.nono.service.WishService;
 
@@ -53,6 +56,13 @@ public class CustomersController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	ProductService productService;
+	
+	@Autowired
+	ProductImageService productImageService;
+	
 
 	@PostMapping("customer/joinOK")
 	@Transactional
@@ -83,7 +93,7 @@ public class CustomersController {
 		a.setMain_adr_detail(address_detail);
 		
 		addressService.saveAddress(a);
-		return "customer/loginForm";
+		return "/";
 	}
 	
 	@GetMapping("customer/update")
@@ -99,17 +109,19 @@ public class CustomersController {
 	@GetMapping("customer/pageChoice")
 	public String pageChoice(Authentication auth, Model model,@RequestParam("user_no") int user_no) {
 		int cu_no=0;
+
+		model.addAttribute("user",customerService.findById(user_no));
+		model.addAttribute("followerNum",followService.countFollower(user_no));
+		model.addAttribute("followingNum",followService.countFollow(user_no));
+		model.addAttribute("transNum",transHistoryService.countTransHistory(user_no));
+		model.addAttribute("wishNum",wishService.countWish(user_no));
+		model.addAttribute("board",boardService.findAllByCu_no(user_no));
+		model.addAttribute("product",productService.findAllByCu_no(user_no));
 		
 		//로그인하지 않고 유저페이지로 들어갈 때
 		if(auth==null) {
 			model.addAttribute("customer",customerService.findById(cu_no));
-			model.addAttribute("user",customerService.findById(user_no));
 			model.addAttribute("checkFollow",followService.checkFollow(cu_no, user_no));
-			model.addAttribute("followerNum",followService.countFollower(user_no));
-			model.addAttribute("followingNum",followService.countFollow(user_no));
-			model.addAttribute("transNum",transHistoryService.countTransHistory(user_no));
-			model.addAttribute("wishNum",wishService.countWish(user_no));
-			model.addAttribute("board",boardService.findAllByCu_no(user_no));
 			
 			return "customer/userpage";
 		}
@@ -119,29 +131,16 @@ public class CustomersController {
 		//유저가 자신의 유저페이지로 들어갈 때
 		if(user_no==cu_no) {
 			model.addAttribute("customer",customerService.findById(cu_no));
-			model.addAttribute("followerNum",followService.countFollower(cu_no));
-			model.addAttribute("followingNum",followService.countFollow(cu_no));
-			model.addAttribute("transNum",transHistoryService.countTransHistory(cu_no));
-			model.addAttribute("wishNum",wishService.countWish(cu_no));
-			model.addAttribute("board",boardService.findAllByCu_no(cu_no));
 			
 			return "customer/mypage";
 		
 		//다른 유저의 유저페이지로 들어갈 때
 		}else if(user_no!=cu_no) {
-			
-			List<Board> board = boardService.findAllByCu_no(user_no);
 			model.addAttribute("customer",customerService.findById(cu_no));
-			model.addAttribute("user",customerService.findById(user_no));
 			model.addAttribute("checkFollow",followService.checkFollow(cu_no, user_no));
-			model.addAttribute("followerNum",followService.countFollower(user_no));
-			model.addAttribute("followingNum",followService.countFollow(user_no));
-			model.addAttribute("transNum",transHistoryService.countTransHistory(user_no));
-			model.addAttribute("wishNum",wishService.countWish(user_no));
-			model.addAttribute("board",board);
+			
 			return "customer/userpage";
 		}
-		
 		return "OK";
 	}
 
@@ -169,7 +168,7 @@ public class CustomersController {
 		customerService.saveCustomer(c);
 		addressService.saveAddress(a);
 		
-		return "/index";
+		return "/";
 	}
 	
 	@PostMapping("customer/deleteCustomer")
@@ -197,6 +196,8 @@ public class CustomersController {
 			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
 		}
 		
+		model.addAttribute("customer",customerService.findById(user_no));
+		model.addAttribute("product",productService.findAllByCu_no(user_no));
 		
 		return "customer/productExpantion";
 	}
