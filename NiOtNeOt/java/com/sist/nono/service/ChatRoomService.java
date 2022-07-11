@@ -21,6 +21,10 @@ public class ChatRoomService {
 		repository.save(cr);
 	}
 	
+	public void create(int cu_no, int bcu_no, int pr_no) {
+		repository.createChatRoom(cu_no, bcu_no, pr_no);
+	}
+	
 	public void delete(int cr_no) {
 		repository.deleteById(cr_no);
 	}

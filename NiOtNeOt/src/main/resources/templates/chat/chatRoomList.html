@@ -19,8 +19,9 @@
 		</tr>
 
 		<tr th:each="cr : ${roomlist}">
-			<td th:text="${cr.cr_no}"></td>
-			<td th:text="${cr.user.cu_no}"></td>
+			<td><a th:href="@{'/chat/'+${cr.cr_no}}"
+				th:text="${cr.cr_no}"></a></td>
+			<td th:text="${cr.customer.cu_no}"></td>
 			<td th:text="${cr.cr_no}"></td>
 			<td th:text="${cr.bcu_no}"></td>
 			<td th:text="${cr.cr_created}"></td>

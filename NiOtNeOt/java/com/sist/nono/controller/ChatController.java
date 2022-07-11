@@ -30,25 +30,24 @@ public class ChatController {
 	@Autowired		// 유저 번호를 상태유지 받아와서 쓸 것인지 객체로 보낼 것인지 미정
 	private CustomerService service3;
 
-	@GetMapping("/chat")
-	public String listChat(Model model, Authentication auth) {
-		model.addAttribute("chattingroom", service2.findOne(1));
+	@GetMapping("/chat/{cr_no}")	//	채팅방 번호와 유저 ID를 상태유지하여 채팅창으로 보낸다 
+	public String listChat(Model model, Authentication auth,@PathVariable int cr_no) {
+		model.addAttribute("chattingroom", service2.findOne(cr_no));
 		model.addAttribute("user", service3.findByCu_id(auth.getName()));
-		System.out.println("컨트롤러에서 보내는 값 "+service2.findOne(1));
 		return "chat/chat.html";
 	}
 
 	@ResponseBody
 	@RequestMapping("/refreshChat")
-	public List<Chat> refreshChat() {
-		List<Chat> list = service.findAll(1);
+	public List<Chat> refreshChat(int cr_no) {
+		List<Chat> list = service.findAll(cr_no);
 		return list;
 	}
-
-	@RequestMapping("/insertChat")
-	public ModelAndView insertChat(int cu_no, int cr_no, String ch_content) {
+	
+	@ResponseBody
+	@PostMapping("insertChat")
+	public String insertChat(int cu_no, int cr_no, String ch_content) {
 		service.insertChat(cu_no, cr_no, ch_content);
-		ModelAndView mav = new ModelAndView("redirect:/listChat");
-		return mav;
+		return "메시지 DB로 송신";
 	}
 }

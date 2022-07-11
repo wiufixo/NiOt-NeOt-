@@ -11,12 +11,18 @@ var btnLogin = getId('btnLogin');
 var btnSend = getId('btnSend');
 var talk = getId('talk');
 var msg = getId('msg');
- 
-$(function() {
-	ws = new WebSocket("ws://" + location.host + "/chatt");	// 양방향 통신용 웹소켓 생성
 
+ws = new WebSocket("ws://" + location.host + "/chatt"+"/"+$("#cr_no").val());	// 양방향 통신용 웹소켓 생성
+
+$(function() {
+	var crn = $("#cr_no").val();
+	
+	var cr_no_json = {
+		"cr_no": crn
+	};
 	$.ajax({
 		url: "/refreshChat",
+		data: cr_no_json,
 		success: function(data) {
 			$.each(data, function(index, item) {
 				var css;
@@ -38,6 +44,25 @@ $(function() {
 	});
 })
 
+
+ws.onmessage = function(msg) {
+	var data = JSON.parse(msg.data);
+	var css;
+	if (data.cu_id == cu_id.value) { // 자신 아이디인지 상대 아이디인지에 따라 적용되는 CSS를 달리 함
+		css = 'class=me';
+	} else {
+		css = 'class=other';
+	}
+
+	var item = `<div ${css} >
+			                <span><b>${data.cu_id}</b></span> [ ${data.date} ]<br/>
+	                      <span>${data.msg}</span>
+							</div>`;
+
+	talk.innerHTML += item;
+	talk.scrollTop = talk.scrollHeight; //스크롤바 하단으로 이동
+}
+
 msg.onkeyup = function(ev) {	// 엔터 키로 전송 가능
 	if (ev.keyCode == 13) {
 		send();
@@ -48,7 +73,8 @@ btnSend.onclick = function() {	// 전송 버튼으로 전송 가능
 	send();
 }
 
-function send() {
+function insert() {
+	console.log("send 버튼 작동");
 	var cuno = $("#cu_no").val();
 	var crn = $("#cr_no").val();
 	var ms = $("#msg").val();
@@ -58,37 +84,27 @@ function send() {
 		, "cr_no": crn
 		, "ch_content": ms
 	};
-
-	$.ajax({
+	$.ajax({            
+		type : "POST",
 		url: "/insertChat",
-		method: "post",
 		data: data,
-		success: function() {
-			console.log("메시지 DB로 송신");
+		success: function(message) {
+			console.log(message);
 		}
 	})
+}
+
+function send() {
+	insert();
 
 	if (msg.value.trim() != '') {
 		data.cu_id = getId('cu_id').value;
 		data.msg = msg.value;
 		data.date = new Date().toLocaleString();
 		var temp = JSON.stringify(data);
+		console.log(temp);
 		ws.send(temp);
 	}
 
-	var css;
-	if (data.cu_id == cu_id.value) { // 자신 아이디인지 상대 아이디인지에 따라 적용되는 CSS를 달리 함
-		css = 'class=me';
-	} else {
-		css = 'class=other';
-	}
-
-	var item = `<div ${css} >
-		                <span><b>${data.cu_id}</b></span> [ ${data.date} ]<br/>
-                      <span>${data.msg}</span>
-						</div>`;
-
-	talk.innerHTML += item;
-	talk.scrollTop = talk.scrollHeight; //스크롤바 하단으로 이동
 	msg.value = ''; // 메시지 텍스트창 비우기
 }
