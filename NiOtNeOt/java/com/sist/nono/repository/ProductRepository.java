@@ -13,4 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
+	@Query(value = "select * from product where cu_no=?1", nativeQuery = true)
+	List<Product> findAllByCu_no(int cu_no);
+	
 }

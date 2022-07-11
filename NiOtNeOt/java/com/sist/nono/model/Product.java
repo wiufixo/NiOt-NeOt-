@@ -40,7 +40,7 @@ public class Product {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cu_no")
-	private User user;
+	private Customer customer;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ca_no")

@@ -37,7 +37,7 @@ public class ProductImage {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cu_no")
-	private User user; //회원번호
+	private Customer customer; //회원번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="pr_no")

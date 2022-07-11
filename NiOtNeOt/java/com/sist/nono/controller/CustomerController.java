@@ -50,6 +50,6 @@ public class CustomerController {
 			request.getSession().setAttribute("prevPage", uri);
 		}
 		
-		return "customer/loginForm";
+		return "/";
 	}
 }

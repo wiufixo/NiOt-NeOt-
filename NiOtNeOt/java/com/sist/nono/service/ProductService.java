@@ -38,4 +38,7 @@ public class ProductService {
 		return repository.findById(pr_no);
 	}
 	
+	public List<Product> findAllByCu_no(int cu_no){
+		return repository.findAllByCu_no(cu_no);
+	}
 }
