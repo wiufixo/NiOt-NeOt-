@@ -16,6 +16,11 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerService service;
+	
+	@GetMapping("/index")
+	public String join() {
+		return "/index";
+	}
 
 	@GetMapping("customer/join")
 	public String join(Model model) {

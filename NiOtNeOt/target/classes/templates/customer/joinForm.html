@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <head>
         <title>회원가입</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -82,7 +83,7 @@
                                 <li>
 	                                <span>닉네임</span>
 	                                <input type="text" name="cu_nickname" id="cu_nickname" placeholder="필수 입력 칸입니다.">
-	 								<div class="sub_massage" id="join_nickname_warning"><div class="red_warning">비밀번호가 다릅니다</div></div>
+	 								<div class="sub_massage" id="join_nickname_warning"><div class="red_warning">이미 존재하는 닉네임입니다</div></div>
                                 </li>
                                 <li class="email">
                                     <span>이메일</span><!--

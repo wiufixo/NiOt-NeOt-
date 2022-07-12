@@ -65,6 +65,15 @@ public class CustomersController {
 	@Autowired
 	ProductImageService productImageService;
 	
+	@PostMapping("customer/wishSave")
+	public void wishSave(HttpServletRequest request) {
+		Wish wish = new Wish();
+		wish.setProduct((Product) productService.findById(Integer.parseInt(request.getParameter("pr_no")))); 
+		wish.setCustomer(customerService.findById(Integer.parseInt(request.getParameter("cu_no")))); 
+		
+		wishService.saveWish(wish);
+	}
+	
 
 	@PostMapping("customer/joinOK")
 	@Transactional
@@ -95,7 +104,7 @@ public class CustomersController {
 		a.setMain_adr_detail(address_detail);
 		
 		addressService.saveAddress(a);
-		return "/";
+		return "/index";
 	}
 	
 	@GetMapping("customer/update")

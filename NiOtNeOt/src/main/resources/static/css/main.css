@@ -28,7 +28,7 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 /*개인정보 입력 페이지*/
 .content{display: flex; width: 100%; height: 100%; align-items: center; justify-content: center;}
 .content .backboard{padding: 80px 100px; display: flex; flex-direction: row; flex-wrap: wrap; margin: 10px 0 0 0; width: 800px; background: #d9e7e7; border-radius: 30px; justify-content: center; align-items: center;}
-.content .backboard ul{width: 800px;}
+.content .backboard ul{width: 900px;}
 .content .backboard ul li{display: inline-block; font-size: 18px;}
 .content .backboard ul li input,
 .content .backboard ul li select{margin: 6px 10px; padding: 4px 8px; border: none; border-radius: 4px;}
