@@ -47,7 +47,7 @@
 		</div>
 		<div class="modal-footer">
 			<button type="button" id="btnModalCancel" class="btn btn-default waves-effect waves-light" data-dismiss="modal">취소하기</button>
-			<button type="button" id="btnCommentUpdate" class="btn btn-primary waves-effect waves-light" onclick="updateComment()">수정하기</button>
+			<button type="button" id="btnCommentUpdate" class="btn btn-primary waves-effect waves-light" onclick="fcupdate()">수정하기</button>
 		</div>
 	
 	
@@ -133,10 +133,14 @@
 				<ul class="notice-list" th:each="fc:${f.feedComment}">
 					<li><span class="name">Betty Simmons</span> <span
 						class="desc" th:text="${fc.fc_comment}">There are new
-							settings available</span> <span class="time"> <span id="my_span"
+							settings available</span> <span class="time"> 
+							
+							<span id="my_span"
 							th:text="${fc.fc_created }"></span> <span
-							class="btn btn-xs btn-circle "><i>삭제</i></span> <span
-							class="btn btn-xs btn-circle "><i>수정</i></span>
+							class="btn btn-xs btn-circle "><i th:onclick="fcdelete([[${f.f_no}]] , [[${fc.fc_no]])" class="fa fa-close" aria-hidden="true"></i></span> <span
+							class="btn btn-xs btn-circle "><i th:onclick="openModal([[${fc.fc_no}]],[[${fc.fc_fc_comment}]])" class="glyphicon glyphicon-pencil" aria-hidden="true"></i></span>
+							
+				
 					</span></li>
 				</ul>
 			</form>

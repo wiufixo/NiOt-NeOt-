@@ -93,16 +93,28 @@ var fupdate = function() {
 
 
 
+
+
+
+let openModal=function(fc_no,fc_comment) {
+	alert("모달 동작함")
+	$("#commentModal").modal("toggle");
+	
+	document.getElementById("modalContent").value = fc_comment;
+	
+	document.getElementById("btnCommentUpdate").setAttribute("onclick","fcupdate("+fc_no+")");
+}
+
 var fcupdate = function(fc_no) {
-	var f_no = $("#f_no").text();
-	var fc_comment2 = $("#fc-comment2").val();
+	var f_no = $("#f_no").val();
+
 
 	console.log(f_no);
 	console.log(fc_no);
 	console.log(fc_comment2);
 	var data = {
 		fc_no: fc_no,
-		fc_comment: fc_comment2
+		fc_comment: $("#modalContent").val();
 	}
 
 	console.log(data);
@@ -118,16 +130,6 @@ var fcupdate = function(fc_no) {
 	}).fail(function(error) {
 		alert(JSON.stringify(error));
 	});
-}
-
-var fcmove = function(fc_no, fc_comment) {
-	alert("버튼 동작함")
-	console.log(fc_no)
-	console.log(fc_comment)
-	$("#fc-comment2").css("display", "inline")
-	$("#fc-update").css("display", "inline")
-	document.getElementById("fc-comment2").value = fc_comment;
-	document.getElementById("fc-update").setAttribute("onclick", "fcupdate(" + fc_no + ")");
 }
 
 
@@ -152,6 +154,12 @@ $(document).ready(function() {
 	})
 }
 	
+
+	
+	
+	
+//-----------------------------------------------------------------------------------------------------------	
+$(document).ready(function() {
 
 	let f_no = $("#f_no").text(); //피드 	번호 (f_no),div(text())
 	let fc_no = $("fc_no").val(); //피드 댓글 번호 (fc_no),input(val())
