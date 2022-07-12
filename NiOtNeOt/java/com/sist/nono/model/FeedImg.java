@@ -1,5 +1,7 @@
 package com.sist.nono.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -32,9 +36,18 @@ public class FeedImg {
 	@Column(nullable = false, length = 30 )
 	private String fi_name;
 	
-	@Transient 
-	//컬럼 생성 x
-	private MultipartFile uploadFile;
+	private String original_name;
+	
+	private String save_name;
+	
+	private int size;
+	
+	@Column(updatable = false )
+	@CreationTimestamp // sysdate 과 같은 뜻
+	private LocalDateTime fi_created = LocalDateTime.now();
+
+	@UpdateTimestamp
+	private LocalDateTime fi_updated = LocalDateTime.now();
 	
 //--------------------------------------------------------	
 	//Feed Join

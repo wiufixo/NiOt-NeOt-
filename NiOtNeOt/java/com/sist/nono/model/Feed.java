@@ -68,6 +68,8 @@ public class Feed {
 
 	@Column(nullable = false)
 	private int f_hit;
+	
+	private String isFileChanged;
 
 	
 //	@Enumerated(EnumType.STRING)
@@ -88,23 +90,23 @@ public class Feed {
 	//나머지는 fetch = FetchType.LAZY 을 쓰는것이 좋다.
 	
 	// Comment Join
-	@OneToMany(mappedBy = "feed", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE )	
+	@OneToMany(mappedBy = "feed", fetch = FetchType.EAGER,cascade = CascadeType.ALL )	
 	@JsonIgnoreProperties({"feed"})
 	@OrderBy("fc_no")
 	private List<FeedComment> feedComment;
 	
 	// Img Join
-	@OneToMany(mappedBy = "feed", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "feed", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"feed"})
 	private List<FeedImg> feedImg;
 	
 	// Tag Join
-	@OneToMany(mappedBy = "feed", fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "feed", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"feed"})
 	private List<FeedTag> feedTag;
 	
 	//Sticker Join
-	@OneToMany(mappedBy = "feed",fetch =FetchType.LAZY,cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "feed",fetch =FetchType.LAZY,cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"feed"})
 	private List<FeedSticker> feedSticker;
 

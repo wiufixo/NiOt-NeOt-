@@ -92,7 +92,14 @@ public class FeedService {
 	public void deleteFeed(int f_no) {
 		fr.deleteById(f_no);
 	}
-
+	
+	
+	//해당 Feed 조회수 증가
+	@Transactional
+	public void increaseHit(int f_no) {
+		fr.increaseHit(f_no);
+	}
+	
 //------------------------------------------------------------------------------------------	
 	// Feed 댓글 등록
 	public void insertFeedComment(int f_no, FeedComment f_Comment) {

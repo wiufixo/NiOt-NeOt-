@@ -93,7 +93,15 @@ public class FeedAPIController {
 	@RequestMapping(value = "/feed/updateComment/{f_no}") 
 	public ResponseDTO<Integer> updateComment(@PathVariable int f_no, @RequestBody FeedComment fc){
 		System.out.println("데이터 전달 됨");
+		System.out.println("f_no" + f_no);
 		System.out.println(fc);
+		
+		Feed feed = new Feed();
+		
+		feed.setF_no(f_no);
+		
+		fc.setFeed(feed);
+		
 		fs.updateFeedComment(fc);
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(),1);
 	

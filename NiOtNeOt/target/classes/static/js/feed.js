@@ -45,46 +45,26 @@ var fcsave = function() {
 
 }
 
-let fdelete = function(f_no) {
-	alert("함수동작")
-	console.log(f_no)
-	if (confirm(f_no + "번 게시글을 삭제 할까요??")) {
 
-		$.ajax({
-			url: "/feed/deleteSubmit/" + f_no,
-			type: "DELETE",
-
-		}).done(function(resp) {
-			alert("피드 삭제를 성공하였습니다!");
-			console.log(resp)
-			location.href = "/feed/list";
-		}).fail(function(error) {
-			alert(error);
-		})
-	}
-}
-
+		
 var fcdelete = function(f_no, fc_no) {
 	alert("함수 동작함")
-	
-	if(!confirm("댓글을 삭제하시곘습니까??")) {
-		return false;
-	}
 
 	console.log(f_no);
 	console.log(fc_no)
 
 	$.ajax({
 		url: `/feed/deleteComment/${f_no}/${fc_no}`,
-		type: "DELETE",
-		dataType: "json"
-		}).done(function(resp){
-			
-			alert("댓글 삭제를 성공하였습니다!");
-			window.location.reload();
-		}).fail(function(error) {
-			alert(JSON.stringify(error));
-		})	
+		type: "POST",
+		dataType: "json",
+		success: function(re) {
+			alert("성공")
+			console.log(f_no);
+
+			location.href = `/feed/detailFeed/${f_no}`
+		}
+
+	})
 }
 
 var fupdate = function() {
@@ -105,47 +85,48 @@ var fupdate = function() {
 		data: data,
 		success: function() {
 			alert("피드 수정 성공")
-			location.href = "/feed/detailFeed/" + f_no;
+				location.href = "/feed/detailFeed/"+f_no;
 		}
 	});
 }
 
 
 
-var openModal=function(fc_no, fc_comment) {
+
+
+
+
+let openModal=function(fc_no,fc_comment) {
 	alert("모달 동작함")
 	$("#commentModal").modal("toggle");
-
+	
 	document.getElementById("modalContent").value = fc_comment;
-
-	document.getElementById("btnCommentUpdate").setAttribute("onclick", "fcupdate(" + fc_no + ")");
+	
+	document.getElementById("btnCommentUpdate").setAttribute("onclick","fcupdate("+fc_no+")");
 }
 
-var fcupdate=function(fc_no) {
+var fcupdate = function(fc_no) {
 	var f_no = $("#f_no").val();
-	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
+
+
 	console.log(f_no);
 	console.log(fc_no);
 	var data = {
-		f_no: f_no,
+		f_no:f_no,
 		fc_no: fc_no,
 		fc_comment: $("#modalContent").val()
 	}
 
-
 	console.log(data);
 	$.ajax({
 		url: `/feed/updateComment/${f_no}`,
-		type: "PATCH",
-		headers:headers,
+		type: "PUT",
 		data: JSON.stringify(data),
+		contentType: "application/json; charset=utf-8",
 		dataType: "json"
 	}).done(function(resp) {
-		console.log(resp);
-		$("#commentModal").modal("hide");
 		alert("댓글수정을 성공하였습니다!");
-		
-		//window.location.reload();
+		location.href = `/feed/detailFeed/${f_no}`
 	}).fail(function(error) {
 		alert(JSON.stringify(error));
 	});
@@ -154,17 +135,29 @@ var fcupdate=function(fc_no) {
 
 
 
+$(document).ready(function() {
+	
+	
+	let fdelete=function(f_no) {
+	alert("함수동작")
+	console.log(f_no)
+	$.ajax({
+		url: "/feed/deleteSubmit/" + f_no,
+		type: "DELETE",
 
+	}).done(function(resp) {
+		alert("피드 삭제를 성공하였습니다!");
+		console.log(resp)
+		location.href = "/feed/list";
+	}).fail(function(error) {
+		alert(error);
+	})
+}
+	
 
-
-
-
-
-
-
-
-
-
+	
+	
+	
 //-----------------------------------------------------------------------------------------------------------	
 $(document).ready(function() {
 
@@ -178,10 +171,10 @@ $(document).ready(function() {
 		fsave();
 
 	})
-	//	$("#feed-delete").on("click", function() {
-	//		console.log("버튼 작동")
-	//		fdelete();
-	//	})
+//	$("#feed-delete").on("click", function() {
+//		console.log("버튼 작동")
+//		fdelete();
+//	})
 
 
 	$("#feed-update").on("click", function() {
@@ -217,6 +210,8 @@ $(document).ready(function() {
 		alert("버튼 동작함")
 		fcupdate();
 	})
+
+})
 
 })
 

@@ -16,13 +16,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.nono.model.BoardFile;
+import com.sist.nono.model.FeedImg;
 import com.sist.nono.repository.BoardRepository;
+import com.sist.nono.repository.FeedRepository;
 
 @Component
-public class FileUploadDTO {
+public class FeedFileUpload {
 	
 	@Autowired
-	private BoardRepository boardRepository;
+	private FeedRepository feedRepository;
 	
 	/** 오늘 날짜 */
 	private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
@@ -41,10 +43,10 @@ public class FileUploadDTO {
 	/**
 	 * 서버에 첨부 파일을 생성하고, 업로드 파일 목록 반환
 	 * @param files    - 파일 Array
-	 * @param b_no - 게시글 번호
+	 * @param f_no - 게시글 번호
 	 * @return 업로드 파일 목록
 	 */
-	public List<BoardFile> uploadFiles(List<MultipartFile> files, int b_no) {
+	public List<FeedImg> uploadFiles(List<MultipartFile> files, int f_no) {
 
 		/* 파일이 비어있으면 비어있는 리스트 반환 */
 		if (files.get(0).getSize() < 1) {
@@ -52,12 +54,16 @@ public class FileUploadDTO {
 		}
 
 		/* 업로드 파일 정보를 담을 비어있는 리스트 */
-		List<BoardFile> fileList = new ArrayList<>();
+		List<FeedImg> fileList = new ArrayList<>();
 
 		/* uploadPath에 해당하는 디렉터리가 존재하지 않으면, 부모 디렉터리를 포함한 모든 디렉터리를 생성 */
 		File dir = new File(uploadPath);
+		/*"C:/develop/upload/today(오늘날짜) 와 같은 패턴의 디렉토리(폴더) 생성*/ 
 		if (dir.exists() == false) {
+			/* exists : 경로가 존재하는지 확인 한 후 없으면(false) 해당경로에 만들어준다.*/
 			dir.mkdirs();
+			/* mkdir() : 한번에 하나의 디렉토리만 생성*/
+			/* mkdirs() : 한번에 여러개의 디렉토리 생성*/
 		}
 
 		/* 파일 개수만큼 forEach 실행 */
@@ -73,16 +79,15 @@ public class FileUploadDTO {
 				file.transferTo(target);
 
 				/* 파일 정보 저장 */
-				BoardFile bf = new BoardFile();
-				bf.setBoard(boardRepository.findById(b_no).orElseThrow(()->{
-					return new IllegalArgumentException("글 찾기 실패: 글번호를 찾을 수 없습니다!");
+				FeedImg feedImg = new FeedImg();
+				feedImg.setFeed(feedRepository.findById(f_no).orElseThrow(()->{
+					return new IllegalArgumentException("피드 찾기 실패: 피드 번호를 찾을 수 없습니다!");
 				}));
-				bf.setOriginal_name(file.getOriginalFilename());
-				bf.setSave_name(saveName);
-				bf.setSize((int)file.getSize());
-
+				feedImg.setOriginal_name(file.getOriginalFilename());
+				feedImg.setSave_name(saveName);
+				feedImg.setSize((int)file.getSize());
 				/* 파일 정보 추가 */
-				fileList.add(bf);
+				fileList.add(feedImg);
 
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
