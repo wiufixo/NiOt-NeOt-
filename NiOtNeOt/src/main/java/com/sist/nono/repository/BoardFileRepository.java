@@ -19,5 +19,6 @@ public interface BoardFileRepository extends JpaRepository<BoardFile, Integer> {
 	@Modifying
 	@Query(value = "delete from boardFile where b_no=?1", nativeQuery = true)
 	public int deleteFile(int b_no);
+	
 
 }

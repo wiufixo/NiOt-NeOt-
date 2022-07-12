@@ -1,263 +1,180 @@
 package com.sist.nono.service;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sist.nono.auth.PrincipalDetail;
+import com.sist.nono.dao.BoardDao;
+import com.sist.nono.dto.BoardDto;
 import com.sist.nono.dto.FileUploadDTO;
+import com.sist.nono.exception.CustomException;
+import com.sist.nono.exception.ErrorCode;
 import com.sist.nono.model.Board;
-import com.sist.nono.model.BoardComment;
 import com.sist.nono.model.BoardFile;
 import com.sist.nono.model.Customer;
-import com.sist.nono.model.RoleType;
 import com.sist.nono.model.User;
-import com.sist.nono.paging.PaginationInfo;
-import com.sist.nono.repository.BoardCommentRepository;
+import com.sist.nono.paging.CommonParams;
+import com.sist.nono.paging.Pagination;
 import com.sist.nono.repository.BoardFileRepository;
 import com.sist.nono.repository.BoardRepository;
-import com.sist.nono.repository.CustomerRepository;
 import com.sist.nono.repository.UserRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class BoardService {
-	
+
 	@Autowired
-	private BoardRepository repository;
-	
-	@Autowired
-	private BoardCommentRepository commentRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private CustomerRepository customerRepository;
-	
+	private BoardRepository boardRepository;
+
 	@Autowired
 	private BoardFileRepository fileRepository;
-	
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private BoardDao dao;
+
 	@Autowired
 	private FileUploadDTO fu;
-	
-	//!!!!송승민 만듦!!!
-	public List<Board> findAllByCu_no(int cu_no){
-		return repository.findAllByCu_no(cu_no);
-	}
-	//
-	
+
+
 	@Transactional
-	public Board save(Board board, Customer customer) {
-		customer = customerRepository.findById(2).get();
-		board.setB_hit(0);
-		board.setB_ref(board.getB_no());
-		board.setB_step(0);
-		board.setB_level(0);
+	public void delete(int b_no) {
+		boardRepository.deleteById(b_no);
+	}
+
+
+	@Transactional
+	public void update(Board r_board, List<MultipartFile> files, List<Integer> fileNo) {
+
+		int b_no = r_board.getB_no();
+		Board board = boardRepository.findById(b_no)
+				.orElseThrow(()->{
+					return new IllegalArgumentException("글 찾기 실패: 글번호를 찾을 수 없습니다!");
+				}); //영속화 완료
+		board.setB_title(r_board.getB_title());
+		board.setB_content(r_board.getB_content());
+		boardRepository.update(board.getB_title(), board.getB_content(), board.getB_no());
+
+		List<BoardFile> bf = fileRepository.findAllByBoard(b_no);
+		for(BoardFile file : bf) {
+			int bf_no = file.getBf_no();
+			if(!fileNo.contains(bf_no)) {
+				fileRepository.deleteById(bf_no);
+			}
+		}
+		
+		List<BoardFile> fileList = fu.uploadFiles(files, b_no);
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			for(BoardFile file : fileList) {
+				fileRepository.save(file);
+			}
+		}
+	}
+
+
+	@Transactional
+	public void save(Board board, List<MultipartFile> files, Customer customer) {
+	//	board.setUser(userRepository.findById(2).orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND)));
 		board.setCustomer(customer);
-		Board b = repository.save(board);
-		int b_ref = b.getB_no();
-		b.setB_ref(b_ref);
-//		System.out.println(board);
-//		System.out.println(user);
-//		System.out.println("**********************save1");
-		return b; 
-	}
-	
-	@Transactional
-	public void save(Board board, Customer customer, List<MultipartFile> files) {
-		
-		Board b = save(board, customer);
-		if(b != null) {
-			List<BoardFile> fileList = fu.uploadFiles(files, b.getB_no());
-			System.out.println(fileList);
-			if (CollectionUtils.isEmpty(fileList) == false) {
-				for(BoardFile bf : fileList) {
-					fileRepository.save(bf);
-					System.out.println("bf="+bf);
-				}
+		Board b = boardRepository.save(board);
+		List<BoardFile> fileList = fu.uploadFiles(files, b.getB_no()); //공파일을 제외한 multipartfile 리스트 반환
+		if (CollectionUtils.isEmpty(fileList) == false) {
+			for(BoardFile bf : fileList) {
+				fileRepository.save(bf);
 			}
 		}
-		
-//		System.out.println(board);
-//		System.out.println(b);
-//		System.out.println(user);
-//		System.out.println(files);
-//		System.out.println("**********************save2");
-		
-//		user = userRepository.findById(2).get();
-//		board.setB_hit(0);
-//		board.setB_ref(board.getB_no());
-//		board.setB_step(0);
-//		board.setB_level(0);
-//		board.setUser(user);
-//		int b_ref = repository.save(board).getB_no();
-//		board.setB_ref(b_ref);
 	}
 	
-	@Transactional
-	public void update(int b_no, Board r_board, List<MultipartFile> files) {
-		
-		Board board = repository.findById(b_no)
-				.orElseThrow(()->{
-					return new IllegalArgumentException("글 찾기 실패: 글번호를 찾을 수 없습니다!");
-				}); //영속화 완료
-		board.setB_title(r_board.getB_title());
-		board.setB_content(r_board.getB_content());
-		
-		int re = repository.boardUpdate(board.getB_title(), board.getB_content(), board.getB_no());
-		if(re==1) {
-			String isFileChanged = r_board.getIsFileChanged();
-			
-			if(isFileChanged.equals("Y")) {
-				if(board.getBoardFile() != null) {
-//					fileRepository.deleteFile(b_no);
-					
-				}
-			}
-			List<BoardFile> fileList = fu.uploadFiles(files, b_no);
-			if (CollectionUtils.isEmpty(fileList) == false) {
-				board.setBoardFile(fileList);
-//				for(BoardFile bf : fileList) {
-//					fileRepository.save(bf);
-//					System.out.println("bf="+bf);
-//				}
-			}
-		}
-		System.out.println("*******3개서비스**********");
-	} 
-	@Transactional
-	public void update(int b_no, Board r_board) {
-		
-		Board board = repository.findById(b_no)
-				.orElseThrow(()->{
-					return new IllegalArgumentException("글 찾기 실패: 글번호를 찾을 수 없습니다!");
-				}); //영속화 완료
-		board.setB_title(r_board.getB_title());
-		board.setB_content(r_board.getB_content());
-		int re = repository.boardUpdate(board.getB_title(), board.getB_content(), board.getB_no());
-		
-		if(re==1) {
-			String isFileChanged = r_board.getIsFileChanged();
-			
-			if(isFileChanged.equals("Y")) {
-				fileRepository.deleteFile(b_no);
-			}
-		}
-		System.out.println("*******2개서비스**********");
-		System.out.println(board);
-		System.out.println("*****************");
-	} 
-	
-//	@Transactional
-//	public void save(Board board, User user) {
-//		board.setB_hit(0);
-//		board.setB_ref(board.getB_no());
-//		board.setB_step(0);
-//		board.setB_level(0);
-//		board.setUser(user);
-//		int b_ref = repository.save(board).getB_no();
-//		board.setB_ref(b_ref);
-//	}
-
-//	@Transactional(readOnly = true)
-//	public List<Board> findAll(PaginationInfo pagination) {
-//		
-//		List<Board> list = null;
-//		
-//		if(pagination.getSearchType().equals("tc")) {
-//			list = repository.searchByTitleAndContent(pagination.getSearchKeyword(), pagination.getStartIndex(), pagination.getPageSize());
-//		}else if(pagination.getSearchType().equals("t")) {
-//			list = repository.searchByTitle(pagination.getSearchKeyword(), pagination.getStartIndex(), pagination.getPageSize());
-//		}else if(pagination.getSearchType().equals("c")) {
-//			list = repository.searchByContent(pagination.getSearchKeyword(), pagination.getStartIndex(), pagination.getPageSize());
-//		}else if(pagination.getSearchType().equals("w")) {
-//			list = repository.searchByUser(pagination.getSearchKeyword(), pagination.getStartIndex(), pagination.getPageSize());
-//		}else if(pagination.getSearchType().equals("bc")) {
-//			list = repository.searchByComment(pagination.getSearchKeyword(), pagination.getStartIndex(), pagination.getPageSize());
-//		}else {
-//			list = repository.selectBoardList(pagination.getStartIndex(), pagination.getPageSize());
-//		}
-//		return list;
-//	}
-	@Transactional(readOnly = true)
-	public List<Board> findAll(int startIndex, int pageSize) {
-		return repository.selectBoardList(startIndex, pageSize);
-	}
-	
-	@Transactional(readOnly = true)
-	public int getTotalRecordCnt() {
-		return repository.getTotalRecordCnt();
-	}
-//	@Transactional(readOnly = true)
-//	public int getTotalRecordCnt(PaginationInfo pagination) {
-//		
-//		int tot = 0;
-//		
-//		if(pagination.getSearchType().equals("tc")) {
-//			tot = repository.getTotalRecordCnt1(pagination.getSearchKeyword());
-//		}else if(pagination.getSearchType().equals("t")) {
-//			tot = repository.getTotalRecordCnt2(pagination.getSearchKeyword());
-//		}else if(pagination.getSearchType().equals("c")) {
-//			tot = repository.getTotalRecordCnt3(pagination.getSearchKeyword());
-//		}else if(pagination.getSearchType().equals("w")) {
-//			tot = repository.getTotalRecordCnt4(pagination.getSearchKeyword());
-//		}else if(pagination.getSearchType().equals("bc")) {
-//			tot = repository.getTotalRecordCnt5(pagination.getSearchKeyword());
-//		}else {
-//			tot = repository.getTotalRecordCnt();
-//		}
-//		return tot;
-//	}
-
 	
 	@Transactional
 	public void increaseHit(int b_no) {
-		repository.increaseHit(b_no);
+		boardRepository.increaseHit(b_no);
 	}
-	
+
 	
 	@Transactional(readOnly = true)
-	public Board findById(int b_no) {
-		return repository.findById(b_no).orElseThrow(()->{
-			return new IllegalArgumentException("글 상세보기 실패: 글번호를 찾을 수 없습니다!");
-			});
+	public Board getBoard(int b_no) {
+		return boardRepository.findById(b_no).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
 	}
-	
-	@Transactional
-	public void deleteById(int b_no) {
-		repository.deleteById(b_no);
+
+
+	/**
+	 * 게시글 리스트 조회 - (With. pagination information)
+	 */
+	public Map<String, Object> findAll(CommonParams params) {
+
+		Map<String, Object> response = new HashMap<>();
+		//response.params.pagination.totalRecordCount
+		if(params.getSearchType() != null) {
+			if(params.getSearchType().equals("bc")) {
+				if (dao.countComment(params) < 1) {
+					Pagination pagination = new Pagination(0, params);
+					params.setPagination(pagination);
+					response.put("params", params);
+					response.put("list", Collections.emptyList());
+					return response;
+				}
+				int count = dao.countComment(params);
+				Pagination pagination = new Pagination(count, params);
+				params.setPagination(pagination);
+				List<BoardDto> list1 = dao.findComment(params);
+				Map<Integer, BoardDto> map = new HashMap<Integer, BoardDto>();
+				for(BoardDto b : list1) {
+					map.put(b.getB_no(), b);
+				}
+
+				List<BoardDto> list = new ArrayList<>(map.values());
+
+				response.put("params", params);
+				response.put("list", list);
+				return response;
+			}
+		}
+		
+		// 게시글 수 조회
+		int count = dao.count(params);
+		
+		// 등록된 게시글이 없는 경우, 로직 종료
+		if (count < 1) {
+			Pagination pagination = new Pagination(0, params);
+			params.setPagination(pagination);
+			response.put("params", params);
+			response.put("list", Collections.emptyList());
+			return response;
+		}
+		// 페이지네이션 정보 계산
+		Pagination pagination = new Pagination(count, params);
+		params.setPagination(pagination);
+
+		// 게시글 리스트 조회
+		List<BoardDto> list = dao.findAll(params);
+
+		// 데이터 반환
+		response.put("params", params);
+		response.put("list", list);
+
+		return response;
 	}
-	
-	
-	@Transactional
-	public void commentSave(int b_no, BoardComment comment, User user) {
-		user = userRepository.findById(3).get();
-		comment.setUser(user);
-		comment.setBoard(repository.findById(b_no).orElseThrow(()->{
-					return new IllegalArgumentException("댓글의 게시글 찾기 실패!");
-				}));
-		comment.setBc_step(0);
-		comment.setBc_level(0);
-		int b_ref = commentRepository.save(comment).getBc_no();
-		comment.setBc_ref(b_ref);
+
+
+	public List<Board> findAllByCu_no(int user_no) {
+		return boardRepository.findAllByCu_no(user_no);
 	}
-	@Transactional
-	public void commentUpdate(int bc_no, BoardComment r_comment) {
-		BoardComment comment= commentRepository.findById(bc_no)
-				.orElseThrow(()->{
-					return new IllegalArgumentException("댓글 찾기 실패: 글번호를 찾을 수 없습니다!");
-				}); //영속화 완료
-		comment.setBc_content(r_comment.getBc_content());
-		commentRepository.commentUpdate(comment.getBc_content(), comment.getBc_no());
-	}
-	@Transactional
-	public void commentDelete(int bc_no) {
-		commentRepository.deleteById(bc_no);
-	}
-	
 }

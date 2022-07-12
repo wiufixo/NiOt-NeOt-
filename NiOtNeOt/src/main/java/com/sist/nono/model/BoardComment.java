@@ -2,6 +2,7 @@ package com.sist.nono.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,12 +16,17 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -34,27 +40,33 @@ public class BoardComment {
 	
 	@ManyToOne
 	@JoinColumn(name = "cu_no")
-	private User user;
+	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "b_no")
+	@JsonIgnoreProperties({"boardComment","boardFile","user"})
 	private Board board;
 	
 	@Column(nullable = false, length = 200)
 	private String bc_content;
 	
-	@Column(nullable = false)
-	private int bc_ref;
-	
-	@ColumnDefault("0")
-	private int bc_step;
-	
-	@ColumnDefault("0")
-	private int bc_level;
+//	@Column(nullable = false)
+//	private int bc_ref;
+//	
+//	@ColumnDefault("0")
+//	private int bc_step;
+//	
+//	@ColumnDefault("0")
+//	private int bc_level;
 	
 	@CreationTimestamp
 	private Timestamp bc_created;
 	
 	private Date bc_updated;
+	
+	@Override
+	public String toString() {
+		return "bc_no:"+bc_no+" / bc_content:"+bc_content+" / bc_created:"+bc_created+" / bc_updated:"+bc_updated;
+	}
 	
 }

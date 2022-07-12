@@ -2,6 +2,7 @@ package com.sist.nono.model;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,13 +14,20 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-@Data
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(name = "boardFile")
 @Entity
 public class BoardFile {
@@ -30,6 +38,7 @@ public class BoardFile {
 	
 	@ManyToOne
 	@JoinColumn(name="b_no")
+	@JsonIgnoreProperties({"boardFile"})
 	private Board board;
 	
 	private String original_name;
@@ -41,6 +50,8 @@ public class BoardFile {
 	@CreationTimestamp
 	private Timestamp bf_created;
 	
-	private Date bf_updated;
-	
+	@Override
+	public String toString() {
+		return "bf_no:"+bf_no+" / original_name:"+original_name+" / save_name:"+save_name+" / size:"+size+" / bf_created:"+bf_created;
+	}
 }

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<div th:replace="fragments/common :: head('write board')"></div>
+
+<body>
+
+	<div th:replace="fragments/common :: header('list')"></div>
+
+	<div class="container">
+
+		<form th:action="@{/board/form}" th:object="${board}" method="post" enctype="multipart/form-data">
+
+			<input type="hidden" id="no" th:field="*{b_no}">
+			
+			<div class="form-group">
+				<label for="title">제목</label> <input type="text" class="form-control" id="title" th:field="*{b_title}" th:classappend="${#fields.hasErrors('b_title')} ? 'is-invalid'" placeholder="title">
+				<div id="validationServer03Feedback" class="invalid-feedback">제목을 입력해주세요.</div>
+			</div>
+			<div class="form-group">
+				<label for="content">내용</label>
+				<textarea class="form-control" id="content" th:field="*{b_content}" th:classappend="${#fields.hasErrors('b_content')} ? 'is-invalid'" rows="3" placeholder="content"></textarea>
+				<div id="validationServer03Feedback" class="invalid-feedback">내용을 입력해주세요.</div>
+			</div>
+
+			<div th:if="${#lists.isEmpty( fileList )}" class="form-group" id="file-add">
+				<div class="form-group">
+					<button type="button" onclick="addFile()">파일추가</button>
+				</div>
+				<div class="file-group" id="file-list">
+					<input type="file" name="files">
+					<button type="button" class="btn-remove">삭제</button>
+				</div>
+			</div>
+
+			<div th:unless="${#lists.isEmpty( fileList )}" class="form-group" id="file-add">
+				<button type="button" onclick="addFile()">파일추가</button>
+				<div class="file-group" id="file-list" th:each="row,status : ${fileList}">
+					<input type="hidden" name="fileNo" th:value="${row.bf_no}"> <input type="text" class="upload-name" th:value="${row.original_name}" readonly /> <span th:text="|${row.size}kb|"></span>
+					<button type="button" class="btn-remove">삭제</button>
+				</div>
+			</div>
+
+
+			<div id="btnDiv" class="text-right my-btn">
+				<button type="submit" class="btn btn-primary">확인</button>
+				<button type="reset" class="btn btn-warning">다시작성</button>
+				<!-- 				<a class="btn btn-secondary" th:href="@{/board/list}">목록으로</a> -->
+				<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">목록으로</a>
+			</div>
+
+		</form>
+
+	</div>
+
+	<div th:replace="fragments/common :: footer"></div>
+
+	<div th:replace="fragments/common :: js"></div>
+
+	<script th:inline="javascript"> 
+	
+		function addFile() {   
+			const str = `<div class="file-group" id="file-list">
+							<input type="file" name="files">
+							<button type="button" class="btn-remove">삭제</button>
+						</div>`;     
+			$("#file-add").append(str);        
+		};  
+		
+		
+		$(document).on("click",".btn-remove", function(){
+			$(this).parent().remove();
+		});
+	
+		
+	</script>
+
+</body>
+
+</html>

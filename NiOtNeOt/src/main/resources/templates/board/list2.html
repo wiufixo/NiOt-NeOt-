@@ -53,9 +53,8 @@
 			</ul>
 		</nav>
 		<!-- th:href="@{/board/list(page=${i},searchTest=${param.searchText})}" -->
-		<form th:action="@{/board/list}" id="search-form" class="row g-3 d-flex justify-content-center">
-			<input type="hidden" name="page" th:value="${response.params.page}">
-			<select id="searchType" name="searchType" class="form-select" style="height: 38px; width: 130px; margin-right: 10px;">
+		<form id="search-form" class="row g-3 d-flex justify-content-center">
+			<select id="searchType" class="form-select" style="height: 38px; width: 130px; margin-right: 10px;">
 				<option th:selected="${response.params.searchType} == ''" value="all">전체</option>
 				<option th:selected="${response.params.searchType} == 'tc'" value="tc">제목+내용</option>
 				<option th:selected="${response.params.searchType} == 'title'" value="title">제목만</option>
@@ -64,11 +63,11 @@
 				<option th:selected="${response.params.searchType} == 'bc'" value="bc">댓글</option>
 			</select>
 			<div class="col-auto" style="padding: 0px;">
-				<input type="text" id="keyword" name="keyword" class="form-control" placeholder="검색어" th:value="${response.params.keyword}">
+				<input type="text" id="keyword" class="form-control" placeholder="검색어" th:value="${response.params.keyword}">
 			</div>
 			<!-- th:value="${param.searchText}" -->
 			<div class="col-auto">
-				<button class="btn btn-light mb-3" th:text="검색">Confirm identity</button>
+				<a type="button" class="btn btn-light mb-3" th:onclick="findAll(1)" th:text="검색">Confirm identity</a>
 			</div>
 		</form>
 	</div>
@@ -98,6 +97,48 @@
 			/**
 			 * 게시글 리스트 조회
 			 */
+			function findAll(page) {
+				const searchType = $("#searchType").val();
+				const keyword = $("#keyword").val();
+				const form = document.getElementById('search-form');
+				const data = {
+					  page: page, 
+					  searchType: searchType, 
+					  keyword: keyword
+				}
+				console.log(data);
+				$.ajax({
+					url:"/board/list",
+					type:"get",
+					data:data,
+					contentType:"application/json; charset=utf-8",
+					dataType:"html",
+					success:function(list){
+						console.log(`list?page=1&searchType=${searchType}&keyword=${keyword}`);
+						location.href = `list?page=1&searchType=${searchType}&keyword=${keyword}`;
+						//$("#searchType").val("${param.sb_cate}").attr("selected","selected");
+					},
+					error: function(xhr, status, error) {
+						alert("에러가 발생하였습니다.");
+						return false;
+					}
+				})
+				/* $.ajax({
+					url:"/board/list",
+					type:"get",
+					data:JSON.stringify(data),
+					contentType:"application/json; charset=utf-8",
+					success:function(){
+						console.log("list불러옴")
+					},
+					error: function(xhr, status, error) {
+						alert("에러가 발생하였습니다.");
+						return false;
+					}
+				}) */
+			}
+				//th:classappend="${response.params.page==i} ? 'disabled'"
+				
 		
 		/*]]>*/
 	</script>

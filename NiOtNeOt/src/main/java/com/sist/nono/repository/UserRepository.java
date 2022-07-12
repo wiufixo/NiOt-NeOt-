@@ -3,22 +3,21 @@ package com.sist.nono.repository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import com.sist.nono.model.Board;
 import com.sist.nono.model.User;
 
-//DAO
-//자동으로 bean등록이 되어 @Repository 생략가능
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	@Query(value = "select * from user where cu_id=?1", nativeQuery = true)
 	Optional<User> findByCu_id(String cu_id);
 	
+	@Query(value = "select count(*) from user where cu_id=?1 and cu_pwd=?2", nativeQuery = true)
+	int findUser(String cu_id, String cu_pwd);
+	
+	@Modifying
+	@Query(value = "update user set cu_pwd=?1,cu_email=?2 where cu_no=?3", nativeQuery = true)
+	int update(String cu_pwd, String cu_email, int cu_no);
 }
-
-// JPA 네이밍 쿼리 전략
-// select * from user where cu_id=?1 and cu_pwd=?2
-//User findByCu_idAndCu_pwd(String cu_id, String cu_pwd); ===>밑기호때문에 이건 네이밍 처리가 안되는듯
-
-//@Query(value = "select * from user where cu_id=?1 and cu_pwd=?2", nativeQuery = true)
-//User login(String cu_id, String cu_pwd);

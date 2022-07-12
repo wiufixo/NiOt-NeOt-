@@ -28,9 +28,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Builder.Default;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -52,12 +55,6 @@ public class Board {
 	@Lob //섬머노트 라이브러리로 <html>태그 섞여 디자인 될것이라 대용량데이터
 	private String b_content;
 	
-	private int b_ref;
-	
-	private int b_step;
-	
-	private int b_level;
-	
 	@CreationTimestamp
 	private Timestamp b_created;
 	
@@ -65,15 +62,26 @@ public class Board {
 	
 	private int b_hit;
 	
-	private String isFileChanged;
-	
 	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) //테이블의 칼럼으로 생성하지 말아주세요, 반드시 갖고와주세요
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("bc_no desc")
 	private List<BoardComment> boardComment;
 	
-	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //테이블의 칼럼으로 생성하지 말아주세요, 반드시 갖고와주세요
+	@OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE) //테이블의 칼럼으로 생성하지 말아주세요, 반드시 갖고와주세요
 	@JsonIgnoreProperties({"board"})
 	private List<BoardFile> boardFile;
+	
+	/**
+     * 조회 수 증가
+     */
+    public void increaseHit() {
+        this.b_hit++;
+    }
+
+	@Override
+	public String toString() {
+		return "b_no:"+b_no+" / b_title:"+b_title+" / b_content:"+b_content+" / b_created:"+b_created+" / b_update:"+b_update+" / b_hit:"+b_hit;
+	}
+	
 	
 }
