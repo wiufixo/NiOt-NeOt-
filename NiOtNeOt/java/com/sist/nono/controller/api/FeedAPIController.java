@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.nono.dto.ResponseDTO;
@@ -80,7 +81,7 @@ public class FeedAPIController {
 
 	
 	
-	@PostMapping(value = "/feed/deleteComment/{f_no}/{fc_no}") 
+	@DeleteMapping(value = "/feed/deleteComment/{f_no}/{fc_no}") 
 	public ResponseDTO<Integer> deleteComment(@PathVariable int fc_no) {
 		System.out.println("데이터 받기");
 		System.out.println("fc_no : " + fc_no);
@@ -89,7 +90,7 @@ public class FeedAPIController {
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
-	@PutMapping(value = "/feed/updateComment/{f_no}") 
+	@RequestMapping(value = "/feed/updateComment/{f_no}") 
 	public ResponseDTO<Integer> updateComment(@PathVariable int f_no, @RequestBody FeedComment fc){
 		System.out.println("데이터 전달 됨");
 		System.out.println(fc);
