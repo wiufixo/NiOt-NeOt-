@@ -591,14 +591,17 @@ $(document).on("click","#join_button",function(){
 		});
 	}
 	//이메일 인증했는지 확인
-	console.log($("#join_email_check_warning").val());
+	console.log($("#join_email_check").val());
+	console.log($("#join_email_check_true").val());
 	if($("#join_email_check").val()!=$("#join_email_check_true").val()){
+		console.log("eemail");
 		check++;
 		$("#join_email_check_warning").css({"display":"inline"});
 	}else{
 		$("#join_email_check_warning").css({"display":"none"});
 	}
 	//join 실행
+	console.log(check);
 	if(check==0){$("#joinForm").submit();}
 })
 
