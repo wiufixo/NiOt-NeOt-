@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -15,6 +15,6 @@
 		<span th:text="${board.getB_created}"></span>
 	</div><br>
 		
-	<input type="hidden" id="board_cu_no" th:value="${customer.getCu_no}">
+	<input type="hidden" id="board_cu_no" th:value="${user.getCu_no}">
 </body>
 </html>

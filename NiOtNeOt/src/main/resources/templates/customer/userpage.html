@@ -17,7 +17,7 @@
 		<span id="userpage_email" th:text="${user.getCu_email}"></span><br>
 		<span id="userpage_trans_score>" th:text="${transHistory}"></span><br>
 		<button type="button" id="userpage_follow_button" th:if="${checkFollow==0}">follow</button>
-		<button type="button" id="userpage_unfollow_button" th:if="${checkFollow!=0}">followed</button>
+		<button type="button" id="userpage_follow_button" th:if="${checkFollow!=0}">followed</button>
 	</div>
 	
 	<div id="userpage_status2" class="inline_block" th:if="${user.getPrivacy_agree!=0}">

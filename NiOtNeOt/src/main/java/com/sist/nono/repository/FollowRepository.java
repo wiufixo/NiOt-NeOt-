@@ -21,7 +21,7 @@ public interface FollowRepository extends JpaRepository<Follow, Integer> {
 	@Query(value = "select count(*) from follow where follower=?1 and followed=?2",nativeQuery = true)
 	int checkFollow(int cu_no, int user_no);
 	
-	@Query(value = "select fo_no from follow where follower=?1 and followed-?2",nativeQuery = true)
+	@Query(value = "select fo_no from follow where follower=?1 and followed=?2",nativeQuery = true)
 	int findFo_no(int cu_no, int user_no);
 	
 	@Query(value = "select * from follow where follower=?1",nativeQuery = true)

@@ -8,7 +8,8 @@
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
 <body>
-	<input type="hidden" id="mypage_no" th:value="${customer.getCu_no}">
+	<input type="hidden" id="mypage_cu_no" th:value="${customer.getCu_no}">
+	<input type="hidden" id="mypage_user_no" th:value="${customer.getCu_no}">
 
 	<div id="mypage_status1" class="inline_block" th:switch="${customer.getCu_img}">
 		<img id="mypage_my_img" th:case="'defaultUserImg.jpg'" alt="mypage_default_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_img_big" >

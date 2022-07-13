@@ -9,7 +9,9 @@
 </head>
 <body>
 	<div th:each="following, num : ${following}" class="following_status" th:id="following_+${num.index}"> 
-		<img alt="following_img" th:src="@{/image/}+${following.getCu_img}" class="profile_img_small">
+
+		<img id="following_my_img" th:case="'defaultUserImg.jpg'" alt="user_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_img_small" >
+		<img id="following_my_img" th:case="*" alt="user_img" th:src="@{/image/customer/}+${follower.getCu_no}+'/'+${follower.getCu_img}" class="profile_img_small">
 		<input type="hidden" th:value="${following.getCu_no}" th:class="following_+${num.index}">
 		<span th:text="${following.getCu_name}"></span>
 		<span th:text="${following.getCu_nickname}"></span>

@@ -29,17 +29,10 @@ public class TransHistory {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int tr_no;
 
+	
+	private int pr_no;
+	private int sell_no;
 	private int buy_no;
-	
-	@ManyToOne(fetch = FetchType.EAGER) //기본패치전략, 반드시 들고와야하는 칼럼
-	@JoinColumn(name="pr_no")
-	private Product product;
-	
-	@ManyToOne(fetch = FetchType.EAGER) //기본패치전략, 반드시 들고와야하는 칼럼
-	@JoinColumn(name="cu_no")
-	private Customer customer;
-	
-	
 	private int sell_score;
 	private int buy_score;
 	

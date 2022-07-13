@@ -45,7 +45,7 @@ public class FollowService {
 	}
 	
 	public int findFo_no(int cu_no, int user_no) {
-		return repository.checkFollow(cu_no, user_no);
+		return repository.findFo_no(cu_no, user_no);
 	}
 	
 	public List<Follow> findByFollower(int cu_no) {

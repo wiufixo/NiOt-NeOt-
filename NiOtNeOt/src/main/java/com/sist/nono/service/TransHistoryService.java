@@ -28,8 +28,8 @@ public class TransHistoryService {
 		repository.deleteById(tr_no);
 	}
 	
-	public Object findById(int tr_no) {
-		return repository.findById(tr_no);
+	public TransHistory findById(int tr_no) {
+		return repository.findById(tr_no).orElseGet(()->new TransHistory());
 	}
 	
 	public int countTransHistory(int cu_no) {

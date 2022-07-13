@@ -8,8 +8,10 @@
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
 <body>
-	<div th:each="follower, num : ${follower}" class="follower_status" th:id="follower_+${num.index}"> 
-		<img alt="follower_img" th:src="@{/image/}+${follower.getCu_img}" class="profile_img_small">
+	<div th:each="follower, num : ${follower}" class="follower_status" th:id="follower_+${num.index}" th:switch="${follower.getCu_img}"> 
+		<img id="follower_my_img" th:case="'defaultUserImg.jpg'" alt="user_default_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_img_small" >
+		<img id="follower_my_img" th:case="*" alt="user_img" th:src="@{/image/customer/}+${follower.getCu_no}+'/'+${follower.getCu_img}" class="profile_img_small">
+		
 		<input type="hidden" th:value="${follower.getCu_no}" th:class="follower_+${num.index}">
 		<span th:text="${follower.getCu_name}"></span>
 		<span th:text="${follower.getCu_nickname}"></span>

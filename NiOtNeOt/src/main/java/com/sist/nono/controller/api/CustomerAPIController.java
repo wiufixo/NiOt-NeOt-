@@ -61,11 +61,11 @@ public class CustomerAPIController {
 	@Transactional
 	@Modifying
 	@PostMapping("customer/changeImgProcess")
-	public void changeImgProcess(@RequestParam("uploadFile") MultipartFile uploadFile,Authentication auth) {
+	public String changeImgProcess(@RequestParam("uploadFile") MultipartFile uploadFile,Authentication auth) {
 		Customer cu=service.findByCu_id(auth.getName());
 		int cu_no=cu.getCu_no();
 		
-		String uploadFolder="C:\\Users\\sonm4\\git\\NiOt-NeOt-\\NiOtNeOt\\src\\main\\resources\\static\\image\\customer\\"+cu_no;
+		String uploadFolder=".\\src\\main\\resources\\static\\image\\customer\\"+cu_no;
 		
 		//해당 유저의 이미지 폴더 생성
 		File folder=new File(uploadFolder);
@@ -91,6 +91,8 @@ public class CustomerAPIController {
 		System.out.println(uploadFileName);
 		
 		service.updateCu_img(uploadFileName, cu_no);	
+		
+		return uploadFileName;
 	}
 
 }

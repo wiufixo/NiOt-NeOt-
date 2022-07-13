@@ -4,10 +4,16 @@ package com.sist.nono.controller;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +27,7 @@ import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
 import com.sist.nono.model.Product;
+import com.sist.nono.model.TransHistory;
 import com.sist.nono.model.Wish;
 import com.sist.nono.service.AddressService;
 import com.sist.nono.service.BoardService;
@@ -65,19 +72,17 @@ public class CustomersController {
 	@Autowired
 	ProductImageService productImageService;
 	
-	@PostMapping("customer/wishSave")
-	public void wishSave(HttpServletRequest request) {
-		Wish wish = new Wish();
-		wish.setProduct((Product) productService.findById(Integer.parseInt(request.getParameter("pr_no")))); 
-		wish.setCustomer(customerService.findById(Integer.parseInt(request.getParameter("cu_no")))); 
-		
-		wishService.saveWish(wish);
-	}
+	@Autowired JavaMailSender javaMailSender;
 	
+	
+	@GetMapping("customer/test")
+	public Customer test() {
+		return customerService.findById(1);
+	}
 
 	@PostMapping("customer/joinOK")
 	@Transactional
-	public String joinOK(HttpServletRequest request,String cu_id,String cu_pwd,String cu_email,String cu_name,
+	public String joinOK(String cu_id,String cu_pwd,String cu_email,String cu_name,
 			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
 		
 		Customer c=new Customer();
@@ -181,7 +186,7 @@ public class CustomersController {
 		customerService.saveCustomer(c);
 		addressService.saveAddress(a);
 		
-		return "/";
+		return "/index";
 	}
 	
 	@PostMapping("customer/deleteCustomer")
@@ -263,7 +268,7 @@ public class CustomersController {
 		for(Follow follow :list1) {
 			list.add(customerService.findById((follow.getFollower()))); 
 		}
-		model.addAttribute("customer",customerService.findById(user_no));
+		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("follower",list);
 		
 		return "customer/followerExpantion";
@@ -282,7 +287,7 @@ public class CustomersController {
 		for(Follow follow :list1) {
 			list.add(customerService.findById((follow.getFollowed()))); 
 		}
-		model.addAttribute("customer",customerService.findById(user_no));
+		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("following",list);
 		
 		return "customer/followingExpantion";
