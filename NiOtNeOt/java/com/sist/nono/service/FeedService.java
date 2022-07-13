@@ -96,6 +96,7 @@ public class FeedService {
 			}
 			
 		}
+		fr.save(feed2);
 	}
 
 	// Feed 수정

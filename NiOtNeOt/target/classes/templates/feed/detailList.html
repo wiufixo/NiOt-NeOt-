@@ -86,7 +86,7 @@
 			<div class="btn_wrap text-center">
 				<a class="btn btn-default waves-effect waves-light" ></a>
 				<button class="btn btn-secondary" onclick="history.back()" >돌아가기</button>
-				<a  th:href="@{'/feed/updateForm/'+${f.f_no}}" id="feed-update" class="btn btn-warning">수정</a>
+				<a  th:href="@{'/feed/updateForm/'+${f.f_no}}"  class="btn btn-warning">수정</a>
 				<button type="button" class="btn btn-danger waves-effect waves-light" th:onclick="fdelete([[ ${f.f_no} ]])">삭제하기</button>
 			</div>
 		</div>

@@ -46,7 +46,7 @@ public class BoardAPIController {
 	public ResponseDTO<Integer> save(@RequestPart(value = "key") Board board, Customer customer, @RequestPart(value = "files",required = false) List<MultipartFile> files) {
 		System.out.println(board);
 		System.out.println(customer);
-		System.out.println(files);
+		System.out.println(files); 
 		System.out.println("**********************controller");
 		if(files==null) {
 			service.save(board, customer);

@@ -33,9 +33,6 @@ public class FeedImg {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int fi_no;
 	
-	@Column(nullable = false, length = 30 )
-	private String fi_name;
-	
 	private String original_name;
 	
 	private String save_name;

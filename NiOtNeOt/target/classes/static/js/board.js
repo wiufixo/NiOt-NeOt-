@@ -199,6 +199,8 @@ let index={
 		
 		// input class 값 
 		var fileInput = $('.files');
+		
+		
 		// fileInput 개수를 구한다.
 		for (var i = 0; i < fileInput.length; i++) {
 			if (fileInput[i].files.length > 0) {

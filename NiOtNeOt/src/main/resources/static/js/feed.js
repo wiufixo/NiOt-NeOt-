@@ -2,6 +2,7 @@ let fileIdx=0;
 
 var fsave = function() {
 	
+	
 	var formData = new FormData();
 	//넘길 데이터를 담아준다.
 	
@@ -10,35 +11,48 @@ var fsave = function() {
 		f_content: $("#content").val(),
 	}
 	
-	console.log(data)
-	//input class 의 값
-	var fileInput=$('.files');
-	//fileInput 개수를 구한다.
+
 	
-	console.log(fileInput)
-	for(var i=0;i<fileInput.length;i++) {
-		if(fileInput[i].files.length>0) {
-			for(var j=0; j<fileInput[i].files.length; j++) {}
-			console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]);
+		// input class 값 
+		var fileInput = $('.files');
+		console.log(fileInput)
+		// fileInput 개수를 구한다.
+		for (var i = 0; i < fileInput.length; i++) {
+			if (fileInput[i].files.length > 0) {
+				console.log(fileInput[i])
+				for (var j = 0; j < fileInput[i].files.length; j++) {
 			
-			formData.append('files', $('.files')[i].files[j]);
+					
+					console.log(fileInput[i].files[j])
+					console.log(fileInput[i].files.length)
+					
+					//console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]);
+					
+					// formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.  
+					formData.append('files', $('.files')[i].files[j]);
+					console.log('files');
+				
+				}
+			}
 		}
+
+		// 'key'라는 이름으로 위에서 담은 data를 formData에 append한다. type은 json  
 		
-	}
 	formData.append('key', new Blob([ JSON.stringify(data) ], {type : "application/json"}));
 
+	
 	$.ajax({ //비동기 호출
 		url: "/feed/insertSubmit",
 		type: "POST",
 		enctype: 'multipart/form-data',
-		data: JSON.stringify(data),
+		data: formData,
 		processData: false,        
 		contentType: false
 
 	}).done(function(resp) {
 		alert("피드 작성 성공")
 		console.log(resp)
-		//location.href = "/feed/list";
+		location.href = "/feed/list";
 	}).fail(function(error) {
 		alert(error);
 	});
@@ -94,7 +108,7 @@ var removeFile=function(elem) {
 
 var changeFilename=function(file) {
 	file = $(file);
-	const filename = file[0].files[0].name;
+	const filename = $(file)[0].files[0].name;
 	const target = file.prevAll('input');
 	target.val(filename);
 }
@@ -244,8 +258,7 @@ $(document).ready(function() {
 
 	let f_no = $("#f_no").text(); //피드 	번호 (f_no),div(text())
 	let fc_no = $("fc_no").val(); //피드 댓글 번호 (fc_no),input(val())
-	$("#fc-comment2").css("display", "none")
-	$("#fc-update").css("display", "none")
+
 	//------------------------------------------------------------------------
 	$("#feed-save").on("click", function() {
 
