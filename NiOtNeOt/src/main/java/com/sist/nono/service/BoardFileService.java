@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.nono.model.BoardFile;
 import com.sist.nono.repository.BoardFileRepository;
@@ -29,6 +30,8 @@ public class BoardFileService {
 //		repository.deleteById(b_no);
 //	};
 //
+	
+	@Transactional(readOnly = true)
 	public List<BoardFile> findAllByBoard(int b_no){
 		int tot = repository.totalFile(b_no);
 		if(tot<1) {
@@ -36,20 +39,27 @@ public class BoardFileService {
 		}
 		return repository.findAllByBoard(b_no);
 	};
-//
+	
+	
+	@Transactional(readOnly = true)
 	public BoardFile findById(int bf_no) {
 		return repository.findById(bf_no).orElseThrow(()->{
 			return new IllegalArgumentException("파일 로드 실패: 파일을 찾을 수 없습니다!");
 			});
 	}
 	
-	
+	@Transactional(readOnly = true)
 	public int totalFile(int b_no) {
 		return repository.totalFile(b_no);
 	};
 	
+	@Transactional
 	public int deleteFile(int b_no) {
 		return repository.deleteFile(b_no);
+	}
+	@Transactional
+	public void deleteFileByNo(int b_no) {
+		repository.deleteById(b_no);
 	}
 	
 }

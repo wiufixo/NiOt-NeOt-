@@ -47,9 +47,15 @@ public class FileUploadDTO {
 	public List<BoardFile> uploadFiles(List<MultipartFile> files, int b_no) {
 
 		/* 파일이 비어있으면 비어있는 리스트 반환 */
-		if (files.get(0).getSize() < 1) {
-			return Collections.emptyList();
-		}
+//		for(MultipartFile f : files) {
+//			if(f.getSize()<1) {
+//				return Collections.emptyList();
+//			}
+//		}
+//		if (files.get(0).getSize() < 1) {
+//			System.out.println("비어있는파일리스트반환");
+//			
+//		}
 
 		/* 업로드 파일 정보를 담을 비어있는 리스트 */
 		List<BoardFile> fileList = new ArrayList<>();
@@ -63,27 +69,31 @@ public class FileUploadDTO {
 		/* 파일 개수만큼 forEach 실행 */
 		for (MultipartFile file : files) {
 			try {
-				/* 파일 확장자 */
-				final String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-				/* 서버에 저장할 파일명 (랜덤 문자열 + 확장자) */
-				final String saveName = getRandomString() + "." + extension;
+				
+				if(file.getSize()>0) { //공파일은 제외
+					/* 파일 확장자 */
+					final String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+					/* 서버에 저장할 파일명 (랜덤 문자열 + 확장자) */
+					final String saveName = getRandomString() + "." + extension;
 
-				/* 업로드 경로에 saveName과 동일한 이름을 가진 파일 생성 */
-				File target = new File(uploadPath, saveName);
-				file.transferTo(target);
+					/* 업로드 경로에 saveName과 동일한 이름을 가진 파일 생성 */
+					File target = new File(uploadPath, saveName);
+					file.transferTo(target);
 
-				/* 파일 정보 저장 */
-				BoardFile bf = new BoardFile();
-				bf.setBoard(boardRepository.findById(b_no).orElseThrow(()->{
-					return new IllegalArgumentException("글 찾기 실패: 글번호를 찾을 수 없습니다!");
-				}));
-				bf.setOriginal_name(file.getOriginalFilename());
-				bf.setSave_name(saveName);
-				bf.setSize((int)file.getSize());
+					/* 파일 정보 저장 */
+					BoardFile bf = new BoardFile();
+					bf.setBoard(boardRepository.findById(b_no).orElseThrow(()->{
+						return new IllegalArgumentException("글 찾기 실패: 글번호를 찾을 수 없습니다!");
+					}));
+					bf.setOriginal_name(file.getOriginalFilename());
+					bf.setSave_name(saveName);
+					bf.setSize((int)file.getSize());
 
-				/* 파일 정보 추가 */
-				fileList.add(bf);
+					/* 파일 정보 추가 */
+					fileList.add(bf);
 
+				}
+				
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

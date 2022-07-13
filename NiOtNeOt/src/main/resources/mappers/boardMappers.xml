@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sist.nono.dao.BoardDao">
+	<select id="findAll" parameterType="com.sist.nono.paging.CommonParams" resultType="com.sist.nono.dto.BoardDto">
+		SELECT 
+			b.b_no,
+			c.cu_no,
+			c.cu_id,
+			b.b_title,
+			b.b_content,
+			b.b_created,
+			b.b_update,
+			b.b_hit
+		FROM 
+			board b, user c
+		<include refid="conditions" />
+		ORDER BY
+			b.b_no DESC
+		LIMIT 
+			#{pagination.limitStart}, #{recordPerPage}
+	</select>
+
+	<select id="findComment" parameterType="com.sist.nono.paging.CommonParams" resultType="com.sist.nono.dto.BoardDto">
+		SELECT 
+			b.b_no,
+			c.cu_no,
+			c.cu_id,
+			b.b_title,
+			b.b_content,
+			b.b_created,
+			b.b_update,
+			b.b_hit,
+			bc.bc_no,
+			bc.bc_content
+		FROM 
+			board b, user c, boardComment bc
+		<include refid="conditions2" />
+		ORDER BY
+			b.b_no DESC
+		LIMIT #{pagination.limitStart}, #{recordPerPage}
+	</select>
+
+	<select id="count" parameterType="com.sist.nono.paging.CommonParams" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			board b, user c
+		<include refid="conditions" />
+	</select>
+
+	<select id="countComment" parameterType="com.sist.nono.paging.CommonParams"
+		resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			board b, user c, boardComment bc
+		<include refid="conditions2" />
+	</select>
+
+
+	<sql id="conditions">
+		<where>
+			b.cu_no = c.cu_no
+			<if test="keyword != null and keyword.equals('') == false">
+				<choose>
+					<when test="searchType.equals('all')">
+						AND (
+							b.b_title LIKE CONCAT('%', #{keyword}, '%')
+						OR
+							b.b_content LIKE CONCAT('%', #{keyword}, '%')
+						OR 
+							c.cu_id LIKE CONCAT('%', #{keyword}, '%')
+						)
+					</when>
+					<otherwise>
+						<if test="searchType.equals('tc')">
+							AND (
+								b.b_title LIKE CONCAT('%', #{keyword}, '%')
+							OR 
+								b.b_content LIKE CONCAT('%', #{keyword}, '%')
+							)
+						</if>
+
+						<if test="searchType.equals('title')">
+							AND 
+								b.b_title LIKE CONCAT('%', #{keyword}, '%')
+						</if>
+
+						<if test="searchType.equals('content')">
+							AND 
+								b.b_content LIKE CONCAT('%', #{keyword}, '%')
+						</if>
+
+						<if test="searchType.equals('writer')">
+							AND 
+								c.cu_id LIKE CONCAT('%', #{keyword}, '%')
+						</if>
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</sql>
+
+	<sql id="conditions2">
+		<where>
+			b.cu_no = c.cu_no and b.b_no = bc.b_no
+			<if test="keyword != null and keyword.equals('') == false">
+			AND 
+				bc.bc_content LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</sql>
+
+
+</mapper>
