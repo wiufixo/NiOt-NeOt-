@@ -72,10 +72,10 @@ public class User {
 	
 	@CreationTimestamp //비워놔도 자동으로 등록한 현재시간을 입력해준다
 	private Timestamp cu_created;
-	
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
-	@JsonIgnoreProperties("user")
-	private List<Board> board;
+//	
+//	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+//	@JsonIgnoreProperties("user")
+//	private List<Board> board;
 	
 	
 }
