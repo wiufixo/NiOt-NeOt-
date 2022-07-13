@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="feed/layout/basic2">
+<meta charset="UTF-8">
+<th:block layout:fragment="title">
+	<title>update feed</title>
+</th:block>
+
+<th:block layout:fragment="content">
+	<div class="container">
+		<form >
+			<div class="form-group">
+				<input type="hidden" id="f_no" name="f_no" th:value="${f.f_no}">
+				<label for="title" class="col-sm-2 control-label">title:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="title" placeholder="Enter title">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="content" class="col-sm-2 control-label">content:</label>
+				<div class="col-sm-10">
+				<textarea id="content" class="form-control" rows="5" placeholder="Enter content"></textarea>
+				</div>
+			</div>
+			
+		</form>
+		
+		<div id="btnDiv" class="btn_wrap text-center">
+			<button id="feed-update" class="btn btn-primary waves-effect waves-light">글쓰기</button>
+			<a th:href="@{/feed/list}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
+		</div>
+	</div>
+	
+	
+	
+</th:block>
+</html>

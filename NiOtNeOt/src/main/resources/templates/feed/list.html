@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="feed/layout/basic2">
+<meta charset="UTF-8">	
+	<th:block layout:fragment="title">
+		<title>Feed List Page</title>
+	</th:block>
+	
+	<th:block layout:fragment="search">
+		<form action="#" id="searchform-header" class="searchform js__toggle active pull-right">
+			<input type="search" placeholder="Search..." class="input-search">
+			<button class="mdi mdi-magnify button-search" type="submit">
+				<i class="fa fa-search" aria-hidden="true"></i>
+			</button>
+		</form>
+	</th:block>
+	
+	<th:block layout:fragment="content">
+	<div class="table-responsive clearfix">
+			<table class="table table-hover">
+				<thead>
+				
+					<tr>
+						<th>피드 번호</th>
+						<th>피드 제목</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${not #lists.isEmpty(list)}" th:each="row : ${list}">
+						<td th:text="${row.f_no}"></td>
+						
+						<td class="text-left">
+							<a th:href="@{'/feed/detailFeed/'+${row.f_no}}" th:text="${row.f_title}"></a>
+						</td>	
+					
+					</tr>
+					<tr th:unless="${not #lists.isEmpty(list)}">
+					<td colspan="5">조회된 결과가 없습니다. </td> 
+				
+				</tbody>			
+			</table>
+					<div class="btn_wrap text-right">
+						<a th:href ="@{/feed/insertForm}" class="btn btn-primary waves-effect waves-light">피드 등록</a>	
+					</div>
+		</div>
+	</th:block>
+
+</html>

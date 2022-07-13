@@ -19,10 +19,10 @@
 					<form>
 						<input type="hidden" id="bc_no"> <input type="hidden" id="b_no">
 						<div class="mb-3">
-							<label for="cu_no" class="col-form-label">작성자:</label> <input type="text" class="form-control" id="cu_id" readonly="readonly">
+							<label for="cu_no" class="col-form-label">�옉�꽦�옄:</label> <input type="text" class="form-control" id="cu_id" readonly="readonly">
 						</div>
 						<div class="mb-3">
-							<label for="bc_content" class="col-form-label">내용:</label>
+							<label for="bc_content" class="col-form-label">�궡�슜:</label>
 							<textarea class="form-control" id="bc_content"></textarea>
 						</div>
 					</form>
@@ -43,23 +43,23 @@
 			<form th:object="${board}">
 				<input type="hidden" id="board_no" th:value="*{b_no}">
 				<div class="form-group">
-					<label for="title">제목</label>
+					<label for="title">�젣紐�</label>
 					<p class="form-control" th:text="*{b_title}"></p>
 				</div>
 				<div class="form-group">
-					<label for="writer">작성자</label>
+					<label for="writer">�옉�꽦�옄</label>
 					<p class="form-control" th:text="*{user.cu_id}"></p>
 				</div>
 				<div class="form-group">
-					<label for="content">내용</label>
+					<label for="content">�궡�슜</label>
 					<textarea class="form-control" th:text="*{b_content}"></textarea>
 				</div>
 				<div class="form-group">
-					<label for="created">등록일</label>
+					<label for="created">�벑濡앹씪</label>
 					<p class="form-control" th:text="*{b_created}"></p>
 				</div>
 				<div class="form-group">
-					<label for="hit">조회수</label>
+					<label for="hit">議고쉶�닔</label>
 					<p class="form-control" th:text="*{b_hit}"></p>
 				</div>
 
@@ -81,10 +81,10 @@
 				</div>
 
 				<div class="text-right my-btn">
-					<a th:if="${#authentication.name==board.user.cu_id}" class="btn btn-primary" th:href="@{/board/form(b_no=*{b_no},page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">글수정</a>
-					<button th:if="${#authentication.name==board.user.cu_id}" class="btn btn-warning" id="btn-delete" type="button">글삭제</button>
-					<!-- <a class="btn btn-secondary" th:href="@{/board/list}">목록으로</a> -->
-					<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">목록으로</a>
+					<a th:if="${#authentication.name==board.user.cu_id}" class="btn btn-primary" th:href="@{/board/form(b_no=*{b_no},page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">湲��닔�젙</a>
+					<button th:if="${#authentication.name==board.user.cu_id}" class="btn btn-warning" id="btn-delete" type="button">湲��궘�젣</button>
+					<!-- <a class="btn btn-secondary" th:href="@{/board/list}">紐⑸줉�쑝濡�</a> -->
+					<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">紐⑸줉�쑝濡�</a>
 				</div>
 			</form>
 		</div>
@@ -105,6 +105,7 @@
 				<ul class="notice-list"></ul>
 			</form>
 		</div>
+
 	</div>
 
 
@@ -117,7 +118,7 @@
 			
 			
 			const user = /*[[${principal.username}]]*/		
-			console.log(user) //현재접속한유저아이디
+			console.log(user) //�쁽�옱�젒�냽�븳�쑀���븘�씠�뵒
 			
 			
 			printCommentList();
@@ -135,13 +136,13 @@
 												<span class="time">${this.bc_created}</span>
 												<span class="time" style="margin-top:30px;" id="btns">`;
 							if(user==this.user.cu_id){
-									commentsHtml += `<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteComment(${this.bc_no})">삭제</button>
-													<button type="button" class="btn btn-outline-primary btn-sm" onclick="commentUpdate(${this.bc_no},${b_no},'${this.user.cu_id}','${this.bc_content}')">수정</button>`;
+									commentsHtml += `<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteComment(${this.bc_no})">�궘�젣</button>
+													<button type="button" class="btn btn-outline-primary btn-sm" onclick="commentUpdate(${this.bc_no},${b_no},'${this.user.cu_id}','${this.bc_content}')">�닔�젙</button>`;
 							};
 							commentsHtml += `</span>
 											</li>`;
 						});
-						$(".notice-list").html(commentsHtml); //append가 아니라 html임으로 empty()하지 않아도 된다
+						$(".notice-list").html(commentsHtml); //append媛� �븘�땲�씪 html�엫�쑝濡� empty()�븯吏� �븡�븘�룄 �맂�떎
 					}
 				});
 			};
@@ -170,11 +171,11 @@
 					contentType:"application/json; charset=utf-8",
 					success:function(){
 						$("#comment-modal").modal("hide");
-						alert("댓글수정을 성공하였습니다!");
+						alert("�뙎湲��닔�젙�쓣 �꽦怨듯븯���뒿�땲�떎!");
 						printCommentList();
 					},
 					error: function(xhr, status, error) {
-						alert("에러가 발생하였습니다.");
+						alert("�뿉�윭媛� 諛쒖깮�븯���뒿�땲�떎.");
 						return false;
 					}
 				});
@@ -187,7 +188,7 @@
 				const b_no = $("#board_no").val();
 				const bc_content = $("#comment-content").val();
 				if (isEmpty(bc_content)) {
-					$("#comment-content").attr("placeholder", "댓글을 입력해 주세요.");
+					$("#comment-content").attr("placeholder", "�뙎湲��쓣 �엯�젰�빐 二쇱꽭�슂.");
 					$("#comment-content").focus();
 					return false;
 				};
@@ -203,12 +204,12 @@
 					data:data,
 					success:function(){
 						$("#comment-modal").modal("hide");
-						alert("댓글등록을 성공하였습니다!");
+						alert("�뙎湲��벑濡앹쓣 �꽦怨듯븯���뒿�땲�떎!");
 						$("#comment-content").val("");
 						printCommentList();
 					},
 					error: function(xhr, status, error) {
-						alert("에러가 발생하였습니다.");
+						alert("�뿉�윭媛� 諛쒖깮�븯���뒿�땲�떎.");
 						return false;
 					}
 				});
@@ -220,12 +221,12 @@
 				const page = $("#page").val();
 				const searchType = $("#searchType").val();
 				const keyword = $("#keyword").val();
-				if(re = confirm(`${b_no}번 게시물을 정말 삭제하시겠습니까?`)){
+				if(re = confirm(`${b_no}踰� 寃뚯떆臾쇱쓣 �젙留� �궘�젣�븯�떆寃좎뒿�땲源�?`)){
 					$.ajax({
 						url:`/board/delete/${b_no}`,
 						type:"delete",
 						success:function(){
-							alert("글삭제를 성공했습니다!");
+							alert("湲��궘�젣瑜� �꽦怨듯뻽�뒿�땲�떎!");
 							location.href = `/board/list?page=${page}&searchType=${searchType}&keyword=${keyword}`;
 						}
 					});
@@ -234,16 +235,16 @@
 			
 			
 			function deleteComment(bc_no){
-				if(re = confirm(`${bc_no}번 게시물을 정말 삭제하시겠습니까?`)){
+				if(re = confirm(`${bc_no}踰� 寃뚯떆臾쇱쓣 �젙留� �궘�젣�븯�떆寃좎뒿�땲源�?`)){
 					$.ajax({
 						url:`/boardComment/delete/${bc_no}`,
 						type:"delete",
 						success:function(){
-							alert("댓글삭제를 성공했습니다!");
+							alert("�뙎湲��궘�젣瑜� �꽦怨듯뻽�뒿�땲�떎!");
 							printCommentList();
 						},
 						error: function(xhr, status, error) {
-							alert("에러가 발생하였습니다.");
+							alert("�뿉�윭媛� 諛쒖깮�븯���뒿�땲�떎.");
 							return false;
 						}
 					});
@@ -283,5 +284,6 @@
 
 
 </body>
+
 
 </html>
