@@ -73,7 +73,7 @@ public class FeedComment {
 	//User Join
 	@ManyToOne
 	@JoinColumn(name = "cu_no", insertable = true, updatable =true)
-	private User user;
+	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "f_no", insertable = true, updatable =true)

@@ -111,10 +111,10 @@ var fcupdate = function(fc_no) {
 
 	console.log(f_no);
 	console.log(fc_no);
+	console.log(fc_comment2);
 	var data = {
-		f_no:f_no,
 		fc_no: fc_no,
-		fc_comment: $("#modalContent").val()
+		fc_comment: $("#modalContent").val();
 	}
 
 	console.log(data);
@@ -210,8 +210,6 @@ $(document).ready(function() {
 		alert("버튼 동작함")
 		fcupdate();
 	})
-
-})
 
 })
 
