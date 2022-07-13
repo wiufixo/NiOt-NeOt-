@@ -1,6 +1,7 @@
 package com.sist.nono.model;
 
-import java.security.Timestamp;
+
+
 
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -90,7 +91,7 @@ public class Feed {
 	//나머지는 fetch = FetchType.LAZY 을 쓰는것이 좋다.
 	
 	// Comment Join
-	@OneToMany(mappedBy = "feed", fetch = FetchType.EAGER,cascade = CascadeType.ALL )	
+	@OneToMany(mappedBy = "feed", fetch = FetchType.LAZY,cascade = CascadeType.ALL )	
 	@JsonIgnoreProperties({"feed"})
 	@OrderBy("fc_no")
 	private List<FeedComment> feedComment;

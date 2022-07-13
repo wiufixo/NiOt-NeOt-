@@ -152,8 +152,14 @@ public class FeedService {
 	}
 
 	// Feed 댓글 삭제
+
 	public void deleteFeedComment(int fc_no) {
 
+		System.out.println("컨트롤러에서 데이터 전달됨");
+		System.out.println("fc_no:"+fc_no);
+		
+		
+	 
 		fcr.deleteById(fc_no);
 	}
 	

@@ -64,6 +64,10 @@ var addFile=function(){
 		alert('파일은 최대 세 개까지 업로드 할 수 있습니다.');
 		return false;
 	}
+	console.log("******filechanged**********")
+	console.log($("#isFileChanged").val());
+	$("#isFileChanged").val("Y");
+	console.log($("#isFileChanged").val());
 
 	fileIdx++;
 
@@ -91,6 +95,8 @@ var addFile=function(){
 
 var removeFile=function(elem) {
 	
+	$("#isFileChanged").val("Y");
+	
 	const prevTag = $(elem).prev().prop('tagName');
 	if (prevTag === 'BUTTON') {
 		const file = $(elem).prevAll('input[type="file"]');
@@ -107,10 +113,14 @@ var removeFile=function(elem) {
 }
 
 var changeFilename=function(file) {
-	file = $(file);
+	$("#isFileChanged").val("Y");
+	
 	const filename = $(file)[0].files[0].name;
-	const target = file.prevAll('input');
+	const target = $(file).prevAll('input.upload-name');
 	target.val(filename);
+	$(file).prevAll('input[name="fileIdxs"]').remove();
+	
+	
 }
 
 
@@ -139,9 +149,23 @@ var fcsave = function() {
 
 }
 
+let fdelete=function(f_no) {
+	alert("함수동작")
+	console.log(f_no)
+	$.ajax({
+		url: "/feed/deleteSubmit/" + f_no,
+		type: "DELETE",
 
+	}).done(function(resp) {
+		alert("피드 삭제를 성공하였습니다!");
+		console.log(resp)
+		location.href = "/feed/list";
+	}).fail(function(error) {
+		alert(error);
+	})
+}
 		
-var fcdelete = function(f_no, fc_no) {
+let fcdelete = function(f_no, fc_no) {
 	alert("함수 동작함")
 
 	console.log(f_no);
@@ -149,17 +173,18 @@ var fcdelete = function(f_no, fc_no) {
 
 	$.ajax({
 		url: `/feed/deleteComment/${f_no}/${fc_no}`,
-		type: "POST",
+		type: "DELETE",
 		dataType: "json",
 		success: function(re) {
 			alert("성공")
 			console.log(f_no);
 
-			location.href = `/feed/detailFeed/${f_no}`
+			//location.href = `/feed/detailFeed/${f_no}`
 		}
 
 	})
 }
+
 
 var fupdate = function() {
 
@@ -228,26 +253,9 @@ var fcupdate = function(fc_no) {
 }
 
 
-
-
-$(document).ready(function() {
 	
 	
-	let fdelete=function(f_no) {
-	alert("함수동작")
-	console.log(f_no)
-	$.ajax({
-		url: "/feed/deleteSubmit/" + f_no,
-		type: "DELETE",
-
-	}).done(function(resp) {
-		alert("피드 삭제를 성공하였습니다!");
-		console.log(resp)
-		location.href = "/feed/list";
-	}).fail(function(error) {
-		alert(error);
-	})
-}
+	
 	
 
 	
@@ -305,5 +313,4 @@ $(document).ready(function() {
 		fcupdate();
 	})
 
-})
 })

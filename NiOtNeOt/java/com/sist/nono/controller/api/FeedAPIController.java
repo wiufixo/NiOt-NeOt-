@@ -93,7 +93,6 @@ public class FeedAPIController {
 	}
 
 	
-	
 	@DeleteMapping(value = "/feed/deleteComment/{f_no}/{fc_no}") 
 	public ResponseDTO<Integer> deleteComment(@PathVariable int fc_no) {
 		System.out.println("데이터 받기");
