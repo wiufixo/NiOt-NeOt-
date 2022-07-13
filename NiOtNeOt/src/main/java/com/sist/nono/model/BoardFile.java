@@ -16,15 +16,17 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
+@ToString(exclude = "board")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -50,8 +52,4 @@ public class BoardFile {
 	@CreationTimestamp
 	private Timestamp bf_created;
 	
-	@Override
-	public String toString() {
-		return "bf_no:"+bf_no+" / original_name:"+original_name+" / save_name:"+save_name+" / size:"+size+" / bf_created:"+bf_created;
-	}
 }

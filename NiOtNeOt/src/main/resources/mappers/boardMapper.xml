@@ -1,7 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.sist.nono.dao.BoardDao">
+	
+	<sql id="conditions">
+		<where>
+			b.cu_no = c.cu_no
+			<if test="keyword != null and keyword.equals('') == false">
+				<choose>
+					<when test="searchType.equals('all')">
+						AND (
+							b.b_title LIKE CONCAT('%', #{keyword}, '%')
+						OR
+							b.b_content LIKE CONCAT('%', #{keyword}, '%')
+						OR 
+							c.cu_id LIKE CONCAT('%', #{keyword}, '%')
+						)
+					</when>
+					<otherwise>
+						<if test="searchType.equals('tc')">
+							AND (
+								b.b_title LIKE CONCAT('%', #{keyword}, '%')
+							OR 
+								b.b_content LIKE CONCAT('%', #{keyword}, '%')
+							)
+						</if>
+
+						<if test="searchType.equals('title')">
+							AND 
+								b.b_title LIKE CONCAT('%', #{keyword}, '%')
+						</if>
+
+						<if test="searchType.equals('content')">
+							AND 
+								b.b_content LIKE CONCAT('%', #{keyword}, '%')
+						</if>
+
+						<if test="searchType.equals('writer')">
+							AND 
+								c.cu_id LIKE CONCAT('%', #{keyword}, '%')
+						</if>
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</sql>
+
+	<sql id="conditions2">
+		<where>
+			b.cu_no = c.cu_no and b.b_no = bc.b_no
+			<if test="keyword != null and keyword.equals('') == false">
+			AND 
+				bc.bc_content LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</sql>
+	
 	<select id="findAll" parameterType="com.sist.nono.paging.CommonParams" resultType="com.sist.nono.dto.BoardDto">
 		SELECT 
 			b.b_no,
@@ -57,60 +110,7 @@
 			board b, user c, boardComment bc
 		<include refid="conditions2" />
 	</select>
-
-
-	<sql id="conditions">
-		<where>
-			b.cu_no = c.cu_no
-			<if test="keyword != null and keyword.equals('') == false">
-				<choose>
-					<when test="searchType.equals('all')">
-						AND (
-							b.b_title LIKE CONCAT('%', #{keyword}, '%')
-						OR
-							b.b_content LIKE CONCAT('%', #{keyword}, '%')
-						OR 
-							c.cu_id LIKE CONCAT('%', #{keyword}, '%')
-						)
-					</when>
-					<otherwise>
-						<if test="searchType.equals('tc')">
-							AND (
-								b.b_title LIKE CONCAT('%', #{keyword}, '%')
-							OR 
-								b.b_content LIKE CONCAT('%', #{keyword}, '%')
-							)
-						</if>
-
-						<if test="searchType.equals('title')">
-							AND 
-								b.b_title LIKE CONCAT('%', #{keyword}, '%')
-						</if>
-
-						<if test="searchType.equals('content')">
-							AND 
-								b.b_content LIKE CONCAT('%', #{keyword}, '%')
-						</if>
-
-						<if test="searchType.equals('writer')">
-							AND 
-								c.cu_id LIKE CONCAT('%', #{keyword}, '%')
-						</if>
-					</otherwise>
-				</choose>
-			</if>
-		</where>
-	</sql>
-
-	<sql id="conditions2">
-		<where>
-			b.cu_no = c.cu_no and b.b_no = bc.b_no
-			<if test="keyword != null and keyword.equals('') == false">
-			AND 
-				bc.bc_content LIKE CONCAT('%', #{keyword}, '%')
-			</if>
-		</where>
-	</sql>
-
-
+	
+	
+	
 </mapper>
