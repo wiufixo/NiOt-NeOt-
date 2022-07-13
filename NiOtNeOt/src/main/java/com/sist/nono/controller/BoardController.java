@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -125,16 +128,13 @@ public class BoardController {
 
 
 	@PostMapping("/form")
-	public String formSubmit(Board board, @RequestParam(required = false) List<MultipartFile> files, @RequestParam(required = false) List<Integer> fileNo, @AuthenticationPrincipal PrincipalDetail principal, BindingResult bindingResult) {
+	public String formSubmit(@Valid Board board, BindingResult bindingResult, CommonParams params, @RequestParam(required = false) List<MultipartFile> files, @RequestParam(required = false) List<Integer> fileNo, @AuthenticationPrincipal PrincipalDetail principal, Model model) {
 
-		/*
-		 * boardValidator.validate(board, bindingResult); //validator 객체로 유효성 검사
-		 * if(bindingResult.hasErrors()) { System.out.println("*** board error 발생!!");
-		 * return
-		 * "@{/board/form(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword})}";
-		 * 
-		 * return "board/form"; }
-		 */
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("params", params);
+			log.info(bindingResult.getAllErrors().get(0).getDefaultMessage());
+			return "board/form";
+		}
 
 		if(CollectionUtils.isEmpty(files)) {
 			files = Collections.emptyList();
