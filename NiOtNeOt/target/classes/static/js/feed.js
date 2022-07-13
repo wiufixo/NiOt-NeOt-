@@ -1,24 +1,104 @@
+let fileIdx=0;
+
 var fsave = function() {
+	
+	var formData = new FormData();
+	//넘길 데이터를 담아준다.
+	
 	var data = {
 		f_title: $("#title").val(),
 		f_content: $("#content").val(),
 	}
+	
+	console.log(data)
+	//input class 의 값
+	var fileInput=$('.files');
+	//fileInput 개수를 구한다.
+	
+	console.log(fileInput)
+	for(var i=0;i<fileInput.length;i++) {
+		if(fileInput[i].files.length>0) {
+			for(var j=0; j<fileInput[i].files.length; j++) {}
+			console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]);
+			
+			formData.append('files', $('.files')[i].files[j]);
+		}
+		
+	}
+	formData.append('key', new Blob([ JSON.stringify(data) ], {type : "application/json"}));
 
 	$.ajax({ //비동기 호출
 		url: "/feed/insertSubmit",
 		type: "POST",
+		enctype: 'multipart/form-data',
 		data: JSON.stringify(data),
-		contentType: "application/json; charset=utf-8",
-		dataType: "json"
+		processData: false,        
+		contentType: false
 
 	}).done(function(resp) {
 		alert("피드 작성 성공")
 		console.log(resp)
-		location.href = "/feed/list";
+		//location.href = "/feed/list";
 	}).fail(function(error) {
 		alert(error);
 	});
 }
+
+var addFile=function(){
+	const fileDivs = $('div[data-name="fileDiv"]');
+	if (fileDivs.length > 2) {
+		alert('파일은 최대 세 개까지 업로드 할 수 있습니다.');
+		return false;
+	}
+
+	fileIdx++;
+
+	const fileHtml = `
+		<div data-name="fileDiv" class="form-group filebox bs3-primary">
+			<label for="file_${fileIdx}" class="col-sm-2 control-label"></label>
+			<div class="col-sm-10">
+				<input type="text" class="upload-name" value="파일 찾기" readonly />
+				<label for="file_${fileIdx}" class="control-label">찾아보기</label>
+				<input type="file" name="files" id="file_${fileIdx}" class="upload-hidden files" onchange="changeFilename(this)" style="display:none;" />
+				
+				<button type="button" onclick="addFile()" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+					<i class="fa fa-plus" aria-hidden="true"></i>
+				</button>
+				<button type="button" onclick="removeFile(this)" class="btn btn-bordered btn-xs visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline">
+					<i class="fa fa-minus" aria-hidden="true"></i>
+				</button>
+			</div>
+		</div>
+	`;
+
+	$('#myspan').before(fileHtml);
+
+}
+
+var removeFile=function(elem) {
+	
+	const prevTag = $(elem).prev().prop('tagName');
+	if (prevTag === 'BUTTON') {
+		const file = $(elem).prevAll('input[type="file"]');
+		const filename = $(elem).prevAll('input[type="text"]');
+		file.val('');
+		filename.val('파일 찾기');
+		return false;
+	}
+
+	const target = $(elem).parents('div[data-name="fileDiv"]');
+	target.remove();
+	
+	
+}
+
+var changeFilename=function(file) {
+	file = $(file);
+	const filename = file[0].files[0].name;
+	const target = file.prevAll('input');
+	target.val(filename);
+}
+
 
 var fcsave = function() {
 	var f_no = $("#f_no").val();
@@ -111,10 +191,11 @@ var fcupdate = function(fc_no) {
 
 	console.log(f_no);
 	console.log(fc_no);
-	console.log(fc_comment2);
+
 	var data = {
+		f_no:f_no,
 		fc_no: fc_no,
-		fc_comment: $("#modalContent").val();
+		fc_comment: $("#modalContent").val()
 	}
 
 	console.log(data);
@@ -212,4 +293,4 @@ $(document).ready(function() {
 	})
 
 })
-
+})

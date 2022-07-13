@@ -8,10 +8,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.nono.auth.PrincipalDetail;
+import com.sist.nono.dto.FeedFileUpload;
 import com.sist.nono.model.Feed;
 import com.sist.nono.model.FeedComment;
+import com.sist.nono.model.FeedImg;
 import com.sist.nono.model.User;
 import com.sist.nono.repository.FeedCommentRepository;
 import com.sist.nono.repository.FeedImgRepository;
@@ -19,6 +23,8 @@ import com.sist.nono.repository.FeedLikeRepository;
 import com.sist.nono.repository.FeedRepository;
 import com.sist.nono.repository.FeedStickerRepository;
 import com.sist.nono.repository.FeedTagRepository;
+
+import lombok.experimental.PackagePrivate;
 
 @Service
 public class FeedService {
@@ -40,6 +46,9 @@ public class FeedService {
 
 	@Autowired
 	private FeedLikeRepository flr;
+	
+	@Autowired
+	private FeedFileUpload fileUpload;
 
 	@Transactional
 //	 @Transactional 클래스나 메서드에 붙여줄 경우 해당 범위 내 메서드가 트랜잭션이 되도록 보장
@@ -64,12 +73,29 @@ public class FeedService {
 
 	// Feed 등록
 	@Transactional
-	public void insertFeed(Feed feed) {
+	public Feed insertFeed(Feed feed) {
 		feed.setF_hit(0);
 		// feed.setUser(user);
 
-		fr.save(feed);
+		return	fr.save(feed);
 
+	}
+	
+	public void insertFeed(Feed feed,List<MultipartFile> files) {
+		
+		Feed feed2 = insertFeed(feed);
+		
+		if (feed2 != null) {
+			List<FeedImg> fileList = fileUpload.uploadFiles(files, feed2.getF_no());
+			System.out.println(fileList);
+			if(CollectionUtils.isEmpty(fileList) == false) {
+				for(FeedImg fi:fileList) {
+					fir.save(fi);
+					System.out.println("fi="+fi);
+				}
+			}
+			
+		}
 	}
 
 	// Feed 수정

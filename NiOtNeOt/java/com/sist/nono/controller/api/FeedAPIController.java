@@ -1,5 +1,7 @@
 package com.sist.nono.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.nono.dto.ResponseDTO;
 import com.sist.nono.model.BoardComment;
@@ -41,9 +45,18 @@ public class FeedAPIController {
 	//Feed 관련
 	
 	@PostMapping(value = "/feed/insertSubmit")
-	public ResponseDTO<Integer> insertSubmit(@RequestBody Feed f)
+	public ResponseDTO<Integer> insertSubmit(@RequestPart(value = "key") Feed f , @RequestPart(value = "files",required = false) List<MultipartFile> files)
 	{
-		fs.insertFeed(f);
+		System.out.println("데이터 받아옴");
+		System.out.println("feed" + f);
+		System.out.println("files" + files);
+		
+		
+		if (files==null) {
+			fs.insertFeed(f);
+		}else {
+			fs.insertFeed(f, files);
+		}
 		
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
 	}
@@ -90,7 +103,7 @@ public class FeedAPIController {
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
-	@RequestMapping(value = "/feed/updateComment/{f_no}") 
+	@PutMapping(value = "/feed/updateComment/{f_no}") 
 	public ResponseDTO<Integer> updateComment(@PathVariable int f_no, @RequestBody FeedComment fc){
 		System.out.println("데이터 전달 됨");
 		System.out.println("f_no" + f_no);

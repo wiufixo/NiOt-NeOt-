@@ -111,7 +111,7 @@ public class FeedController {
 //-------------------------------------------------------------------------------
 	
 	@GetMapping("/feed/download")
-	public void aownloadAttachFile(@RequestParam(value = "fi_no",required = false) int fi_no , Model model , HttpServletResponse response) {
+	public void downloadAttachFile(@RequestParam(value = "fi_no",required = false) int fi_no , Model model , HttpServletResponse response) {
 		
 		if(fi_no == 0) throw new RuntimeException("올바르지 않은 접근입니다.");
 		
