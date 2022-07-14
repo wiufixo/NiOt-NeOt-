@@ -55,14 +55,6 @@ public class BoardComment {
 	@NotEmpty(message = "*내용이 없습니다.")
 	private String bc_content;
 	
-//	@Column(nullable = false)
-//	private int bc_ref;
-//	
-//	@ColumnDefault("0")
-//	private int bc_step;
-//	
-//	@ColumnDefault("0")
-//	private int bc_level;
 	
 	@CreationTimestamp
 	private Timestamp bc_created;

@@ -13,18 +13,15 @@ import com.sist.nono.exception.ErrorCode;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.BoardComment;
 import com.sist.nono.model.Customer;
-import com.sist.nono.model.User;
 import com.sist.nono.repository.BoardCommentRepository;
 import com.sist.nono.repository.BoardRepository;
-import com.sist.nono.repository.UserRepository;
+import com.sist.nono.repository.CustomerRepository;
 
 @Service
 public class BoardCommentService {
 
 	@Autowired
 	private BoardCommentRepository boardCommentRepository;
-	@Autowired
-	private UserRepository userRepository;
 	@Autowired
 	private BoardRepository boardRepository;
 	

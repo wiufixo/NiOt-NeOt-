@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 import com.sist.nono.auth.PrincipalDetail;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.BoardComment;
-import com.sist.nono.model.User;
 import com.sist.nono.service.BoardCommentService;
 import com.sist.nono.service.BoardService;
 

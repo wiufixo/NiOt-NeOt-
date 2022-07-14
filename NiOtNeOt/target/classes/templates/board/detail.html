@@ -7,7 +7,6 @@
 
 	<div th:replace="fragments/common :: header('detail')"></div>
 
-
 	<div class="modal fade" id="comment-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -39,7 +38,10 @@
 	<!-- <h2>[[${principal.username}]]</h2> -->
 	<div class="container">
 		<div class="box-content">
-			<input type="hidden" id="page" th:value="${params.page}"> <input type="hidden" id="searchType" th:value="${params.searchType}"> <input type="hidden" id="keyword" th:value="${params.keyword}">
+			<input type="hidden" id="page" th:value="${params.page}"> 
+			<input type="hidden" id="searchType" th:value="${params.searchType}"> 
+			<input type="hidden" id="keyword" th:value="${params.keyword}">
+			<input type="hidden" id="recordPerPage" th:value="${params.recordPerPage}">
 			<form th:object="${board}">
 				<input type="hidden" id="board_no" th:value="*{b_no}">
 				<div class="form-group">
@@ -48,7 +50,7 @@
 				</div>
 				<div class="form-group">
 					<label for="writer">작성자</label>
-					<p class="form-control" th:text="*{user.cu_id}"></p>
+					<p class="form-control" th:text="*{customer.cu_id}"></p>
 				</div>
 				<div class="form-group">
 					<label for="content">내용</label>
@@ -56,7 +58,7 @@
 				</div>
 				<div class="form-group">
 					<label for="created">등록일</label>
-					<p class="form-control" th:text="*{b_created}"></p>
+					<p class="form-control" th:text="${#dates.format(board.b_created, 'yyyy-MM-dd HH:mm:ss')}"></p>
 				</div>
 				<div class="form-group">
 					<label for="hit">조회수</label>
@@ -81,10 +83,10 @@
 				</div>
 
 				<div class="text-right my-btn">
-					<a th:if="${#authentication.name==board.user.cu_id}" class="btn btn-primary" th:href="@{/board/form(b_no=*{b_no},page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">글수정</a>
-					<button th:if="${#authentication.name==board.user.cu_id}" class="btn btn-warning" id="btn-delete" type="button">글삭제</button>
+					<a th:if="${#authentication.name==board.customer.cu_id}" class="btn btn-primary" th:href="@{/board/form(b_no=*{b_no},page=${params.page},searchType=${params.searchType},keyword=${params.keyword},recordPerPage=${params.recordPerPage})}">글수정</a>
+					<button th:if="${#authentication.name==board.customer.cu_id}" class="btn btn-warning" id="btn-delete" type="button">글삭제</button>
 					<!-- <a class="btn btn-secondary" th:href="@{/board/list}">목록으로</a> -->
-					<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">목록으로</a>
+					<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword},recordPerPage=${params.recordPerPage})}">목록으로</a>
 				</div>
 			</form>
 		</div>
@@ -116,8 +118,8 @@
 	<script th:inline="javascript"> 
 			
 			
-			const user = /*[[${principal.username}]]*/		
-			console.log(user) //현재접속한유저아이디
+			const customer = /*[[${principal.username}]]*/		
+			console.log(customer) //현재접속한유저아이디
 			
 			
 			printCommentList();
@@ -130,13 +132,13 @@
 						let commentsHtml = '';
 						$(data).each(function(){
 							commentsHtml += `<li style="margin-bottom:20px; padding-bottom:30px;">
-												<span class="name">${this.user.cu_id}</span>
+												<span class="name">${this.customer.cu_id}</span>
 												<span class="desc" style="margin-top:15px;">${this.bc_content}</span>
 												<span class="time">${this.bc_created}</span>
 												<span class="time" style="margin-top:30px;" id="btns">`;
-							if(user==this.user.cu_id){
+							if(customer==this.customer.cu_id){
 									commentsHtml += `<button type="button" class="btn btn-outline-secondary btn-sm" onclick="deleteComment(${this.bc_no})">삭제</button>
-													<button type="button" class="btn btn-outline-primary btn-sm" onclick="commentUpdate(${this.bc_no},${b_no},'${this.user.cu_id}','${this.bc_content}')">수정</button>`;
+													<button type="button" class="btn btn-outline-primary btn-sm" onclick="commentUpdate(${this.bc_no},${b_no},'${this.customer.cu_id}','${this.bc_content}')">수정</button>`;
 							};
 							commentsHtml += `</span>
 											</li>`;
@@ -220,13 +222,14 @@
 				const page = $("#page").val();
 				const searchType = $("#searchType").val();
 				const keyword = $("#keyword").val();
+				const recordPerPage = $("#recordPerPage").val();
 				if(re = confirm(`${b_no}번 게시물을 정말 삭제하시겠습니까?`)){
 					$.ajax({
 						url:`/board/delete/${b_no}`,
 						type:"delete",
 						success:function(){
 							alert("글삭제를 성공했습니다!");
-							location.href = `/board/list?page=${page}&searchType=${searchType}&keyword=${keyword}`;
+							location.href = `/board/list?page=${page}&searchType=${searchType}&keyword=${keyword}&recordPerPage=${recordPerPage}`;
 						}
 					});
 				};

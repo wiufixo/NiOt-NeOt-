@@ -16,9 +16,14 @@ import org.hibernate.annotations.CreationTimestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -32,7 +37,7 @@ public class Alert {
 	
 	@ManyToOne(fetch = FetchType.EAGER) //기본패치전략, 반드시 들고와야하는 칼럼
 	@JoinColumn(name="cu_no")
-	private User user; // db에서는 안되지만 orm에서는 object를 사용할수있다
+	private Customer customer; // db에서는 안되지만 orm에서는 object를 사용할수있다
 	
 	private String al_title;
 	

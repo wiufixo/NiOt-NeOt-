@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.sist.nono.model.Follow;
-import com.sist.nono.model.User;
 
 public interface FollowRepository extends JpaRepository<Follow, Integer> {
 	

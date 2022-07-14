@@ -14,6 +14,7 @@
 			<input type="hidden" name="keyword" th:value="${params.keyword}">
 			<input type="hidden" name="searchType" th:value="${params.searchType}">
 			<input type="hidden" name="page" th:value="${params.page}">
+			<input type="hidden" name="recordPerPage" th:value="${params.recordPerPage}">
 			
 			<input type="hidden" id="no" th:field="*{b_no}">
 			
@@ -49,7 +50,7 @@
 			<div id="btnDiv" class="text-right my-btn">
 				<button type="submit" class="btn btn-primary">확인</button>
 				<button type="reset" class="btn btn-warning">다시작성</button>
-				<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">목록으로</a>
+				<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword},recordPerPage=${params.recordPerPage})}">목록으로</a>
 				<!-- 				<a class="btn btn-secondary" th:href="@{/board/list}">목록으로</a> -->
 			</div>
 
