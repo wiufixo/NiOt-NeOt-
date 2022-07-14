@@ -121,13 +121,13 @@ public class FeedService {
 		
 		System.out.println("현재 피드의 번호1 : " + f.getF_no());
 		
-		String isFileChanged = f.getIsFileChanged();
+	//	String isFileChanged = f.getIsFileChanged();
 		
-		if(isFileChanged.equals("Y")) {
-			System.out.println("현재 피드의 번호2 : " + f.getF_no());
+	//	if(isFileChanged.equals("Y")) {
+	//		System.out.println("현재 피드의 번호2 : " + f.getF_no());
 			
-			fir.deleteFile(f.getF_no());
-		}
+	//		fir.deleteFile(f.getF_no());
+	//	}
 		
 		System.out.println("현재 피드의 번호 3: " + f.getF_no());
 		

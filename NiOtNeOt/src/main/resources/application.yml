@@ -28,7 +28,7 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
-      hibernate.hbm2ddl.auto: update
+      hibernate.hbm2ddl.auto: create
 
   jackson:
     serialization:
