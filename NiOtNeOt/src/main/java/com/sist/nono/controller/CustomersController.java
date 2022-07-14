@@ -9,7 +9,10 @@ import java.util.Random;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,10 +21,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.sist.nono.config.CustomerValidator;
 import com.sist.nono.model.Address;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
@@ -44,6 +50,10 @@ import lombok.Setter;
 @Controller
 @Setter
 public class CustomersController {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(CustomersController.class);
+
 	
 	@Autowired
 	CustomerService customerService;
@@ -74,41 +84,26 @@ public class CustomersController {
 	
 	@Autowired JavaMailSender javaMailSender;
 	
-	
-	@GetMapping("customer/test")
-	public Customer test() {
-		return customerService.findById(1);
-	}
-
 	@PostMapping("customer/joinOK")
-	@Transactional
-	public String joinOK(String cu_id,String cu_pwd,String cu_email,String cu_name,
-			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
-		
-		Customer c=new Customer();
+	public String joinOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request) {
+		//model에서 설정한 유효성
+		if(bindingResult.hasErrors()) {
+			return "customer/join";
+		}
+		//validator에서 설정한 유효성
+		CustomerValidator validator = new CustomerValidator(customerService);
+		validator.validate(customer, bindingResult);
+		if(bindingResult.hasErrors()) {
+			return "customer/join";
+		}
+		customerService.saveCustomer(customer);
 		Address a=new Address();
-		
-		c.setCu_id(cu_id);
-		c.setCu_pwd(cu_pwd);
-		c.setCu_email(cu_email);
-		c.setCu_name(cu_name);
-		c.setCu_nickname(cu_nickname);
-		c.setCu_gender(cu_gender);
-		c.setCu_height(cu_height);
-		c.setCu_weight(cu_weight);
-		c.setCu_birth(cu_birth);
-		c.setPrivacy_agree(privacy_agree);
-		
-		customerService.join(c);
-		
-		int cu_no=c.getCu_no();
-		
-		a.setCu_no(cu_no);
-		a.setMain_adr_no(postcode);
-		a.setMain_adr(address);
-		a.setMain_adr_detail(address_detail);
-		
+		a.setCu_no(customer.getCu_no());
+		a.setMain_adr_no(Integer.parseInt(request.getParameter("postcode")));
+		a.setMain_adr(request.getParameter("address"));
+		a.setMain_adr_detail(request.getParameter("address_detail"));
 		addressService.saveAddress(a);
+		
 		return "/index";
 	}
 	

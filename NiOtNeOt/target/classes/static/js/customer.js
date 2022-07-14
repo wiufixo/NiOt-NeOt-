@@ -530,103 +530,20 @@ $(document).on("click","#mypage_delete_button",function(){
 
 //join 이메일 인증 클릭
 $(document).on("click","#join_email_check_start",function(){
-	
-	//email 중복 체크
+	alert("인증번호가 발송되었습니다");
+	//이메일로 인증번호 발송
 	$.ajax({
-		url:"/customer/emailCheck",
+		url:"/customer/checkSend",
 		method:"post",
 		data:{cu_email:$("#cu_email").val()},
-		success: function(data){
-			//이메일 중복 체크
-			if(data==0 && $("#cu_email").val()!=""){
-				$("#join_email_warning").css({
-					"display":"none"
-				})
-				alert("인증번호가 발송되었습니다");
-				$("#join_email_check_hidden").css({
-					"visibility":"visible"
-				})
-				//이메일로 인증번호 발송
-				$.ajax({
-					url:"/customer/checkSend",
-					method:"post",
-					data:{cu_email:$("#cu_email").val()},
-					success:function(data){
-						$("#join_email_check_true").val(data);
-					}
-				})
-			}else if(data!=0){
-				$("#join_email_warning").css({
-					"display":"inline"
-				});
+		success:function(data){
+			$("#join_email_check_true").val(data);
 		}
-		},
-		async: false
 	})
 })
-
 //join 회원 가입 버튼 클릭
 $(document).on("click","#join_button",function(){
 	var check=0;
-	//id 중복 체크
-	$.ajax({
-		url:"/customer/idCheck",
-		method:"post",
-		data:{cu_id:$("#cu_id").val()},
-		success: function(data){
-			if(data==0 && $("#cu_id").val()!=""){
-				$("#join_id_warning").css({
-					"display":"none"
-				})
-			}else if(data!=0){
-				check++;
-				$("#join_id_warning").css({
-					"display":"inline"
-				});
-			}
-		},
-		 async: false
-	})
-	
-	//email 중복 체크
-	$.ajax({
-		url:"/customer/emailCheck",
-		method:"post",
-		data:{cu_email:$("#cu_email").val()},
-		success: function(data){
-			if(data==0 && $("#cu_email").val()!=""){
-				$("#join_email_warning").css({
-					"display":"none"
-				})
-			}else if(data!=0){
-				check++;
-				$("#join_email_warning").css({
-					"display":"inline"
-				});
-		}
-		},
-		async: false
-	})
-	
-	//nickname 중복 체크
-	$.ajax({
-		url:"/customer/nicknameCheck",
-		method:"post",
-		data:{cu_nickname:$("#cu_nickname").val()},
-		success:function(data){
-			if(data==0 && $("#cu_nickname").val()!=""){
-				$("#join_nickname_warning").css({
-					"display":"none"
-				})
-			}else if(data!=0){
-				check++;
-				$("#join_nickname_warning").css({
-					"display":"inline"
-				});
-		}
-		},
-		async: false
-	})
 	
 	//비밀번호 확인 체크
 	if($("#cu_pwd").val()!=$("#cu_pwd_check").val() || $("#cu_pwd").val()==""){
@@ -640,8 +557,6 @@ $(document).on("click","#join_button",function(){
 		});
 	}
 	//이메일 인증했는지 확인
-	console.log($("#join_email_check").val());
-	console.log($("#join_email_check_true").val());
 	if($("#join_email_check").val()!=$("#join_email_check_true").val()){
 		console.log("eemail");
 		check++;
@@ -650,7 +565,6 @@ $(document).on("click","#join_button",function(){
 		$("#join_email_check_warning").css({"display":"none"});
 	}
 	//join 실행
-	console.log(check);
 	if(check==0){$("#joinForm").submit();}
 })
 

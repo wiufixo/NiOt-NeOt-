@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.sist.nono.model.Customer;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,11 +41,11 @@ public class HomeController {
 //		return "account/login";
 //	}
 //
-//	@GetMapping("/account/join")
-//	public String join(Model model) {
-//		model.addAttribute("user", new User());
-//		return "account/join";
-//	}
+	@GetMapping("/account/join")
+	public String join(Model model) {
+		model.addAttribute("customer", new Customer());
+		return "account/join";
+	}
 //	
 //	@PostMapping("/account/join")
 //	public String joinSubmit(@Valid User user, BindingResult bindingResult) {

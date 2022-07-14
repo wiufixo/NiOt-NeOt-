@@ -30,6 +30,7 @@ public class CustomerAPIController {
 	@Autowired
 	CustomerService service;
 	
+	
 	@PostMapping("customer/findByCu_id")
 	public Customer findByCu_id(@RequestParam("cu_id") String cu_id) {
 		return service.findByCu_id(cu_id);
@@ -53,10 +54,10 @@ public class CustomerAPIController {
 	@PostMapping("customer/nicknameCheck")
 	public int nicknameCheck(@RequestParam("cu_nickname") String cu_nickname) {
 		int cu_no=0;
-		cu_no=service.findByCu_nickCustomer(cu_nickname).getCu_no();
+		cu_no=service.findByCu_nickname(cu_nickname).getCu_no();
 		return cu_no;
 	}
-
+	
 	//이미지 변경
 	@Transactional
 	@Modifying

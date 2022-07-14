@@ -55,7 +55,7 @@
                 </div>
             </div>
             
-            <form id="joinForm" th:action="@{/customer/joinOK}" method="post">
+            <form id="joinForm" th:action="@{/customer/joinOK}" th:object="${customer}" method="post">
             <div class="p_inform">
                 <div class="width_con">
                     <div class="content">
@@ -63,12 +63,13 @@
                             <ul>
                                 <li class="id">
                                     <span>아이디</span><!--
-                                 --><input type="text" id="cu_id" name="cu_id" placeholder="필수 입력 칸입니다.">
-                                    <div class="sub_massage" id="join_id_warning"><div class="red_warning">이미 존재하는 아이디입니다</div></div>
+                                 --><input type="text" class="form-control" th:field="*{cu_id}" placeholder="Id" th:classappend="${#fields.hasErrors('cu_id')} ? 'is-invalid'">
+                                    <div class="sub_massage invalid-feedback" id="join_id_warning" th:if="${#fields.hasErrors('cu_id')}" th:errors="*{cu_id}"></div>
                                 </li>
                                 <li class="pw">
                                     <span>비밀번호</span><!--
-                                 --><input type="password" id="cu_pwd" name="cu_pwd" placeholder="필수 입력 칸입니다.">
+                                 --><input type="password" class="form-control" th:field="*{cu_pwd}" placeholder="Password" th:classappend="${#fields.hasErrors('cu_pwd')} ? 'is-invalid'">
+                                 	<div class="sub_massage invalid-feedback" id="join_pwd_warning" th:if="${#fields.hasErrors('cu_pwd')}" th:errors="*{cu_pwd}"></div>
                                 </li>
                                 <li class="pw_check">
                                     <span>비밀번호 확인</span><!--
@@ -77,32 +78,35 @@
                                 </li>
                                 <li class="name">
                                     <span>이름</span><!--
-                                 --><input type="text" name="cu_name" id="cu_name" placeholder="필수 입력 칸입니다.">
+                                 --><input type="text" class="form-control" th:field="*{cu_name}" placeholder="name" th:classappend="${#fields.hasErrors('cu_name')} ? 'is-invalid'">
+                                 	<div class="sub_message invalid-feedback" th:if="${#fields.hasErrors('cu_name')}" th:errors="*{cu_name}"></div><br>
                                 </li>
                                 
                                 <li>
 	                                <span>닉네임</span>
-	                                <input type="text" name="cu_nickname" id="cu_nickname" placeholder="필수 입력 칸입니다.">
-	 								<div class="sub_massage" id="join_nickname_warning"><div class="red_warning">이미 존재하는 닉네임입니다</div></div>
+	                                <input type="text" class="" th:field="*{cu_nickname}" placeholder="nickname" th:classappend="${#fields.hasErrors('cu_nickname')} ? 'is-invalid'">
+	 								<div class="sub_message invalid-feedback"th:if="${#fields.hasErrors('cu_nickname')}" th:errors="*{cu_nickname}"></div><br>
                                 </li>
+                                
                                 <li class="email">
                                     <span>이메일</span><!--
-                                 --><input type="text" id="cu_email" name="cu_email" placeholder="필수 입력 칸입니다."><!--
-                                 --><div class="sub_massage"><div class="red_warning">이메일 양식이 잘못되었습니다</div></div>
+                                 --><input type="text" class="form-control" th:field="*{cu_email}" placeholder="Email" th:classappend="${#fields.hasErrors('cu_email')} ? 'is-invalid'"><!--
+                                 --><div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('cu_email')}" th:errors="*{cu_email}"></div> 
                                 </li>
+                                
                                 <li class="cert_num">
  									<input type="hidden" id="join_email_check_true" value="1">
                                 	<button type="button" class="send_btn" id="join_email_check_start">인증번호 발송</button><!--
                                  --><input type="text" id="join_email_check"><!--\
-                                 --><div class="sub_massage error" id="join_email_warning"><div class="red_warning">인증번호가 다릅니다</div></div> 
+                                 --><div class="sub_massage error" id="join_email_check_warning"><div class="red_warning">인증번호가 다릅니다</div></div> 
                                 </li>
                                 
                                 <li class="address">
                                     <input type="text" id="postcode" name="postcode" placeholder="우편번호">
 									<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 									
-									<input type="text" id="address" th:name="address" placeholder="주소">
-									<input type="text" id="address_detail" th:name="address_detail" placeholder="상세주소">
+									<input type="text" id="address" name="address" placeholder="주소">
+									<input type="text" id="address_detail" name="address_detail" placeholder="상세주소">
 									<input type="hidden" id="extraAddress" placeholder="참고항목"><br>
                                 </li>
                                 
@@ -110,26 +114,29 @@
                                     <span>출생년도</span>
                                     <input type="date" name="cu_birth" id="cu_birth">
                                 </li>
+                                
                                 <li class="gender">
                                     <span>성별</span>
-                                 	<input type="radio" name="cu_gender" value=0 checked> 여자
- 									<input type="radio" name="cu_gender" value=1 > 남자
+                                 	<input type="radio" th:field="*{cu_gender}" value=0 checked> 여자
+ 									<input type="radio" th:field="*{cu_gender}" value=1 > 남자
                                 </li>
                                 <li class="height">
                                     <span>신장</span><!--
-                                 --><input type="number" min="140" max="230" name="cu_height" id="cu_height">cm
+                                 --><input type="text" class="form-control" th:field="*{cu_height}" th:classappend="${#fields.hasErrors('cu_height')} ? 'is-invalid'">cm<br>
+ 									<div class="sub_message invalid-feedback"th:if="${#fields.hasErrors('cu_height')}" th:errors="*{cu_height}"></div><br>
                                 </li>
                                 <li class="weight">
                                     <span>몸무게</span><!--
-                                 --><input type="number" min="30" max="140" name="cu_weight" id="cu_weight">kg
+                                 --><input type="text" class="form-control" th:field="*{cu_weight}" th:classappend="${#fields.hasErrors('cu_weight')} ? 'is-invalid'">kg<br>
+                               		<div class="sub_message invalid-feedback"th:if="${#fields.hasErrors('cu_weight')}" th:errors="*{cu_weight}"></div><br>
                                 </li>
                             </ul>
                             <div class="check_join">
                                 <input id="checkbox" type="checkbox">
                                 <span>개인정보 공개 여부 &nbsp &nbsp &nbsp &nbsp</span>
-                                <input type="radio" name="privacy_agree" value=0 checked>거부
- 								<input type="radio" name="privacy_agree" value=1>동의
-                                <button type="button" class="join_btn" id="join_button">가입</button>
+                                <input type="radio" th:field="*{privacy_agree}" value=0 checked>거부
+ 								<input type="radio" th:field="*{privacy_agree}" value=1>동의<br>
+                                <button type="button" id="join_button" class="join_btn">가입</button>
                             </div>
                         </div>
                     </div>
