@@ -84,6 +84,11 @@ public class CustomersController {
 	
 	@Autowired JavaMailSender javaMailSender;
 	
+	@GetMapping("customer/test")
+	public String test() {
+		return "customer/my_page";
+	}
+	
 	@PostMapping("customer/joinOK")
 	public String joinOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request) {
 		//model에서 설정한 유효성
@@ -109,7 +114,6 @@ public class CustomersController {
 	
 	@PostMapping("customer/updateOK")
 	public String updateOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request,Model model) {
-		//model에서 설정한 유효성
 		Address a=addressService.findById(customer.getCu_no());
 		model.addAttribute(a);
 		

@@ -38,6 +38,8 @@
         <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
         <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
+
+        
     </head>
     <body class="loading">
         <span class="chat"></span>
@@ -95,14 +97,16 @@
                                     <input type="text" id="postcode" name="postcode" placeholder="우편번호" th:value="${address.getMain_adr_no}">
 									<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
 									
-									<input type="text" id="address" name="address" placeholder="주소" th:value="${address.getMain_adr}">
+									<input type="text" id="address" name="address" placeholder="주소" th:value="${address.getMain_adr}" readonly>
 									<input type="text" id="address_detail" name="address_detail" placeholder="상세주소" th:value="${address.getMain_adr_detail}">
 									<input type="hidden" id="extraAddress" placeholder="참고항목"><br>
                                 </li>
                                 
+                                
+                                
                                 <li class="birth">
                                     <span>출생년도</span>
-                                    <input type="date" name="cu_birth" id="cu_birth">
+                                    <input type="date" th:field="*{cu_birth}" >
                                 </li>
                                 
                                 <li class="gender">
