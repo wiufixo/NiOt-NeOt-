@@ -69,6 +69,10 @@ public class FeedFileUpload {
 
 		/* 파일 개수만큼 forEach 실행 */
 		for (MultipartFile file : files) {
+			/*if (file.getSize() < 1) {
+				continue;
+			}*/
+			
 			try {
 				/* 파일 확장자 */
 				final String extension = FilenameUtils.getExtension(file.getOriginalFilename());

@@ -151,9 +151,11 @@ public class FeedController {
 		
 	}
 	
+	//ajax 통신을 위해서 ResponseBody 어노케이션을 붙이고 json 타입으로 반환.
 	@GetMapping("/imgList")
 	@ResponseBody
 	public List<FeedImg> fileList(int f_no) {
+		//해당 피드에 담긴 이미지의 정보를 리스트로 가져온다.
 		return fi_Service.findAllByFeed(f_no);
 		
 	}

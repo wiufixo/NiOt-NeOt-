@@ -8,6 +8,9 @@ let fileIdx = isEmpty(fileList) ? 0 : fileList.length; /*[- 파일 인덱스 처
 //file_${fileIdx} 에 해당하는 id를 가지고 있기 때문에 인덱스 증가 처리를 위해서는
 //fileList의 크기 (length) 를 기준으로 초기화 되어야함
 //file_0,file_1,file_2
+
+
+
 var fsave = function() {
 	
 	
@@ -83,7 +86,7 @@ var addFile=function(){
 
 	const fileHtml = `
 		<div data-name="fileDiv" class="form-group filebox bs3-primary">
-			ㅉ<label for="file_${fileIdx}" class="col-sm-2 control-label"></label>
+			<label for="file_${fileIdx}" class="col-sm-2 control-label"></label>
 			<div class="col-sm-10">
 				<input type="text" class="upload-name" value="파일 찾기" readonly />
 				<label for="file_${fileIdx}" class="control-label">찾아보기</label>
@@ -188,7 +191,7 @@ let fcdelete = function(f_no, fc_no) {
 		success: function(re) {
 			alert("성공")
 			console.log(f_no);
-			window.location.reload;
+			window.location.reload();
 			//location.href = `/feed/detailFeed/${f_no}`
 		}
 
@@ -199,22 +202,49 @@ let fcdelete = function(f_no, fc_no) {
 var fupdate = function() {
 
 	var f_no = $("#f_no").val();
+	
+	var isFileChanged=$("#isFileChanged").val();
+	
+	var formData = new FormData();
+	//form 태그를 만들어 넘김 데이를 담아준다.
+	
 	var data = {
 		f_no: f_no,
 		f_title: $("#title").val(),
 		f_content: $("#content").val(),
+		isFileChanged:isFileChanged
 	}
 
 	console.log(f_no)
 	console.log(data);
+	
+	var fileInput=$('.files');
+	
+	for (var i = 0; i < fileInput.length; i++) {
+			if (fileInput[i].files.length > 0) {
+				for (var j = 0; j < fileInput[i].files.length; j++) {
+					console.log(" fileInput[i].files[j] :::"+ fileInput[i].files[j]);
+					
+					// formData에 'file'이라는 키값으로 fileInput 값을 append 시킨다.  
+					formData.append('files', $('.files')[i].files[j]);
+				}
+			}
+		}
+		
+		formData.append('key', new Blob([ JSON.stringify(data) ], {type : "application/json"}));
 
 	$.ajax({
-		url: "/feed/updateSubmit",
+		url: `/feed/updateSubmit/${f_no}`,
 		type: "POST",
-		data: data,
-		success: function() {
+		enctype: 'multipart/form-data',        
+		data: formData,  
+		processData: false,        
+		contentType: false ,
+		success: function(resp) {
+				console.log("resp:" + resp);
+	
 			alert("피드 수정 성공")
-				location.href = `/feed/detailFeed/${f_no}`;
+				//location.href = `/feed/detailFeed/${f_no}`
 		}
 	});
 }
@@ -260,7 +290,7 @@ var fcupdate = function(fc_no) {
 //-----------------------------------------------------------------------------------------------------------	
 $(document).ready(function() {
 
-	let f_no = $("#f_no").text(); //피드 	번호 (f_no),div(text())
+	//피드 	번호 (f_no),div(text())
 	let fc_no = $("fc_no").val(); //피드 댓글 번호 (fc_no),input(val())
 
 	//------------------------------------------------------------------------
@@ -284,6 +314,26 @@ $(document).ready(function() {
 	//-------------------------------------------------------------------------------------------------------------
 	$("#fc-save").on("click", function() {
 		fcsave();
+	})
+	
+	//--------------------------------------------------------------------------------------------------------
+	$("#feed-list").on("click",function(){
+		console.log("fileList 만드는 함수 ")
+		var f_no=$("#f_no").val();
+		$.ajax({
+			url:"/imgList",
+			data:{f_no:f_no},
+			dataType:"json",
+			success:function(re){
+				fileList=[];
+				console.log(re)
+				$(re).each(function(res){
+					console.log(res)
+					fileList.push(this);
+				})
+			}
+			
+		})
 	})
 
 })

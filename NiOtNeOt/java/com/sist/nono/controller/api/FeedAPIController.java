@@ -68,10 +68,21 @@ public class FeedAPIController {
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
 	}
 	
-	@PostMapping("/feed/updateSubmit")
-	public ResponseDTO<Integer> update(Feed f) {
-	 
-		fs.updateFeed(f);
+	@PostMapping("/feed/updateSubmit/{f_no}")
+	public ResponseDTO<Integer> update(@PathVariable int f_no, @RequestPart(value = "key") Feed f, @RequestPart(value = "files",required = false)List<MultipartFile> files) {
+		System.out.println("*******update컨트롤러**********");
+		System.out.println(f_no);
+		System.out.println(f);
+		System.out.println(files);
+		System.out.println("*****************");
+		
+		
+		if (files == null) {
+			fs.updateFeed(f);
+		}else {
+			fs.updateFeed(f, files);
+		}
+		
 		return new ResponseDTO<Integer>(HttpStatus.OK.value(), 1);
 		
 	}

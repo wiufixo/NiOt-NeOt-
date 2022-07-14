@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.nono.auth.PrincipalDetail;
 import com.sist.nono.dto.FeedFileUpload;
+import com.sist.nono.model.BoardFile;
 import com.sist.nono.model.Feed;
 import com.sist.nono.model.FeedComment;
 import com.sist.nono.model.FeedImg;
@@ -100,18 +101,49 @@ public class FeedService {
 	}
 
 	// Feed 수정
-	@Transactional
 	public void updateFeed(Feed f) {
-
-		//f.setF_created(f.getF_created());
-
 		
-
-		//orElse :  null 일때만 실행 
-		//반환 타입이 
+		System.out.println("서비스에 도착함");
+		
 		
 		fr.save(f);
 
+		
+	}
+	
+	
+	@Transactional
+	public void updateFeed(Feed f,List<MultipartFile> files) {
+			
+
+		
+		fr.save(f);
+		
+		System.out.println("현재 피드의 번호1 : " + f.getF_no());
+		
+		String isFileChanged = f.getIsFileChanged();
+		
+		if(isFileChanged.equals("Y")) {
+			System.out.println("현재 피드의 번호2 : " + f.getF_no());
+			
+			fir.deleteFile(f.getF_no());
+		}
+		
+		System.out.println("현재 피드의 번호 3: " + f.getF_no());
+		
+		List<FeedImg> fileList = fileUpload.uploadFiles(files, f.getF_no());
+		if (CollectionUtils.isEmpty(fileList) == false) {
+		//	board.setBoardFile(fileList);
+			for(FeedImg fi : fileList) {
+				fir.save(fi);
+				System.out.println("bf="+fi);
+			}
+		}
+		
+		
+		
+		
+		
 	}
 
 	// Feed 삭제
