@@ -31,8 +31,8 @@
 			<groupId>org.hibernate.validator</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.0.7.Final</version>
-		<!-- 타임리프 레이아웃 -->
 		</dependency>
+		<!-- 타임리프 레이아웃 -->
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
@@ -94,8 +94,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-thymeleaf</artifactId> 
-			</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -165,11 +163,6 @@
 			<artifactId>stomp-websocket</artifactId>
 			<version>2.3.3</version>
 		</dependency>
-		<!-- 레이아웃을 쓰기 위한 dependency -->
-		<dependency>
-         <groupId>nz.net.ultraq.thymeleaf</groupId>
-         <artifactId>thymeleaf-layout-dialect</artifactId>
-      </dependency>
 	</dependencies>
 
 	<build>

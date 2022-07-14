@@ -9,5 +9,4 @@ public class NiOtNeOtApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NiOtNeOtApplication.class, args);
 	}
-
 }

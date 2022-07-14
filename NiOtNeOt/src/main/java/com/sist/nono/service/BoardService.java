@@ -25,12 +25,11 @@ import com.sist.nono.exception.ErrorCode;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.BoardFile;
 import com.sist.nono.model.Customer;
-import com.sist.nono.model.User;
 import com.sist.nono.paging.CommonParams;
 import com.sist.nono.paging.Pagination;
 import com.sist.nono.repository.BoardFileRepository;
 import com.sist.nono.repository.BoardRepository;
-import com.sist.nono.repository.UserRepository;
+import com.sist.nono.repository.CustomerRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,7 +44,7 @@ public class BoardService {
 	private BoardFileRepository fileRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	private CustomerRepository customerRepository;
 
 	@Autowired
 	private BoardDao dao;

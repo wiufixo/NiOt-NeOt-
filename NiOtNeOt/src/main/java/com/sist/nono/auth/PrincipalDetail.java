@@ -7,9 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.sist.nono.model.Customer;
-import com.sist.nono.model.User;
 
-import lombok.Data;
 import lombok.Getter;
 
 //시큐리티가 로그인 요청을 가로채서 로그인을 진행하고 완료후 UserDetails 타입의 오브젝트를 고유 세션에 저장한다

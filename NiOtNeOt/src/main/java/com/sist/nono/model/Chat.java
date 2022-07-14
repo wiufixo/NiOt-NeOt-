@@ -1,6 +1,8 @@
 package com.sist.nono.model;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,12 +17,19 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString(exclude = {"customer","chatroom"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -38,6 +47,7 @@ public class Chat {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cr_no")
+	@JsonIgnoreProperties({"customer","product"})
 	private ChatRoom chatroom;
 	
 	@ColumnDefault("0")

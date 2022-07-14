@@ -11,13 +11,13 @@
 	<link rel="stylesheet" th:href="@{/css/signin.css}">
 	<!-- <link rel="stylesheet" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" /> -->
 	
-	<title th:text="user-update"></title>
+	<title th:text="customer-update"></title>
 </head>
 
 <body class="text-center" style="padding-top: 110px;">
 	<div th:replace="fragments/common :: header('update')"></div>
 	<main class="form-signin w-100 m-auto">
-		<form th:action="@{/account/update}" th:object="${user}" th:method="post">
+		<form th:action="@{/account/update}" th:object="${customer}" th:method="post">
 			
 			<h1 class="h3 mb-3 fw-normal">Update</h1>
 			

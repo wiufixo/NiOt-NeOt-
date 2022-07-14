@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.RoleType;
-import com.sist.nono.model.User;
 import com.sist.nono.repository.CustomerRepository;
 
 
