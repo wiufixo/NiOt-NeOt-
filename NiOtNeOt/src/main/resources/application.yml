@@ -17,10 +17,7 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
-<<<<<<< HEAD
 #      hibernate.hbm2ddl.auto: update
-=======
->>>>>>> branch 'main' of https://github.com/wiufixo/NiOt-NeOt-.git
 
 
 mybatis:
