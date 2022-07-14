@@ -1,5 +1,13 @@
-let fileIdx=0;
-
+let fileList = [];
+//컨트롤러에서 전달받은 fileList 객체를 의미.
+//fileIdx를 처리 하기 위해 사용
+//let fileIdx = 0
+let fileIdx = isEmpty(fileList) ? 0 : fileList.length; /*[- 파일 인덱스 처리용 전역 변수 -]*/
+//기존에는 해당 변수의 값을 0 으로 초기화 
+//파일이 포함된 게시글 수정의 경우에는 각 영역의 <label>태그와 <input>태그가 
+//file_${fileIdx} 에 해당하는 id를 가지고 있기 때문에 인덱스 증가 처리를 위해서는
+//fileList의 크기 (length) 를 기준으로 초기화 되어야함
+//file_0,file_1,file_2
 var fsave = function() {
 	
 	
@@ -59,21 +67,23 @@ var fsave = function() {
 }
 
 var addFile=function(){
-	const fileDivs = $('div[data-name="fileDiv"]');
-	if (fileDivs.length > 2) {
+	const fileDivs = $('div[data-name="fileDiv"]'); 
+	//<div> 태그의 data-name이 fileDiv 인것을 찾아와 변수에 담는다
+	if (fileDivs.length > 2) { //fileDivs
 		alert('파일은 최대 세 개까지 업로드 할 수 있습니다.');
 		return false;
 	}
 	console.log("******filechanged**********")
 	console.log($("#isFileChanged").val());
-	$("#isFileChanged").val("Y");
+	//파일이 추가 되는 시점에 앞에서 hidden 타입으로 추가한 changeYn의 값을 ="Y" 값으로 변경
+	$("#isFileChanged").val("Y"); // Y값으로 변경
 	console.log($("#isFileChanged").val());
 
-	fileIdx++;
+	fileIdx++; // 파일 추가 
 
 	const fileHtml = `
 		<div data-name="fileDiv" class="form-group filebox bs3-primary">
-			<label for="file_${fileIdx}" class="col-sm-2 control-label"></label>
+			ㅉ<label for="file_${fileIdx}" class="col-sm-2 control-label"></label>
 			<div class="col-sm-10">
 				<input type="text" class="upload-name" value="파일 찾기" readonly />
 				<label for="file_${fileIdx}" class="control-label">찾아보기</label>
@@ -178,7 +188,7 @@ let fcdelete = function(f_no, fc_no) {
 		success: function(re) {
 			alert("성공")
 			console.log(f_no);
-
+			window.location.reload;
 			//location.href = `/feed/detailFeed/${f_no}`
 		}
 
@@ -204,15 +214,10 @@ var fupdate = function() {
 		data: data,
 		success: function() {
 			alert("피드 수정 성공")
-				location.href = "/feed/detailFeed/"+f_no;
+				location.href = `/feed/detailFeed/${f_no}`;
 		}
 	});
 }
-
-
-
-
-
 
 
 let openModal=function(fc_no,fc_comment) {
@@ -251,15 +256,6 @@ var fcupdate = function(fc_no) {
 		alert(JSON.stringify(error));
 	});
 }
-
-
-	
-	
-	
-	
-
-	
-	
 	
 //-----------------------------------------------------------------------------------------------------------	
 $(document).ready(function() {
@@ -273,11 +269,6 @@ $(document).ready(function() {
 		fsave();
 
 	})
-//	$("#feed-delete").on("click", function() {
-//		console.log("버튼 작동")
-//		fdelete();
-//	})
-
 
 	$("#feed-update").on("click", function() {
 
@@ -293,24 +284,6 @@ $(document).ready(function() {
 	//-------------------------------------------------------------------------------------------------------------
 	$("#fc-save").on("click", function() {
 		fcsave();
-	})
-
-	$(".fc-delete").on("click", function() {
-		alert("버튼 동작함")
-
-		fcdelete();
-	})
-
-
-	$(".fc-move").on("click", function() {
-		alert("버튼 동작함")
-		$(".fc-comment2").css("display", "inline");
-		$(".fc-update").css("display", "inline");
-	})
-
-	$("#fc-update").on("click", function() {
-		alert("버튼 동작함")
-		fcupdate();
 	})
 
 })

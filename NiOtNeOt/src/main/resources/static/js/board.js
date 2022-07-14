@@ -35,7 +35,8 @@ addFile=function(){
 	console.log($("#isFileChanged").val());
 	
 	fileIdx++;
-
+	//div[data-name]="fileDiv" 안 에  id가 file_ 의 id 값을 증가 시켜주기 위해서
+	//file_${fileIdx} 를 써 0,1,2 최대 3개 까지 의 파일을 등록 시킬 수 있도록 만듦
 	const fileHtml = `
 		<div data-name="fileDiv" class="form-group filebox bs3-primary">
 			<label for="file_${fileIdx}" class="col-sm-2 control-label"></label>
@@ -55,6 +56,8 @@ addFile=function(){
 	`;
 
 	$('#myspan').before(fileHtml);
+	//.before() 은 선택한 요소 앞에 새 요소를 추가 하거나,다른 곳에 있는 요소를 이동시킬 수 있음
+	//id가 myspan 인 요소 앞에 fileHtml 을 추가 해준다.
 }
 
 removeFile=function(elem) {

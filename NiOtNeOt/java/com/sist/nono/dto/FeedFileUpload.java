@@ -21,6 +21,7 @@ import com.sist.nono.repository.BoardRepository;
 import com.sist.nono.repository.FeedRepository;
 
 @Component
+//@Bean 과 달리 개발자가 직접 작성한 클래스를 스프링 컨테이너에 등록하는 데 사용
 public class FeedFileUpload {
 	
 	@Autowired
