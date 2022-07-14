@@ -107,6 +107,31 @@ public class CustomersController {
 		return "/index";
 	}
 	
+	@PostMapping("customer/updateOK")
+	public String updateOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request,Model model) {
+		//model에서 설정한 유효성
+		Address a=addressService.findById(customer.getCu_no());
+		model.addAttribute(a);
+		
+		if(bindingResult.hasErrors()) {
+			return "customer/update";
+		}
+		//validator에서 설정한 유효성
+		CustomerValidator validator = new CustomerValidator(customerService);
+		validator.validate(customer, bindingResult);
+		if(bindingResult.hasErrors()) {
+			return "customer/update";
+		}
+		
+		customerService.saveCustomer(customer);
+		a.setMain_adr_no(Integer.parseInt(request.getParameter("postcode")));
+		a.setMain_adr(request.getParameter("address"));
+		a.setMain_adr_detail(request.getParameter("address_detail"));
+		addressService.saveAddress(a);
+		
+		return "/index";
+	}
+	
 	@GetMapping("customer/update")
 	public String updateCu(Authentication auth,Model model) {
 		Customer cu=customerService.findByCu_id(auth.getName());
@@ -114,7 +139,7 @@ public class CustomersController {
 		model.addAttribute("customer",customerService.findById(cu_no));
 		model.addAttribute("address",addressService.findById(cu_no));
 		
-		return "customer/updateForm";
+		return "customer/update";
 	}
 	
 	
@@ -157,9 +182,9 @@ public class CustomersController {
 		return "OK";
 	}
 
-	@PostMapping("customer/updateOK")
+	@PostMapping("customer/updateOK1")
 	@Transactional
-	public String updateOK(int cu_no,String cu_pwd,String cu_name,
+	public String updateOK1(int cu_no,String cu_pwd,String cu_name,
 			String cu_nickname,int cu_gender,int cu_height,int cu_weight,String cu_birth,int privacy_agree,String address,String address_detail,int postcode) {
 		
 		Customer c=customerService.findById(cu_no);

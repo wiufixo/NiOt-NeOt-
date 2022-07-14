@@ -558,7 +558,6 @@ $(document).on("click","#join_button",function(){
 	}
 	//이메일 인증했는지 확인
 	if($("#join_email_check").val()!=$("#join_email_check_true").val()){
-		console.log("eemail");
 		check++;
 		$("#join_email_check_warning").css({"display":"inline"});
 	}else{
@@ -571,22 +570,6 @@ $(document).on("click","#join_button",function(){
 //update 회원 정보 수정 버튼 클릭
 $(document).on("click","#update_button",function(){
 	var check=0;	
-	//nickname 중복 체크
-	$.ajax({
-		url:"/customer/nicknameCheck",
-		method:"post",
-		data:{cu_nickname:$("#cu_nickname").val()},
-		success:function(data){
-			if(data==0||$("#cu_nickname").val()==$("#cu_nickname_origin").val()){
-				$("#update_nickname_warning").css({	"display":"none"})
-			}else if(data!=0&&$("#cu_nickname").val()==$("#cu_nickname_origin").val()){
-				check++;
-				$("#update_nickname_warning").css({"display":"inline"});
-			}
-		},
-		async: false
-		})
-		
 	//비밀번호 확인 체크
 	if($("#cu_pwd").val()!=$("#cu_pwd_check").val()){
 		check++;
