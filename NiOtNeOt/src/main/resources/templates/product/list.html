@@ -8,9 +8,9 @@
 	<nav>
 	<!--  위에 카테고리바 -->
 		<ul th:each ="category :${categories}">
-			<li th:text="${category.ca_name}">
-				<a href="/product/list.html"></a>
-			</li>
+			<a th:href="@{'/products/categories/'+ ${category.ca_no}}">
+				<li th:text="${category.ca_name}"></li>
+			</a>
 		</ul>
 	</nav>
 	<div class="container">
@@ -35,7 +35,9 @@
 				<td>닉네임</td>
 				<td th:text="${product.ca_name}"></td>
 				<td>
-					<a th:href="@{'/products/'+ ${product.pr_no}}" th:text="${product.pr_image}" >상품이미지</a>
+					<a th:href="@{'/products/'+ ${product.pr_no}}" >
+						<img height="30px" width="30px" th:src="${product.pr_image}" />
+					</a>
 				</td>
 				<td th:text="${product.pr_deal}"></td>
 				<td th:text="${product.pr_name}"></td>
@@ -46,7 +48,7 @@
 	</table>
 	<!-- 상품등록 버튼 -->
 	<div>
-		<button th:onclick="|location.href='@{/product/insert}'|" type="button">상품 등록</button>
+		<button th:onclick="|location.href='@{/products/insert}'|" type="button">상품 등록</button>
 	</div>
 	
 

@@ -27,12 +27,12 @@
 	<div>
 		<label for="productContent">상품설명</label>
 			<textarea rows="" cols="" id="content" name="content" sclass="form-control"
-			th:value="${prdouct.pr_content" readonly="readonly"></textarea>
+			th:text="${product.pr_content}" readonly="readonly"></textarea>
 	</div>
 	<div>
 		<label for="productStatus">상품 상태</label>
 			<input type="text" id="deal" name="status" sclass="form-control"
-			th:value="${product.deal}" readonly="readonly">
+			th:value="${product.pr_deal}" readonly="readonly">
 	</div>
 	
 	
@@ -49,7 +49,7 @@
 		</div>
 		
 		<div class="col">
-			<button th:onclick="|location.href='@{/product/list}'|" type="button">목록</button>	
+			<button th:onclick="|location.href='@{/products}'|" type="button">목록</button>	
 		</div>
 
 </div>

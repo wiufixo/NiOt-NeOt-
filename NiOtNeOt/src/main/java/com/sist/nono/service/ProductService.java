@@ -2,6 +2,7 @@ package com.sist.nono.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -19,6 +20,7 @@ import com.sist.nono.model.Product;
 import com.sist.nono.model.ProductDeal;
 import com.sist.nono.model.ProductImage;
 import com.sist.nono.model.ProductStatus;
+import com.sist.nono.repository.CategoryRepository;
 import com.sist.nono.repository.ProductImageRepository;
 import com.sist.nono.repository.ProductRepository;
 
@@ -36,7 +38,6 @@ public class ProductService {
 		return productRepository.findAll();
 	}
 	
-	
 	@Transactional
 	public void saveProduct(Product product) {
 		productRepository.save(product);
@@ -45,6 +46,12 @@ public class ProductService {
 	
 	public Product findProduct(int pr_no) {
 		return this.productRepository.findById(pr_no).get();
-		//return productRepository.findOne(pr_no);
+	}
+	
+	public List<Product> findProductByCategory(int ca_no) {
+		return this.productRepository.findAll()
+		.stream()
+		.filter(p -> p.getCategory().getCa_no() == ca_no)
+		.collect(Collectors.toList());
 	}
 }

@@ -54,8 +54,15 @@ public class Product{
 	
 	private int pr_cost;
 	
+	@Column(name = "cu_no")
+	private int cu_no;
+	
 	@Lob
 	private String pr_content;
+	
+	
+	@Enumerated(EnumType.STRING)
+	private ProductDeal pr_deal;
 	
 	
 	@CreationTimestamp
@@ -63,12 +70,6 @@ public class Product{
 
 	@UpdateTimestamp
 	private Date pr_updated;
-	
-	
-	@Enumerated(EnumType.STRING)
-	private ProductDeal pr_deal;
-	
-	
 
 	
 	//업데이트

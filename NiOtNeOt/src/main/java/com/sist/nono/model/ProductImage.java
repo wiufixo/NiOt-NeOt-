@@ -61,8 +61,7 @@ public class ProductImage {
 	private Boolean repImgYn; //대표 이미지 여부
 	
 	//ProductImageService에서 이미지 수정할 때 사용
-	public void updateProductImage(String pi_originName, String pi_name, String pi_url) {
-		this.pi_originName = pi_originName;
+	public void updateProductImage(String pi_name, String pi_url) {
 		this.pi_name = pi_name;
 		this.pi_url = pi_url;
 	}

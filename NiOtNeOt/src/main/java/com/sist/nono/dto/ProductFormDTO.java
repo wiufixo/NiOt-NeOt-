@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.nono.model.Category;
@@ -44,18 +43,7 @@ public class ProductFormDTO {
 	//그냥 수정할 때 이미지 아이디 저장해둘 용도
 	private List<Integer> productImageNo =  new ArrayList<>();
 	
-	private static ModelMapper modelMapper = new ModelMapper();
-	
-	//productFormDTO를 entity로 변환
-	public Product createProduct() {
-		return modelMapper.map(this,Product.class);
-	}
-	
-	public static ProductFormDTO of(Product product) {
-		return modelMapper.map(product, ProductFormDTO.class);
-		//entity를 파라미터로 받아서 dto로 반환
-	}
-	
+
 	
 	
 	

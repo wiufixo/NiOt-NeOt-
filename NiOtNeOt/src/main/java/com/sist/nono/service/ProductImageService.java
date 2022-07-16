@@ -47,7 +47,7 @@ public class ProductImageService {
         }
 
         //상품 이미지 정보 저장
-        productimage.updateProductImage(pi_originName,pi_name,pi_url);
+        productimage.updateProductImage(pi_name,pi_url);
         repository.save(productimage);
         /*
         imgName: 실제 로컬에 저장된 상품 이미지 파일 이름
@@ -72,7 +72,7 @@ public class ProductImageService {
     		
     		//변경된 상품 이미지 정보를 세팅
     		String pi_url = "/product/image"+pi_name;
-    		savedPrdouctImage.updateProductImage(pi_originName, pi_name, pi_url);
+    		savedPrdouctImage.updateProductImage(pi_name, pi_url);
     	}
 
 }

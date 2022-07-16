@@ -12,7 +12,7 @@
 		<h2>상품 등록</h2>
 	</div>
 	<hr>
-	<form th:action="@{/product/insert}" method="post" enctype="multi-form" th:object="${product}"></form>
+	<form th:action="@{/products/insert}" method="post" enctype="multi-form" th:object="${product}"></form>
 	<div>
 		<label th:for="pr_name">상품명</label>
 		<input type="text" name="pr_name">
@@ -26,11 +26,11 @@
 	<!-- 카테고리 -->
 	<div>
 		<label>카테고리</label>
-		<select name="ca_no">
-			<option value="1">APPAREL</option>
-			<option value="2">BAG</option>
-			<option value="3">SHOES</option>
-			<option value="4">ACC</option>
+		<select name="ca_name">
+			<option th:each="category : ${categories}" 
+			    th:value="${category.ca_name}" 
+                th:utext="${category.ca_name}">
+        	</option>
 		</select>
 	</div>
 	<div>
@@ -50,11 +50,9 @@
 	
 </div>
 
-<div th:if="${#strings.isEmpty(ProductFormDTO.pr_no)}">
-	<button th:onclick="|location.href='@{/product/list}'|" type="submit">등록</button>
-</div >
-<div th:unless="${#strings.isEmpty(ProductFormDTO.pr_no)}">
-	<button th:onclick="|location.href='@{/product/list}'|" type="button">취소</button>
+<div>
+	<button th:onclick="|location.href='@{/products}'|" type="submit">등록</button>
+	<button th:onclick="|location.href='@{/products}'|" type="button">취소</button>
 </div>
 </body>
 </html>

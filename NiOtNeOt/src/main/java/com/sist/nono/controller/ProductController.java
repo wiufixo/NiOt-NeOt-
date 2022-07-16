@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sist.nono.dto.ProductDTO;
+import com.sist.nono.model.Category;
 import com.sist.nono.model.Product;
+import com.sist.nono.service.CategoryService;
 import com.sist.nono.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	//리스트
 	@GetMapping("")
@@ -35,7 +39,10 @@ public class ProductController {
 		List<ProductDTO> dtoList = list.stream().map(p -> new ProductDTO(p))
 		.collect(Collectors.toList());
 		
+		List<Category> categories = categoryService.findAll();
+		
 		model.addAttribute("products",dtoList);
+		model.addAttribute("categories",categories);
 		return "product/list";
 	}
 	
@@ -46,7 +53,23 @@ public class ProductController {
 		return "product/detail";
 	}
 	
-	
+	@GetMapping("/categories/{ca_no}")
+	public String productByCategory(Model model, @PathVariable int ca_no  ) {
+		List<Product> list = productService.findProductByCategory(ca_no);
+		List<ProductDTO> dtoList = list.stream().map(p -> new ProductDTO(p))
+		.collect(Collectors.toList());
+		
+		List<Category> categories = categoryService.findAll();
+		
+		model.addAttribute("products",dtoList);
+		model.addAttribute("categories",categories);
+		return "product/list";
+	}
+
+	@GetMapping("/insert")
+	public String createProducts( ) {
+		return "/product/insert";
+	}
 	
 	//게시글 저장
 	@GetMapping(value="/product/new")
