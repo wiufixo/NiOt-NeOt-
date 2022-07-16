@@ -1,6 +1,7 @@
 package com.sist.nono.model;
 
-import java.sql.Date;
+import java.security.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,9 +23,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,23 +40,33 @@ public class ProductImage {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="cu_no")
-	private Customer customer; //회원번호
+	private Customer user; //회원번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="pr_no")
-	@JsonBackReference	//순환참조를 방어하기위한 annotation
+	//@JsonBackReference	//순환참조를 방어하기위한 annotation
 	private Product product; //상품번호
 	
-	@Column(unique = true)
+	@Column(nullable = false)
 	private String pi_name; //이미지 파일명
-	
-	private String pi_originName; //원본이미지 파일명
+
 	@CreationTimestamp
 	private Date pi_created; //생성일자
-	private Date pi_updated; //업데이트 일자
 	
-	private String repimgYn; // 대표 이미지 여부
+	@UpdateTimestamp
+	private Date pi_updated;
+	
 	private String pi_url; // 이미지 조회 경로
+	
+	private Boolean repImgYn; //대표 이미지 여부
+	
+	//ProductImageService에서 이미지 수정할 때 사용
+	public void updateProductImage(String pi_originName, String pi_name, String pi_url) {
+		this.pi_originName = pi_originName;
+		this.pi_name = pi_name;
+		this.pi_url = pi_url;
+	}
+	
 	
 	
 }

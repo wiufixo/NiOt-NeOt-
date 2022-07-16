@@ -1,63 +1,66 @@
 package com.sist.nono.controller;
 
+
 import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.sist.nono.dto.ProductDTO;
 import com.sist.nono.model.Product;
-import com.sist.nono.service.CategoryService;
-import com.sist.nono.service.ProductImageService;
 import com.sist.nono.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
+@RequestMapping("/products")
 @Controller
-@RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
 	
 	@Autowired
-	private ProductService p;
+	private ProductService productService;
 	
-	@Autowired
-	private ProductImageService ps;
-	
-	@Autowired
-	private CategoryService cs;
-	
-	@GetMapping
-	public String productList(Model model){
-		List<Product> products = p.findProduct();
-		model.addAttribute("products", products);
+	//리스트
+	@GetMapping("")
+	public String list(HttpSession httpSession, Model model) {
+		List<Product> list =  productService.findAll();
+		List<ProductDTO> dtoList = list.stream().map(p -> new ProductDTO(p))
+		.collect(Collectors.toList());
+		
+		model.addAttribute("products",dtoList);
 		return "product/list";
 	}
+	
+	@GetMapping("/{pr_no}")
+	public String detail(Model model, @PathVariable int pr_no  ) {
+		Product p = productService.findProduct(pr_no);
+		model.addAttribute("product", p);
+		return "product/detail";
+	}
+	
+	
+	
+	//게시글 저장
+	@GetMapping(value="/product/new")
+	public String insertProduct() {
+		return "/product/insert";
+	}
+	
+	@PostMapping("/product/new")
+	public String insertProdcut(int pr_no, String pr_name, int pr_cost, int ca_no, String pr_content,
+			String pr_deal) {
+		
+		
+		return "/product/insert";
+}
+	
 
-	//게시판 등록화면
-	@GetMapping("/product/insert")
-	public String insertForm(Model model) {
-		return "product/insert";
-	}
-	
-	//게시판 등록
-	@PostMapping("/product/insert")
-	public String insertProduct(@ModelAttribute("product") Product product, Model model) {
-		p.saveProduct(product);
-		return "product/list";
-	}
-	
-	@GetMapping("/product/{pr_no}/update")
-	public String updateForm(@PathVariable("pr_no") int pr_no,Model model) {
-		p.findById(pr_no);
-		model.addAttribute("product", p.findById(pr_no));
-		return "product/update";
-	}
 }

@@ -107,23 +107,23 @@ public class CustomersAPIController {
 		return list;
 	}
 	
-	@GetMapping("customer/productPaging")
-	public ArrayList<Product> productPaging(Model model,HttpServletRequest request) {
-		int page=Integer.parseInt(request.getParameter("page"));
-		int count=page*12;
-		int cu_no=Integer.parseInt(request.getParameter("cu_no"));
-		ArrayList<Product> list=new ArrayList<Product>();
-		
-		List<Product> list1=productService.findAllByCu_no(cu_no);
-		for(int i=count-12;i<count;i++) {
-			//i가 가진 값보다 많아졌을 경우 오류 방지
-			if(i>=list1.size()) {
-				break;
-			}
-			list.add(list1.get(i));
-		}
-		return list;
-	}
+//	@GetMapping("customer/productPaging")
+//	public ArrayList<Product> productPaging(Model model,HttpServletRequest request) {
+//		int page=Integer.parseInt(request.getParameter("page"));
+//		int count=page*12;
+//		int cu_no=Integer.parseInt(request.getParameter("cu_no"));
+//		ArrayList<Product> list=new ArrayList<Product>();
+//		
+//		List<Product> list1=productService.findAllByCu_no(cu_no);
+//		for(int i=count-12;i<count;i++) {
+//			//i가 가진 값보다 많아졌을 경우 오류 방지
+//			if(i>=list1.size()) {
+//				break;
+//			}
+//			list.add(list1.get(i));
+//		}
+//		return list;
+//	}
 	
 	@GetMapping("customer/boardLoad")
 	public ArrayList<Board> boardLoad(Model model,HttpServletRequest request) {

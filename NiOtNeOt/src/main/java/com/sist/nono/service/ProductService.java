@@ -3,42 +3,48 @@ package com.sist.nono.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sist.nono.dto.ProductFormDTO;
+import com.sist.nono.dto.ProductImageDTO;
 import com.sist.nono.model.Product;
+import com.sist.nono.model.ProductDeal;
+import com.sist.nono.model.ProductImage;
+import com.sist.nono.model.ProductStatus;
+import com.sist.nono.repository.ProductImageRepository;
 import com.sist.nono.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ProductService {
 
 	@Autowired
-	private ProductRepository repository;
-
-	public List<Product> findProduct(){
-		return repository.findAll();
+	ProductRepository productRepository;
+	
+	public List<Product> findAll() {
+		return productRepository.findAll();
 	}
-	//주 식별자가 있으면 update 없으면 insert
+	
+	
 	@Transactional
 	public void saveProduct(Product product) {
-		repository.save(product);
+		productRepository.save(product);
 	}
 	
 	
-	public void deleteProduct(int pr_no) {
-		repository.deleteById(pr_no);
-	}
-	
-	public Object findById(int pr_no) {
-		return repository.findById(pr_no);
-	}
-	
-	public List<Product> findAllByCu_no(int cu_no){
-		return repository.findAllByCu_no(cu_no);
+	public Product findProduct(int pr_no) {
+		return this.productRepository.findById(pr_no).get();
+		//return productRepository.findOne(pr_no);
 	}
 }
