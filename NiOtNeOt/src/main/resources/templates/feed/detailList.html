@@ -80,8 +80,22 @@
 					</div>
 				</div>
 				
+				<div th:if="${not #lists.isEmpty( fileList )}" class="form-group">
+					<label for="inp-type-4" class="col-sm-2 control-label">File</label>
+					<div class="col-sm-10">
+						<div class="form-control file_list">
+							<div th:each="row, status : ${fileList}">
+								<a th:href="@{/feed/download(fi_no=${row.fi_no})}"> <i
+									class="fa fa-file-o" aria-hidden="true"></i> [[
+									${row.original_name} ]]
+								</a> <span th:text="|${row.size}kb|"></span>
+							</div>
+							<br>
+						</div>
+					</div>
+				</div>
 				
-			</form>
+			
 
 			<div class="btn_wrap text-center">
 				<a class="btn btn-default waves-effect waves-light" ></a>
@@ -90,6 +104,8 @@
 				<button type="button" class="btn btn-danger waves-effect waves-light" th:onclick="fdelete([[ ${f.f_no} ]])">삭제하기</button>
 			</div>
 		</div>
+		
+		</form>
 	</th:block>
 
 	<th:block layout:fragment="add-content">
