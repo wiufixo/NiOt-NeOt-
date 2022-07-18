@@ -12,28 +12,28 @@
 		<form th:action="@{/board/reForm}" th:object="${board}" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="ref" th:value="${b_ref}">
 			<div class="form-group">
-				<label for="title">제목</label> <input type="text" class="form-control" id="title" th:field="*{b_title}" th:classappend="${#fields.hasErrors('b_title')} ? 'is-invalid'" placeholder="title">
-				<div id="validationServer03Feedback" class="invalid-feedback">제목을 입력해주세요.</div>
+				<label for="title">�젣紐�</label> <input type="text" class="form-control" id="title" th:field="*{b_title}" th:classappend="${#fields.hasErrors('b_title')} ? 'is-invalid'" placeholder="title">
+				<div id="validationServer03Feedback" class="invalid-feedback">�젣紐⑹쓣 �엯�젰�빐二쇱꽭�슂.</div>
 			</div>
 			<div class="form-group">
-				<label for="content">내용</label>
+				<label for="content">�궡�슜</label>
 				<textarea class="form-control" id="content" th:field="*{b_content}" th:classappend="${#fields.hasErrors('b_content')} ? 'is-invalid'" rows="3" placeholder="content"></textarea>
-				<div id="validationServer03Feedback" class="invalid-feedback">내용을 입력해주세요.</div>
+				<div id="validationServer03Feedback" class="invalid-feedback">�궡�슜�쓣 �엯�젰�빐二쇱꽭�슂.</div>
 			</div>
 
 				<div class="form-group">
-					<button type="button" onclick="addFile()">파일추가</button>
+					<button type="button" onclick="addFile()">�뙆�씪異붽�</button>
 				</div>
 				<div class="file-group" id="file-list">
 					<input type="file" name="files">
-					<button type="button" class="btn-remove">삭제</button>
+					<button type="button" class="btn-remove">�궘�젣</button>
 				</div>
 
 			<div id="btnDiv" class="text-right my-btn">
-				<button type="submit" class="btn btn-primary">확인</button>
-				<button type="reset" class="btn btn-warning">다시작성</button>
-				<a class="btn btn-secondary" th:href="@{|/board/detail/${b_no}|(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword})}">이전으로</a>
-				<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">목록으로</a>
+				<button type="submit" class="btn btn-primary">�솗�씤</button>
+				<button type="reset" class="btn btn-warning">�떎�떆�옉�꽦</button>
+				<a class="btn btn-secondary" th:href="@{|/board/detail/${b_no}|(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword})}">�씠�쟾�쑝濡�</a>
+				<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword})}">紐⑸줉�쑝濡�</a>
 			</div>
 
 		</form>
@@ -46,13 +46,13 @@
 
 	<script th:inline="javascript"> 
 	
-		function addFile() {   
+		function혻addFile(){혻혻혻
 			const str = `<div class="file-group" id="file-list">
 							<input type="file" name="files">
-							<button type="button" class="btn-remove">삭제</button>
-						</div>`;     
-			$("#file-add").append(str);        
-		};  
+							<button type="button" class="btn-remove">�궘�젣</button>
+						</div>`;혻혻혻혻혻
+			$("#file-add").append(str);혻혻혻혻혻혻혻혻
+		};혻혻
 		
 		
 		$(document).on("click",".btn-remove", function(){
