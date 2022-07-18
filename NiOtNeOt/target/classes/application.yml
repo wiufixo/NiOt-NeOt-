@@ -1,18 +1,11 @@
 spring:
   datasource:
-
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 #    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:log4jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/jiyeon?serverTimezone=Asia/Seoul
 #    url: jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/test2?serverTimezone=Asia/Seoul
-
     username: manager
     password: manager33
-#    
-#  mvc:
-#    view:
-#      prefix: /WEB-INF/views/
-#      suffix: .jsp
       
   jpa:
     open-in-view: true
@@ -27,8 +20,7 @@ spring:
     show-sql: true
     properties:
       hibernate.format_sql: true
-      hibernate.hbm2ddl.auto: update
-
+#      hibernate.hbm2ddl.auto: update
 
 
 mybatis:
@@ -48,7 +40,6 @@ logging:
 
 ---
 
-
 sist:
   key: sist1234
       
@@ -59,7 +50,6 @@ server:
     encoding:
       charset: UTF-8
       enabled: true
-
       force: true
       
 

@@ -1,49 +1,60 @@
 @charset "UTF-8";
 
-*{
+* {
 	box-sizing: border-box;
 }
 
-#chatt{
-	width: 800px;
+#chatImg {
+	width: 30%;
+	height: 30%;
+	margin: 10px auto;
+}
+
+#chatt {
+	width: 400px;
 	margin: 20px auto;
 }
 
-#chatt #talk{
-	width: 800px;
-	height: 400px;
+#chatt #talk {
+	width: 400px;
+	height: 500px;
 	overflow: scroll;
-	border : 1px solid #aaa;
+	border: 1px solid #aaa;
+	overflow-x: hidden
 }
-#chatt #msg{
-	width: 740px;
-	height:100px;
+
+#chatt #msg {
+	width: 320px;
+	height: 100px;
 	display: inline-block;
 }
 
-#chatt #sendZone > *{
+#chatt #sendZone>* {
 	vertical-align: top;
-	
 }
-#chatt #btnSend{
-	width: 54px;
+
+#chatt #btnSend {
+	width: 55px;
 	height: 100px;
 }
 
-#chatt #talk div{
+#chatt #talk div {
 	width: 70%;
 	display: inline-block;
-	padding: 6px;
-	border-radius:10px;
-	
+	border-radius: 10px;
+	margin-bottom: 10px;
+	padding: 20px 10px;
+	font-size: 12px;
 }
 
-#chatt .me{
-	background-color : #ffc;
-	margin : 1px 0px 2px 30%;	
+#chatt .me {
+	background-color: #ffc;
+	margin: 1px 3px 2px 30%;
+	radius: 4px;
 }
 
-#chatt .other{
-	background-color : #eee;
-	margin : 2px;
+#chatt .other {
+	background-color: #eee;
+	margin: 3px;
+	radius: 4px;
 }

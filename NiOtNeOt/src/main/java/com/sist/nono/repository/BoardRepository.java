@@ -23,5 +23,4 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 	
 	@Query(value = "select * from board where cu_no=?1", nativeQuery = true)
 	public List<Board> findAllByCu_no(int user_no);
-	
 }

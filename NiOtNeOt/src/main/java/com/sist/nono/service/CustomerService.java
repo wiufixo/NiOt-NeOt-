@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.RoleType;
-import com.sist.nono.model.User;
 import com.sist.nono.repository.CustomerRepository;
 
 
@@ -60,7 +59,7 @@ public class CustomerService {
 		return repository.findByCu_email(cu_email).orElseGet(()->new Customer());
 	}
 	
-	public Customer findByCu_nickCustomer(String cu_nickname) {
+	public Customer findByCu_nickname(String cu_nickname) {
 		return repository.findByCu_nickname(cu_nickname).orElseGet(()->new Customer());
 	}
 	

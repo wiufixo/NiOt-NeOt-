@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
 /* 공통적용 (1400px)----------------------------------------------------------------------------------------------------------------*/
-html,body{margin: 0; font-family: 'Poppins'; font-weight: 500; text-transform: uppercase;}
+html,body{margin: 0; font-family: 'Poppins'; font-weight: 500;}
 *{-webkit-tap-highlight-color: transparent;}
 .wrap{overflow: hidden;}
 .width_con{position: relative; margin: 0 auto; width: 1400px; padding: 100px 0; /*background: rgba(255,255,255,0.5);*/ transition: width 250ms ease-in-out;}
 /*-------chat button-----------------------------------------------*/
-.chat{position: fixed; bottom: 60px; right: 50%; margin-right: -700px; width: 48px; height: 48px; background: url(../img/messenger.png) no-repeat; background-size: cover; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #fff; text-align: center; line-height: 48px; cursor: pointer; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
+.chat{position: fixed; bottom: 60px; right: 60px; width: 48px; height: 48px; background: url(../img/messenger.png) no-repeat; background-size: cover; color: #fff; text-align: center; line-height: 48px; cursor: pointer; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
 .chat:active{color: #aaa; box-shadow: 0 0 0 rgba(0,0,0,1); transform: scale(0.975);}
 .chat img{width: 100%;}
 

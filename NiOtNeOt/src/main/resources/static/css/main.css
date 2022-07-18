@@ -14,21 +14,21 @@
 .my_page{position: relative; width: 100%; height: 100vh; max-height: 1080px; transition: all 450ms ease-out; background: #fff; background-size: cover;}
 body.loading .visual{opacity: 0; filter: blur(8px);}
 .visual .width_con{padding: 0; position: relative; height: 100%;}
-.visual .width_con .title{position: relative; top: 120px; left: 700px; margin: 0 0 250px -180px; width: 360px; border-bottom: 2px solid #000; text-align: center; font-size: 40px; text-transform: none;}
+.visual .width_con .title{position: relative; top: 120px; left: 700px; margin: 0 0 250px -180px; width: 360px; border-bottom: 2px solid #000; text-align: center; font-size: 40px;}
 
 .visual .width_con .rank{margin: 0 -20px; width: 1440px;}
 .visual .width_con .rank li{margin: 0 20px; display: inline-block; width: 320px;}
 .visual .width_con .rank li div.profile_and_nickname{margin: 0 0 15px;}
 .visual .width_con .rank li div.profile_and_nickname img.profile{margin: 0 10px 0 0; width: 50px; border-radius: 50%;}
 .visual .width_con .rank li div.fit_image img{width: 320px; height: 320px; background-size: cover;}
-.visual .width_con .rank li div.rank_and_thumbup{font-size: 20px; text-transform: none;}
+.visual .width_con .rank li div.rank_and_thumbup{font-size: 20px;}
 .visual .width_con .rank li div.rank_and_thumbup span{float: right;}
 .visual .width_con .rank li div.rank_and_thumbup span::before{content: ''; position: absolute; margin: 5px 0 0 -30px; width: 20px; height: 20px; background: url(../img/like.png) no-repeat; background-size: cover;}
 
 /*개인정보 입력 페이지*/
-.content{display: flex; width: 100%; height: 100%; align-items: center; justify-content: center;}
+.content{display: flex; width: 100%; height: 100%; justify-content: center;}
 .content .backboard{padding: 80px 100px; display: flex; flex-direction: row; flex-wrap: wrap; margin: 10px 0 0 0; width: 800px; background: #d9e7e7; border-radius: 30px; justify-content: center; align-items: center;}
-.content .backboard ul{width: 900px;}
+.content .backboard ul{width: 800px;}
 .content .backboard ul li{display: inline-block; font-size: 18px;}
 .content .backboard ul li input,
 .content .backboard ul li select{margin: 6px 10px; padding: 4px 8px; border: none; border-radius: 4px;}
@@ -38,7 +38,7 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 .content .backboard ul li input[type="number"]::-webkit-outer-spin-button,
 .content .backboard ul li input[type="number"]::-webkit-inner-spin-button{-webkit-appearance: none; margin: 0;}
 .content .backboard ul li span{margin: 6px 4px 6px 0; display: inline-block; width: 200px; text-align: right;}
-.content .backboard ul li.email input{width: 350px;}
+.content .backboard ul li.email input{width: 185px;}
 .content .backboard ul li.cert_num .send_btn{margin: 0 10px 0 10px; display: inline-block; padding: 4px 20px; background: #9bc5bb; color: #fff; font-size: 14px; border-radius: 4px;}
 .content .backboard ul li.cert_num input{width: 100px;}
 .content .backboard ul li.address select.city{width: 260px;}
@@ -47,10 +47,8 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 .content .backboard ul li.detail_address input.detail_1{width: 316px;}
 .content .backboard ul li.detail_address input.detail_2{width: 424px;}
 .content .backboard ul li.birth select,
-.content .backboard ul li.gender select{padding-right: 0; width: 20px;}
-.content .backboard ul li.gender{margin-left: 5px;}
-.content .backboard ul li.height,
-.content .backboard ul li.weight{text-transform: none;}
+.content .backboard ul li.gender select{padding-right: 0; width: 100px;}
+.content .backboard ul li.gender{margin-left: 13px;}
 .content .backboard ul li.height input,
 .content .backboard ul li.weight input{width: 85px;}
 .content .backboard ul li.weight{margin-left: -19px;}
@@ -67,13 +65,69 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 .check_join .join_btn{margin: 0 20px; padding: 4px 40px; background: #9bc5bb; color: #fff; border-radius: 4px;}
 
 /*마이 페이지*/
-.my_page .content{height: calc(100vh - 120px); overflow: auto;}
-.my_page .content::-webkit-scrollbar{width: 30px;}
-.my_page .content::-webkit-scrollbar-thumb{background: #fff; border: #c3dcd6 solid 8px; border-radius: 20px;}
-.my_page .content::-webkit-scrollbar-thumb:hover,
-.my_page .content::-webkit-scrollbar-thumb:active{background: #00f;}
-.my_page .content::-webkit-scrollbar-track{background: #c3dcd6; border-radius: 10px;}
-.bg_bg{width: 100%; height: 2000px;}
+.my_page{margin: 100px auto 0; overflow: auto; width: calc(100% - 40px);  height: calc(100vh - 120px);}
+.my_page::-webkit-scrollbar{width: 20px;}
+.my_page::-webkit-scrollbar-thumb{background: #fff; border: #c3dcd6 solid 4px; border-radius: 20px;}
+.my_page::-webkit-scrollbar-thumb:hover,
+.my_page::-webkit-scrollbar-thumb:active{background: #9bc5bb;}
+.my_page::-webkit-scrollbar-track{background: #c3dcd6; border-radius: 10px;}
+.my_page .width_con{margin-top: 0; padding: 0;}
+.my_page .width_con .content{width: 100%; display: inline-block;}
+.my_page .width_con div.btn_space{margin: 10px 0; width: 100%; height: 40px;}
+.my_page .width_con div.btn_space .more_btn{padding: 8px 20px; background: #666; color: #fff; border-radius: 4px; float: right;}
+.my_page .width_con .content div .contents_title{margin: 0 0 20px; padding: 10px 40px; width: 140px; background: #c3dcd6; border-radius: 8px; color: #fff; font-size: 20px; text-align: center;}
+
+.my_page .width_con .content .p_profile::after{content: ''; margin: 20px 0; display: inline-block; width: 100%; height: 4px; background: #ccc;}
+.my_page .width_con .content .p_profile .top_side{margin: 0 0 40px;}
+.my_page .width_con .content .p_profile .top_side .profile_picture{margin: 0 20px; position: relative; display: inline-block; width: 200px; height: 200px; background: url() no-repeat #ccc; background-size: contain; border-radius: 50%; cursor: pointer;}
+.my_page .width_con .content .p_profile .top_side .profile_picture::before,
+.my_page .width_con .content .p_profile .top_side .profile_picture::after{content: ''; position: absolute; top: 50%; left: 50%; background: #fff; border-radius: 4px; opacity: 0; transition: all 400ms ease-in-out;}
+.my_page .width_con .content .p_profile .top_side .profile_picture::before{margin: -40px 0 0 -5px ; width: 10px; height: 80px;}
+.my_page .width_con .content .p_profile .top_side .profile_picture::after{margin: -5px 0 0 -40px ; width: 80px; height: 10px;}
+.my_page .width_con .content .p_profile .top_side .profile_picture:hover::before,
+.my_page .width_con .content .p_profile .top_side .profile_picture:hover::after{opacity: 1;}
+.my_page .width_con .content .p_profile .top_side .profile_open_inform{margin: 0 20px; display: inline-block; width: 880px;}
+.my_page .width_con .content .p_profile .top_side .profile_open_inform li:nth-child(1){font-size: 16px;}
+.my_page .width_con .content .p_profile .top_side .profile_open_inform li:nth-child(2){margin: 2px 0 24px; font-size: 24px;}
+.my_page .width_con .content .p_profile .top_side .profile_open_inform li:nth-child(3),
+.my_page .width_con .content .p_profile .top_side .profile_open_inform li:nth-child(4){margin: 0 0 10px; font-size: 18px;}
+.my_page .width_con .content .p_profile .top_side .profile_indiv_inform{margin: 0 20px; display: inline-block; text-align: right;}
+.my_page .width_con .content .p_profile .top_side .profile_indiv_inform ul li{margin: 0 0 2px; font-size: 18px;}
+.my_page .width_con .content .p_profile .top_side .profile_indiv_inform .fix_btn{padding: 4px 20px; display: inline-block; width: 120px; background: #9bc5bb; color: #fff; border-radius: 4px; text-align: center;}
+.my_page .width_con .content .p_profile .bottom_side{display: flex; margin: 0 20px; justify-content: center;}
+.my_page .width_con .content .p_profile .bottom_side li{margin: 0 60px 0 0; padding: 4px 20px; display: inline-block; width: 200px; height: 120px; background: #d9e7e7; border-radius: 4px;}
+.my_page .width_con .content .p_profile .bottom_side li:last-child{margin: 0;}
+.my_page .width_con .content .p_profile .bottom_side li .inner_contents{text-align: center; font-size: 20px; line-height: 3em;}
+
+/*sale/rental */
+.my_page .width_con .content .sale_rental ul{display: flex; width: 100%; vertical-align: top;}
+.my_page .width_con .content .sale_rental ul li{display: inline-block; width: inherit;}
+.my_page .width_con .content .sale_rental ul li .s_r_picture{display: inline-block; width: 100px; height: 100px; overflow: hidden;}
+.my_page .width_con .content .sale_rental ul li .s_r_picture img{width: inherit;}
+.my_page .width_con .content .sale_rental ul li ul{margin: 0 10px; display: inline-block; width: 200px;}
+
+/*community*/
+.my_page .width_con .content .community .contents_post li{margin: 0 0 20px; display: inline-block; width: 1200px; height: 30px; border-radius: 4px; background: #ccc; font-size: 15px; line-height: 2em;}
+.my_page .width_con .content .community .contents_post li:last-child{margin: 0;}
+.my_page .width_con .content .community .contents_post li .post_title{margin: 0 0 0 40px;}
+.my_page .width_con .content .community .contents_post li .post_title::before{content: ''; margin: 5px 0 5px -28px; position: absolute; width: 20px; height: 20px; background: url(../img/camera.png) no-repeat; background-size: cover;}
+.my_page .width_con .content .community .contents_post li .post_content{font-size: 12px; line-height: 2.5em;}
+.my_page .width_con .content .community .contents_post li .post_now{float: right;}
+.my_page .width_con .content .community .contents_post li .post_now .post_comment{margin: 0 40px 0 0;}
+.my_page .width_con .content .community .contents_post li .post_now .post_comment::after{content: ''; margin: 5px 0 5px 5px; position: absolute; width: 20px; height: 20px; background: url(../img/comment.png) no-repeat; background-size: cover;}
+.my_page .width_con .content .community .contents_post li .post_now .post_view{margin: 0 50px 0 0;}
+.my_page .width_con .content .community .contents_post li .post_now .post_view::after{content: ''; margin: 5px 0 5px 5px; position: absolute; width: 20px; height: 20px; background: url(../img/view.png) no-repeat; background-size: cover;}
+
+/*feed*/
+.my_page .width_con .content .feed ul{display: flex; width: 100%; vertical-align: top;}
+.my_page .width_con .content .feed ul li{display: inline-block; width: inherit;}
+.my_page .width_con .content .feed ul li .f_picture{display: inline-block; width: 100px; height: 100px; overflow: hidden;}
+.my_page .width_con .content .feed ul li .f_picture img{height: inherit;}
+.my_page .width_con .content .feed ul li ul{margin: 0 10px; display: inline-block; width: 200px;}
+
+.my_page .width_con .withdrawal{margin: 0 0 0 -90px; position: relative; left: 50%; padding: 5px 0; display: inline-block; width: 180px; background: #9bc5bb; text-align: center; color: #fff; font-size: 20px; border-radius: 8px;}
+.my_page .width_con .inquiry{padding: 20px 0; text-align: center; font-size: 20px;}
+.my_page .width_con .inquiry span{margin: 0 20px;}
 
 /* 반응형 활성화---------------------------------------------------------------------------------------------------------------------*/
 /* 0 - 479px-----------------------------------------------------------------------------------------------------------------------*/

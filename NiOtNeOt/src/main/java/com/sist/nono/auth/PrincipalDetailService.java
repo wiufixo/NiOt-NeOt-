@@ -7,9 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.sist.nono.model.Customer;
-import com.sist.nono.model.User;
 import com.sist.nono.repository.CustomerRepository;
-import com.sist.nono.repository.UserRepository;
 import com.sist.nono.service.CustomerService;
 
 @Service

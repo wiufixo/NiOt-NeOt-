@@ -8,11 +8,28 @@
 	<div th:replace="fragments/common :: header('list')"></div>
 
 	<div class="container">
-		<div style="margin-bottom: 10px; margin-top: 10px;">
-			<div style="display: inline-block; width: 89%; padding-top: 23px;">
-				총 게시물 수: <span th:text="${response.params.pagination.totalRecordCount}"></span>
+
+		<div style="margin-bottom: 10px; margin-top: 10px;"></div>
+		<div class="row d-flex">
+			<div class="col-md-3 mr-auto">
+				total: <span th:text="${response.params.pagination.totalRecordCount}"></span>
 			</div>
-			<a class="btn btn-primary" th:href="@{/board/form}">새글작성</a>
+			<div class="col-md-3">
+				<form th:action="@{/board/list}" class="form-inline" id="recordPerPageForm">
+					<input type="hidden" name="page" th:value="1"> 
+					<input type="hidden" name="searchType" th:value="${response.params.searchType}"> 
+					<input type="hidden" name="keyword" th:value="${response.params.keyword}">
+					<div class="form-group" style="margin-bottom: 5px">
+						<label> 한페이지당&nbsp;&nbsp; <select id="recordPerPageSelect" name="recordPerPage" class="form-control">
+								<option th:selected="${response.params.recordPerPage} == '5'" th:value="5">5</option>
+								<option th:selected="${response.params.recordPerPage} == '10'" th:value="10">10</option>
+								<option th:selected="${response.params.recordPerPage} == '15'" th:value="15">15</option>
+								<option th:selected="${response.params.recordPerPage} == '20'" th:value="20">20</option>
+						</select>
+						</label>
+					</div>
+				</form>
+			</div>
 		</div>
 		<table class="table table-striped">
 			<thead>
@@ -29,8 +46,8 @@
 				</tr>
 				<tr th:if="${#lists.size(response.list)>0}" th:each="board : ${response.list}">
 					<td th:text="${board.b_no}">1</td>
-					<td><a th:href="@{|/board/detail/${board.b_no}|(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword})}" th:text="${board.b_title}">1</a></td>
-<!-- 					<td><a th:href="@{|/board/detail/${board.b_no}|}" th:text="${board.b_title}">1</a></td> -->
+					<td><a th:href="@{|/board/detail/${board.b_no}|(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}" th:text="${board.b_title}">1</a></td>
+					<!-- 					<td><a th:href="@{|/board/detail/${board.b_no}|}" th:text="${board.b_title}">1</a></td> -->
 					<td th:text="${board.cu_id}">1</td>
 					<td th:text="${board.b_hit}">1</td>
 				</tr>
@@ -39,22 +56,24 @@
 		</table>
 
 		<div class="text-right my-btn" style="margin-top: 0px; margin-right: 0px;">
-			<a class="btn btn-primary" th:href="@{/board/form(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword})}">새글작성</a>
-<!-- 			<a class="btn btn-primary" th:href="@{/board/form}">새글작성</a> -->
+			<a class="btn btn-primary" th:href="@{/board/form(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">새글작성</a>
+			<!-- 			<a class="btn btn-primary" th:href="@{/board/form}">새글작성</a> -->
 		</div>
+
+
 
 		<nav aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-				<li class="page-item" th:if="${response.params.pagination.existPrevPage}"><a class="page-link" th:href="@{/board/list(page=1,searchType=${response.params.searchType},keyword=${response.params.keyword})}">처음으로</a></li>
-				<li class="page-item" th:if="${response.params.pagination.existPrevPage}"><a class="page-link" th:href="@{/board/list(page=${response.params.page-1},searchType=${response.params.searchType},keyword=${response.params.keyword})}">Previous</a></li>
-				<li class="page-item" th:classappend="${response.params.page==i} ? 'active'"  th:each="i : ${#numbers.sequence(response.params.pagination.startPage,response.params.pagination.endPage)}"><a class="page-link" th:href="@{/board/list(page=${i},searchType=${response.params.searchType},keyword=${response.params.keyword})}" th:text="${i}">1</a></li>
-				<li class="page-item" th:if="${response.params.pagination.existNextPage}"><a class="page-link" th:href="@{/board/list(page=${response.params.page+1},searchType=${response.params.searchType},keyword=${response.params.keyword})}">Next</a></li>
-				<li class="page-item" th:if="${response.params.pagination.existNextPage}"><a class="page-link" th:href="@{/board/list(page=${response.params.pagination.totalPageCount},searchType=${response.params.searchType},keyword=${response.params.keyword})}">마지막으로</a></li>
+				<li class="page-item" th:if="${response.params.pagination.existPrevPage}"><a class="page-link" th:href="@{/board/list(page=1,searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">처음으로</a></li>
+				<li class="page-item" th:if="${response.params.pagination.existPrevPage}"><a class="page-link" th:href="@{/board/list(page=${response.params.pagination.startPage-1},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">Previous</a></li>
+				<li class="page-item" th:classappend="${response.params.page==i} ? 'active'" th:each="i : ${#numbers.sequence(response.params.pagination.startPage,response.params.pagination.endPage)}"><a class="page-link" th:href="@{/board/list(page=${i},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}" th:text="${i}">1</a></li>
+				<li class="page-item" th:if="${response.params.pagination.existNextPage}"><a class="page-link" th:href="@{/board/list(page=${response.params.pagination.endPage+1},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">Next</a></li>
+				<li class="page-item" th:if="${response.params.pagination.existNextPage}"><a class="page-link" th:href="@{/board/list(page=${response.params.pagination.totalPageCount},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">마지막으로</a></li>
 			</ul>
 		</nav>
-		<!-- th:href="@{/board/list(page=${i},searchTest=${param.searchText})}" -->
+
 		<form th:action="@{/board/list}" id="search-form" class="row g-3 d-flex justify-content-center">
-			<input type="hidden" name="page" th:value="${response.params.page}">
+			<input type="hidden" name="page" th:value="1"> 
 			<select id="searchType" name="searchType" class="form-select" style="height: 38px; width: 130px; margin-right: 10px;">
 				<option th:selected="${response.params.searchType} == ''" value="all">전체</option>
 				<option th:selected="${response.params.searchType} == 'tc'" value="tc">제목+내용</option>
@@ -66,11 +85,12 @@
 			<div class="col-auto" style="padding: 0px;">
 				<input type="text" id="keyword" name="keyword" class="form-control" placeholder="검색어" th:value="${response.params.keyword}">
 			</div>
-			<!-- th:value="${param.searchText}" -->
 			<div class="col-auto">
 				<button class="btn btn-light mb-3" th:text="검색">Confirm identity</button>
 			</div>
 		</form>
+
+
 	</div>
 
 
@@ -79,20 +99,14 @@
 	<div th:replace="fragments/common :: js"></div>
 	<script th:inline="javascript">
 		/*<![CDATA[*/
-		addEnterSearchEvent();
-			/**
-			 * 페이지 로딩 시점에 실행되는 함수
-			 */
-			/**
-			 * 키워드 - 엔터 검색 이벤트 바인딩
-			 */
-			function addEnterSearchEvent() {
-		
-				document.getElementById('keyword').addEventListener('keyup', (e) => {
-					if (e.keyCode === 13) {
-						findAll(1);
-					}
-				});
+			
+			changeRecordPerPage();
+			
+			function changeRecordPerPage(){
+				$("#recordPerPageSelect").change(function(){
+					const form = $("#recordPerPageForm");
+					form.submit();
+				})
 			}
 		
 			/**

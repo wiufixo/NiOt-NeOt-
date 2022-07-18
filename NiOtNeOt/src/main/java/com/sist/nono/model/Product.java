@@ -30,8 +30,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
-@Getter@Setter
+@Getter
+@Setter
+@ToString(exclude = {"customer","category"})
 @Entity
 @Table(name="product")
 @AllArgsConstructor

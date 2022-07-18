@@ -24,8 +24,8 @@ public class CustomerController {
 
 	@GetMapping("customer/join")
 	public String join(Model model) {
-		model.addAttribute("list", service.findAll());
-		return "customer/joinForm";
+		model.addAttribute("customer",new Customer());
+		return "customer/join";
 	}
 
 	@GetMapping("customer/findPwd")

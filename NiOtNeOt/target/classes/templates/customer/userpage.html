@@ -1,93 +1,176 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="/css/customer.css">
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/js/customer.js"></script>
-</head>
-<body>
-	<div id="userpage_status1" class="inline_block" th:switch="${user.getCu_img}">
-		<img id="user_my_img" th:case="'defaultUserImg.jpg'" alt="user_default_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_img_big" >
-		<img id="user_my_img" th:case="*" alt="user_user_img" th:src="@{/image/customer/}+${user.getCu_no}+'/'+${user.getCu_img}" class="profile_img_big">
-		
-		<span id="userpage_nickname" th:text="${user.getCu_nickname}"></span><br>
-		<span id="userpage_name" th:text="${user.getCu_name}"></span><br>
-		<span id="userpage_email" th:text="${user.getCu_email}"></span><br>
-		<span id="userpage_trans_score>" th:text="${transHistory}"></span><br>
-		<button type="button" id="userpage_follow_button" th:if="${checkFollow==0}">follow</button>
-		<button type="button" id="userpage_unfollow_button" th:if="${checkFollow!=0}">followed</button>
-	</div>
-	
-	<div id="userpage_status2" class="inline_block" th:if="${user.getPrivacy_agree!=0}">
-		<span id="userpage_height" th:text="${user.getCu_height}"></span><br>
-		<span id="userpage_weight" th:text="${user.getCu_weight}"></span><br>
-		<span id="userpage_gender" th:if="${user.getCu_gender==0}">여</span>
-		<span id="userpage_gender" th:if="${user.getCu_gender!=0}">남</span>
-	</div><br>
-	
-	<div id="userpage_wish" class="inline_block">
-		<h2>Wish</h2>
-		<span th:text=${wishNum}></span>
-	</div>
-	
-	<div id="userpage_following" class="inline_block">
-		<h2>Following</h2>
-		<span th:text=${followingNum}></span>
-	</div>
-	
-	<div id="userpage_follower" class="inline_block">
-		<h2>Follower</h2>
-		<span th:text=${followerNum}></span>
-	</div>
-	
-	<div id="userpage_trans" class="inline_block">
-		<h2>Trans</h2>
-		<span th:text=${transNum}></span>
-	</div>
-	<hr>
+    <head>
+        <title>my_page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+        <meta name="format-detection" content="telephone=no">
+        <link type="text/css" rel="stylesheet" href="/css/reset.css">
+        <link type="text/css" rel="stylesheet" href="/css/common.css">
+        <link type="text/css" rel="stylesheet" href="/css/main.css">
+        <link type="text/css" rel="stylesheet" href="/css/button.css">
+        <link rel="stylesheet" href="css/fontawesome_all.min.css">
+		<link rel="stylesheet" href="/css/customer.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="/js/customer.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/common.js"></script>
+        <script type="text/javascript" src="/js/main.js"></script>
 
-	<div id="userpage_feed_list">
-		<h2 class="inline_block">Feed</h2>
-		<div id="userpage_feed_more" class="inline_block">more</div>
-		
-		<div id="user_feed" th:each="f,feedNum:${feed}" th:if="${feedNum.count<4}">
-			<span th:text="${p.getF_content}"></span>
-			<span th:text="${p.getF_created}"></span>
-		</div><br>
-	</div>
-	<hr>	
-	
-	<div id="userpage_product_list">
-		<h2 class="inline_block">Product</h2>
-		<div id="userpage_product_more" class="inline_block">more</div>
-				
-		<div id="mypage_product" th:each="p,productNum:${product}" th:if="${productNum.count<4}">
-			<span th:text="${p.getPr_content}"></span>
-			<span th:text="${p.getPr_created}"></span>
-			<span th:text="${p.getPr_cost}"></span>
-			<span th:text="${p.getPr_status}"></span>
-			<span th:text="${p.getPr_hit}"></span>
-		</div><br>
-	</div>
-	<hr>
-	
-	<div id="userpage_board_list">
-		<h2 class="inline_block">Board</h2>
-		<div id="userpage_board_more" class="inline_block">more</div>
-		
-		<div id="userpage_board" th:each="b,boardNum:${board}" th:if="${boardNum.count<4}">
-			<span th:text="${b.getB_title}"></span>
-			<span th:text="${b.getB_content}"></span>
-			<span th:text="${b.getB_created}"></span>
-		</div><br>
-			
-	</div>
-	
-	<input type="hidden" id="userpage_user_no" th:value="${user.getCu_no}">
-	<input type="hidden" id="userpage_cu_no" th:value="${customer.getCu_no}">
-	<input type="hidden" id="userpage_follow_check" th:value="${checkFollow}">
-	
-</body>
+        <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
+        <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
+        <meta name="robots" content="index,follow">                                                 <!--사이트 페이지 구분-->
+        <meta name="description" content="">                                                        <!--사이트 설명-->
+        <meta name="author" content="">                                                             <!--사이트 제작자/제작회사-->
+        <meta name="keywords" content="">                                                           <!--사이트 검색엔진 키워드-->
+                                                                                                    <!--검색엔진/SNS 추출 정보-->
+        <meta property="og:site_name" content="">                                                   <!--사이트 이름-->
+        <meta property="og:url" content="">                                                         <!--사이트 주소-->
+        <meta property="og:title" content="">                                                       <!--사이트 제목-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (홈화면 아이콘)-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (위 이미지 없을 시 보조 이미지)-->
+        <meta property="og:description" content="">                                                 <!--사이트 설명-->
+        <meta property="og:type" content="website">                                                 <!--사이트 페이지 구분-->
+        <link rel="apple-touch-icon" href="">                                                       <!--57 Size .png-->
+        <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
+        <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
+        <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
+    </head>
+    <body class="loading">
+        <span class="chat"></span>
+        <div class="wrap">
+            <div class="header hide">
+                <div class="width_con">
+                    <div class="btn_nav"><div></div></div>
+                    <ul>
+                        <li><a href="javascript:;">Feed</a></li><!--
+                     --><li><a href="javascript:;">Sale/Rental</a></li><!--
+                     --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
+                     --><li><a href="javascript:;">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            
+			<input type="hidden" id="userpage_user_no" th:value="${user.getCu_no}">
+			<input type="hidden" id="userpage_cu_no" th:value="${customer.getCu_no}">
+			<input type="hidden" id="userpage_follow_check" th:value="${checkFollow}">
+    	
+            
+            <div class="my_page">
+                <div class="width_con">
+                    <div class="content">
+                        <div class="p_profile">
+                            <div class="top_side">
+                            	<div th:switch="${user.getCu_img}">
+                                <img id="user_my_img" th:case="'defaultUserImg.jpg'" alt="user_default_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_picture" >
+								<img id="user_my_img" th:case="*" alt="user_my_img" th:src="@{/image/customer/}+${user.getCu_no}+'/'+${user.getCu_img}" class="profile_picture">
+                                </div>
+                                <div class="profile_open_inform">
+                                    <ul>
+                                        <li id="user_nickname" th:text="${user.getCu_nickname}"></li>
+                                        <li id="user_name" th:text="${user.getCu_name}"></li>
+                                        <li id="user_email" th:text="${user.getCu_email}"></li>
+                                        <li id="user_trans_score" th:text="${transHistory}"></li>
+                                    </ul>
+                                </div>
+                                <div class="profile_indiv_inform">
+                                    <ul th:if="${user.getPrivacy_agree!=0}">
+                                        <li>00 세</li>
+                                        <li id="user_height" th:text="${user.getCu_height}+'cm'"></li>
+                                        <li id="user_weight" th:text="${user.getCu_weight}+'kg'"></li>
+                                        <li id="user_gender" th:if="${user.getCu_gender=='0'}">여</li>
+                                        <li id="user_gender" th:if="${user.getCu_gender=='1'}">남</li>
+                                    </ul>
+                                        <button type="button" id="userpage_follow_button" th:if="${checkFollow==0}">follow</button>
+										<button type="button" id="userpage_follow_button" th:if="${checkFollow!=0}">followed</button>
+                                </div>
+                            </div>
+                            <ul class="bottom_side">
+                                <li id="userpage_wish" class="watchlist">
+                                    <div class="inner_contents">
+                                        <div th:text="${wishNum}"></div>
+                                        <div>관심목록</div>
+                                    </div>
+                                </li><!--
+                             --><li id="userpage_following" class="following">
+                                    <div class="inner_contents">
+                                        <div th:text="${followingNum}"></div>
+                                        <div>팔로잉</div>
+                                    </div>
+                                </li><!--
+                             --><li id="userpage_follower" class="follower">
+                                    <div class="inner_contents">
+                                        <div th:text="${followerNum}">num</div>
+                                        <div>팔로워</div>
+                                    </div>
+                                </li><!--
+                             --><li class="trade_h">
+                                    <div id="userpage_trans" class="inner_contents">
+                                        <div th:text="${transNum}">num</div>
+                                        <div>거래내역</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sale_rental">
+                            <div class="contents_title">Sale/rental</div>
+                            <ul>
+                               <li id="user_product" th:each="p,productNum:${product}" th:if="${productNum.count<4}">
+                                    <div class="s_r_picture"><img src="img/1.png"></div><!--
+                                --><ul>
+                                        <li th:text="${p.getPr_name}">글제목</li>
+                                        <li th:text="${p.getPr_created}"></li>
+                                        <li th:text="${p.getPr_status}"></li>
+                                        <li th:text="${p.getPr_cost}"></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="btn_space"><a class="more_btn" id="userpage_product_more">More</a></div>
+                        </div>
+                        
+                        <div class="community">
+                            <div class="contents_title">Community</div>
+                            <ul class="contents_post">
+                                <li id="user_board" th:each="b,boardNum:${board}" th:if="${boardNum.count<4}">
+                                    <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="b.getB_content"></span>
+                                    <div class="post_now">
+                                        <span class="post_comment" th:text="${b.getB_no}">[51]</span>
+                                        <span class="post_view" th:text="${b.getB_hit}">200</span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="btn_space"><a class="more_btn" id="userpage_board_more">More</a></div>
+                        </div>
+                        
+                        <div class="feed">
+                            <div class="contents_title">Feed</div>
+                            <ul class="feed_content">
+                                <li id="user_feed" th:each="f,feedNum:${feed}" th:if="${feedNum.count<4}">
+                                    <div class="f_picture"><img src="img/1.png"></div><!--
+                                --><ul>
+                                        <li th:text="${f.getF_title}"></li>
+                                        <li th:text="${f.getF_content}"></li>
+                                        <li th:text="${f.getF_created}"></li>
+                                        <li th:text="${f.getF_hit}"></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div class="btn_space"><a class="more_btn" id="userpage_feed_more">More</a></div>
+                        </div>
+                        <div class="inquiry">
+                            <span>문의</span>
+                            <span>번호</span>
+                            <span>이메일</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="counsel"></div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </body>
 </html>

@@ -23,4 +23,17 @@ public interface ChatRepository extends JpaRepository<Chat, Integer> {
 	@Modifying
 	@Query(value = "insert into chat(cu_no, cr_no, ch_content,ch_created) values(?1, ?2, ?3, now())", nativeQuery = true)
 	void insertChat(int cu_no, int cr_no, String ch_content);
+
+	@Transactional
+	@Modifying
+	@Query(value = "insert into chat(cu_no, cr_no, ch_content, ch_img, ch_created) values(?1, ?2, ?3, ?4, now())", nativeQuery = true)
+	void insertChatWithImage(int cu_no, int cr_no, String ch_content,String ch_img);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update chat set ch_checked = 1 where cu_no = ?1", nativeQuery = true)
+	void checkingChat(int cu_no);
+	
+	@Query(value = "select * from chat where cr_no=:cr_no order by ch_created desc limit 1", nativeQuery = true)
+	List<Chat> findRecentChat(@Param("cr_no") int cr_no);
 }
