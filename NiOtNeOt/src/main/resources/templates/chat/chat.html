@@ -13,10 +13,12 @@
 		<input type='hidden' id='cr_no' th:value="${chattingroom.cr_no}">
 		<input type='hidden' id='cu_no' th:value="${user.cu_no}">
 		<br/>
+		<button id="back">뒤로가기</button>
 		<div id='talk'></div>
 		<div id='sendZone'>
-			<textarea id='msg' value='hi...' ></textarea>
+			<textarea id='msg'></textarea>
 			<input type='button' value='전송' id='btnSend'>
+			<input id='image_message' type="file" name="uploadFile">
 		</div>
 	</div>
 <script src='/js/chat.js'></script>

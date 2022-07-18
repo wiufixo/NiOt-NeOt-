@@ -59,4 +59,5 @@ public class Chat {
 	@CreationTimestamp
 	private Timestamp ch_created;
 
+	private String ch_img;
 }

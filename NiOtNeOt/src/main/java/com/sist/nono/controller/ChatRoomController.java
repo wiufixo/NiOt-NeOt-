@@ -22,6 +22,7 @@ public class ChatRoomController {
 	@GetMapping("/listChatRoom")
 	public String listchatRoom(Model model, Authentication auth) {
 		model.addAttribute("roomlist", service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
+		System.out.println(service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
 		return "chat/chatRoomList.html";
 	}
 	
