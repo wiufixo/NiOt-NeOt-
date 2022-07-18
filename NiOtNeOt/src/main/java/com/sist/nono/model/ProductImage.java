@@ -35,12 +35,9 @@ import lombok.Setter;
 public class ProductImage {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO) //자동으로 번호 생성
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //자동으로 번호 생성
 	private int pi_no;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="cu_no")
-	private Customer user; //회원번호
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="pr_no")

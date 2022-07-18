@@ -12,47 +12,58 @@
 		<h2>상품 등록</h2>
 	</div>
 	<hr>
-	<form th:action="@{/products/insert}" method="post" enctype="multi-form" th:object="${product}"></form>
-	<div>
-		<label th:for="pr_name">상품명</label>
-		<input type="text" name="pr_name">
-	</div>
+	<form th:action="@{/products/insert}" method="post" enctype="multipart/form-data" th:object="${product}">
+		<div>
+			<label th:for="pr_name">상품명</label>
+			<input type="text" name="pr_name">
+		</div>
+		
+		<div>
+			<label th:for="pr_cost">가격</label>
+			<input type="number" name="pr_cost">
+		</div>
 	
-	<div>
-		<label th:for="pr_cost">가격</label>
-		<input type="number" name="pr_cost">
-	</div>
+		<!-- 카테고리 -->
+		<div>
+			<label>카테고리</label>
+			<select name="ca_name">
+				<option th:each="category : ${categories}" 
+				    th:value="${category.ca_name}" 
+	                th:utext="${category.ca_name}">
+	        	</option>
+			</select>
+		</div>
+		<div>
+			<label for="pr_content">내용</label>
+			<textarea rows="" cols="" name="pr_content"></textarea>
+		</div>
+		
 
-	<!-- 카테고리 -->
-	<div>
-		<label>카테고리</label>
-		<select name="ca_name">
-			<option th:each="category : ${categories}" 
-			    th:value="${category.ca_name}" 
-                th:utext="${category.ca_name}">
-        	</option>
-		</select>
-	</div>
-	<div>
-		<label for="pr_content">내용</label>
-		<textarea rows="" cols="" name="pr_content"></textarea>
-	</div>
+		
 	
-	
-	
-	<div>
-	<label>거래여부</label>
-	<select name="pr_deal">
-		<option value="Tradeable">거래가능</option>
-		<option value="Untradeable">거래불가능</option>
-		</select>
-	</div>
+		
+		<!-- 대여여부 -->
+		<div>
+			<label>대여여부</label>
+			<select name="pr_deal">
+				<option value="Tradeable">대여</option>
+				<option value="Untradeable">미대여</option>
+			</select>
+		</div>
+		
+		<div>
+			<input type="file" name="pr_images" multiple="multiple">
+		</div>
+		
+		<div>
+			<button th:onclick="|location.href='@{/products}'|" type="submit">등록</button>
+			<button th:onclick="|location.href='@{/products}'|" type="button">취소</button>
+		</div>
+	</form>
+
 	
 </div>
 
-<div>
-	<button th:onclick="|location.href='@{/products}'|" type="submit">등록</button>
-	<button th:onclick="|location.href='@{/products}'|" type="button">취소</button>
-</div>
+
 </body>
 </html>

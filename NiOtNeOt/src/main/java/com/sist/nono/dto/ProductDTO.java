@@ -24,11 +24,13 @@ import com.sist.nono.model.Product;
 import com.sist.nono.model.ProductDeal;
 import com.sist.nono.model.ProductImage;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@AllArgsConstructor
 public class ProductDTO {
 	private int pr_no;
 	
@@ -44,6 +46,8 @@ public class ProductDTO {
 
 	private String pr_deal;
 	
+	private String cu_id;
+	
 	public ProductDTO(Product p) {
 		this.pr_no = p.getPr_no();
 		this.ca_name = p.getCategory().getCa_name();
@@ -55,5 +59,6 @@ public class ProductDTO {
 		this.pr_cost = p.getPr_cost();
 		this.pr_content = p.getPr_content();
 		this.pr_deal = p.getPr_deal().name();
+		this.cu_id = p.getCu_id();
 	}
 }

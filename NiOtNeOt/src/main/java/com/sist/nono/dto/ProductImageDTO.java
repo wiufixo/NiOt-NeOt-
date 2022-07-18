@@ -1,7 +1,5 @@
 package com.sist.nono.dto;
 
-import java.util.Date;
-
 import com.sist.nono.model.ProductImage;
 
 import lombok.Getter;
@@ -12,12 +10,15 @@ public class ProductImageDTO {
 	
 	private int pi_no;
 	private String pi_name;
-	private String pi_originName;
-	private Date pi_created;
-	private Date pi_updated;
-	private String pi_url;
-	private String repImgYn;
-	
 
+	private String pi_url;
+	private Boolean repImgYn;
+	
+	public ProductImageDTO(ProductImage image) {
+		this.pi_no = image.getPi_no();
+		this.pi_name = image.getPi_name();
+		this.pi_url = image.getPi_url();
+		this.repImgYn = image.getRepImgYn();
+	}
 	
 }

@@ -21,6 +21,7 @@ spring:
       ddl-auto: update
 
       naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false #JPA가 사용하는 기본 넘버링 전략을 따라가지 않는다
     show-sql: true
@@ -62,8 +63,8 @@ server:
       force: true
       
 
-#상품 이미지 업로드(저장) 경로, 실제 파일이 저장되는 경로
+#상품 이미지 업로드(저장) 경로, 실제 파일이 저장되는 경로 
 itemImgLocation : C:/product/item
 
 #파일 리소스 업로드 경로, uploadPath : file :///저장할 로컬 경로/
-uploadPath: file:///C:product/     
+file.dir: C:/products/     

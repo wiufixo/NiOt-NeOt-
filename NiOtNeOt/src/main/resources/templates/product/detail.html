@@ -37,15 +37,21 @@
 	
 	
 	<!-- 상품 이미지 -->
+	<div>
+		<span th:each="image :${images}">
+		    
+      		<img width="100px" height="100px" th:src="${image.pi_url}" />
+		</span>
+	</div>
 	
 			
-	<!-- 수정/삭제/목록 -->
+	<!-- 수정/삭제/목록  (productNo=${product.pr_no})-->
 		<div class="col">
-			<button th:onclick="|location.href='@{/product/{productNo}/update(productNo=${product.pr_no})}'|" type="button">수정</button>
+			<button th:onclick="|location.href='@{/products/{productNo}/update(productNo=${product.pr_no})}'|" type="button">수정</button>
 		</div>
 		
 		<div class="col">
-			<button th:onclick="|location.href='@{/product/{productNo}/delete(productNo=${product.pr_no})}'|" type="button">삭제</button>
+			<button th:onclick="|location.href='@{/products/{productNo}/delete(productNo=${product.pr_no})}'|" type="button">삭제</button>
 		</div>
 		
 		<div class="col">
