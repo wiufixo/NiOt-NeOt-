@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,10 +95,10 @@ public class ProductController {
 			, @RequestParam("pr_images") List<MultipartFile> files) throws IllegalStateException, IOException {
 		if(files.size() < 1) throw new CustomException(ErrorCode.BAD_REQUEST);
 		
-		String loginId = "one";
+		int cu_no = 1;
 		
 		ProductDTO p = new ProductDTO(-1, ca_name, ""
-				, pr_name, pr_cost, pr_content, pr_deal, loginId);
+				, pr_name, pr_cost, pr_content, pr_deal, cu_no);
 		Product newProduct = this.productService.saveProduct(p);
 		
 		for(int i = 0; i < files.size(); i++) {
@@ -114,19 +115,24 @@ public class ProductController {
 	public String updateView(Model model, @PathVariable Integer pr_no) {
 		Product p = productService.findProduct(pr_no);
 		ProductDTO dto = new ProductDTO(p);
+		List<ProductImage> images = productService.findProductImage(pr_no);
+		List<ProductImageDTO> imageDto = images.stream()
+				.map(i -> new ProductImageDTO(i))
+				.collect(Collectors.toList());
 		List<Category> categories = categoryService.findAll();
 		model.addAttribute("product", dto);
 		model.addAttribute("categories",categories);
+		model.addAttribute("images", imageDto);
 		return "product/update";
 	}
 	@PostMapping("/{pr_no}/update")
 	public String upateProdcut(int pr_no, String ca_name, int pr_cost
 			, String pr_name, String pr_content, String pr_deal) {
 		
-		String loginId = "one";
+		int cu_no = 1;
 		
 		ProductDTO p = new ProductDTO(pr_no, ca_name, ""
-				, pr_name, pr_cost, pr_content, pr_deal, loginId);
+				, pr_name, pr_cost, pr_content, pr_deal, cu_no);
 		this.productService.updateProduct(p);
 		
 		

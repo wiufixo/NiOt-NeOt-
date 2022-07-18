@@ -2,25 +2,17 @@ package com.sist.nono.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sist.nono.dto.ProductDTO;
-import com.sist.nono.dto.ProductImageDTO;
 import com.sist.nono.model.Category;
 import com.sist.nono.model.Product;
 import com.sist.nono.model.ProductDeal;
@@ -62,7 +54,7 @@ public class ProductService {
 		
 		Category category = categoryRepository.findByca_name(p.getCa_name());
 		Product product = new Product(p.getPr_no(), category
-				, null, p.getPr_name(), p.getPr_cost(), p.getCu_id(), p.getPr_content()
+				, null, p.getPr_name(), p.getPr_cost(), p.getCu_no(), p.getPr_content()
 				, ProductDeal.valueOf(p.getPr_deal()), null, null);
 		return productRepository.save(product);
 	}
@@ -100,12 +92,12 @@ public class ProductService {
 		
 		String extension = originalName.substring(originalName.lastIndexOf("."));
 		
-		String savePath = "/image/product/" + originalName;
-		Product p = this.productRepository.findById(pr_no).get();
-		ProductImage image = new ProductImage(-1, p, originalName, null, null, savePath, repImgYn);
-		
+		String savePath = fileDir + "/image/product/" + originalName;
 		file.transferTo(new File(savePath));
 		
+		String resourcePath = "/image/product/" + originalName;
+		Product p = this.productRepository.findById(pr_no).get();
+		ProductImage image = new ProductImage(-1, p, originalName, null, null, resourcePath, repImgYn);
 		this.prouctImageRepository.save(image);
 	}
 	
@@ -120,5 +112,17 @@ public class ProductService {
 	public void delete(int pr_no, String loginId) {
 		this.productRepository.deleteBycu_noAndpr_no(loginId, pr_no);
 		this.prouctImageRepository.deleteBypr_no(pr_no);
+	}
+	
+	public List<Product> findAllByCu_no(int user_no) {
+		return this.productRepository.findAllBycu_no(user_no);
+	}
+	
+	public Product findById(int pr_no) {
+		return this.productRepository.findById(pr_no).get();
+	}
+	
+	public void deleteImage(int pi_no) {
+		this.prouctImageRepository.deleteById(pi_no);
 	}
 }

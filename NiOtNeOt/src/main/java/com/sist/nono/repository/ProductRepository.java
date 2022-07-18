@@ -19,10 +19,12 @@ import lombok.RequiredArgsConstructor;
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 	
 	@Query(value = "select * from product where cu_no=?1", nativeQuery = true)
-	List<Product> findAllByCu_no(int cu_no);
+	List<Product> findAllBycu_no(int cu_no);
 	
 	@Query(value = "delete from product where cu_id=?1 and pr_no=?2", nativeQuery = true)
 	void deleteBycu_noAndpr_no(String cu_id, int pr_no);
+	
+	
 	
 	
 //	@Query(value="select * from product where pr_no=?1", nativeQuery = true)

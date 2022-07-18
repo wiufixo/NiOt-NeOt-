@@ -2,9 +2,6 @@ package com.sist.nono.model;
 
 import java.security.Timestamp;
 import java.util.Date;
-import java.sql.Date;
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

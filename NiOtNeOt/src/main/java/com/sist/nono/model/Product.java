@@ -57,8 +57,8 @@ public class Product{
 	
 	private int pr_cost;
 	
-	@Column(name = "cu_id")
-	private String cu_id;
+	@Column(name = "cu_no")
+	private int cu_no;
 	
 	@Lob
 	private String pr_content;

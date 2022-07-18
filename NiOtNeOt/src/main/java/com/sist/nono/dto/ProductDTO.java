@@ -1,28 +1,6 @@
 package com.sist.nono.dto;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.sist.nono.model.Category;
 import com.sist.nono.model.Product;
-import com.sist.nono.model.ProductDeal;
-import com.sist.nono.model.ProductImage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +24,7 @@ public class ProductDTO {
 
 	private String pr_deal;
 	
-	private String cu_id;
+	private int cu_no;
 	
 	public ProductDTO(Product p) {
 		this.pr_no = p.getPr_no();
@@ -59,6 +37,6 @@ public class ProductDTO {
 		this.pr_cost = p.getPr_cost();
 		this.pr_content = p.getPr_content();
 		this.pr_deal = p.getPr_deal().name();
-		this.cu_id = p.getCu_id();
+		this.cu_no = p.getCu_no();
 	}
 }

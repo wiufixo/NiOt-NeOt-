@@ -36,7 +36,7 @@
 				<td th:text="${product.ca_name}"></td>
 				<td>
 					<a th:href="@{'/products/'+ ${product.pr_no}}" >
-						<img height="30px" width="30px" th:src="${product.pr_image}" />
+						<img height="30px" width="30px" th:src="${product.pr_image != null ? product.pr_image : ''}" />
 					</a>
 				</td>
 				<td th:text="${product.pr_deal}"></td>
