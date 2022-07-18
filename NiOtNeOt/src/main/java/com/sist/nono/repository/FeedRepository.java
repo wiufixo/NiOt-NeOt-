@@ -1,6 +1,8 @@
 package com.sist.nono.repository;
 
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +19,7 @@ public interface FeedRepository extends JpaRepository<Feed, Integer> {
 	
 	@Query(value = "select count(*) from feed order by f_no desc", nativeQuery = true)
 	public int getTotalRecordCnt();
+	
+	@Query(value = "select * from feed where cu_no=?1", nativeQuery = true)
+	public List<Feed> findByCu_no(int cu_no);
 }

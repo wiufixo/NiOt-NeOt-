@@ -136,7 +136,7 @@ var productExpantionPaging = function(page){
 }
 
 //feedExpantion 무한 스크롤 함수
-var feedExpantionScroll = function(page){
+var feedScroll = function(page){
 	if(!loading){
 		loading=true;
 		
@@ -168,7 +168,7 @@ var feedExpantionScroll = function(page){
 }
 
 //boardExpantion 무한 스크롤 함수
-var boardExpantionScroll = function(page){
+var boardScroll = function(page){
 	if(!loading){
 		loading=true;
 		
@@ -331,11 +331,11 @@ $(document).on("click",".product_status",function(e){
 })
 
 	//feedExpantion에서 feed 클릭
-$(document).on("click",".board_status",function(e){
+$(document).on("click",".feed_status",function(e){
 	e.stopImmediatePropagation();
 	var feed_id=$(this).attr("id");
 	var feed_no=$("."+feed_id).text();
-	window.location.href="/feed/"+feed_no;
+	window.location.href="/feed/detailFeed/"+feed_no;
 })
 
 	//boardExpantion에서 board 클릭
@@ -362,6 +362,8 @@ $(document).on("click",".following_status",function(e){
 	var following_no=$("."+following_id).val();
 	page_choice(following_no);
 })
+
+
 
 	//mypage changeImg에서 confirm 클릭
 $(document).on("click","#change_img_confirm",function(){
@@ -549,7 +551,7 @@ $(document).on("click","#join_button",function(){
 	if($("#cu_pwd").val()!=$("#cu_pwd_check").val() || $("#cu_pwd").val()==""){
 		check++;
 		$("#join_pwd_warning").css({
-			"display":"inline"
+			"display":"inline-block"
 		});
 	}else{
 		$("#join_pwd_warning").css({
@@ -649,5 +651,17 @@ window.onload = function(){
 	}
 	if(location.pathname=="/customer/transExpantion"){
 		transExpantionPaging(1);
+	}
+	if(location.pathname=="/customer/followerExpantion"){
+		followerScroll(scrollPage);
+	}
+	if(location.pathname=="/customer/followingExpantion"){
+		followingScroll(scrollPage);
+	}
+	if(location.pathname=="/customer/boardExpantion"){
+		boardScroll(scrollPage);
+	}
+	if(location.pathname=="/customer/feedExpantion"){
+		feedScroll(scrollPage);
 	}
 }

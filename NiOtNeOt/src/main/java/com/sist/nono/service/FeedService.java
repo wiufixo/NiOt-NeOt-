@@ -202,4 +202,9 @@ public class FeedService {
 			return new IllegalArgumentException("댓글의 게시글 찾기 실패!");
 		});
 	}
+	
+	//송승민 만듦!!//
+	public List<Feed> findByCu_no(int cu_no) {
+		return fr.findByCu_no(cu_no);
+	}
 }

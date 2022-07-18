@@ -11,8 +11,8 @@
         <link type="text/css" rel="stylesheet" href="/css/common.css">
         <link type="text/css" rel="stylesheet" href="/css/main.css">
         <link type="text/css" rel="stylesheet" href="/css/button.css">
-        <link rel="stylesheet" href="/css/fontawesome_all.min.css">
-		<link rel="stylesheet" href="/css/customer.css">
+        <link type="text/css" rel="stylesheet" href="/css/fontawesome_all.min.css">
+		<link type="text/css" rel="stylesheet" href="/css/customer.css">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		<script type="text/javascript" src="/js/customer.js"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
@@ -64,28 +64,28 @@
                                 <li class="id">
                                     <span>아이디</span><!--
                                  --><input type="text" class="form-control" th:field="*{cu_id}" placeholder="Id" th:classappend="${#fields.hasErrors('cu_id')} ? 'is-invalid'">
-                                    <div class="sub_massage invalid-feedback" id="join_id_warning" th:if="${#fields.hasErrors('cu_id')}" th:errors="*{cu_id}"></div>
+                                    <div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('cu_id')}" th:errors="*{cu_id}">abc</div>
                                 </li>
                                 <li class="pw">
                                     <span>비밀번호</span><!--
                                  --><input type="password" class="form-control" th:field="*{cu_pwd}" placeholder="Password" th:classappend="${#fields.hasErrors('cu_pwd')} ? 'is-invalid'">
-                                 	<div class="sub_massage invalid-feedback" id="join_pwd_warning" th:if="${#fields.hasErrors('cu_pwd')}" th:errors="*{cu_pwd}"></div>
+                                 	<div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('cu_pwd')}" th:errors="*{cu_pwd}"></div>
                                 </li>
                                 <li class="pw_check">
                                     <span>비밀번호 확인</span><!--
                                  --><input type="password" id="cu_pwd_check" name="cu_pwd_check" placeholder="필수 입력 칸입니다.">
-                                    <div class="sub_massage" id="join_pwd_warning"><div class="red_warning">비밀번호가 다릅니다</div></div>
+                                    <div class="sub_massage none" id="join_pwd_warning">비밀번호가 다릅니다</div>
                                 </li>
                                 <li class="name">
                                     <span>이름</span><!--
                                  --><input type="text" class="form-control" th:field="*{cu_name}" placeholder="name" th:classappend="${#fields.hasErrors('cu_name')} ? 'is-invalid'">
-                                 	<div class="sub_message invalid-feedback" th:if="${#fields.hasErrors('cu_name')}" th:errors="*{cu_name}"></div><br>
+                                 	<div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('cu_name')}" th:errors="*{cu_name}"></div><br>
                                 </li>
                                 
                                 <li>
 	                                <span>닉네임</span>
 	                                <input type="text" class="" th:field="*{cu_nickname}" placeholder="nickname" th:classappend="${#fields.hasErrors('cu_nickname')} ? 'is-invalid'">
-	 								<div class="sub_message invalid-feedback"th:if="${#fields.hasErrors('cu_nickname')}" th:errors="*{cu_nickname}"></div><br>
+	 								<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_nickname')}" th:errors="*{cu_nickname}"></div><br>
                                 </li>
                                 
                                 <li class="email">
@@ -98,7 +98,7 @@
  									<input type="hidden" id="join_email_check_true" value="1">
                                 	<button type="button" class="send_btn" id="join_email_check_start">인증번호 발송</button><!--
                                  --><input type="text" id="join_email_check"><!--\
-                                 --><div class="sub_massage error" id="join_email_check_warning"><div class="red_warning">인증번호가 다릅니다</div></div> 
+                                 --><div class="sub_massage none" id="join_email_check_warning">인증번호가 다릅니다</div> 
                                 </li>
                                 
                                 <li class="address">
@@ -123,17 +123,17 @@
                                 <li class="height">
                                     <span>신장</span><!--
                                  --><input type="text" class="form-control" th:field="*{cu_height}" th:classappend="${#fields.hasErrors('cu_height')} ? 'is-invalid'">cm<br>
- 									<div class="sub_message invalid-feedback"th:if="${#fields.hasErrors('cu_height')}" th:errors="*{cu_height}"></div><br>
+ 									<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_height')}" th:errors="*{cu_height}"></div><br>
                                 </li>
                                 <li class="weight">
                                     <span>몸무게</span><!--
                                  --><input type="text" class="form-control" th:field="*{cu_weight}" th:classappend="${#fields.hasErrors('cu_weight')} ? 'is-invalid'">kg<br>
-                               		<div class="sub_message invalid-feedback"th:if="${#fields.hasErrors('cu_weight')}" th:errors="*{cu_weight}"></div><br>
+                               		<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_weight')}" th:errors="*{cu_weight}"></div><br>
                                 </li>
                             </ul>
                             <div class="check_join">
                                 <input id="checkbox" type="checkbox">
-                                <span>개인정보 공개 여부 &nbsp &nbsp &nbsp &nbsp</span>
+                                <span>개인정보 공개 여부</span>
                                 <input type="radio" th:field="*{privacy_agree}" value=0 checked>거부
  								<input type="radio" th:field="*{privacy_agree}" value=1>동의<br>
                                 <button type="button" id="join_button" class="join_btn">가입</button>
@@ -144,7 +144,7 @@
                 <div class="counsel"></div>
             </div>
             </form>
-            
+     
             <div class="footer"></div>
         </div>
     </body>

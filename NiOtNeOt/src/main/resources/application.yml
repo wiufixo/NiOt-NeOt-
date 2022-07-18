@@ -10,14 +10,14 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create-drop
+#      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false #JPA가 사용하는 기본 넘버링 전략을 따라가지 않는다
     show-sql: true
     properties:
       hibernate.format_sql: true
-      hibernate.hbm2ddl.auto: create
+#      hibernate.hbm2ddl.auto: update
 
 
 mybatis:
