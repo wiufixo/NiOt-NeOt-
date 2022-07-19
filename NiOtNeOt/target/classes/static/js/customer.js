@@ -153,7 +153,7 @@ var feedScroll = function(page){
 				var div=$("<div></div>");
 				$(div).attr("id","feed_"+i);
 				$(div).attr("class","feed_status");
-				$(div).attr("value",data[i].f_no)
+				$(div).attr("value",data[i].f_no);
 				div.append($("<span></span>",{text:data[i].f_no}));
 				div.append($("<span></span>",{text:data[i].f_title}));
 				div.append($("<span></span>",{text:data[i].f_content}));
@@ -326,7 +326,7 @@ $(document).on("click","#userpage_follow_button",function(){
 $(document).on("click",".product_status",function(e){
 	e.stopImmediatePropagation();
 	var product_id=$(this).attr("id");
-	var product_no=$("."+product_id).text();
+	var product_no=$("#"+product_id).attr("value");
 	window.location.href="/product/"+product_no;
 })
 
@@ -334,7 +334,7 @@ $(document).on("click",".product_status",function(e){
 $(document).on("click",".feed_status",function(e){
 	e.stopImmediatePropagation();
 	var feed_id=$(this).attr("id");
-	var feed_no=$("."+feed_id).text();
+	var feed_no=$("#"+feed_id).attr("value");
 	window.location.href="/feed/detailFeed/"+feed_no;
 })
 
@@ -342,8 +342,8 @@ $(document).on("click",".feed_status",function(e){
 $(document).on("click",".board_status",function(e){
 	e.stopImmediatePropagation();
 	var board_id=$(this).attr("id");
-	var board_no=$("."+board_id).text();
-	window.location.href="/board/1/"+board_no;
+	var board_no=$("#"+board_id).attr("value");
+	window.location.href="/board/detail/"+board_no;
 })
 
 
@@ -351,7 +351,7 @@ $(document).on("click",".board_status",function(e){
 $(document).on("click",".follower_status",function(e){
 	e.stopImmediatePropagation();
 	var follower_id=$(this).attr('id');
-	var follower_no=$("."+follower_id).val();
+	var follower_no=$("#"+follower_id).attr("value");
 	page_choice(follower_no);
 })
 
@@ -359,7 +359,7 @@ $(document).on("click",".follower_status",function(e){
 $(document).on("click",".following_status",function(e){
 	e.stopImmediatePropagation();
 	var following_id=$(this).attr('id');
-	var following_no=$("."+following_id).val();
+	var following_no=$("#"+following_id).attr("value");
 	page_choice(following_no);
 })
 
@@ -443,81 +443,49 @@ $(document).on("click","#delete_check_button",function(){
 		}
 })
 
-		
-//userpage_feed_more 클릭
-$(document).on("click","#userpage_feed_more",function(){
-	page_check_helper($("#userpage_user_no").val(),"/customer/feedExpantion")
-})
-
-//userpage_product_more 클릭
-$(document).on("click","#userpage_product_more",function(){
-	page_check_helper($("#userpage_user_no").val(),"/customer/productExpantion")
-})
-
-//userpage_board_more 클릭
-$(document).on("click","#userpage_board_more",function(){
-	page_check_helper($("#userpage_user_no").val(),"/customer/boardExpantion")
-})
-
 //userpage_trans 클릭
 $(document).on("click","#userpage_trans",function(){
-	page_check_helper($("#userpage_user_no").val(),"/customer/transExpantion")
+	location.href="/customer/transExpantion/"+$("#userpage_user_no").attr("value");
 })
 
 //userpage_wish 클릭
 $(document).on("click","#userpage_wish",function(){
-	page_check_helper($("#userpage_user_no").val(),"/customer/wishExpantion")
+	location.href="/customer/boardExpantion/"+$("#userpage_user_no").attr("value");
 })
 
 //userpage_follower 클릭
 $(document).on("click","#userpage_follower",function(){
-	page_check_helper($("#userpage_user_no").val(),"/customer/followerExpantion")
+	location.href="/customer/followerExpantion/"+$("#userpage_user_no").attr("value");
 })
 
 //userpage_following 클릭
 $(document).on("click","#userpage_following",function(){
-	page_check_helper($("#userpage_user_no").val(),"/customer/followingExpantion")
+	location.href="/customer/followingExpantion/"+$("#userpage_user_no").attr("value");
 })
 
 //mypage my_img 클릭
 $(document).on("click","#mypage_my_img",function(){
 	window.open("/customer/changeImg","_blank","height:300,width:300");
 })
-	
-//mypage_feed_more 클릭
-$(document).on("click","#mypage_feed_more",function(){
-	page_check_helper(0,"/customer/feedExpantion");
-})
-
-//mypage_product_more 클릭
-$(document).on("click","#mypage_product_more",function(){
-	page_check_helper(0,"/customer/productExpantion");
-})
-
-//mypage_board_more 클릭
-$(document).on("click","#mypage_board_more",function(){
-	page_check_helper(0,"/customer/boardExpantion");
-})
-
 
 //mypage_trans 클릭
 $(document).on("click","#mypage_trans",function(){
-	page_check_helper(0,"/customer/transExpantion");
+	location.href="/customer/transExpantion/"+$("#mypage_user_no").attr("value");
 })
 
 //mypage_wish 클릭
 $(document).on("click","#mypage_wish",function(){
-	page_check_helper(0,"/customer/wishExpantion");
+	location.href="/customer/wishExpantion/"+$("#mypage_user_no").attr("value");
 })
 
 //mypage follwer 클릭
 $(document).on("click","#mypage_follower",function(){
-	page_check_helper(0,"/customer/followerExpantion");
+	location.href="/customer/followerExpantion/"+$("#mypage_user_no").attr("value");
 })
 
 //mypage following 클릭
 $(document).on("click","#mypage_following",function(){
-	page_check_helper(0,"/customer/followingExpantion");
+	location.href="/customer/followerExpantion/"+$("#mypage_user_no").attr("value");
 })
 
 //mypage 회원 정보 수정 클릭
@@ -611,6 +579,7 @@ $(document).on("click","#find_pwd_button", function() {
 	});
 })
 
+//페이징
 $(document).on("click",".product_paging_number",function(){
 	productExpantionPaging($(this).text());
 })
@@ -629,39 +598,39 @@ $(document).ready(function() {
 		var scrollNow=$(window).scrollTop();
 		if(scrollNow+$(window).height()+100>=$("body").height()){
 			//page 이름으로 불러올 무한스크롤 정보 탐색
-			if(location.pathname=="/customer/followerExpantion"){
+			if(location.pathname.includes("/customer/followerExpantion")){
 				followerScroll(scrollPage);
-			}else if(location.pathname=="/customer/followingExpantion"){
+			}else if(location.pathname.includes("/customer/followingExpantion")){
 				followingScroll(scrollPage);
-			}else if(location.pathname=="/customer/boardExpantion"){
-				boardExpantionScroll(scrollPage);
-			}else if(location.pathname=="/customer/feedExpantion"){
-				feedExpantionScroll(scrollPage);
+			}else if(location.pathname.includes("/customer/boardExpantion")){
+				boardScroll(scrollPage);
+			}else if(location.pathname.includes("/customer/feedExpantion")){
+				feedScroll(scrollPage);
 			}
 		}
 	})
 })
 
 window.onload = function(){
-	if(location.pathname=="/customer/productExpantion"){
+	if(location.pathname.includes("/customer/productExpantion")){
 		productExpantionPaging(1);
 	}
-	if(location.pathname=="/customer/wishExpantion"){
+	if(location.pathname.includes("/customer/wishExpantion")){
 		wishExpantionPaging(1);
 	}
-	if(location.pathname=="/customer/transExpantion"){
+	if(location.pathname.includes("/customer/transExpantion")){
 		transExpantionPaging(1);
 	}
-	if(location.pathname=="/customer/followerExpantion"){
+	if(location.pathname.includes("/customer/followerExpantion")){
 		followerScroll(scrollPage);
 	}
-	if(location.pathname=="/customer/followingExpantion"){
+	if(location.pathname.includes("/customer/followingExpantion")){
 		followingScroll(scrollPage);
 	}
-	if(location.pathname=="/customer/boardExpantion"){
+	if(location.pathname.includes("/customer/boardExpantion")){
 		boardScroll(scrollPage);
 	}
-	if(location.pathname=="/customer/feedExpantion"){
+	if(location.pathname.includes("/customer/feedExpantion")){
 		feedScroll(scrollPage);
 	}
 }

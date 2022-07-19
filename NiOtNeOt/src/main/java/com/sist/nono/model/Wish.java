@@ -32,7 +32,5 @@ public class Wish {
 	@JoinColumn(name="cu_no")
 	private Customer customer;
 
-	@ManyToOne(fetch = FetchType.EAGER) //기본패치전략, 반드시 들고와야하는 칼럼
-	@JoinColumn(name="pr_no")
-	private Product product;
+	private int pr_no;
 }

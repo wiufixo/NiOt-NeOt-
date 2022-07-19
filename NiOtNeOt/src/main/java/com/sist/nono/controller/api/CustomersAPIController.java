@@ -117,15 +117,14 @@ public class CustomersAPIController {
 		TransHistory t=transHistoryService.findById(Integer.parseInt(request.getParameter("tr_no")));
 		t.setBuy_score(Integer.parseInt(request.getParameter("buy_score")));
 		t.setSell_score(Integer.parseInt(request.getParameter("sell_score")));
-		
+		transHistoryService.saveTransHistory(t);
 	}
 	
 	@PostMapping("customer/wishSave")
 	public void wishSave(HttpServletRequest request) {
 		Wish wish = new Wish();
 		
-		//getorelse 써줘야함
-		wish.setProduct((Product) productService.findById(Integer.parseInt(request.getParameter("pr_no")))); 
+		wish.setPr_no(Integer.parseInt(request.getParameter("pr_no")));
 		wish.setCustomer(customerService.findById(Integer.parseInt(request.getParameter("cu_no")))); 
 		
 		wishService.saveWish(wish);

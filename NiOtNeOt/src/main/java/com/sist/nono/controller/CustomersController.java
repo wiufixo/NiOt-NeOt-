@@ -24,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -109,7 +110,7 @@ public class CustomersController {
 		a.setMain_adr_detail(request.getParameter("address_detail"));
 		addressService.saveAddress(a);
 		
-		return "/index";
+		return "/";
 	}
 	
 	@PostMapping("customer/updateOK")
@@ -133,7 +134,7 @@ public class CustomersController {
 		a.setMain_adr_detail(request.getParameter("address_detail"));
 		addressService.saveAddress(a);
 		
-		return "/index";
+		return "/";
 	}
 	
 	@GetMapping("customer/update")
@@ -194,73 +195,55 @@ public class CustomersController {
 		customerService.deleteCustomer(cu_no);
 	}
 
-	@GetMapping("customer/boardExpantion")
-	public String boardExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no) {
-		if(user_no==0) {
-			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
-		}
-		
+	@GetMapping("customer/boardExpantion/{user_no}")
+	public String boardExpantion(Authentication auth,Model model,@PathVariable int user_no) {
 		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("board",boardService.findAllByCu_no(user_no));
-		
 		return "customer/boardExpantion";
 	}
 
-	@GetMapping("customer/productExpantion")
-	public String productExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no) {
-		if(user_no==0) {
-			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
-		}
-		System.out.println(user_no);
-		
+	@GetMapping("customer/productExpantion/{user_no}")
+	public String productExpantion(Authentication auth,Model model,@PathVariable int user_no) {
 		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("product",productService.findAllByCu_no(user_no));
-		
-		
 		return "customer/productExpantion";
 	}
 	
-	@GetMapping("customer/feedExpantion")
-	public String feedExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no) {
-		if(user_no==0) {
-			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
-		}
+	@GetMapping("customer/feedExpantion/{user_no}")
+	public String feedExpantion(Authentication auth,Model model,@PathVariable int user_no) {
 		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("feed",feedService.findByCu_no(user_no));
-		
 		return "customer/feedExpantion";
 	}
 	
-	@GetMapping("customer/transExpantion")
-	public String transExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no) {
-		if(user_no==0) {
-			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
+	@GetMapping("customer/transExpantion/{user_no}")
+	public String transExpantion(Authentication auth,Model model,@PathVariable int user_no) {
+		List<TransHistory> list1= transHistoryService.findAllByCu_no(user_no);
+		ArrayList<Product> list=new ArrayList<Product>();
+		
+		for(TransHistory trans :list1) {
+			list.add(productService.findById1((trans.getPr_no()))); 
 		}
 		model.addAttribute("user",customerService.findById(user_no));
-		model.addAttribute("trans",transHistoryService.findAllByCu_no(user_no));
-		
+		model.addAttribute("trans",list);
 		return "customer/transExpantion";
 	}
 	
-	@GetMapping("customer/wishExpantion")
-	public String wishExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no) {
-		if(user_no==0) {
-			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
+	@GetMapping("customer/wishExpantion/{user_no}")
+	public String wishExpantion(Authentication auth,Model model,@PathVariable int user_no) {
+		List<Wish> list1= wishService.findAllByCu_no(user_no);
+		ArrayList<Product> list=new ArrayList<Product>();
+		
+		for(Wish wish :list1) {
+			list.add(productService.findById1((wish.getPr_no()))); 
 		}
 		model.addAttribute("user",customerService.findById(user_no));
-		model.addAttribute("wish",wishService.findAllByCu_no(user_no));
-		
+		model.addAttribute("wish",list);
 		return "customer/wishExpantion";
 	}
 	
-	@GetMapping("customer/followerExpantion")
-	public String followerExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no) {
-		
-		//user=접속자
-		if(user_no==0) {
-			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
-		}
-		
+	@GetMapping("customer/followerExpantion/{user_no}")
+	public String followerExpantion(Authentication auth,Model model,@PathVariable int user_no) {
 		List<Follow> list1= followService.findByFollowed(user_no);
 		ArrayList<Customer> list=new ArrayList<Customer>();
 		
@@ -273,13 +256,8 @@ public class CustomersController {
 		return "customer/followerExpantion";
 	}
 	
-	@GetMapping("customer/followingExpantion")
-	public String folllowingExpantion(Authentication auth,Model model,@RequestParam("user_no") int user_no){
-		//user_no가 0이면 로그인한 유저의 요소로 고려
-		if(user_no==0) {
-			user_no=customerService.findByCu_id(auth.getName()).getCu_no();
-		}
-		
+	@GetMapping("customer/followingExpantion/{user_no}")
+	public String folllowingExpantion(Authentication auth,Model model,@PathVariable int user_no){
 		List<Follow> list1= followService.findByFollower(user_no);
 		ArrayList<Customer> list=new ArrayList<Customer>();
 		

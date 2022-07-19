@@ -40,5 +40,4 @@ public class WishService {
 	public ArrayList<Wish> findAllByCu_no(int cu_no){
 		return repository.findAllByCu_no(cu_no);
 	}
-	
 }

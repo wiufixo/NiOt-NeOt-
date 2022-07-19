@@ -127,13 +127,13 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <div class="btn_space"><a class="more_btn" id="mypage_product_more">More</a></div>
+                            <div class="btn_space"><a class="more_btn" th:href="'/customer/productExpantion/'+${user.getCu_no}">More</a></div>
                         </div>
                         
                         <div class="community">
                             <div class="contents_title">Community</div>
                             <ul class="contents_post">
-                                <li id="mypage_board" th:each="b,boardNum:${board}" th:if="${boardNum.count<4}">
+                                <li  th:each="b,boardNum:${board}" th:if="${boardNum.count<4}" th:id="${'board_'+boardNum.index}" class="board_status" th:value="${b.getB_no}">
                                     <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="b.getB_content"></span>
                                     <div class="post_now">
                                         <span class="post_comment" th:text="${b.getB_no}">[51]</span>
@@ -141,13 +141,13 @@
                                     </div>
                                 </li>
                             </ul>
-                            <div class="btn_space"><a class="more_btn" id="mypage_board_more">More</a></div>
+                            <div class="btn_space"><a class="more_btn" th:href="'/customer/boardExpantion/'+${user.getCu_no}">More</a></div>
                         </div>
                         
                         <div class="feed">
                             <div class="contents_title">Feed</div>
                             <ul class="feed_content">
-                                <li id="mypage_feed" th:each="f,feedNum:${feed}" th:if="${feedNum.count<4}">
+                                <li th:id="${'feed_'+feedNum.index}" class="feed_status" th:value="${f.getF_no}" th:each="f,feedNum:${feed}" th:if="${feedNum.count<4}">
                                     <div class="f_picture"><img src="img/1.png"></div><!--
                                 --><ul>
                                         <li th:text="${f.getF_title}"></li>
@@ -157,7 +157,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                            <div class="btn_space"><a class="more_btn" id="mypage_feed_more">More</a></div>
+                            <div class="btn_space"><a class="more_btn" th:href="'/customer/feedExpantion/'+${user.getCu_no}">More</a></div>
                         </div>
                         
                         <a class="withdrawal" href="/customer/deleteCheck">회원 탈퇴</a>

@@ -21,6 +21,11 @@ public class CustomerController {
 	public String join() {
 		return "/index";
 	}
+	
+	@GetMapping("/customer/login")
+	public String loginForm() {
+		return "/customer/loginForm";
+	}
 
 	@GetMapping("customer/join")
 	public String join(Model model) {
@@ -46,15 +51,5 @@ public class CustomerController {
 	@GetMapping("customer/changeImg")
 	public String changeImg() {
 		return "customer/changeImg";
-	}
-	
-	@GetMapping("customer/login")
-	public String customerLogin(HttpServletRequest request) {
-		String uri=request.getHeader("Referer");
-		if(uri!=null&&!uri.contains("/login")) {
-			request.getSession().setAttribute("prevPage", uri);
-		}
-		
-		return "/";
 	}
 }

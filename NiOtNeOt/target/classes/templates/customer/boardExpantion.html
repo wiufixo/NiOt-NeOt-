@@ -8,12 +8,6 @@
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
 <body>
-	<div th:each="board, num : ${board}" class="board_status" th:id="board_+${num.index}"> 
-		<span th:text="${board.getB_no}" th:class="board_+${num.index}"></span>
-		<span th:text="${board.getB_title}"></span>
-		<span th:text="${board.getB_content}"></span>
-		<span th:text="${board.getB_created}"></span>
-	</div><br>
 		
 	<input type="hidden" id="board_cu_no" th:value="${user.getCu_no}">
 </body>

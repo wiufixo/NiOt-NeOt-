@@ -39,7 +39,11 @@ public class TransHistory {
 	private int pr_no;
 	private int sell_no;
 	private int buy_no;
+	
+	//판매자에 대한 평가점수
 	private int sell_score;
+	
+	//구매자에 대한 평가점수
 	private int buy_score;
 	
 	@CreationTimestamp

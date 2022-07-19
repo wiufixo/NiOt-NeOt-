@@ -16,4 +16,7 @@ public interface WishRepository extends JpaRepository<Wish, Integer> {
 	
 	@Query(value = "select * from wish where cu_no=?1",nativeQuery = true)
 	ArrayList<Wish> findAllByCu_no(int cu_no);
+	
+	@Query(value = "select * from wish where pr_no=?1",nativeQuery = true)
+	ArrayList<Wish> findAllByPr_no(int pr_no);
 }
