@@ -18,17 +18,21 @@ import org.springframework.web.multipart.MultipartFile;
 import com.sist.nono.model.BoardFile;
 import com.sist.nono.repository.BoardRepository;
 
+import lombok.Getter;
+
 @Component
+@Getter
 public class FileUploadDTO {
 	
 	@Autowired
 	private BoardRepository boardRepository;
 	
-	/** 오늘 날짜 */
-	private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
+//	/** 오늘 날짜 */
+//	private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
 
 	/** 업로드 경로 */
-	private final String uploadPath = Paths.get("C:", "develop", "upload", today).toString();
+	private final String uploadPath = Paths.get("C:", "develop", "upload").toString();
+//	private final String uploadPath = Paths.get("C:", "develop", "upload", today).toString();
 
 	/**
 	 * 서버에 생성할 파일명을 처리할 랜덤 문자열 반환

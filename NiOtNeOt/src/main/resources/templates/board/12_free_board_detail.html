@@ -1,8 +1,7 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html>
     <head>
-        <title>DD23_project</title>
+        <title>free_board_detail</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
@@ -11,11 +10,10 @@
         <link type="text/css" rel="stylesheet" href="css/common.css">
         <link type="text/css" rel="stylesheet" href="css/main.css">
         <link type="text/css" rel="stylesheet" href="css/button.css">
-        <link rel="stylesheet" href="css/index/fontawesome_all.min.css">
+        <link rel="stylesheet" href="css/fontawesome_all.min.css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="js/common.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
-        <script src="https://kit.fontawesome.com/cd24d62f47.js" crossorigin="anonymous"></script>
 
         <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
         <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
@@ -46,38 +44,59 @@
                         <li><a href="javascript:;">Feed</a></li><!--
                      --><li><a href="javascript:;">Sale/Rental</a></li><!--
                      --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
-                     --><li><a th:href="@{/board/list}">Community</a></li><!--
-                     --><li><a href="/customer/login" style="position:relative;z-index:1" id="login" sec:authorize="!isAuthenticated()">Login</a>
-                    	<a href="/logout" style="position:absolute;bottom:3px; z-index:1" id="logout" sec:authorize="isAuthenticated()">Logout</a></li>
+                     --><li><a href="javascript:;">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="blurred_cover"></div>
-            <div class="visual">
+            <div class="free_board_detail">
                 <div class="width_con">
-                    <div class="title">Daily Best Feed</div>
-                    <ul class="rank">
-                        <li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/1.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/1.png"></div>
-                            <div class="rank_and_thumbup">1st<span>like</span></div>
-                        </li><!--
-                     --><li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/2.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/2.png"></div>
-                            <div class="rank_and_thumbup">2nd<span>like</span></div>
-                        </li><!--
-                     --><li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/1.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/1.png"></div>
-                            <div class="rank_and_thumbup">3rd<span>like</span></div>
-                        </li><!--
-                     --><li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/2.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/2.png"></div>
-                            <div class="rank_and_thumbup">4th<span>like</span></div>
-                        </li>
-                    </ul>
+                    <div class="content">
+                        <div class="board_title">게시글 상세화면</div>
+                        <div class="f_post_user">
+                            <div class="f_left">
+                                <div class="f_img"></div>
+                                <div class="f_title_nickname">
+                                    <div class="f_p_title">오늘 점심메뉴 추천해줄 분</div>
+                                    <div class="f_nickname">오늘의스타</div>
+                                </div>
+                            </div>
+                            <div class="f_right">
+                                <a class="f_fix" href="javascript:;">수정</a>
+                                <a class="f_del" href="javascript:;">삭제</a>
+                                <div class="f_view">조회수 : 15</div>
+                                <div class="f_date">작성일자: 2022/05/18 17:00:00 (15분 전)</div>
+                            </div>
+                        </div>
+                        <div class="f_contents">날도 좋은데 다들 점심 뭐 드시나요?</div>
+                        <div class="f_comment">
+                            <div class="f_comment_num">댓글수 1개</div>
+                            <div class="f_c_left">
+                                <div class="f_c_img"></div>
+                                <div class="f_c_nick_cotents">
+                                    <div class="f_c_nickname">딸기가좋아</div>
+                                    <div class="f_c_contents">딸기와플이 땡기는 날이네요!</div>
+                                </div>
+                            </div>
+                            <div class="f_c_right">
+                                <a class="c_del" href="javascript:;">x</a>
+                                <div class="c_date">작성일자: 2022/05/18 17:10:00 (5분 전)</div>
+                            </div>
+                        </div>
+                        <div class="user_comment_input">
+                            <div class="input_massage"><span>모세</span>님의 댓글을 등록해주세요.</div>
+                            <div class="direct_input_area">
+                                <div class="u_c_img"></div>
+                                <textarea></textarea>
+                                <a class="regist_btn" href="javascript:;">등록</a>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="preview_btn" href="javascript:;">< 이전글</a>
+                            <a class="list_btn" href="javascript:;">글목록</a>
+                            <a class="next_btn" href="javascript:;">다음글 ></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="counsel"></div>
             </div>

@@ -2,6 +2,32 @@
 @import url(../fonts/font-awesome/css/font-awesome.min.css);
 /* @import url(../plugin/bootstrap/css/bootstrap.min.css); */
 
+  
+.my-board-btn{
+	border-color: #c3dcd6;
+	
+}
+
+.my-board-btn:hover{
+	background-color: #c3dcd6;
+	border-color: #c3dcd6;
+}
+
+.my-active{
+  background: #c3dcd6;
+ }
+
+.my-border{
+    display: block;
+    width: 100%;
+    color: #495057;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+	border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
 .my-btn{
 	margin-bottom: 30px;
 }

@@ -2,53 +2,63 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
-<head th:fragment="head(title)">
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-<link rel="stylesheet" th:href="@{/css/starter-template.css}">
-<link rel="stylesheet" th:href="@{/css/my-style.css}" />
-<!-- <link rel="stylesheet" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" /> -->
+ <head th:fragment="head(title)">
+        <title th:text="${title}"></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+        <meta name="format-detection" content="telephone=no">
+        
+        <link type="text/css" rel="stylesheet" th:href="@{/css/reset.css}">
+        <link type="text/css" rel="stylesheet" th:href="@{/css/common.css}">
+        <link type="text/css" rel="stylesheet" th:href="@{/css/main.css}">
+        <link type="text/css" rel="stylesheet" th:href="@{/css/button.css}">
+        <link rel="stylesheet" th:href="@{/css/fontawesome_all.min.css}">
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+		<link rel="stylesheet" th:href="@{/css/starter-template.css}">
+		<link rel="stylesheet" th:href="@{/css/my-style.css}" />
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" th:src="@{/js/common.js}"></script>
+        <script type="text/javascript" th:src="@{/js/main.js}"></script>
 
-<title th:text="${title}"></title>
-</head>
+        <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
+        <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
+        <meta name="robots" content="index,follow">                                                 <!--사이트 페이지 구분-->
+        <meta name="description" content="">                                                        <!--사이트 설명-->
+        <meta name="author" content="">                                                             <!--사이트 제작자/제작회사-->
+        <meta name="keywords" content="">                                                           <!--사이트 검색엔진 키워드-->
+                                                                                                    <!--검색엔진/SNS 추출 정보-->
+        <meta property="og:site_name" content="">                                                   <!--사이트 이름-->
+        <meta property="og:url" content="">                                                         <!--사이트 주소-->
+        <meta property="og:title" content="">                                                       <!--사이트 제목-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (홈화면 아이콘)-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (위 이미지 없을 시 보조 이미지)-->
+        <meta property="og:description" content="">                                                 <!--사이트 설명-->
+        <meta property="og:type" content="website">                                                 <!--사이트 페이지 구분-->
+        <link rel="apple-touch-icon" href="">                                                       <!--57 Size .png-->
+        <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
+        <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
+        <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
+    </head>
+
+
 
 
 <header th:fragment="header(menu)">
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-		<a class="navbar-brand" href="/">NiOtNeOt</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-
-		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-			<ul class="navbar-nav mr-auto">
-				<li class="nav-item" th:classappend=" ${menu} == 'home' ? 'active' "><a class="nav-link" th:href="@{/}">홈 <span class="sr-only" th:if=" ${menu} == 'home' ">(current)</span>
-				</a></li>
-				<li class="nav-item" th:classappend=" ${menu} == 'list' ? 'active' "><a class="nav-link" th:href="@{/board/list}">자유게시판 <span class="sr-only" th:if=" ${menu} == 'list' ">(current)</span>
-				</a></li>
-
-			</ul>
-
-				<form sec:authorize="!isAuthenticated()" class="form-inline my-lg-0">
-					<a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/join}">회원가입</a>
-				</form>
-				<form sec:authorize="!isAuthenticated()" class="form-inline mx-1 my-lg-0">
-					<a class="btn btn-secondary my-2 my-sm-0" th:href="@{/account/login}">로그인</a>
-				</form>
-			<div sec:authorize="isAuthenticated()">
-				<form class="form-inline my-2 my-lg-0">
-					<span class="text-white mx-1" sec:authentication="name">사용자</span>
-					<span class="text-white">님, 반갑습니다!</span>
-					<a class="btn btn-secondary mx-2 my-sm-0" th:href="@{/logout}">로그아웃</a>
-					<a class="btn btn-secondary mx-2 my-sm-0" th:href="@{/account/update}">회원수정</a>
-					<!-- <a class="btn btn-secondary mx-2 my-sm-0" th:href="@{/resign}">회원탈퇴</a> -->
-				</form>
-			</div>
-		</div>
-	</nav>
+	 <div class="header hide">
+                <div class="width_con">
+                    <div class="btn_nav"><div></div></div>
+                    <ul>
+                        <li><a href="javascript:;">Feed</a></li><!--
+                     --><li><a href="javascript:;">Sale/Rental</a></li><!--
+                     --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
+                     --><li><a th:href="@{/board/list}">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
+                    </ul>
+                </div>
+            </div>
 </header>
 
 

@@ -3,7 +3,7 @@
 
 <div th:replace="fragments/common :: head('write board')"></div>
 
-<body>
+<body style="padding-top: 100px;">
 
 	<div th:replace="fragments/common :: header('list')"></div>
 
@@ -27,25 +27,32 @@
 				<textarea class="form-control" th:field="*{b_content}" th:classappend="${#fields.hasErrors('b_content')} ? 'is-invalid'" rows="3" placeholder="content"></textarea>
 				<div class="invalid-feedback text-left" th:if="${#fields.hasErrors('b_content')}" th:errors="*{b_content}"></div>
 			</div>
+			
+			<br>
 
+			<!-- 기존파일 없을때 or 새글일때-->
 			<div th:if="${#lists.isEmpty( fileList )}" class="form-group" id="file-add">
 				<div class="form-group">
-					<button type="button" onclick="addFile()">파일추가</button>
+					<button class="btn btn-outline-secondary" style="padding: 3px 6px;" type="button" onclick="addFile()">파일추가</button>
 				</div>
-				<div class="file-group" id="file-list">
+				<div class="file-group" style="padding: 6px 0px;" id="file-list">
 					<input type="file" name="files">
-					<button type="button" class="btn-remove">삭제</button>
+					<button type="button" style="padding: 3px 6px;" class="btn-remove btn btn-outline-secondary">삭제</button>
 				</div>
 			</div>
 
+			<!-- 기존파일 있을때 -->
 			<div th:unless="${#lists.isEmpty( fileList )}" class="form-group" id="file-add">
-				<button type="button" onclick="addFile()">파일추가</button>
-				<div class="file-group" id="file-list" th:each="row,status : ${fileList}">
-					<input type="hidden" name="fileNo" th:value="${row.bf_no}"> <input type="text" class="upload-name" th:value="${row.original_name}" readonly /> <span th:text="|${row.size}kb|"></span>
-					<button type="button" class="btn-remove">삭제</button>
+				<div class="form-group">
+					<button class="btn btn-outline-secondary" style="padding: 3px 6px;" type="button" onclick="addFile()">파일추가</button>
+				</div>
+				<div class="file-group" style="padding: 6px 0px;" id="file-list" th:each="row,status : ${fileList}">
+					<input type="hidden" name="fileNo" th:value="${row.bf_no}"> 
+					<input type="text" class="upload-name" th:value="${row.original_name}" readonly /> 
+					<span th:text="|${row.size}kb|"></span>
+					<button type="button" style="padding: 3px 6px;" class="btn-remove btn btn-outline-secondary">삭제</button>
 				</div>
 			</div>
-
 
 			<div id="btnDiv" class="text-right my-btn">
 				<button type="submit" class="btn btn-primary">확인</button>
@@ -64,13 +71,13 @@
 
 	<script th:inline="javascript"> 
 	
-		function addFile() {   
-			const str = `<div class="file-group" id="file-list">
-							<input type="file" name="files">
-							<button type="button" class="btn-remove">삭제</button>
-						</div>`;     
-			$("#file-add").append(str);        
-		};  
+	function addFile() {   
+		const str = `<div class="file-group" style="padding: 6px 0px;" id="file-list">
+						<input type="file" name="files">
+						<button type="button" style="padding: 3px 6px;" class="btn-remove btn btn-outline-secondary">삭제</button>
+					</div>`;     
+		$("#file-add").append(str);        
+	};  
 		
 		
 		$(document).on("click",".btn-remove", function(){
