@@ -33,8 +33,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
-@Table(name="customer")
-public class Customer {
+@Table(name="joinForm")
+public class JoinForm {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,6 +49,8 @@ public class Customer {
             message = "비밀번호는 8자 이상이고 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함되어야 합니다.")
 	private String cu_pwd;
 	
+	private String cu_pwd_check;
+	
 	@NotEmpty(message = "*이름을 입력해주세요.")
 	@Size(min=2, max=5, message = "*이름을 2~5자 사이로 입력해주세요.")
 	private String cu_name;
@@ -60,9 +62,13 @@ public class Customer {
 	@NotEmpty(message = "*이메일을 입력해주세요.")
 	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "*이메일 형식에 맞지 않습니다.")
 	private String cu_email;
+
+	@NotEmpty(message = "*이메일을 인증해주세요.")
+	private String cu_email_check;
+	
+	private String cu_email_check_true;
 	
 	private String cu_birth;
-	private String cu_img;
 	private int cu_gender;
 	
 	@Min(value=80, message = "*80~230 사이로 입력해주세요.")
@@ -75,20 +81,12 @@ public class Customer {
 	
 	private int privacy_agree;
 	
-	@CreationTimestamp
-	private Timestamp cu_created;
-	
-	private Date cu_deleted;
-	
 	private int postcode;
 
 	@NotEmpty(message = "주소를 입력해주세요.")
 	private String address;
 	
 	private String address_detail;
-	
-	private int unchecked_alert;
-	private int unchecked_chat;
 	
 	@Enumerated(EnumType.STRING) //db에는 enumtype 자료형이 없으므로 string으로 변환해준다
 	@ColumnDefault("'USER'")

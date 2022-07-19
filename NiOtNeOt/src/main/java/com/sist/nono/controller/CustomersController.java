@@ -29,10 +29,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sist.nono.config.CustomerValidator;
+import com.sist.nono.config.joinFormValidator;
 import com.sist.nono.model.Address;
 import com.sist.nono.model.Board;
 import com.sist.nono.model.Customer;
 import com.sist.nono.model.Follow;
+import com.sist.nono.model.JoinForm;
 import com.sist.nono.model.Product;
 import com.sist.nono.model.TransHistory;
 import com.sist.nono.model.Wish;
@@ -89,35 +91,59 @@ public class CustomersController {
 	
 	@Autowired JavaMailSender javaMailSender;
 	
+//	@PostMapping("customer/joinOK")
+//	public String joinOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request) {
+//		//model에서 설정한 유효성
+//		if(bindingResult.hasErrors()) {
+//			return "customer/join";
+//		}
+//		//validator에서 설정한 유효성
+//		CustomerValidator validator = new CustomerValidator(customerService);
+//		validator.validate(customer, bindingResult);
+//		if(bindingResult.hasErrors()) {
+//			return "customer/join";
+//		}
+//		customer.setCu_img("defaultUserImg.jpg");
+//		customerService.saveCustomer(customer);
+//		
+//		return "/index";
+//	}
+	
 	@PostMapping("customer/joinOK")
-	public String joinOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request) {
+	public String joinOK(@Valid JoinForm joinForm,BindingResult bindingResult,HttpServletRequest request) {
 		//model에서 설정한 유효성
 		if(bindingResult.hasErrors()) {
-			return "customer/join";
+			return "/customer/join";
 		}
 		//validator에서 설정한 유효성
-		CustomerValidator validator = new CustomerValidator(customerService);
-		validator.validate(customer, bindingResult);
+		joinFormValidator validator = new joinFormValidator(customerService);
+		validator.validate(joinForm, bindingResult);
 		if(bindingResult.hasErrors()) {
-			return "customer/join";
+			return "/customer/join";
 		}
+		Customer customer = new Customer();
+		customer.setAddress(joinForm.getAddress());
+		customer.setAddress_detail(joinForm.getAddress_detail());
+		customer.setCu_birth(joinForm.getCu_birth());
+		customer.setCu_email(joinForm.getCu_email());
+		customer.setCu_gender(joinForm.getCu_gender());
+		customer.setCu_height(joinForm.getCu_height());
+		customer.setCu_id(joinForm.getCu_id());
+		customer.setCu_name(joinForm.getCu_name());
+		customer.setCu_nickname(joinForm.getCu_nickname());
+		customer.setCu_pwd(joinForm.getCu_pwd());
+		customer.setCu_weight(joinForm.getCu_weight());
+		customer.setPostcode(joinForm.getPostcode());
+		customer.setPrivacy_agree(joinForm.getPrivacy_agree());
+		
 		customer.setCu_img("defaultUserImg.jpg");
 		customerService.saveCustomer(customer);
-		Address a=new Address();
-		a.setCu_no(customer.getCu_no());
-		a.setMain_adr_no(Integer.parseInt(request.getParameter("postcode")));
-		a.setMain_adr(request.getParameter("address"));
-		a.setMain_adr_detail(request.getParameter("address_detail"));
-		addressService.saveAddress(a);
 		
-		return "/";
+		return "/index";
 	}
 	
 	@PostMapping("customer/updateOK")
 	public String updateOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request,Model model) {
-		Address a=addressService.findById(customer.getCu_no());
-		model.addAttribute(a);
-		
 		if(bindingResult.hasErrors()) {
 			return "customer/update";
 		}
@@ -129,12 +155,8 @@ public class CustomersController {
 		}
 		
 		customerService.saveCustomer(customer);
-		a.setMain_adr_no(Integer.parseInt(request.getParameter("postcode")));
-		a.setMain_adr(request.getParameter("address"));
-		a.setMain_adr_detail(request.getParameter("address_detail"));
-		addressService.saveAddress(a);
 		
-		return "/";
+		return "/index";
 	}
 	
 	@GetMapping("customer/update")
@@ -142,7 +164,6 @@ public class CustomersController {
 		Customer cu=customerService.findByCu_id(auth.getName());
 		int cu_no=cu.getCu_no();
 		model.addAttribute("customer",customerService.findById(cu_no));
-		model.addAttribute("address",addressService.findById(cu_no));
 		
 		return "customer/update";
 	}

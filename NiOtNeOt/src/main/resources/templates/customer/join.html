@@ -14,11 +14,11 @@
         <link type="text/css" rel="stylesheet" href="/css/fontawesome_all.min.css">
 		<link type="text/css" rel="stylesheet" href="/css/customer.css">
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script type="text/javascript" src="/js/customer.js"></script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="/js/common.js"></script>
         <script type="text/javascript" src="/js/main.js"></script>
+        <script type="text/javascript" src="/js/customer.js"></script>
 
         <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
         <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
@@ -55,7 +55,7 @@
                 </div>
             </div>
             
-            <form id="joinForm" th:action="@{/customer/joinOK}" th:object="${customer}" method="post">
+            <form id="joinForm" th:action="@{/customer/joinOK}" th:object="${joinForm}" method="post">
             <div class="p_inform">
                 <div class="width_con">
                     <div class="content">
@@ -64,7 +64,7 @@
                                 <li class="id">
                                     <span>아이디</span><!--
                                  --><input type="text" class="form-control" th:field="*{cu_id}" placeholder="Id" th:classappend="${#fields.hasErrors('cu_id')} ? 'is-invalid'">
-                                    <div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('cu_id')}" th:errors="*{cu_id}">abc</div>
+                                    <div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('cu_id')}" th:errors="*{cu_id}"></div>
                                 </li>
                                 <li class="pw">
                                     <span>비밀번호</span><!--
@@ -73,8 +73,7 @@
                                 </li>
                                 <li class="pw_check">
                                     <span>비밀번호 확인</span><!--
-                                 --><input type="password" id="cu_pwd_check" name="cu_pwd_check" placeholder="필수 입력 칸입니다.">
-                                    <div class="sub_massage none" id="join_pwd_warning">비밀번호가 다릅니다</div>
+                                 --><input type="password" th:field="*{cu_pwd_check}" placeholder="필수 입력 칸입니다.">
                                 </li>
                                 <li class="name">
                                     <span>이름</span><!--
@@ -95,24 +94,26 @@
                                 </li>
                                 
                                 <li class="cert_num">
- 									<input type="hidden" id="join_email_check_true" value="1">
-                                	<button type="button" class="send_btn" id="join_email_check_start">인증번호 발송</button><!--
-                                 --><input type="text" id="join_email_check"><!--\
-                                 --><div class="sub_massage none" id="join_email_check_warning">인증번호가 다릅니다</div> 
+ 									<input type="hidden" th:field="*{cu_email_check_true}">
+                                	<button type="button" class="send_btn" id="join_email_check_start">인증번호 발송</button>
+                                	<input type="text" th:field="*{cu_email_check}">
+                                	<div class="sub_massage invalid-feedvback" th:if="${#fields.hasErrors('cu_email_check')}" th:errors="*{cu_email_check}"></div> 
                                 </li>
                                 
                                 <li class="address">
-                                    <input type="text" id="postcode" name="postcode" placeholder="우편번호">
-									<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+                                    <input type="text" th:field="*{postcode}" placeholder="우편번호">
+									<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+									<div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+									<br>
 									
-									<input type="text" id="address" name="address" placeholder="주소" readonly>
-									<input type="text" id="address_detail" name="address_detail" placeholder="상세주소">
+									<input type="text" th:field="*{address}" placeholder="주소" readonly>
+									<input type="text" th:field="*{address_detail}" placeholder="상세주소">
 									<input type="hidden" id="extraAddress" placeholder="참고항목"><br>
                                 </li>
                                 
                                 <li class="birth">
                                     <span>출생년도</span>
-                                    <input type="date" name="cu_birth" id="cu_birth">
+                                    <input type="date" th:field="*{cu_birth}">
                                 </li>
                                 
                                 <li class="gender">
@@ -136,7 +137,7 @@
                                 <span>개인정보 공개 여부</span>
                                 <input type="radio" th:field="*{privacy_agree}" value=0 checked>거부
  								<input type="radio" th:field="*{privacy_agree}" value=1>동의<br>
-                                <button type="button" id="join_button" class="join_btn">가입</button>
+                                <button id="join_button" class="join_btn">가입</button>
                             </div>
                         </div>
                     </div>

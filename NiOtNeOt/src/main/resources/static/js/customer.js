@@ -507,34 +507,9 @@ $(document).on("click","#join_email_check_start",function(){
 		method:"post",
 		data:{cu_email:$("#cu_email").val()},
 		success:function(data){
-			$("#join_email_check_true").val(data);
+			$("#cu_email_check_true").val(data);
 		}
 	})
-})
-//join 회원 가입 버튼 클릭
-$(document).on("click","#join_button",function(){
-	var check=0;
-	
-	//비밀번호 확인 체크
-	if($("#cu_pwd").val()!=$("#cu_pwd_check").val() || $("#cu_pwd").val()==""){
-		check++;
-		$("#join_pwd_warning").css({
-			"display":"inline-block"
-		});
-	}else{
-		$("#join_pwd_warning").css({
-			"display":"none"
-		});
-	}
-	//이메일 인증했는지 확인
-	if($("#join_email_check").val()!=$("#join_email_check_true").val()){
-		check++;
-		$("#join_email_check_warning").css({"display":"inline"});
-	}else{
-		$("#join_email_check_warning").css({"display":"none"});
-	}
-	//join 실행
-	if(check==0){$("#joinForm").submit();}
 })
 
 //update 회원 정보 수정 버튼 클릭

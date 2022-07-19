@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.sist.nono.model.Customer;
+import com.sist.nono.model.JoinForm;
 import com.sist.nono.service.CustomerService;
 
 import lombok.Setter;
@@ -27,12 +28,19 @@ public class CustomerController {
 		return "/customer/loginForm";
 	}
 
+//	@GetMapping("customer/join")
+//	public String join(Model model) {
+//		model.addAttribute("customer",new Customer());
+//		return "customer/join";
+//	}
+
 	@GetMapping("customer/join")
 	public String join(Model model) {
-		model.addAttribute("customer",new Customer());
+		model.addAttribute("joinForm",new JoinForm());
 		return "customer/join";
 	}
-
+	
+	
 	@GetMapping("customer/findPwd")
 	public String findPwd() {
 		return "customer/findPwd";
