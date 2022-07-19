@@ -33,7 +33,10 @@ $(function(){
         }
     });
     
-    
+    $(".chat").click(function(){
+        $(".chatting").toggleClass("active");
+   		$(".chatting").load("chat/chatRoomList.html");
+    });
 });
 
 $(window).load(function(){
@@ -45,4 +48,5 @@ $(window).load(function(){
         $(".delay").removeClass("delay");
     }, 1000);
     $("body").removeClass("loading");
+    
 });
