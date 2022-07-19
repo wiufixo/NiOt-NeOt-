@@ -53,9 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //				.anyRequest().authenticated()
 			.and()
 				.formLogin()
-				.loginPage("/customer/loginForm")
+				.loginPage("/customer/login")
 				.loginProcessingUrl("/customer/loginProc") //시큐리티가 해당 주소로 요청하는 로그인을 가로채서 대신 로그인 해준다
-				.defaultSuccessUrl("/");
+				.defaultSuccessUrl("/")
+				.failureUrl("/customer/login")
+				;
 		http
 			.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

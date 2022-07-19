@@ -55,7 +55,8 @@
                      --><li><a href="javascript:;">Sale/Rental</a></li><!--
                      --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
                      --><li><a th:href="@{/board/list}">Community</a></li><!--
-                     --><li><a href="javascript:;">Login</a></li>
+                     --><li><a href="/customer/login" style="position:relative;z-index:1" id="login" sec:authorize="!isAuthenticated()">Login</a>
+                    	<a href="/logout" style="position:absolute;bottom:3px; z-index:1" id="logout" sec:authorize="isAuthenticated()">Logout</a></li>
                     </ul>
                 </div>
             </div>
