@@ -62,7 +62,12 @@
 				</div>
 				<div class="form-group">
 					<label for="content">내용</label>
-					<textarea class="form-control" th:text="*{b_content}"></textarea>
+					<div class="text-left my-border">
+						<p style="white-space: pre-line;">[[*{b_content}]]</p>
+						<div th:if="${not #lists.isEmpty( fileList )}" th:each=" file : ${fileList}" class="form-group">
+							<img class="rounded" style="height: 200px;" th:if="${#strings.endsWith(file.save_name,'.jpg')} or ${#strings.endsWith(file.save_name,'.jpeg')} or ${#strings.endsWith(file.save_name,'.png')}" th:src="@{|/boardImage/${file.save_name}|}" />
+						</div>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="created">등록일</label>
@@ -77,16 +82,14 @@
 
 				<div th:if="${not #lists.isEmpty( fileList )}" class="form-group">
 					<label for="inp-type-4" class="col-sm-2 control-label">File</label>
-					<div class="col-sm-10">
-						<div class="form-control file_list">
-							<div th:each="row, status : ${fileList}">
-								<a th:href="@{/board/download(bf_no=${row.bf_no})}"> <i
-									class="fa fa-file-o" aria-hidden="true"></i> [[
-									${row.original_name} ]]
-								</a> <span th:text="|${row.size}kb|"></span>
-							</div>
-							<br>
+					<div class="my-border">
+						<div th:each="row, status : ${fileList}">
+							<a th:href="@{/board/download(bf_no=${row.bf_no})}"> 
+							<i class="fa fa-file-o" aria-hidden="true"></i> 
+							[[ ${row.original_name} ]]
+							</a> <span th:text="|${row.size}kb|"></span>
 						</div>
+						<br>
 					</div>
 				</div>
 

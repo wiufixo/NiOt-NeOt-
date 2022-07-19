@@ -1,5 +1,6 @@
 package com.sist.nono.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -55,6 +56,14 @@ public class BoardService {
 
 	@Transactional
 	public void delete(int b_no) {
+		List<BoardFile> oldFiles = fileRepository.findAllByBoard(b_no);
+		for(BoardFile file : oldFiles) {
+			String path = fu.getUploadPath();
+			System.out.println("***"+path);
+			System.out.println(path+"/"+file.getSave_name());
+			File oldFile = new File(path+"/"+file.getSave_name());
+			oldFile.delete();
+		}
 		boardRepository.deleteById(b_no);
 	}
 
@@ -76,6 +85,9 @@ public class BoardService {
 			int bf_no = file.getBf_no();
 			if(!fileNo.contains(bf_no)) {
 				fileRepository.deleteById(bf_no);
+				String path = fu.getUploadPath();
+				File oldFile = new File(path+"/"+file.getSave_name());
+				oldFile.delete();
 			}
 		}
 		
