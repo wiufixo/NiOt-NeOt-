@@ -1,8 +1,7 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html>
     <head>
-        <title>DD23_project</title>
+        <title>product_posting</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
@@ -11,11 +10,10 @@
         <link type="text/css" rel="stylesheet" href="css/common.css">
         <link type="text/css" rel="stylesheet" href="css/main.css">
         <link type="text/css" rel="stylesheet" href="css/button.css">
-        <link rel="stylesheet" href="css/index/fontawesome_all.min.css">
+        <link rel="stylesheet" href="css/fontawesome_all.min.css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script type="text/javascript" src="js/common.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
-        <script src="https://kit.fontawesome.com/cd24d62f47.js" crossorigin="anonymous"></script>
 
         <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
         <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
@@ -46,45 +44,48 @@
                         <li><a href="javascript:;">Feed</a></li><!--
                      --><li><a href="javascript:;">Sale/Rental</a></li><!--
                      --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
-                     --><li><a th:href="@{/board/list}">Community</a></li><!--
-                     --><li><a href="/customer/login" style="position:relative;z-index:1" id="login" sec:authorize="!isAuthenticated()">Login</a>
-                    	<a href="/logout" style="position:absolute;bottom:3px; z-index:1" id="logout" sec:authorize="isAuthenticated()">Logout</a></li>
+                     --><li><a href="javascript:;">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="blurred_cover"></div>
-            <div class="visual">
+            <div class="free_board_posting">
                 <div class="width_con">
-                    <div class="title">Daily Best Feed</div>
-                    <ul class="rank">
-                        <li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/1.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/1.png"></div>
-                            <div class="rank_and_thumbup">1st<span>like</span></div>
-                        </li><!--
-                     --><li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/2.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/2.png"></div>
-                            <div class="rank_and_thumbup">2nd<span>like</span></div>
-                        </li><!--
-                     --><li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/1.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/1.png"></div>
-                            <div class="rank_and_thumbup">3rd<span>like</span></div>
-                        </li><!--
-                     --><li>
-                            <div class="profile_and_nickname"><img class="profile" src="img/2.png"><span>nickname</span></div>
-                            <div class="fit_image"><img src="img/2.png"></div>
-                            <div class="rank_and_thumbup">4th<span>like</span></div>
-                        </li>
-                    </ul>
+                    <div class="content">
+                        <div class="free_board_posting_title_area">
+                            <div class="bar_title">제목</div>
+                            <div class="bar_contents">
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="free_board_posting_contents_area">
+                            <div class="bar_title">내용</div>
+                            <div class="bar_contents">
+                                <textarea></textarea>
+                            </div>
+                        </div>
+                        <a class="img_post_btn">사진첨부</a>
+                        <div>
+                            <div class="free_board_img_area">
+                                <div class="bar_title">사진</div>
+                                <div class="img_post">
+                                    <div class="select_img"></div><!--
+                                 --><div class="select_img"></div><!--
+                                 --><div class="select_img"></div><!--
+                                 --><div class="select_img"></div><!--
+                                 --><div class="select_img"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="posting_btn_area">
+                            <a href="javascript:;">등록</a>
+                            <a href="javascript:;">취소</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="counsel"></div>
             </div>
             <div class="footer"></div>
         </div>
-        
-        
-        <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

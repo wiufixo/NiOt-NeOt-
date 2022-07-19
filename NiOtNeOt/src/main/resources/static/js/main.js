@@ -1,29 +1,5 @@
 $(function(){
-    var product_list_length = $(".product_list_con ul.product_list li").length;
-        product_list_length = product_list_length * $(".product_list_con ul.product_list li").outerWidth();
-    $(".product_list").width(product_list_length);
     
-    var this_x;
-    $(".product_list_con").mousedown(function(e){
-        $(this).addClass("scrolling_ready").blur();
-        this_x = e.pageX;
-    }).mouseup(function(){
-        $(this).removeClass("scrolling_ready").blur();
-    }).hover(function(){
-    },function(){
-        $(this).removeClass("scrolling_ready").blur();                        
-    });
-
-    $(document).on("mousemove",".product_list_con.scrolling_ready",function(f){
-        f.preventDefault();
-        $(".product_list_con").blur();
-        if(this_x > f.pageX){
-            $(".product_list_con").scrollLeft($(".product_list_con").scrollLeft() + 20);
-        }else if(this_x < f.pageX){
-            $(".product_list_con").scrollLeft($(".product_list_con").scrollLeft() - 20);
-        }
-        this_x =f.pageX;
-    });
     
 });
 

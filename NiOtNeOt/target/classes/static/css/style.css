@@ -71,7 +71,7 @@ a:active,
 a:focus {
   text-decoration: none !important;
   outline: none;
-  color: #304ffe;
+  color: #c3dcd6;
 }
 input,
 button {
@@ -552,7 +552,7 @@ h4 strong {
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-  background: #304ffe !important;
+  background: #c3dcd6 !important;
 }
 .btn-primary.btn-bordered {
   border-color: #1d84df;

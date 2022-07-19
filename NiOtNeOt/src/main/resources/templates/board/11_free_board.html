@@ -1,0 +1,119 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>free_board</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+        <meta name="format-detection" content="telephone=no">
+        <link type="text/css" rel="stylesheet" href="css/reset.css">
+        <link type="text/css" rel="stylesheet" href="css/common.css">
+        <link type="text/css" rel="stylesheet" href="css/main.css">
+        <link type="text/css" rel="stylesheet" href="css/button.css">
+        <link rel="stylesheet" href="css/fontawesome_all.min.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+        <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
+        <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
+        <meta name="robots" content="index,follow">                                                 <!--사이트 페이지 구분-->
+        <meta name="description" content="">                                                        <!--사이트 설명-->
+        <meta name="author" content="">                                                             <!--사이트 제작자/제작회사-->
+        <meta name="keywords" content="">                                                           <!--사이트 검색엔진 키워드-->
+                                                                                                    <!--검색엔진/SNS 추출 정보-->
+        <meta property="og:site_name" content="">                                                   <!--사이트 이름-->
+        <meta property="og:url" content="">                                                         <!--사이트 주소-->
+        <meta property="og:title" content="">                                                       <!--사이트 제목-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (홈화면 아이콘)-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (위 이미지 없을 시 보조 이미지)-->
+        <meta property="og:description" content="">                                                 <!--사이트 설명-->
+        <meta property="og:type" content="website">                                                 <!--사이트 페이지 구분-->
+        <link rel="apple-touch-icon" href="">                                                       <!--57 Size .png-->
+        <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
+        <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
+        <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
+    </head>
+    <body class="loading">
+        <span class="chat"></span>
+        <div class="wrap">
+            <div class="header hide">
+                <div class="width_con">
+                    <div class="btn_nav"><div></div></div>
+                    <ul>
+                        <li><a href="javascript:;">Feed</a></li><!--
+                     --><li><a href="javascript:;">Sale/Rental</a></li><!--
+                     --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
+                     --><li><a href="javascript:;">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="free_board">
+                <div class="width_con">
+                    <div class="content">
+                        <div class="content_wrap">
+                            <div class="free_board_function_top_area">
+                                <div class="free_board_title">자유게시판 목록</div>
+                                <div>
+                                    <div class="function_area">
+                                        <a class="new_array_btn" href="javascript:;">최신순</a><!--
+                                     --><a class="view_array_btn" href="javascript:;">조회수순</a><!--
+                                     --><a class="posting_btn" href="javascript:;">글쓰기</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="board_area">
+                                <div class="post_inform">
+                                    <div class="b_p_num">번호</div><!--
+                                 --><div class="b_p_title">제목</div><!--
+                                 --><div class="b_p_nick">닉네임</div><!--
+                                 --><div class="b_p_date">작성일</div><!--
+                                 --><div class="b_p_view">조회수</div>
+                                 </div>
+                                 
+                                 <ul th:unless="${#lists.size(response.list)>0}">
+                                 	<li>등록된 게시글이 없습니다.</li>
+                                 </ul>
+                                 
+                                <ul class="posting_list" th:if="${#lists.size(response.list)>0}" th:each="board : ${response.list}">
+                                    <li>
+                                        <div class="b_p_num" th:text="${board.b_no}">1</div><!--
+                                     --><div class="b_p_title"><a th:text="${board.b_title}" th:href="@{|/board/detail/${board.b_no}|(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">오늘 점심메뉴 추천해줄 분~<span>(1)</span></a></div><!--
+                                     --><div class="b_p_nick" th:text="${board.cu_id}">오늘의스타</div><!--
+                                     --><div class="b_p_date" th:text="${#dates.format(board.b_created, 'yyyy-MM-dd HH:mm:ss')}">15분 전</div><!--
+                                     --><div class="b_p_view" th:text="${board.b_hit}">15</div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="free_board_function_bottom_area">
+                                <div>
+                                    <div class="function_area">
+                                        <a class="new_array_btn" href="javascript:;">최신순</a><!--
+                                     --><a class="view_array_btn" href="javascript:;">조회수순</a><!--
+                                     --><a class="posting_btn" th:href="@{/board/form(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">글쓰기</a>
+                                    </div>
+                                    <div class="f_b_page_num"><a class="page_btn now_page" href="javascript:;">1</a></div>
+                                    <div class="f_b_search_wrap">
+                                        <div class="f_b_search_area">
+                                            <select class="f_b_search_category">
+                                                <option value="title_content">글제목+내용</option>
+                                                <option value="only_title">제목</option>
+                                                <option value="only_contents">내용</option>
+                                                <option value="post_user">작성자</option>
+                                                <option value="comment">댓글</option>
+                                            </select>
+                                            <input class="f_b_search_word" type="text" placeholder="게시글 검색">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="counsel"></div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </body>
+</html>

@@ -253,7 +253,7 @@
 			
 			
 			function deleteComment(bc_no){
-				if(re = confirm(`${bc_no}번 게시물을 정말 삭제하시겠습니까?`)){
+				if(re = confirm(`${bc_no}번 댓글을 정말 삭제하시겠습니까?`)){
 					$.ajax({
 						url:`/boardComment/delete/${bc_no}`,
 						type:"delete",

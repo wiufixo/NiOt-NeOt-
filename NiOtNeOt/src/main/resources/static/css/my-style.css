@@ -2,6 +2,20 @@
 @import url(../fonts/font-awesome/css/font-awesome.min.css);
 /* @import url(../plugin/bootstrap/css/bootstrap.min.css); */
 
+  
+.my-board-btn{
+	border-color: #c3dcd6;
+	
+}
+
+.my-board-btn:hover{
+	background-color: #c3dcd6;
+	border-color: #c3dcd6;
+}
+
+.my-active{
+  background: #c3dcd6;
+ }
 
 .my-border{
     display: block;
