@@ -58,6 +58,9 @@
                      --><li><a href="/customer/login" style="position:relative;z-index:1" id="login" sec:authorize="!isAuthenticated()">Login</a>
                     	<a href="/logout" style="position:absolute;bottom:3px; z-index:1" id="logout" sec:authorize="isAuthenticated()">Logout</a></li>
                     </ul>
+                    <div sec:authorize="isAuthenticated">
+                    <a style="position:absolute;right:100px;" th:href="@{/customer/pageChoice(user_no=${#authentication.principal.customer.cu_no})}">mypage</a>
+                    </div>
                 </div>
             </div>
 </header>
