@@ -195,7 +195,6 @@ public class CustomersController {
 	@PostMapping("customer/deleteCustomer")
 	@Transactional
 	public void deleteCustomer(@RequestParam("cu_no") int cu_no) {
-		addressService.deleteAddress(cu_no);
 		customerService.deleteCustomer(cu_no);
 	}
 
