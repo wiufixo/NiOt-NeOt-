@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.sist.nono.auth.PrincipalDetailService;
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.formLogin()
 				.loginPage("/customer/login")
 				.loginProcessingUrl("/customer/loginProc") //시큐리티가 해당 주소로 요청하는 로그인을 가로채서 대신 로그인 해준다
-				.defaultSuccessUrl("/")
+				.successHandler(successHandler()).permitAll()
 				.failureUrl("/customer/login")
 				;
 		http
@@ -64,5 +65,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.invalidateHttpSession(true)
 				.logoutSuccessUrl("/"); //로그아웃 페이지들어가면 저장되어 있는 session 모두 파기
 			
+	}
+	
+	@Bean
+	public AuthenticationSuccessHandler successHandler() {
+	    return new CustomLoginSuccessHandler("/");
 	}
 }

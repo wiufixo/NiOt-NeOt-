@@ -91,24 +91,6 @@ public class CustomersController {
 	
 	@Autowired JavaMailSender javaMailSender;
 	
-//	@PostMapping("customer/joinOK")
-//	public String joinOK(@Valid Customer customer,BindingResult bindingResult,HttpServletRequest request) {
-//		//model에서 설정한 유효성
-//		if(bindingResult.hasErrors()) {
-//			return "customer/join";
-//		}
-//		//validator에서 설정한 유효성
-//		CustomerValidator validator = new CustomerValidator(customerService);
-//		validator.validate(customer, bindingResult);
-//		if(bindingResult.hasErrors()) {
-//			return "customer/join";
-//		}
-//		customer.setCu_img("defaultUserImg.jpg");
-//		customerService.saveCustomer(customer);
-//		
-//		return "/index";
-//	}
-	
 	@PostMapping("customer/joinOK")
 	public String joinOK(@Valid JoinForm joinForm,BindingResult bindingResult,HttpServletRequest request) {
 		//model에서 설정한 유효성
@@ -121,6 +103,7 @@ public class CustomersController {
 		if(bindingResult.hasErrors()) {
 			return "/customer/join";
 		}
+		//joinForm에서 customer로 옮기기
 		Customer customer = new Customer();
 		customer.setAddress(joinForm.getAddress());
 		customer.setAddress_detail(joinForm.getAddress_detail());

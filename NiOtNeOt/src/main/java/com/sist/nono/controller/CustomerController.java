@@ -24,15 +24,11 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/customer/login")
-	public String loginForm() {
+	public String loginForm(HttpServletRequest request) {
+		String referrer = request.getHeader("Referer");
+	    request.getSession().setAttribute("prevPage", referrer);
 		return "/customer/loginForm";
 	}
-
-//	@GetMapping("customer/join")
-//	public String join(Model model) {
-//		model.addAttribute("customer",new Customer());
-//		return "customer/join";
-//	}
 
 	@GetMapping("customer/join")
 	public String join(Model model) {
