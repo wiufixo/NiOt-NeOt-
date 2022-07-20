@@ -39,21 +39,10 @@
         <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
     </head>
+	<div th:replace="fragments/common :: head('join')"></div>
     <body class="loading">
         <span class="chat"></span>
-        <div class="wrap">
-            <div class="header hide">
-                <div class="width_con">
-                    <div class="btn_nav"><div></div></div>
-                    <ul>
-                        <li><a href="javascript:;">Feed</a></li><!--
-                     --><li><a href="javascript:;">Sale/Rental</a></li><!--
-                     --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
-                     --><li><a href="javascript:;">Community</a></li><!--
-                     --><li><a href="javascript:;">Login</a></li>
-                    </ul>
-                </div>
-            </div>
+        <div th:replace="fragments/common :: header('join')"></div>
             
             <form id="joinForm" th:action="@{/customer/joinOK}" th:object="${joinForm}" method="post">
             <div class="p_inform">

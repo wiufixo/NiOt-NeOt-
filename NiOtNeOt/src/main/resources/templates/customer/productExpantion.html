@@ -7,7 +7,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
+	<div th:replace="fragments/common :: head('productExpantion')"></div>
 <body>
+	<div th:replace="fragments/common :: header('productExpantion')"></div>
+
 	page:
 	<span th:each="p,productNum:${product}" th:if="${productNum.count<=(product.size/12)+1}">
 		<span th:text="${productNum.count}" class="product_paging_number"></span>

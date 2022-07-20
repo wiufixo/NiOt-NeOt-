@@ -7,7 +7,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
+<div th:replace="fragments/common :: head('deleteUser')"></div>
 <body>
+	<div th:replace="fragments/common :: header('deleteUser')"></div>
+
 	<input type="hidden" th:value="${cu_no}" id="delete_no">
 	<input type="hidden" th:value="${cu_email}" id="delete_email_origin">
 	<input type="hidden" id="delete_check_num_true">

@@ -219,7 +219,7 @@ var followingScroll = function(page){
 				$(div).attr("id","following_"+i);
 				$(div).attr("value",data[i].cu_no);
 				if(data[i].cu_img=="defaultUserImg.jpg"){
-					div.append($('<img/>',{src:"/image/customer/defaultUserImg", class:"profile_img_small"}))
+					div.append($('<img/>',{src:"/image/customer/defaultUserImg.jpg", class:"profile_img_small"}))
 				}else{
 					div.append($('<img/>',{src:"/image/customer/"+data[i].cu_no+"/"+data[i].cu_img, class:"profile_img_small"}));
 				}
@@ -255,7 +255,7 @@ var followerScroll = function(page){
 				$(div).attr("id","follower_"+i);
 				$(div).attr("value",data[i].cu_no);
 				if(data[i].cu_img=="defaultUserImg.jpg"){
-					div.append($('<img/>',{src:"/image/customer/defaultUserImg", class:"profile_img_small"}))
+					div.append($('<img/>',{src:"/image/customer/defaultUserImg.jpg", class:"profile_img_small"}))
 				}else{
 					div.append($('<img/>',{src:"/image/customer/"+data[i].cu_no+"/"+data[i].cu_img, class:"profile_img_small"}));
 				}
@@ -306,10 +306,11 @@ $(document).on("click","#userpage_follow_button",function(){
 				cu_no:$("#userpage_cu_no").val(),
 				user_no:$("#userpage_user_no").val()
 			},
+			async:false,
 			success:function(){window.location.reload();}
 	})		
 		//이미 팔로우 되어있었을 경우
-	}else if($("#userpage_follow_check").val()==1){
+	}else if($("#userpage_follow_check").val()!=0){
 		$.ajax({
 			url:"/customer/deleteFollow",
 			method:"post",
@@ -317,6 +318,7 @@ $(document).on("click","#userpage_follow_button",function(){
 				cu_no:$("#userpage_cu_no").val(),
 				user_no:$("#userpage_user_no").val(),
 			},
+			async:false,
 			success:function(){window.location.reload();}
 		})
 	}
@@ -374,7 +376,7 @@ $(document).on("click","#change_img_confirm",function(){
 	if(img==null){
 		alert("이미지를 넣어주세요");
 	}else if(img!=null){
-			formData.append("uploadFile",files[0]);
+		formData.append("uploadFile",files[0]);
 		$.ajax({
 			url:"/customer/changeImgProcess",
 			processData:false,
@@ -382,8 +384,9 @@ $(document).on("click","#change_img_confirm",function(){
 			data:formData,
 			type:"post",
 			success:function(data){
-				$(opener.document).find("#mypage_my_img").attr("src","/image/customer/"+$(opener.document).find("#mypage_no").val()+"/"+data);
+				console.log($(opener.document).find("#mypage_no"));
 				alert("uploaded");
+				$(opener.document).find("#mypage_my_img").attr("src","/image/customer/"+$(opener.document).find("#mypage_user_no").attr('value')+"/"+data);
 			},
 			async: false,
 		})
@@ -465,7 +468,7 @@ $(document).on("click","#userpage_following",function(){
 
 //mypage my_img 클릭
 $(document).on("click","#mypage_my_img",function(){
-	window.open("/customer/changeImg","_blank","height:300,width:300");
+	window.open("/customer/changeImg","_blank","height=300px, width=300px, scrollbars=no, menubar=no, toolbar=no, location=no, top=200px, left=500px");
 })
 
 //mypage_trans 클릭

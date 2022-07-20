@@ -7,16 +7,11 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
+<div th:replace="fragments/common :: head('followerExpantion')"></div>
 <body>
-	<div th:each="follower, num : ${follower}" class="follower_status" th:id="follower_+${num.index}" th:switch="${follower.getCu_img}"> 
-		<img id="follower_my_img" th:case="'defaultUserImg.jpg'" alt="user_default_img" th:src="@{/image/customer/defaultUserImg.jpg}" class="profile_img_small" >
-		<img id="follower_my_img" th:case="*" alt="user_img" th:src="@{/image/customer/}+${follower.getCu_no}+'/'+${follower.getCu_img}" class="profile_img_small">
-		
-		<input type="hidden" th:value="${follower.getCu_no}" th:class="follower_+${num.index}">
-		<span th:text="${follower.getCu_name}"></span>
-		<span th:text="${follower.getCu_nickname}"></span>
-		<span th:text="${follower.getCu_email}"></span>
-	</div><br>
+	<div th:replace="fragments/common :: header('followerExpantion')"></div>
+	
+	<br><br><br>
 		
 	<input type="hidden" id="follower_cu_no" th:value="${user.getCu_no}">
 </body>

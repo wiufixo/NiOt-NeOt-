@@ -7,7 +7,10 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
+<div th:replace="fragments/common :: head('feedExpantion')"></div>
 <body>
+	<div th:replace="fragments/common :: header('feedExpantion')"></div>
+	
 	<input type="hidden" id="feed_cu_no" th:value="${user.getCu_no}">
 abc<br>
 abc<br>

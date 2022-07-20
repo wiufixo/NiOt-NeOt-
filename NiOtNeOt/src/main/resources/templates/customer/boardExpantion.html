@@ -7,7 +7,9 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/customer.js"></script>
 </head>
+<div th:replace="fragments/common :: head('boardExpantion')"></div>
 <body>
+	<div th:replace="fragments/common :: header('boardExpantion')"></div>
 		
 	<input type="hidden" id="board_cu_no" th:value="${user.getCu_no}">
 </body>
