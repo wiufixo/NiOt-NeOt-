@@ -47,6 +47,10 @@ public class ChatService {
 	public List<Chat> findRecentChat(int cr_no) {
 		return repository.findRecentChat(cr_no);
 	}
+	
+	public List<Chat> findRecentChatList(int cu_no) {
+		return repository.findRecentChatList(cu_no);
+	}
 
 	public int findUnCheckedChat(int cu_no) {
 		return repository.findUnCheckedChat(cu_no);

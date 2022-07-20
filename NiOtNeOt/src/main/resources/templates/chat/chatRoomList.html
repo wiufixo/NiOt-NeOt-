@@ -7,25 +7,16 @@
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<h2>채팅방 목록</h2>
-	<hr>
-	<table border="1" width="80%">
-		<tr>
-			<th>채팅방번호</th>
-			<th>유저번호</th>
-			<th>제품번호</th>
-			<th>구매자번호</th>
-			<th>생성시간</th>
-		</tr>
-
-		<tr th:each="cr : ${roomlist}">
-			<td><a th:href="@{'/chat/'+${cr.cr_no}}"
-				th:text="${cr.cr_no}"></a></td>
-			<td th:text="${cr.customer.cu_no}"></td>
-			<td th:text="${cr.cr_no}"></td>
-			<td th:text="${cr.bcu_no}"></td>
-			<td th:text="${cr.cr_created}"></td>
-		</tr>
-	</table>
+	<div th:fragment="chatFragment">
+		<h2>채팅방 목록</h2>
+		<hr>
+			<div th:each="cr : ${roomlist}">
+				<span><a th:href="@{'/chat/'+${cr.cr_no}}" th:text="${cr.cr_no}"></a></span>
+				<span th:text="${cr.customer.cu_id}"></span>
+				<span th:text="${cr.cr_no}"></span>
+				<span th:text="${cr.product.pr_name}"></span>
+				<span th:text="${cr.cr_created}"></span><hr>
+			</div>
+	</div>
 </body>
 </html>
