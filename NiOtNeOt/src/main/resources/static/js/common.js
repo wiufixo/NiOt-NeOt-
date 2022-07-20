@@ -35,7 +35,6 @@ $(function(){
     
     $(".chat").click(function(){
         $(".chatting").toggleClass("active");
-   		$(".chatting").load("chat/chatRoomList.html");
     });
 });
 

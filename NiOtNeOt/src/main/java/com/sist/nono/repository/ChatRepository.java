@@ -36,4 +36,7 @@ public interface ChatRepository extends JpaRepository<Chat, Integer> {
 	
 	@Query(value = "select * from chat where cr_no=:cr_no order by ch_created desc limit 1", nativeQuery = true)
 	List<Chat> findRecentChat(@Param("cr_no") int cr_no);
+	
+	@Query(value = "SELECT * FROM (SELECT * FROM chat where cu_no=:cu_no ORDER BY ch_created desc limit 18446744073709551615) as c group by cr_no ", nativeQuery = true)
+	List<Chat> findRecentChatList(@Param("cu_no") int cu_no);
 }
