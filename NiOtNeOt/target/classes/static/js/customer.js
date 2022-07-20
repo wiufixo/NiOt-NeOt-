@@ -384,9 +384,9 @@ $(document).on("click","#change_img_confirm",function(){
 			data:formData,
 			type:"post",
 			success:function(data){
-				console.log($(opener.document).find("#mypage_no"));
 				alert("uploaded");
 				$(opener.document).find("#mypage_my_img").attr("src","/image/customer/"+$(opener.document).find("#mypage_user_no").attr('value')+"/"+data);
+				opener.location.reload();
 			},
 			async: false,
 		})
@@ -468,7 +468,7 @@ $(document).on("click","#userpage_following",function(){
 
 //mypage my_img 클릭
 $(document).on("click","#mypage_my_img",function(){
-	window.open("/customer/changeImg","_blank","height=300px, width=500px, scrollbars=no, menubar=no, toolbar=no, location=no, top=200px, left=500px");
+	window.open("/customer/changeImg","_blank","height=400px, width=500px, scrollbars=no, menubar=no, toolbar=no, location=no, top=200px, left=500px");
 })
 
 //mypage_trans 클릭
