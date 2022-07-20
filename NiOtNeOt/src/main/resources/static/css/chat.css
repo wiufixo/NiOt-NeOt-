@@ -4,6 +4,12 @@
 	box-sizing: border-box;
 }
 
+#back {
+	margin: 0px 0px 10px 0px;
+	float: right;
+	margin: 0px 20px 10px 0px;
+}
+
 #chatImg {
 	width: 30%;
 	height: 30%;
@@ -11,26 +17,29 @@
 }
 
 #chatt {
-	width: 400px;
+	width: 350px;
 	margin: 20px auto;
 }
 
 #chatt #talk {
-	width: 400px;
-	height: 500px;
+	width: 330px;
+	height: 250px;
 	overflow: scroll;
 	border: 1px solid #aaa;
 	overflow-x: hidden
 }
 
 #chatt #msg {
-	width: 320px;
+	width: 268px;
 	height: 100px;
 	display: inline-block;
+	border-radius: 5px 5px 5px 5px;
+	resize: none;
 }
 
 #chatt #sendZone>* {
 	vertical-align: top;
+	margin: 10px auto;
 }
 
 #chatt #btnSend {
@@ -47,8 +56,12 @@
 	font-size: 12px;
 }
 
+#talk {
+	border-radius: 20px;
+}
+
 #chatt .me {
-	background-color: #ffc;
+	background-color: #c3dcd6;
 	margin: 1px 3px 2px 30%;
 	radius: 4px;
 }

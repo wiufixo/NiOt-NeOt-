@@ -36,12 +36,14 @@ $(function() {
 				if(data[index].ch_img == null) {
 					
 					var item = `<div ${css} >
-			                <span><b>${data[index].customer.cu_id}</b></span> [ ${data[index].ch_created} ]<br/>
+			                [ ${data[index].ch_created} ]<br/>
+			                <span><b>${data[index].customer.cu_id}</b></span><br/>
 	                     	<span>${data[index].ch_content}</span>
 							</div>`;
 				} else {
 					var item = `<div ${css} >
-			                <span><b>${data[index].customer.cu_id}</b></span> [ ${data[index].ch_created} ]<br/>
+			                 [ ${data[index].ch_created} ]<br/>
+			                 <span><b>${data[index].customer.cu_id}</b></span><br/>
 	                     	<img id="chatImg" src=${imgSrc}${data[index].ch_img}><br/>
 	                     	<span>${data[index].ch_content}</span>
 							</div>`;
@@ -76,7 +78,8 @@ ws.onmessage = function(msg) {
 	
 	if (data.type == 0) {
 		var item = `<div ${css} >
-				    	<span><b>${data.cu_id}</b></span> [ ${data.date} ]<br/>
+						[ ${data.date} ]<br/>
+				    	<span><b>${data.cu_id}</b></span> <br/>
 		                <span>${data.msg}</span>
 					</div>`;
 	} else {
@@ -100,7 +103,8 @@ ws.onmessage = function(msg) {
 		setTimeout(function() {
 		}, 100);
 		item = `<div ${css} >
-			<span><b>${data2[0].customer.cu_id}</b></span> [ ${data2[0].ch_created} ]<br/>
+			[ ${data2[0].ch_created} ]<br/>
+			<span><b>${data2[0].customer.cu_id}</b></span><br/>
 			<img id="chatImg" src=${imgSrc}${data2[0].ch_img}><br/>
 			<span>${data2[0].ch_content}</span>
 		</div>`;

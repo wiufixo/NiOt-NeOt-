@@ -42,6 +42,13 @@ public class ChatController {
 		model.addAttribute("user", service3.findByCu_id(auth.getName()));
 		return "chat/chat.html";
 	}
+	
+//	@GetMapping("/chat/{cr_no}")	//	채팅방 번호와 유저 ID를 상태유지하여 채팅창으로 보낸다 
+//	public String listChat(Model model, @PathVariable int cr_no) {
+//		model.addAttribute("chattingroom", service2.findOne(cr_no));
+//		model.addAttribute("user", service3.findByCu_id("분홍독수리"));
+//		return "chat/chat.html";
+//	}
 
 	@ResponseBody
 	@RequestMapping("/refreshChat")

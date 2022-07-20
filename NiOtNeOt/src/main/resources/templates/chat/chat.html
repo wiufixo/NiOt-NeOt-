@@ -8,11 +8,10 @@
 </head>
 <body>
 	<div id='chatt'>
-		<h1>WebSocket Chatting</h1>
+		<h1>Chatting</h1>
 		<input type='hidden' id='cu_id' th:value="${user.cu_id}">
 		<input type='hidden' id='cr_no' th:value="${chattingroom.cr_no}">
 		<input type='hidden' id='cu_no' th:value="${user.cu_no}">
-		<br/>
 		<button id="back" onclick='location.href="/listChatRoom";'>뒤로가기</button>
 		<div id='talk'></div>
 		<div id='sendZone'>
