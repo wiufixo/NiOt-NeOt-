@@ -468,7 +468,7 @@ $(document).on("click","#userpage_following",function(){
 
 //mypage my_img 클릭
 $(document).on("click","#mypage_my_img",function(){
-	window.open("/customer/changeImg","_blank","height=300px, width=300px, scrollbars=no, menubar=no, toolbar=no, location=no, top=200px, left=500px");
+	window.open("/customer/changeImg","_blank","height=300px, width=500px, scrollbars=no, menubar=no, toolbar=no, location=no, top=200px, left=500px");
 })
 
 //mypage_trans 클릭

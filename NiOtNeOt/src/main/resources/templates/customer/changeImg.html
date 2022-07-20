@@ -6,10 +6,25 @@
 <link rel="stylesheet" href="/css/customer.css">
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/customer.js"></script>
+<script type="text/javascript">
+function readURL(input) {
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    
+	    reader.onload = function(e) {
+	    	$("#preview_image").attr("src",e.target.result);
+	    };
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	   		$("#preview_image").attr("src","");
+	  }
+	}
+</script>
 </head>
 <body>
+	<img style="width:250px;" id="preview_image">
 	<form action="change_user_img">
-		<input type="file" name="change_img_file_upload" id=change_img_file_upload accept="image/*"><br>
+		<input type="file" name="change_img_file_upload" id=change_img_file_upload accept="image/*"  onchange="readURL(this);"><br>
 		<button type="button" id=change_img_confirm>confirm</button>
 	</form>
 </body>
