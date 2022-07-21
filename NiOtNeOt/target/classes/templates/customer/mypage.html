@@ -74,7 +74,6 @@
                                 </div>
                                 <div class="profile_indiv_inform">
                                     <ul class="privateinfo">
-                                        <li>00 세</li>
                                         <li id="mypage_height" th:text="${customer.getCu_height}+'cm'"></li>
                                         <li id="mypage_weight" th:text="${customer.getCu_weight}+'kg'"></li>
                                         <li id="mypage_gender" th:if="${customer.getCu_gender=='0'}">여</li>
@@ -131,10 +130,10 @@
                             <div class="contents_title">Community</div>
                             <ul class="contents_post">
                                 <li  th:each="b,boardNum:${board}" th:if="${boardNum.count<4}" th:id="${'board_'+boardNum.index}" class="board_status" th:value="${b.getB_no}">
-                                    <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="b.getB_content"></span>
+                                    <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="${b.getB_content}"></span>
                                     <div class="post_now">
-                                        <span class="post_comment" th:text="${b.getB_no}">[51]</span>
-                                        <span class="post_view" th:text="${b.getB_hit}">200</span>
+                                       <span class="post_comment" th:text="${b.getB_no}"></span>
+                                       <span class="post_view" th:text="${b.getB_hit}"></span>
                                     </div>
                                 </li>
                             </ul>

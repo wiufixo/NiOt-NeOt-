@@ -28,7 +28,7 @@ window.onload = function () {
 			<div th:each="cr : ${roomlist}">
 				<div id="room">
 					<span th:text="${cr.cr_created}"></span><br>
-					<span ></span>
+					<span class="circle"></span>
 					<span th:if="${#authentication.name} == ${cr.customer.cu_id}"><a id="cr_no" th:href="@{'/chat/'+${cr.cr_no}}" th:text="${bcu_id}"></a></span>
 					<span th:unless="${#authentication.name} == ${bcu_id}"><a id="cr_no" th:href="@{'/chat/'+${cr.cr_no}}" th:text="${cr.customer.cu_id}"></a></span>
 					<span>//</span>
