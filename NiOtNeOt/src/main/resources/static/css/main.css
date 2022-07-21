@@ -29,7 +29,7 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
   -moz-appearance: none;
   appearance: none;
 }
-.visual .width_con .rank{margin: 0 -50px; width: 1500px;}
+.visual .width_con .rank{margin: 0 -20px; width: 1500px;}
 .visual .width_con .rank li{margin: 0 20px; display: inline-block; width: 320px;}
 .visual .width_con .rank li div.profile_and_nickname{margin: 0 0 15px;}
 .visual .width_con .rank li div.profile_and_nickname img.profile{margin: 0 10px 0 0; width: 50px; border-radius: 50%;}
@@ -54,6 +54,7 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 .content .backboard ul li.email input{width: 185px;}
 .content .backboard ul li.cert_num .send_btn{margin: 0 10px 0 10px; display: inline-block; padding: 4px 20px; background: #9bc5bb; color: #fff; font-size: 14px; border-radius: 4px;}
 .content .backboard ul li.cert_num input{width: 100px;}
+.content .backboard ul li.address {margin: 0px 0px 0px 208px;}
 .content .backboard ul li.address select.city{width: 260px;}
 .content .backboard ul li.address select.county{width: 160px;}
 .content .backboard ul li.detail_address input.zip_code{margin: 0 10px 0 10px; padding: 4px 4px; width: 80px;}
@@ -69,6 +70,7 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 .content .backboard #checkbox input[type=radio] {padding: 5px;}
 .content #join_button {margin:auto; display:block;}
 .content button {outline:0;border:0;}
+.content input #cu_nickname {margin: 0px 0px 0px 3px;}
 
 /*입력시 뜨는 메세지 변경 바람*/
 .sub_massage{position: absolute; margin: 10px 0 0 0; display: inline-block; color: #f00; font-size: 14px;}
