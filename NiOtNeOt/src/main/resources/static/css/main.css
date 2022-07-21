@@ -199,6 +199,10 @@ body.loading .visual {
 	border-radius: 4px;
 }
 
+.nick {
+	margin: 0px 0px 0px -3px;
+}
+
 .content .backboard ul li.cert_num input {
 	width: 100px;
 }
@@ -236,7 +240,10 @@ body.loading .visual {
 }
 
 .content .backboard ul li.gender {
-	margin-left: -100px;
+	margin-left: 00px;
+}
+.content .backboard ul li.gender input{
+	width: 25px;
 }
 
 .content .backboard ul li.height input, .content .backboard ul li.weight input
