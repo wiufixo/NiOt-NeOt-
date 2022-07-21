@@ -127,10 +127,6 @@ btnSend.onclick = function() {	// 전송 버튼으로 전송 가능
 	send();
 }
 
-$("#createroom").onclick = function() {	// 전송 버튼으로 전송 가능
-	
-}
-
 function insert() {
 	var cuno = $("#cu_no").val();
 	var crn = $("#cr_no").val();

@@ -21,8 +21,9 @@ public class ChatRoomService {
 		repository.save(cr);
 	}
 	
-	public void create(int cu_no, int bcu_no, int pr_no) {
+	public String create(int cu_no, int bcu_no, int pr_no) {
 		repository.createChatRoom(cu_no, bcu_no, pr_no);
+		return "채팅방 생성 완료";
 	}
 	
 	public void delete(int cr_no) {

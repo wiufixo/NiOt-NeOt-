@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,6 +16,7 @@ import com.sist.nono.model.ChatRoom;
 import com.sist.nono.service.ChatRoomService;
 import com.sist.nono.service.ChatService;
 import com.sist.nono.service.CustomerService;
+import com.sist.nono.service.ProductService;
 
 @Controller
 public class ChatRoomController {
@@ -26,6 +28,9 @@ public class ChatRoomController {
 	
 	@Autowired
 	private ChatService service3;
+
+	@Autowired
+	private ProductService service4;
 	
 	@GetMapping("/listChatRoom")
 	public String listchatRoom(Model model, Authentication auth) {
@@ -68,8 +73,11 @@ public class ChatRoomController {
 //		return list;
 //	}
 
+	@ResponseBody
 	@RequestMapping("createChatRoom")
-	public void createChatRoom(Authentication auth, int bcu_no, int pr_no) {
-		service.create(service2.findByCu_id(auth.getName()).getCu_no(), bcu_no, pr_no);
+	public String createChatRoom(Authentication auth, int pr_no) {
+		int bcu_no = service4.findById(pr_no).getCu_no();
+		service.create(bcu_no, service2.findByCu_id(auth.getName()).getCu_no(), pr_no);
+		return "채팅방 생성 완료";
 	}
 }
