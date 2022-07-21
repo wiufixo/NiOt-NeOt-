@@ -51,10 +51,10 @@
                     </ul>
                 </div>
             </div>
+            <form class="product_posting" th:action="@{/products/insert}" method="post" enctype="multipart/form-data" th:object="${product}">
             <div>
                 <div class="width_con">
                     <div class="content">
-            <form class="product_posting" th:action="@{/products/insert}" method="post" enctype="multipart/form-data" th:object="${product}">
                         <div class="product_posting_title_area">
                             <div class="bar_title">제목</div>
                             <div class="bar_contents" th:for="pr_name">
@@ -111,12 +111,12 @@
                             <a th:href="@{/products}">등록</a>
                             <a th:href="@{/products}:;">취소</a>
                         </div>
-        </form>
                     </div>
                 </div>
                 
                 <div class="counsel"></div>
             </div>
+        </form>
             <div class="footer"></div>
         </div>
     </body>

@@ -1,67 +1,96 @@
-<!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<nav>
-	<!--  위에 카테고리바 -->
-		<ul th:each ="category :${categories}">
-			<a th:href="@{'/products/categories/'+ ${category.ca_no}}">
-				<li th:text="${category.ca_name}"></li>
-			</a>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>sale_rental</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+        <meta name="format-detection" content="telephone=no">
+        <link type="text/css" rel="stylesheet" href="css/reset.css">
+        <link type="text/css" rel="stylesheet" href="css/common.css">
+        <link type="text/css" rel="stylesheet" href="css/main.css">
+        <link type="text/css" rel="stylesheet" href="css/button.css">
+        <link rel="stylesheet" href="css/fontawesome_all.min.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+
+        <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
+        <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
+        <meta name="robots" content="index,follow">                                                 <!--사이트 페이지 구분-->
+        <meta name="description" content="">                                                        <!--사이트 설명-->
+        <meta name="author" content="">                                                             <!--사이트 제작자/제작회사-->
+        <meta name="keywords" content="">                                                           <!--사이트 검색엔진 키워드-->
+                                                                                                    <!--검색엔진/SNS 추출 정보-->
+        <meta property="og:site_name" content="">                                                   <!--사이트 이름-->
+        <meta property="og:url" content="">                                                         <!--사이트 주소-->
+        <meta property="og:title" content="">                                                       <!--사이트 제목-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (홈화면 아이콘)-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (위 이미지 없을 시 보조 이미지)-->
+        <meta property="og:description" content="">                                                 <!--사이트 설명-->
+        <meta property="og:type" content="website">                                                 <!--사이트 페이지 구분-->
+        <link rel="apple-touch-icon" href="">                                                       <!--57 Size .png-->
+        <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
+        <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
+        <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
+    </head>
+    <body class="loading">
+        <span class="chat"></span>
+        <div class="wrap">
+            <div class="header hide">
+                <div class="width_con">
+                    <div class="btn_nav"><div></div></div>
+                    <ul>
+                        <li><a href="javascript:;">Feed</a></li><!--
+                     --><li><a href="javascript:;">Sale/Rental</a></li><!--
+                     --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
+                     --><li><a href="javascript:;">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sale_rental_service">
+                <div class="width_con">
+                    <div class="content">
+                    
+					<div class="item_division" th:each="category :${categories}">
+					<ul th:each ="category :${categories}">
+			<a  class="division_btn" th:href="@{'/products/categories/'+ ${category.ca_no}}">
+				<span th:text="${category.ca_name}"></span>
+			</a>/
 		</ul>
-	</nav>
-	<div class="container">
-		<h2>대여</h2>
-	</div>
-
-
-<div>
-
-	<table class="table">
-		<thead>
-			<tr>
-				
-				<th>프로필사진</th>
-				<th>닉네임</th>
-				<th>카테고리</th>
-				<th>상품이미지</th>
-				<th>대여여부</th>
-				<th>상품명</th>
-				<th>가격</th>
-			</tr>
-		</thead>
-		<tbody>
-				<tr>
-				<td>
-				<div th:text="${nicknames}"></div>
-				</td>
-				</tr>
-
-				<tr th:each ="product :${products}">
-				
-				<td th:text="${product.ca_name}"></td>
-				<td>
-					<a th:href="@{'/products/'+ ${product.pr_no}}" >
-						<img height="30px" width="30px" th:src="${product.pr_image != null ? product.pr_image : ''}" />
-					</a>
-				</td>
-				<td th:text="${product.pr_deal}"></td>
-				<td th:text="${product.pr_name}"></td>
-				<td th:text="${product.pr_cost}"></td>
-			</tr>
-		</tbody>
-		
-	</table>
-	<!-- 상품등록 버튼 -->
-	<div>
-		<button th:onclick="|location.href='@{/products/insert}'|" type="button">상품 등록</button>
-	</div>
-	
-
-</div>
-
-</body>
+					</div>
+					<div class="sale_rental_contents">
+                            <div class="contents_title">Rental</div>
+                            <div class="btn_space"><a class="more_btn" href="@{/products/insert}">등록</a></div>
+                            <ul class="rental">
+                            	<span th:each="product :${products}">
+                                <li class="rental_list">
+                                    <ul>
+                                        <li class="profile">
+                                            <div class="user_img"></div>
+                                            <div class="user_inform">
+                                                <div class="rigion">지역</div>
+                                                <div class="nick_name" th:text="${nicknames}">닉네임</div>
+                                            </div>
+                                        </li>
+                                        <li class="product_img">
+                                        <a th:href="@{'/products/'+ ${product.pr_no}}" >
+                                       		<img src="${product.pr_image}"></li>
+                                        </a>
+                                        <li class="product_name"  th:text="${product.pr_name}">상품명<span></span></li>
+                                        <li class="price" >가격<span th:text="${product.pr_cost}">20,000원</span></li>
+                                    </ul>
+                                </li>
+                                </span>
+                         
+                            </ul>
+                </div>
+                <div class="counsel"></div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </body>
 </html>

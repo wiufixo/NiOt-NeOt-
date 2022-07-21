@@ -56,7 +56,7 @@ public class ProductController {
 		model.addAttribute("nicknames",customerService.findByCu_id(auth.getName()).getCu_nickname());
 		model.addAttribute("products",dtoList);
 		model.addAttribute("categories",categories);
-		return "product/list";
+		return "product/list2";
 	}
 	
 	
