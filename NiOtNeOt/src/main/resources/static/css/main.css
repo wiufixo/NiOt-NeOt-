@@ -1549,6 +1549,10 @@ body.loading .visual {
 	z-index: 999;
 }
 
+.sale_rental_service .width_con .content .item_division li:not(:last-child)::after {
+	content: '/'
+}
+
 .sale_rental_service .width_con .content .item_division a {
 	margin: 0 20px;
 	font-size: 16px;
@@ -1598,7 +1602,8 @@ body.loading .visual {
 	display: inline-block;
 	width: 40px;
 	height: 40px;
-	background: #ccc;
+	background: #ccc center no-reopeat;
+	background-size: cover;
 	border-radius: 50%;
 	overflow: hidden;
 }

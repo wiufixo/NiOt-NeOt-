@@ -2,41 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head>
-        <title>sale_rental</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
-        <meta name="format-detection" content="telephone=no">
-        <link type="text/css" rel="stylesheet" href="css/reset.css">
-        <link type="text/css" rel="stylesheet" href="css/common.css">
-        <link type="text/css" rel="stylesheet" href="css/main.css">
-        <link type="text/css" rel="stylesheet" href="css/button.css">
-        <link rel="stylesheet" href="css/fontawesome_all.min.css">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script type="text/javascript" src="js/common.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
-
-        <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
-        <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
-        <meta name="robots" content="index,follow">                                                 <!--사이트 페이지 구분-->
-        <meta name="description" content="">                                                        <!--사이트 설명-->
-        <meta name="author" content="">                                                             <!--사이트 제작자/제작회사-->
-        <meta name="keywords" content="">                                                           <!--사이트 검색엔진 키워드-->
-                                                                                                    <!--검색엔진/SNS 추출 정보-->
-        <meta property="og:site_name" content="">                                                   <!--사이트 이름-->
-        <meta property="og:url" content="">                                                         <!--사이트 주소-->
-        <meta property="og:title" content="">                                                       <!--사이트 제목-->
-        <meta property="og:image" content="">                                                       <!--144 Size .png (홈화면 아이콘)-->
-        <meta property="og:image" content="">                                                       <!--144 Size .png (위 이미지 없을 시 보조 이미지)-->
-        <meta property="og:description" content="">                                                 <!--사이트 설명-->
-        <meta property="og:type" content="website">                                                 <!--사이트 페이지 구분-->
-        <link rel="apple-touch-icon" href="">                                                       <!--57 Size .png-->
-        <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
-        <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
-        <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
-    </head>
+ <div th:replace="fragments/common :: head('product')"></div>
+<body>
     <body class="loading">
+	<div th:replace="fragments/common :: header('product')"></div>
         <span class="chat"></span>
         <div class="wrap">
             <div class="header hide">
@@ -56,29 +25,31 @@
                     <div class="content">
                     
 					<div class="item_division" th:each="category :${categories}">
-					<ul th:each ="category :${categories}">
-			<a  class="division_btn" th:href="@{'/products/categories/'+ ${category.ca_no}}">
-				<span th:text="${category.ca_name}"></span>
-			</a>/
-		</ul>
+					<ul>
+						<li style='display:inline-block' th:each ="category :${categories}">
+							<a  class="division_btn" th:href="@{'/products/categories/'+ ${category.ca_no}}">
+								<span th:text="${category.ca_name}"></span>
+							</a>
+						</li>
+					</ul>
 					</div>
 					<div class="sale_rental_contents">
                             <div class="contents_title">Rental</div>
-                            <div class="btn_space"><a class="more_btn" href="@{/products/insert}">등록</a></div>
+                            <div class="btn_space"><a class="more_btn" href="/products/insert">등록</a></div>
                             <ul class="rental">
                             	<span th:each="product :${products}">
                                 <li class="rental_list">
                                     <ul>
                                         <li class="profile">
-                                            <div class="user_img"></div>
+                                            <div class="user_img" th:style="${'background-image: url(/image/customer/'+ cu_images +')'}"></div>
                                             <div class="user_inform">
-                                                <div class="rigion">지역</div>
+                                                <div class="rigion" th:text="${address}">지역</div>
                                                 <div class="nick_name" th:text="${nicknames}">닉네임</div>
                                             </div>
                                         </li>
                                         <li class="product_img">
                                         <a th:href="@{'/products/'+ ${product.pr_no}}" >
-                                       		<img src="${product.pr_image}"></li>
+                                       		<img style='width:100%' th:src="${product.pr_image}"></li>
                                         </a>
                                         <li class="product_name"  th:text="${product.pr_name}">상품명<span></span></li>
                                         <li class="price" >가격<span th:text="${product.pr_cost}">20,000원</span></li>
@@ -90,7 +61,7 @@
                 </div>
                 <div class="counsel"></div>
             </div>
-            <div class="footer"></div>
+            <div th:replace="fragments/common :: footer"></div>
         </div>
     </body>
 </html>

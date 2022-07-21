@@ -2,43 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <head>
-        <title>product_inform</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
-        <meta name="format-detection" content="telephone=no">
-        <link type="text/css" rel="stylesheet" href="css/reset.css">
-        <link type="text/css" rel="stylesheet" href="css/common.css">
-        <link type="text/css" rel="stylesheet" href="css/main.css">
-        <link type="text/css" rel="stylesheet" href="css/button.css">
-        <link rel="stylesheet" href="css/fontawesome_all.min.css">
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script type="text/javascript" src="js/common.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
-
-        <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
-        <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
-        <meta name="robots" content="index,follow">                                                 <!--사이트 페이지 구분-->
-        <meta name="description" content="">                                                        <!--사이트 설명-->
-        <meta name="author" content="">                                                             <!--사이트 제작자/제작회사-->
-        <meta name="keywords" content="">                                                           <!--사이트 검색엔진 키워드-->
-                                                                                                    <!--검색엔진/SNS 추출 정보-->
-        <meta property="og:site_name" content="">                                                   <!--사이트 이름-->
-        <meta property="og:url" content="">                                                         <!--사이트 주소-->
-        <meta property="og:title" content="">                                                       <!--사이트 제목-->
-        <meta property="og:image" content="">                                                       <!--144 Size .png (홈화면 아이콘)-->
-        <meta property="og:image" content="">                                                       <!--144 Size .png (위 이미지 없을 시 보조 이미지)-->
-        <meta property="og:description" content="">                                                 <!--사이트 설명-->
-        <meta property="og:type" content="website">                                                 <!--사이트 페이지 구분-->
-        <link rel="apple-touch-icon" href="">                                                       <!--57 Size .png-->
-        <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
-        <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
-        <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
-    </head>
+ <div th:replace="fragments/common :: head('product')"></div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<body>
     <body class="loading">
-        <span class="chat"></span>
-        <div class="wrap">
+        <span class="chat" ></span>
+            <span class="chat"></span>
+	<div class="chatting">
+		<iframe class="chatframe" name="chatframe" src="/listChatRoom"
+			frameBorder="0" scrolling="no"> </iframe>
+	</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
+	<div th:replace="fragments/common :: head('index')"></div>
+
+	<div th:replace="fragments/common :: header('index')"></div>
+
+	<div class="wrap">
             <div class="header hide">
                 <div class="width_con">
                     <div class="btn_nav"><div></div></div>
@@ -54,7 +33,7 @@
             <div class="product_inform">
                 <div class="width_con">
                     <div class="content">
-                        <div class="c_1212">
+                        <div class="c_1212" style='display:flex;'>
                             <div class="left_side">
                                 <div class="product_img">
                                     <div class="img_post">
@@ -64,8 +43,9 @@
       									<img  th:src="${image.pi_url}" />
       									</span>
                                     </div>
-                            </div><!--
-                         --><div class="right_side">
+                                  </div>
+                            </div>
+                            <div class="right_side">
                                 <div class="fix_delete">
                                     <a th:href="@{/products/{productNo}/update(productNo=${product.pr_no})}">수정</a><!--
                                  -->&nbsp;/&nbsp;<!--
@@ -73,9 +53,9 @@
                                 </div>
                                 
                                 <div class="post_user">
-                                    <div class="post_user_profile"></div>
+                                    <div class="post_user_profile" th:style="${'background-image: url(/image/customer/'+ cu_images +')'}"></div>
                                     <div class="post_user_inform">
-                                        <div class="nickname">게시자 이름</div>
+                                        <div class="nickname" th:text="${nicknames}">게시자 이름</div>
                                     </div>
                                 </div>
                                 <div class="middle">
@@ -108,4 +88,6 @@
             <div class="footer"></div>
         </div>
     </body>
+  <script src='/js/product.js'></script>
+  </body>
 </html>
