@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -64,4 +65,62 @@
             <div th:replace="fragments/common :: footer"></div>
         </div>
     </body>
+    <body class="loading">
+        <span class="chat"></span>
+        <div class="wrap">
+            <div class="header hide">
+                <div class="width_con">
+                    <div class="btn_nav"><div></div></div>
+                    <ul>
+                        <li><a href="javascript:;">Feed</a></li><!--
+                     --><li><a href="javascript:;">Sale/Rental</a></li><!--
+                     --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
+                     --><li><a href="javascript:;">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sale_rental_service">
+                <div class="width_con">
+                    <div class="content">
+                    
+					<div class="item_division" th:each="category :${categories}">
+					<ul th:each ="category :${categories}">
+			<a  class="division_btn" th:href="@{'/products/categories/'+ ${category.ca_no}}">
+				<span th:text="${category.ca_name}"></span>
+			</a>/
+		</ul>
+					</div>
+					<div class="sale_rental_contents">
+                            <div class="contents_title">Rental</div>
+                            <div class="btn_space"><a class="more_btn" href="@{/products/insert}">등록</a></div>
+                            <ul class="rental">
+                            	<span th:each="product :${products}">
+                                <li class="rental_list">
+                                    <ul>
+                                        <li class="profile">
+                                            <div class="user_img"></div>
+                                            <div class="user_inform">
+                                                <div class="rigion">지역</div>
+                                                <div class="nick_name" th:text="${nicknames}">닉네임</div>
+                                            </div>
+                                        </li>
+                                        <li class="product_img">
+                                        <a th:href="@{'/products/'+ ${product.pr_no}}" >
+                                       		<img src="${product.pr_image}"></li>
+                                        </a>
+                                        <li class="product_name"  th:text="${product.pr_name}">상품명<span></span></li>
+                                        <li class="price" >가격<span th:text="${product.pr_cost}">20,000원</span></li>
+                                    </ul>
+                                </li>
+                                </span>
+                         
+                            </ul>
+                </div>
+                <div class="counsel"></div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </body>
+>>>>>>> branch 'main' of https://github.com/wiufixo/NiOt-NeOt-.git
 </html>

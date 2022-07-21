@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+    <span class="chat"></span>
+	<div class="chatting">
+		<iframe class="chatframe" name="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+		</iframe>
+	</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
+<div th:replace="fragments/common :: head('index')"></div>
+            
+<div th:replace="fragments/common :: header('index')"></div>
+
+<body>
+
+<div class="container">
+	<br><br><br><br><br><br><br><br><br>
+	<h2>상품 상세</h2>
+</div>
+
+	<div>
+		<label for="productNo"> 상품번호</label>
+			<input type="text" id="productNo" name="productNo" class="from-control"
+			value="1" th:value="${product.pr_no}" readonly="readonly">
+	</div>
+	<div>
+		<label for="productName">상품명</label>
+			<input type="text" id="prodcutName" name="prpdcutName" class="form-control"
+			th:value="${product.pr_name}" readonly="readonly">
+	</div>
+	<div>
+		<label for="productCost">가격</label>
+			<input type="text" id="cost" name="cost" sclass="form-control"
+			th:value="${product.pr_cost}" readonly="readonly">
+	</div>
+	<div>
+		<label for="productContent">상품설명</label>
+			<textarea rows="" cols="" id="content" name="content" sclass="form-control"
+			th:text="${product.pr_content}" readonly="readonly"></textarea>
+	</div>
+	<div>
+		<label for="productStatus">상품 상태</label>
+			<input type="text" id="deal" name="status" sclass="form-control"
+			th:value="${product.pr_deal}" readonly="readonly">
+	</div>
+	
+	
+	<!-- 상품 이미지 -->
+	<div id="starttrade">
+		<span th:each="image :${images}">
+		    
+      		<img width="100px" height="100px" th:src="${image.pi_url}" />
+		</span>
+	</div>
+	
+			
+	<!-- 수정/삭제/목록  (productNo=${product.pr_no})-->
+		<div class="col">
+			<button th:onclick="|location.href='@{/products/{productNo}/update(productNo=${product.pr_no})}'|" type="button">수정</button>
+		</div>
+		
+		<div class="col">
+			<button th:onclick="|location.href='@{/products/{productNo}/delete(productNo=${product.pr_no})}'|" type="button">삭제</button>
+		</div>
+		
+		<div class="col">
+			<button th:onclick="|location.href='@{/products}'|" type="button">목록</button>	
+		</div>
+		<div class="col">
+		</div>
+		<input type="button" id="starttrade2" value="채팅(거래)하기">
+<script src='/js/product.js'></script>
+</body>
+</html>
