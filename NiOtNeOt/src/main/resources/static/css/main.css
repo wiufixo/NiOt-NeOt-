@@ -49,10 +49,11 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 .content .backboard ul li.detail_address input.detail_2{width: 424px;}
 .content .backboard ul li.birth select,
 .content .backboard ul li.gender select{padding-right: 0; width: 100px;}
-.content .backboard ul li.gender{margin-left: 13px;}
+.content .backboard ul li.gender{margin-left: -100px;}
 .content .backboard ul li.height input,
-.content .backboard ul li.weight input{width: 85px;}
+.content .backboard ul li.weight input{width: 55px;}
 .content .backboard ul li.weight{margin-left: -19px;}
+.content .backboard gender input[type=radio] {margin-left: -100px; margin-right: 100px}
 
 /*입력시 뜨는 메세지 변경 바람*/
 .sub_massage{position: absolute; margin: 10px 0 0 0; display: inline-block; color: #f00; font-size: 14px;}

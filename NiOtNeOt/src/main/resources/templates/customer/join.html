@@ -39,7 +39,6 @@
         <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
     </head>
-	<div th:replace="fragments/common :: head('join')"></div>
     <body class="loading">
         <span class="chat"></span>
         <div th:replace="fragments/common :: header('join')"></div>
@@ -106,9 +105,9 @@
                                 </li>
                                 
                                 <li class="gender">
-                                    <span>성별</span>
-                                 	<input type="radio" th:field="*{cu_gender}" value=0 checked> 여자
- 									<input type="radio" th:field="*{cu_gender}" value=1 > 남자
+                                    <span>성별</span> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                 	 여자<input type="radio" th:field="*{cu_gender}" value=0 checked>
+ 									 남자<input type="radio" th:field="*{cu_gender}" value=1 >
                                 </li>
                                 <li class="height">
                                     <span>신장</span><!--
@@ -123,9 +122,9 @@
                             </ul>
                             <div class="check_join">
                                 <input id="checkbox" type="checkbox">
-                                <span>개인정보 공개 여부</span>
-                                <input type="radio" th:field="*{privacy_agree}" value=0 checked>거부
- 								<input type="radio" th:field="*{privacy_agree}" value=1>동의<br>
+                                <span>개인정보 공개 여부</span> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                              거부  <input type="radio" th:field="*{privacy_agree}" value=0 checked>
+ 							동의	<input type="radio" th:field="*{privacy_agree}" value=1><br><br>
                                 <button id="join_button" class="join_btn">가입</button>
                             </div>
                         </div>
