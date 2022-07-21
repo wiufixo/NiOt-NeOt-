@@ -12,9 +12,11 @@
 <body class="findpwdform" >
 		<div th:replace="fragments/common :: header('findPwd')"></div>
 		<br><br><br><br><br><br>
-		<span>id&nbsp&nbsp&nbsp&nbsp&nbsp</span><input type="text" id="cu_id">
+		<div class="find_pwd_main">
+		id : <input type="text" id="cu_id">
 		<span id="find_warning" class="red_warning">존재하지 않는 ID입니다</span><br>
 		
 		<button type="button" class="btn2 btn_as" id="find_pwd_button">Find Pwd</button><br><br>
+		<br>
 </body>
 </html>

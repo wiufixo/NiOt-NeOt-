@@ -277,7 +277,6 @@ body.loading .visual {
 	margin: 0px 0px 0px 3px;
 }
 
-}
 
 /*입력시 뜨는 메세지 변경 바람*/
 .sub_massage {
@@ -2812,6 +2811,9 @@ body.loading .visual {
 	color: #fff;
 	font-size: 20px;
 }
+
+/* 비밀번호 찾기 */
+.find_pwd_main {text-align:center;}
 
 /*버튼*/
 .btn2.btn_as:hover, .btn2.btn_as:focus {

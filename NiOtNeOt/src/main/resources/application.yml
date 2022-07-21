@@ -2,9 +2,7 @@ spring:
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-
     url: jdbc:log4jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/nono?serverTimezone=Asia/Seoul
-
 #    url: jdbc:mysql://niotneot.cnodnbvune1u.us-east-1.rds.amazonaws.com:3306/test2?serverTimezone=Asia/Seoul
     username: manager
     password: manager33
@@ -13,7 +11,7 @@ spring:
     open-in-view: true
     hibernate:
 
-      ddl-auto: update
+#      ddl-auto: update
 
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
