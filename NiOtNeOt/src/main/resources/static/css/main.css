@@ -15,7 +15,8 @@
 body.loading .visual{opacity: 0; filter: blur(8px);}
 .visual .width_con{padding: 0; position: relative; height: 100%;}
 .visual .width_con .title{position: relative; top: 120px; left: 700px; margin: 0 0 250px -180px; width: 360px; border-bottom: 2px solid #000; text-align: center; font-size: 40px;}
-
+.loginform {text-align: center;}
+.loginform input { margin: 10px 0px 10px 0px;}
 .visual .width_con .rank{margin: 0 -20px; width: 1440px;}
 .visual .width_con .rank li{margin: 0 20px; display: inline-block; width: 320px;}
 .visual .width_con .rank li div.profile_and_nickname{margin: 0 0 15px;}

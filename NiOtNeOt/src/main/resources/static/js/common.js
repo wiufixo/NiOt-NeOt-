@@ -33,11 +33,14 @@ $(function(){
         }
     });
     
-    $(".chat").click(function(){
-        $(".chatting").toggleClass("active");
-    });
+    
 });
 
+$(".chat").click(function(){
+		console.log("동작");
+        $(".chatting").toggleClass("active");
+});
+    
 $(window).load(function(){
     $("html, body").animate({scrollTop: 0}, 1, function(){});
     setTimeout(function(){

@@ -36,19 +36,21 @@ public class ChatController {
 	@Autowired		// 유저 번호를 상태유지 받아와서 쓸 것인지 객체로 보낼 것인지 미정
 	private CustomerService service3;
 
-	@GetMapping("/chat/{cr_no}")	//	채팅방 번호와 유저 ID를 상태유지하여 채팅창으로 보낸다 
-	public String listChat(Model model, Authentication auth,@PathVariable int cr_no) {
-		model.addAttribute("chattingroom", service2.findOne(cr_no));
-		model.addAttribute("user", service3.findByCu_id(auth.getName()));
-		return "chat/chat.html";
-	}
-	
 //	@GetMapping("/chat/{cr_no}")	//	채팅방 번호와 유저 ID를 상태유지하여 채팅창으로 보낸다 
-//	public String listChat(Model model, @PathVariable int cr_no) {
+//	public String listChat(Model model, Authentication auth,@PathVariable int cr_no) {
 //		model.addAttribute("chattingroom", service2.findOne(cr_no));
-//		model.addAttribute("user", service3.findByCu_id("분홍독수리"));
+//		model.addAttribute("user", service3.findByCu_id(auth.getName()));
+//		model.addAttribute("bcu_id", service2.findBcuidByCrno(cr_no));
 //		return "chat/chat.html";
 //	}
+	
+	@GetMapping("/chat/{cr_no}")	//	채팅방 번호와 유저 ID를 상태유지하여 채팅창으로 보낸다 
+	public String listChat(Model model, @PathVariable int cr_no) {
+		model.addAttribute("chattingroom", service2.findOne(cr_no));
+		model.addAttribute("user", service3.findByCu_id("분홍독수리"));
+		model.addAttribute("bcu_id", service2.findBcuidByCrno(cr_no));
+		return "chat/chat.html";
+	}
 
 	@ResponseBody
 	@RequestMapping("/refreshChat")

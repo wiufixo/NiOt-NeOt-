@@ -4,8 +4,19 @@
 	box-sizing: border-box;
 }
 
+.profile_and_nickname {
+	margin: 0 0 15px;
+}
+
+.profile_and_nickname .profile {
+	margin: 0 10px 0 0; 
+	width: 50px; 
+	height: 50px; 
+	border-radius: 50%;
+	border: 2px solid #aaa;
+}
+
 #back {
-	margin: 0px 0px 10px 0px;
 	float: right;
 	margin: 0px 20px 10px 0px;
 }
@@ -26,7 +37,8 @@
 	height: 250px;
 	overflow: scroll;
 	border: 1px solid #aaa;
-	overflow-x: hidden
+	overflow-x: hidden;
+	padding: 4px;
 }
 
 #chatt #msg {
@@ -52,16 +64,16 @@
 	display: inline-block;
 	border-radius: 10px;
 	margin-bottom: 10px;
-	padding: 20px 10px;
+	padding: 10px 10px;
 	font-size: 12px;
 }
 
 #talk {
-	border-radius: 20px;
+	border-radius: 10px;
 }
 
 #chatt .me {
-	background-color: #c3dcd6;
+	background-color: rgb(216, 233, 228);
 	margin: 1px 3px 2px 30%;
 	radius: 4px;
 }
@@ -71,3 +83,21 @@
 	margin: 3px;
 	radius: 4px;
 }
+
+#talk::-webkit-scrollbar,
+#talk::-webkit-scrollbar,
+#talk::-webkit-scrollbar{width: 20px; margin: 0px 0px 0px 3px;}
+
+#talk::-webkit-scrollbar-thumb,
+#talk::-webkit-scrollbar-thumb,
+#talk::-webkit-scrollbar-thumb{background: #fff; border: #c3dcd6 solid 4px; border-radius: 20px;}
+
+#talk::-webkit-scrollbar-thumb:hover,
+#talk::-webkit-scrollbar-thumb:active,
+#talk::-webkit-scrollbar-thumb:hover,
+#talk::-webkit-scrollbar-thumb:active,
+#talk::-webkit-scrollbar-thumb:hover,
+#talk::-webkit-scrollbar-thumb:active{background: #9bc5bb;}
+
+#talk::-webkit-scrollbar-track,
+#talk::-webkit-scrollbar-track

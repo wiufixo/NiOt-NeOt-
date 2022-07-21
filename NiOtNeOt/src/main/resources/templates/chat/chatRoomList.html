@@ -4,19 +4,36 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript"
-	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	src="https://code.jquery.com/jquery-3.6.0.min.js">
+</script>
+<script type="text/javascript">
+window.onload = function () {
+    var room = document.getElementById("room");
+    var cr_no = $("#cr_no").html();
+    room.onclick = function(){
+		console.log("asd");
+		console.log(cr_no);
+		var url = "/chat/"+cr_no;
+		console.log(url);
+		window.location.replace(url);
+	}
+}
+</script>
 </head>
 <body>
 	<div th:fragment="chatFragment">
 		<h2>채팅방 목록</h2>
 		<hr>
 			<div th:each="cr : ${roomlist}">
-				<span><a th:href="@{'/chat/'+${cr.cr_no}}" th:text="${cr.cr_no}"></a></span>
-				<span th:if="${#authentication.name} == ${cr.customer.cu_id}" th:text="${cr.bcu_no}"></span>
-				<span th:unless="${#authentication.name} != ${cr.customer.cu_id}" th:text="${cr.customer.cu_id}"></span>
-				<span th:text="${cr.cr_no}"></span>
-				<span th:text="${cr.product.pr_name}"></span>
-				<span th:text="${cr.cr_created}"></span><hr>
+				<div id="room">
+					<span th:text="${cr.cr_created}"></span><br>
+					<span ></span>
+					<span th:if="${#authentication.name} == ${cr.customer.cu_id}"><a id="cr_no" th:href="@{'/chat/'+${cr.cr_no}}" th:text="${bcu_id}"></a></span>
+					<span th:unless="${#authentication.name} == ${bcu_id}"><a id="cr_no" th:href="@{'/chat/'+${cr.cr_no}}" th:text="${cr.customer.cu_id}"></a></span>
+					<span>//</span>
+					<span th:text="${cr.product.pr_name}"></span>
+					<hr>
+				</div>
 			</div>
 	</div>
 </body>

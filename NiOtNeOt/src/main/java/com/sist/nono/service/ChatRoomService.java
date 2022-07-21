@@ -33,4 +33,7 @@ public class ChatRoomService {
 		return repository.findById(cr_no).orElseGet(()->new ChatRoom());
 	}
 
+	public String findBcuidByCrno(int cr_no) {
+		return repository.findBcuidByCrno(cr_no);
+	}
 }

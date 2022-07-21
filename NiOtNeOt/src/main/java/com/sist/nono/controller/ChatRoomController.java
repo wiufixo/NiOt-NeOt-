@@ -27,19 +27,26 @@ public class ChatRoomController {
 	@Autowired
 	private ChatService service3;
 	
-	@GetMapping("/listChatRoom")
-	public String listchatRoom(Model model, Authentication auth) {
-		model.addAttribute("roomlist", service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
-		System.out.println(service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
-		return "chat/chatRoomList.html";
-	}
-	
 //	@GetMapping("/listChatRoom")
-//	public String listchatRoom(Model model) {
-//		model.addAttribute("roomlist", service.findAll(1));
-//		System.out.println(service.findAll(1));
+//	public String listchatRoom(Model model, Authentication auth) {
+////		String url = "";
+//		
+//		model.addAttribute("roomlist", service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
+//		System.out.println(service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
+//		
+////		if(auth == null) {
+////			url = "chat/chatRoomList.html";
+////		}
+////		
 //		return "chat/chatRoomList.html";
 //	}
+	
+	@GetMapping("/listChatRoom")
+	public String listchatRoom(Model model) {
+		model.addAttribute("roomlist", service.findAll(1));
+		System.out.println(service.findAll(1));
+		return "chat/chatRoomList.html";
+	}
 	
 //	@GetMapping("/listChatRoom")
 //	public String listchatRoom(Model model) {
