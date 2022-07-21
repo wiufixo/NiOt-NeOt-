@@ -619,6 +619,9 @@ body.loading .visual {
 	display: inline-block;
 	width: 200px;
 }
+.privateinfo {
+	width:400px;
+}
 
 /*community*/
 .my_page .width_con .content .community .contents_post li, .search .width_con .content .community .contents_post li,

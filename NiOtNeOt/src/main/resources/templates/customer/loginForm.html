@@ -37,15 +37,18 @@
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
     </head>
     
-	<div th:replace="fragments/common :: head('login')"></div>
-    <body class="loading">
-    <span class="chat">
-    </span>
-	    <div class="chatting">
-				<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
-				</iframe>
-		</div>
+	<span class="chat"></span>
+	<div class="chatting">
+		<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+		</iframe>
+	</div>
 	<input id="authname" type="hidden" th:value="${#authentication.name}">
+	
+	<div th:replace="fragments/common :: head('login')"></div>
+	
+	
+    <body class="loading">
+
             
             <div th:replace="fragments/common :: header('login')"></div>
             
