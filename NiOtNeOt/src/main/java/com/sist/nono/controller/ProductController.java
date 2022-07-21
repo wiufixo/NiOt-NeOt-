@@ -70,8 +70,9 @@ public class ProductController {
 		List<ProductImageDTO> imageDto = images.stream()
 				.map(i -> new ProductImageDTO(i))
 				.collect(Collectors.toList());
-		
-		//model.addAttribute("nicknames",customerService.findByCu_id(auth.getName()).getCu_nickname());
+
+		model.addAttribute("nicknames",customerService.findByCu_id(auth.getName()).getCu_nickname());
+		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
 		model.addAttribute("product", dto);
 		model.addAttribute("images", imageDto);
 		return "product/detail";

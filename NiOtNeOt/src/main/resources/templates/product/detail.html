@@ -42,9 +42,9 @@
                                 </div>
                                 
                                 <div class="post_user">
-                                    <div class="post_user_profile"></div>
+                                    <div class="post_user_profile" th:style="${'background-image: url(/image/customer/'+ cu_images +')'}"></div>
                                     <div class="post_user_inform">
-                                        <div class="nickname">게시자 이름</div>
+                                        <div class="nickname" th:text="${nicknames}">게시자 이름</div>
                                     </div>
                                 </div>
                                 <div class="middle">
