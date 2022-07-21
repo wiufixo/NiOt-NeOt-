@@ -19,12 +19,13 @@
 
 
 <div>
+
 	<table class="table">
 		<thead>
 			<tr>
+				
 				<th>프로필사진</th>
 				<th>닉네임</th>
-				 
 				<th>카테고리</th>
 				<th>상품이미지</th>
 				<th>대여여부</th>
@@ -33,6 +34,19 @@
 			</tr>
 		</thead>
 		<tbody>
+				<!--  
+				<td>
+				<img th:src="{cu_images}">
+				</td>
+				 -->
+				 <!-- 
+				<tr>
+				<td>
+				<div th:text="${nicknames}"></div>
+				
+				</td>
+				</tr>
+				 -->
 		<!-- 
 				<tr th:each="cuimage :${cu_images}">
 					<td><span> <img width="100px" height="100px"
@@ -41,7 +55,7 @@
 					</td>
 					</tr>
 					
-					
+					<
 					<tr th:each="nickname : ${nicknames}">
 					<td><label for="customerName">닉네임</label> <input type="text"
 						id="customerName" name="customerName" class="form-control"

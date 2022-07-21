@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import com.sist.nono.dto.ProductImageDTO;
 import com.sist.nono.exception.CustomException;
 import com.sist.nono.exception.ErrorCode;
 import com.sist.nono.model.Category;
+import com.sist.nono.model.Customer;
 import com.sist.nono.model.Product;
 import com.sist.nono.model.ProductImage;
 import com.sist.nono.service.CategoryService;
@@ -48,11 +50,11 @@ public class ProductController {
 		List<Product> list =  productService.findAll();
 		List<ProductDTO> dtoList = list.stream().map(p -> new ProductDTO(p))
 		.collect(Collectors.toList());
-		
 		List<Category> categories = categoryService.findAll();
 		
+		
 		//model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
-		//model.addAttribute("nicknames",customerService.findByCu_nickname(auth.getName()).getCu_nickname());
+		model.addAttribute("nicknames",customerService.findByCu_id(auth.getName()).getCu_nickname());
 		model.addAttribute("products",dtoList);
 		model.addAttribute("categories",categories);
 		return "product/list";
@@ -69,11 +71,11 @@ public class ProductController {
 		List<ProductImageDTO> imageDto = images.stream()
 				.map(i -> new ProductImageDTO(i))
 				.collect(Collectors.toList());
-		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
-		model.addAttribute("nicknames",customerService.findByCu_nickname(auth.getName()).getCu_nickname());
+		
+		model.addAttribute("nicknames",customerService.findByCu_id(auth.getName()).getCu_nickname());
 		model.addAttribute("product", dto);
 		model.addAttribute("images", imageDto);
-		return "product/detail";
+		return "product/detail2";
 	}
 	
 	@GetMapping("/categories/{ca_no}")
