@@ -33,7 +33,7 @@ public class Category {
    @Id
    private int ca_no;
    
-   @Column(unique = true)
+   @Column(unique = true, name = "ca_name")
    private String ca_name;
    
    @CreationTimestamp

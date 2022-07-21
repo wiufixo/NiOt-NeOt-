@@ -3,45 +3,143 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+var maxSize = 5242880; // 5MB
+function checkExtension(fileName, fileSize) {
+    if(fileSize >= maxSize) {
+        alert("파일 사이즈 초과");
+        return false;
+    }
+    if(regex.test(fileName)) {
+        alert("해당 종류의 파일은 업로드할 수 없습니다.");
+        return false;
+    }
+    return true;
+}// end checkExtension()
+
+function deleteImage(id) {
+	console.log(id)
+	$.ajax({
+		url: "/api/products/images/"+id+"/delete",
+		dataType: "text",
+		type: "DELETE",
+		success: function() {
+			alert("해당 이미지 파일이 삭제되었습니다")
+		}
+	})
+}
+
+function uploadImage() {
+    var formData = new FormData();
+    var inputFile = $("input[name='pr_images']");
+    var files = inputFile[0].files;
+    console.log(files);
+    //add filedate to formdata
+    for(var i = 0; i < files.length; i++){
+        if(!checkExtension(files[i].name, files[i].size)) {
+            return false;
+        }
+        formData.append("uploadFile", files[i]);
+    }
+    
+    var id = $('#pr_no').val()
+    
+    $.ajax({
+        url: '/api/products/'+id+'/images',
+            processData: false,
+            contentType: false,
+            data: formData,
+            type: 'POST',
+            dataType: 'json',
+            success: function (result) {
+                // alert("Uploaded");
+                console.log('오후 8:13', 'uploadAjax.jsp:64');
+                //showUploadedFile(result);
+                //$(".uploadDiv").html(cloneObj.html());
+            }
+    }); //$.ajax
+}
+    
+
+    
+
+
+   
+</script>
 </head>
 <body>
 <div class="container">
 	<div>
-		<h2>상품 등록</h2>
+		<h2>상품 수정</h2>
 	</div>
 	<hr>
-	<form action="detail.html" th:action method="post"></form>
-	<div>
-		<label for="pr_no">상품번호</label>
-		<input type="text" id="pr_no" name="pr_no" class="form-control" th:value="${product.pr_no}" readonly="readonly">
-	</div>
-	<div>
-		<label for="productName">상품명</label>
-		<input type="text" id="prodcutName" name="productName" class="form-control" th:value="${prodcut.pr_name}">
-	</div>
+	<form th:action="@{/products/{pr_no}/update}" method="post" enctype="application/x-www-form-urlencoded" th:object="${product}">
+		<div>
+			<input type="hidden" id="pr_no" name="pr_no" class="form-control" th:value="${product.pr_no}" readonly="readonly">
+		</div>
+		<div>
+			<label for="productName">상품명</label>
+			<input type="text" id="prodcutName" name="pr_name" class="form-control" th:value="${product.pr_name}">
+		</div>
 	
-	<div>
-		<label for="pr_cost">가격</label>
-		<input type="text" id="pr_cost" name="pr_cost" class="form-control" th:value="${product.pr_cost}">
-	</div>
+		<div>
+			<label for="pr_cost">가격</label>
+			<input type="text" id="pr_cost" name="pr_cost" class="form-control" th:value="${product.pr_cost}">
+		</div>
 
-	<!-- 카테고리 -->
+		<!-- 카테고리 -->
+		<div>
+		<label>카테고리</label>
+			<select name="ca_name">
+				<option th:each="category : ${categories}" 
+				    th:value="${category.ca_name}" 
+	                th:utext="${category.ca_name}">
+	        	</option>
+			</select>
+		</div>
 		
-	<div>
-		<label for="pr_content">내용</label>
-		<textarea rows="" cols="" id="pr_content" name="pr_content" class="form-control" th:value="${pr_content}" ></textarea>
-	</div>
+		<div>
+			<label for="pr_content">내용</label>
+			<textarea rows="" cols="" id="pr_content" name="pr_content" 
+			class="form-control" th:text="${product.pr_content}" ></textarea>
+		</div>
 	
-	<!-- 사진 -->
-	
-	<!-- 대여여부 -->
+		<!-- 상품 이미지 -->
+		<div>
+			<span th:each="image :${images}">
+			    
+	      		<img width="100px" height="100px" th:src="${image.pi_url}" />
+	      		<button th:id="${image.pi_no}" th:onclick="deleteImage([[${image.pi_no}]])">삭제</button>
+
+			</span>
+		</div>
+
+		<div>
+			<input type="file" name="pr_images" multiple="multiple">
+		</div>
+		<button id="upload" onclick="uploadImage()">사진 올리기</button>
+		
+		<!-- 대여여부 -->
+		<div>
+			<label>대여여부</label>
+			<select name="pr_deal">
+				<option value="Tradeable" th:selected="'Tradeable' == ${product.pr_deal}">대여</option>
+				<option value="Untradeable" th:selected="'Untradeable'== ${product.pr_deal}">미대여</option>
+			</select>
+		</div>
+		
+		<div>
+			<button type="submit">저장</button>
+		</div>
+		<div>
+			<button th:onclick="|location.href='@{/products/{productNo}(productNo=${product.pr_no})}'|" type="button">취소</button>
+		</div>
+	</form>
 	
 </div>
-<div>
-	<button type="submit">저장</button>
-</div>
-<div>
-	<button th:onclick="|location.href='@{/product/list}'|" type="button">취소</button>
-</div>
+	
 </body>
 </html>

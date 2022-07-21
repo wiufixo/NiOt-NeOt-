@@ -1,63 +1,158 @@
 package com.sist.nono.controller;
 
-import java.util.List;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sist.nono.dto.ProductDTO;
+import com.sist.nono.dto.ProductImageDTO;
+import com.sist.nono.exception.CustomException;
+import com.sist.nono.exception.ErrorCode;
+import com.sist.nono.model.Category;
 import com.sist.nono.model.Product;
+import com.sist.nono.model.ProductImage;
 import com.sist.nono.service.CategoryService;
-import com.sist.nono.service.ProductImageService;
+import com.sist.nono.service.CustomerService;
 import com.sist.nono.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
+@RequestMapping("/products")
 @Controller
-@RequestMapping("/product")
 @RequiredArgsConstructor
 public class ProductController {
 	
 	@Autowired
-	private ProductService p;
-	
+	private ProductService productService;
 	@Autowired
-	private ProductImageService ps;
-	
+	private CategoryService categoryService;
 	@Autowired
-	private CategoryService cs;
+	private CustomerService customerService;
 	
-	@GetMapping
-	public String productList(Model model){
-		List<Product> products = p.findProduct();
-		model.addAttribute("products", products);
+	//리스트
+	@GetMapping("")
+	public String list(HttpSession httpSession, Model model,Authentication auth) {
+		List<Product> list =  productService.findAll();
+		List<ProductDTO> dtoList = list.stream().map(p -> new ProductDTO(p))
+		.collect(Collectors.toList());
+		
+		List<Category> categories = categoryService.findAll();
+		
+		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
+		model.addAttribute("nicknames",customerService.findByCu_nickname(auth.getName()).getCu_nickname());
+		model.addAttribute("products",dtoList);
+		model.addAttribute("categories",categories);
+		return "product/list";
+	}
+	
+	
+	@GetMapping("/{pr_no}")
+	public String detail(Model model, @PathVariable int pr_no, Authentication auth) {
+		Product p = productService.findProduct(pr_no);
+		List<ProductImage> images = productService.findProductImage(pr_no);
+
+		ProductDTO dto = new ProductDTO(p);
+		
+		List<ProductImageDTO> imageDto = images.stream()
+				.map(i -> new ProductImageDTO(i))
+				.collect(Collectors.toList());
+		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
+		model.addAttribute("nicknames",customerService.findByCu_nickname(auth.getName()).getCu_nickname());
+		model.addAttribute("product", dto);
+		model.addAttribute("images", imageDto);
+		return "product/detail";
+	}
+	
+	@GetMapping("/categories/{ca_no}")
+	public String productByCategory(Model model, @PathVariable int ca_no  ) {
+		List<Product> list = productService.findProductByCategory(ca_no);
+		List<ProductDTO> dtoList = list.stream().map(p -> new ProductDTO(p))
+		.collect(Collectors.toList());
+		
+		List<Category> categories = categoryService.findAll();
+		
+		model.addAttribute("products",dtoList);
+		model.addAttribute("categories",categories);
 		return "product/list";
 	}
 
-	//게시판 등록화면
-	@GetMapping("/product/insert")
-	public String insertForm(Model model) {
-		return "product/insert";
+	@GetMapping("/insert")
+	public String insetView(Model model) {
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("categories",categories);
+		return "/product/insert";
+	}
+	@PostMapping("/insert")
+	public String insertProdcut( String ca_name, int pr_cost
+			, String pr_name, String pr_content, String pr_deal
+			, @RequestParam("pr_images") List<MultipartFile> files,Authentication auth) throws IllegalStateException, IOException {
+		if(files.size() < 1) throw new CustomException(ErrorCode.BAD_REQUEST);
+		
+		int cu_no = customerService.findByCu_id(auth.getName()).getCu_no();
+		
+		ProductDTO p = new ProductDTO(-1, ca_name, ""
+				, pr_name, pr_cost, pr_content, pr_deal, cu_no);
+		Product newProduct = this.productService.saveProduct(p);
+		
+		for(int i = 0; i < files.size(); i++) {
+			if(i == 0)
+				productService.saveFiles(files.get(i), newProduct.getPr_no(), true);
+			else 
+				productService.saveFiles(files.get(i), newProduct.getPr_no(), false);
+		}
+		
+		return "redirect:/products";
 	}
 	
-	//게시판 등록
-	@PostMapping("/product/insert")
-	public String insertProduct(@ModelAttribute("product") Product product, Model model) {
-		p.saveProduct(product);
-		return "product/list";
-	}
-	
-	@GetMapping("/product/{pr_no}/update")
-	public String updateForm(@PathVariable("pr_no") int pr_no,Model model) {
-		p.findById(pr_no);
-		model.addAttribute("product", p.findById(pr_no));
+	@GetMapping("/{pr_no}/update")
+	public String updateView(Model model, @PathVariable Integer pr_no) {
+		Product p = productService.findProduct(pr_no);
+		ProductDTO dto = new ProductDTO(p);
+		List<ProductImage> images = productService.findProductImage(pr_no);
+		List<ProductImageDTO> imageDto = images.stream()
+				.map(i -> new ProductImageDTO(i))
+				.collect(Collectors.toList());
+		List<Category> categories = categoryService.findAll();
+		model.addAttribute("product", dto);
+		model.addAttribute("categories",categories);
+		model.addAttribute("images", imageDto);
 		return "product/update";
 	}
+	@PostMapping("/{pr_no}/update")
+	public String upateProdcut(int pr_no, String ca_name, int pr_cost
+			, String pr_name, String pr_content, String pr_deal, Authentication auth) {
+		
+		
+		int cu_no = customerService.findByCu_id(auth.getName()).getCu_no();
+		
+		ProductDTO p = new ProductDTO(pr_no, ca_name, ""
+				, pr_name, pr_cost, pr_content, pr_deal, cu_no);
+		this.productService.updateProduct(p);
+		
+		
+		return "redirect:/products";
+	}
+	
+	@GetMapping("/{pr_no}/delete")
+	public String deleteProduct(@PathVariable int pr_no) {
+		String loginId = "one";
+		
+		this.productService.delete(pr_no, loginId);
+		return "redirect:/products";
+	}
+	
 }
+	 

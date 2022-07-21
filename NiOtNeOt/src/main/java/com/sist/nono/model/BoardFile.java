@@ -16,9 +16,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,7 +27,6 @@ import lombok.ToString;
 @ToString(exclude = "board")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @Table(name = "boardFile")
 @Entity
 public class BoardFile {
