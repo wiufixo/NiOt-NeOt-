@@ -117,13 +117,13 @@
                                 <li class="weight">
                                     <span>몸무게</span><!--
                                  --><input type="text" class="form-control" th:field="*{cu_weight}" th:classappend="${#fields.hasErrors('cu_weight')} ? 'is-invalid'">kg<br>
-                               		<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_weight')}" th:errors="*{cu_weight}"></div><br>
+                               		<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_weight')}" th:errors="*{cu_weight}"></div>
                                 </li>
                             </ul>
                             <div class="check_join">
                                 <input id="checkbox" type="checkbox">
                                 <span>개인정보 공개 여부</span> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-                              거부  <input type="radio" th:field="*{privacy_agree}" value=0 checked>
+                              거부  <input type="radio" th:field="*{privacy_agree}" value=0 checked> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
  							동의	<input type="radio" th:field="*{privacy_agree}" value=1><br><br>
                                 <button id="join_button" class="join_btn">가입</button>
                             </div>
