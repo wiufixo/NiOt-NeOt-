@@ -111,11 +111,18 @@ public class CustomersAPIController {
 		transHistoryService.saveTransHistory(t);
 	}
 	
-	
-	@PostMapping("customer/transScore")
-	public void transScore(HttpServletRequest request) {
-		TransHistory t=transHistoryService.findById(Integer.parseInt(request.getParameter("tr_no")));
+	//판매자의 구매자에 대한 평가
+	@PostMapping("customer/buyScore")
+	public void buySore(HttpServletRequest request) {
+		TransHistory t=transHistoryService.findById(Integer.parseInt(request.getParameter("pr_no")));
 		t.setBuy_score(Integer.parseInt(request.getParameter("buy_score")));
+		transHistoryService.saveTransHistory(t);
+	}
+	
+	//구매자의 판매자에 대한 평가
+	@PostMapping("customer/sellScore")
+	public void sellSore(HttpServletRequest request) {
+		TransHistory t=transHistoryService.findById(Integer.parseInt(request.getParameter("pr_no")));
 		t.setSell_score(Integer.parseInt(request.getParameter("sell_score")));
 		transHistoryService.saveTransHistory(t);
 	}

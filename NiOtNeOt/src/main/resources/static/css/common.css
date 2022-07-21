@@ -8,7 +8,7 @@ html,body{margin: 0; font-family: 'Poppins'; font-weight: 500;}
 .width_con{position: relative; margin: 0 auto; width: 1400px; padding: 100px 0; /*background: rgba(255,255,255,0.5);*/ transition: width 250ms ease-in-out;}
 
 /*-------home button-----------------------------------------------*/
-.home{position: fixed; top: 15px; left: 30px; width: 48px; height: 48px; background: url(../img/logo.png) no-repeat; background-size: cover; color: #fff; text-align: center; line-height: 48px; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
+.home{position: absolute; left:-41px; top:13px; width: 48px; height: 48px; background: url(../img/logo.png) no-repeat; background-size: cover; color: #fff; text-align: center; line-height: 48px; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
 .home:active{color: #aaa; box-shadow: 0 0 0 rgba(0,0,0,1); transform: scale(0.975);}
 .home img{width: 100%;}
 
