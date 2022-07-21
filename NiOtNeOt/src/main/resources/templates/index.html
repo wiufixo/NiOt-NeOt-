@@ -36,15 +36,15 @@
         <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
     </head>
-     <span class="chat">
-     </span>
-	    <div class="chatting">
-			<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
-			</iframe>
-		</div>
+    <span class="chat"></span>
+	<div class="chatting">
+		<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+		</iframe>
+	</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
 	<div th:replace="fragments/common :: head('index')"></div>
             
-	<div th:replace="fragments/common :: header('deleteUser')"></div>
+	<div th:replace="fragments/common :: header('index')"></div>
 	
             <div class="blurred_cover"></div>
             <div class="visual">

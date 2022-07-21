@@ -19,8 +19,7 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 	
-	@Transactional
-	public List<Category> findAllCa(){
+	public List<Category> findAll(){
 		return repository.findAll();
 	}
 	

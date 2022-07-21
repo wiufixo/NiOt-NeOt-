@@ -15,13 +15,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.sist.nono.dto.ProductDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,49 +39,53 @@ import lombok.ToString;
 @Table(name="product")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Product{
 	@Id @GeneratedValue
 	@Column(name="pr_no")
 	private int pr_no;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="cu_no")
-	private Customer customer;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="ca_no")
 	private Category category;
 	
-	@OneToMany(mappedBy ="product", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<ProductImage> image = new ArrayList<ProductImage>();
+	//cascade: 부모가 바뀌면 자식도 바뀌고 부모랑 자식 연동
+	//orphanRemoval = true로 하면 고아 객체를 지울 수 있음
+	@OneToMany(mappedBy ="product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<ProductImage> image = new ArrayList<>();
 	
 	private String pr_name;
 	
 	private int pr_cost;
 	
+	@Column(name = "cu_no")
+	private int cu_no;
+	
 	@Lob
 	private String pr_content;
-	
-	@CreationTimestamp
-	private Date pr_created;
-
-	private Date pr_updated;
-	
-	//조회수
-	private int pr_hit;
-	
-	@Enumerated(EnumType.STRING)
-	private ProductStatus pr_status;
 	
 	
 	@Enumerated(EnumType.STRING)
 	private ProductDeal pr_deal;
 	
 	
-	//조회수
+	@CreationTimestamp
+	private Date pr_created;
+
+	@UpdateTimestamp
+	private Date pr_updated;
+
 	
-	public void addHit(int hit) {
-		this.pr_hit += hit;
+	//업데이트
+	public void updateProduct(ProductDTO productDTO, Category category) {
+		this.pr_name = productDTO.getPr_name();
+		this.category = category;
+		this.pr_cost = productDTO.getPr_cost();
+		//this.image = product.image;
+		this.pr_content = productDTO.getPr_content();
+		this.pr_deal = ProductDeal.valueOf(productDTO.getPr_deal());
+		//this.pr_updated = ProductFormDTO.get;
+		
+				
 	}
 	
 }

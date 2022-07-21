@@ -32,14 +32,16 @@ $(function(){
            $(".btn_gotop").addClass("hide");
         }
     });
-    
-    
 });
-
-$(".chat").click(function(){
-		console.log("동작");
-        $(".chatting").toggleClass("active");
-});
+    
+    $(".chat").click(function(){
+		console.log("작동");
+		if ($("#authname").val() == null || $("#authname").val() == "anonymousUser") {
+			alert("로그인이 필요한 서비스입니다");
+		} else {
+        	$(".chatting").toggleClass("active");
+		}
+	});
     
 $(window).load(function(){
     $("html, body").animate({scrollTop: 0}, 1, function(){});

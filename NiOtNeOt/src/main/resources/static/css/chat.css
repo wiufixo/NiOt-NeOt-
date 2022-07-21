@@ -84,6 +84,13 @@
 	radius: 4px;
 }
 
+.circle{
+	width:200px;
+	height:200px;
+	border-radius:50%;
+	background:#00d3d3;
+}
+
 #talk::-webkit-scrollbar,
 #talk::-webkit-scrollbar,
 #talk::-webkit-scrollbar{width: 20px; margin: 0px 0px 0px 3px;}

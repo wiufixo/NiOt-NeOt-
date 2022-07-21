@@ -225,7 +225,7 @@ public class CustomersController {
 		ArrayList<Product> list=new ArrayList<Product>();
 		
 		for(TransHistory trans :list1) {
-			list.add(productService.findById1((trans.getPr_no()))); 
+			list.add(productService.findProduct((trans.getPr_no()))); 
 		}
 		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("trans",list);
@@ -238,7 +238,7 @@ public class CustomersController {
 		ArrayList<Product> list=new ArrayList<Product>();
 		
 		for(Wish wish :list1) {
-			list.add(productService.findById1((wish.getPr_no()))); 
+			list.add(productService.findProduct((wish.getPr_no()))); 
 		}
 		model.addAttribute("user",customerService.findById(user_no));
 		model.addAttribute("wish",list);

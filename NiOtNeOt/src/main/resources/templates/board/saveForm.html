@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
 <meta charset="UTF-8">
+
+<link type="text/css" rel="stylesheet" href="/css/common.css">
+<script type="text/javascript" src="/js/common.js"></script>
+
+<span class="chat">
+</span>
+<div class="chatting">
+	<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+	</iframe>
+</div>
+
 <th:block layout:fragment="title">
 	<title>write board</title>
 </th:block>

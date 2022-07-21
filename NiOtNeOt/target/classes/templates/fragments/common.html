@@ -48,18 +48,24 @@
 
 <header th:fragment="header(menu)">
 	 <div class="header hide">
+    			<a class="homebtn" th:href="@{/}"><span class="home"></span></a>
                 <div class="width_con">
                     <div class="btn_nav"><div></div></div>
                     <ul>
+
                         <li><a th:href="@{/feed/list}">Feed</a></li><!--
                      --><li><a href="javascript:;">Sale/Rental</a></li><!--
+
+                        <li><a href="javascript:;">Feed</a></li><!--
+                     --><li><a th:href="@{/product/list}">Sale/Rental</a></li><!--
                      --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
                      --><li><a th:href="@{/board/list}">Community</a></li><!--
                      --><li><a href="/customer/login" style="position:relative;z-index:1" id="login" sec:authorize="!isAuthenticated()">Login</a>
-                    	<a href="/logout" style="position:absolute;bottom:3px; z-index:1" id="logout" sec:authorize="isAuthenticated()">Logout</a></li>
+                    	<a href="/logout" style="position:absolute;bottom:18px; z-index:1" id="logout" sec:authorize="isAuthenticated()">Logout</a></li>
                     </ul>
                     <div sec:authorize="isAuthenticated">
-                    <a style="position:absolute;right:100px;" th:href="@{/customer/pageChoice(user_no=${#authentication.principal.customer.cu_no})}">mypage</a>
+                    <a style="position:absolute; top:35px; right:35px; font-size:16pt; color:#FFF;" 
+                    th:href="@{/customer/pageChoice(user_no=${#authentication.principal.customer.cu_no})}">mypage</a>
                     </div>
                 </div>
             </div>

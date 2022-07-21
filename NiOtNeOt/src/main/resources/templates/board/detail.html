@@ -2,6 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<link type="text/css" rel="stylesheet" href="/css/common.css">
+<script type="text/javascript" src="/js/common.js"></script>
+
+<span class="chat"></span>
+<div class="chatting">
+	<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+	</iframe>
+</div>
+<input id="authname" type="hidden" th:value="${#authentication.name}">
 
 <div th:replace="fragments/common :: head('board detail')"></div>
 

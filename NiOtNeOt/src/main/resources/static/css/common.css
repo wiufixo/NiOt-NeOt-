@@ -6,6 +6,12 @@ html,body{margin: 0; font-family: 'Poppins'; font-weight: 500;}
 *{-webkit-tap-highlight-color: transparent;}
 .wrap{overflow: hidden;}
 .width_con{position: relative; margin: 0 auto; width: 1400px; padding: 100px 0; /*background: rgba(255,255,255,0.5);*/ transition: width 250ms ease-in-out;}
+
+/*-------home button-----------------------------------------------*/
+.home{position: fixed; top: 15px; left: 30px; width: 48px; height: 48px; background: url(../img/logo.png) no-repeat; background-size: cover; color: #fff; text-align: center; line-height: 48px; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
+.home:active{color: #aaa; box-shadow: 0 0 0 rgba(0,0,0,1); transform: scale(0.975);}
+.home img{width: 100%;}
+
 /*-------chat button-----------------------------------------------*/
 .chat{position: fixed; bottom: 60px; right: 60px; width: 48px; height: 48px; background: url(../img/messenger.png) no-repeat; background-size: cover; color: #fff; text-align: center; line-height: 48px; cursor: pointer; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
 .chat:active{color: #aaa; box-shadow: 0 0 0 rgba(0,0,0,1); transform: scale(0.975);}
@@ -43,7 +49,7 @@ html,body{margin: 0; font-family: 'Poppins'; font-weight: 500;}
 
 .header ul{display: block; margin: 0 -20px; height: 100%; transition: all 350ms ease-out;}
 .header ul li{margin: 27px 60px 0; display: inline-block; *display: inline; *zoom: 1; height: 100; text-align: center;}
-.header ul li #search{margin-top: -15px; padding: 0 30px 0 20px; width: 400px; height: 50px; border-radius: 25px; border: 2px solid #ccc; font-size: 16px;}
+.header ul li #search{margin-top: -15px; padding: 0 30px 0 20px; width: 450px; height: 50px; border-radius: 25px; border: 2px solid #ccc; font-size: 16px;}
 .header ul li .far{float: right;}
 .header ul li a{padding: 5px; color: #fff; font-family: 'Poppins'; font-weight: 500; font-size: 20px; text-transform: none; transition: all 350ms ease-in-out;}
 .header ul li a:hover{color: #9bc5bb;}
