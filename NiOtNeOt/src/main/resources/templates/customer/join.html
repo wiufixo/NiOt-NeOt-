@@ -40,7 +40,13 @@
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
     </head>
     <body class="loading">
-        <span class="chat"></span>
+	    <span class="chat">
+	    </span>
+		    <div class="chatting">
+					<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+					</iframe>
+			</div>
+		<input id="authname" type="hidden" th:value="${#authentication.name}">
         <div th:replace="fragments/common :: header('join')"></div>
             
             <form id="joinForm" th:action="@{/customer/joinOK}" th:object="${joinForm}" method="post">
@@ -69,7 +75,7 @@
                                  	<div class="sub_massage invalid-feedback" th:if="${#fields.hasErrors('cu_name')}" th:errors="*{cu_name}"></div><br>
                                 </li>
                                 
-                                <li>
+                                <li class="nick">
 	                                <span>닉네임</span>
 	                                <input type="text" class="" th:field="*{cu_nickname}" placeholder="nickname" th:classappend="${#fields.hasErrors('cu_nickname')} ? 'is-invalid'">
 	 								<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_nickname')}" th:errors="*{cu_nickname}"></div><br>
@@ -105,14 +111,15 @@
                                 </li>
                                 
                                 <li class="gender">
-                                    <span>성별</span> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                                    <span>성별</span> &nbsp &nbsp 
                                  	 여자<input type="radio" th:field="*{cu_gender}" value=0 checked>
  									 남자<input type="radio" th:field="*{cu_gender}" value=1 >
                                 </li>
+                                </br>
                                 <li class="height">
                                     <span>신장</span><!--
                                  --><input type="text" class="form-control" th:field="*{cu_height}" th:classappend="${#fields.hasErrors('cu_height')} ? 'is-invalid'">cm<br>
- 									<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_height')}" th:errors="*{cu_height}"></div><br>
+ 									<div class="sub_massage invalid-feedback"th:if="${#fields.hasErrors('cu_height')}" th:errors="*{cu_height}"></div>
                                 </li>
                                 <li class="weight">
                                     <span>몸무게</span><!--
