@@ -14,7 +14,7 @@
 .my_page{position: relative; width: 100%; height: 100vh; max-height: 1080px; transition: all 450ms ease-out; background: #fff; background-size: cover;}
 body.loading .visual{opacity: 0; filter: blur(8px);}
 .visual .width_con{padding: 0; position: relative; height: 100%;}
-.visual .width_con .title{position: relative; top: 120px; left: 700px; margin: 0 0 250px -180px; width: 360px; border-bottom: 2px solid #000; text-align: center; font-size: 40px;}
+.visual .width_con .title{position: relative; top: 120px; left: 700px; margin: 0 0 150px -180px; width: 360px; border-bottom: 2px solid #000; text-align: center; font-size: 40px;}
 .loginform {text-align: center;}
 .loginform input { margin: 10px 0px 10px 0px;
   width: 100%;  /* 원하는 너비 설정 */ 
@@ -29,7 +29,7 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
   -moz-appearance: none;
   appearance: none;
 }
-.visual .width_con .rank{margin: 0 -20px; width: 1440px;}
+.visual .width_con .rank{margin: 0 -50px; width: 1500px;}
 .visual .width_con .rank li{margin: 0 20px; display: inline-block; width: 320px;}
 .visual .width_con .rank li div.profile_and_nickname{margin: 0 0 15px;}
 .visual .width_con .rank li div.profile_and_nickname img.profile{margin: 0 10px 0 0; width: 50px; border-radius: 50%;}

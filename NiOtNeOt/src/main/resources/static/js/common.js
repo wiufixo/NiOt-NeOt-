@@ -33,13 +33,13 @@ $(function(){
         }
     });
     
-    
-});
-
-$(".chat").click(function(){
+    $(".chat").click(function(){
 		console.log("동작");
         $(".chatting").toggleClass("active");
+	});
 });
+
+
     
 $(window).load(function(){
     $("html, body").animate({scrollTop: 0}, 1, function(){});
