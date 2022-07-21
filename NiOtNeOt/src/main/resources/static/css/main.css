@@ -2849,6 +2849,32 @@ body.loading .visual {
 	vertical-align: top;
 	transition: all 100ms linear;
 }
+#userpage_follow_button:hover {
+	background: #9bc5bb;
+}
+
+#userpage_follow_button {
+	margin: 0px 0px 0px 93px;
+	border-style: none;
+	text-align: center;
+	width: 160px;
+	height: 40px;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	outline: none;
+	box-sizing: border-box;
+	font-size: 14px;
+	text-align: center;
+	line-height: 40px;
+	text-decoration: none;
+	cursor: pointer;
+	border-radius: 40px;
+	opacity: 0.85;
+	vertical-align: top;
+	transition: all 100ms linear;
+	background-color: #d9e7e7;
+}
 
 /* 반응형 활성화---------------------------------------------------------------------------------------------------------------------*/
 /* 0 - 479px-----------------------------------------------------------------------------------------------------------------------*/

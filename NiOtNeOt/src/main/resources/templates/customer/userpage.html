@@ -126,7 +126,7 @@
                             <div class="contents_title">Community</div>
                             <ul class="contents_post">
                                 <li  th:each="b,boardNum:${board}" th:if="${boardNum.count<4}" th:id="${'board_'+boardNum.index}" class="board_status" th:value="${b.getB_no}">
-                                    <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="b.getB_content"></span>
+                                    <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="${b.getB_content}"></span>
                                     <div class="post_now">
                                         <span class="post_comment" th:text="${b.getB_no}">[51]</span>
                                         <span class="post_view" th:text="${b.getB_hit}">200</span>
