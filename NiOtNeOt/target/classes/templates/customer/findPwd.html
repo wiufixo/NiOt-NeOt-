@@ -11,10 +11,12 @@
 <div th:replace="fragments/common :: head('findPwd')"></div>
 <body>
 		<div th:replace="fragments/common :: header('findPwd')"></div>
-		<br><br><br><br><br><br>
+		<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+		<div class="find_pwd_main">
 		id : <input type="text" id="cu_id">
 		<span id="find_warning" class="red_warning">존재하지 않는 ID입니다</span><br>
-		
-		<button type="button" id="find_pwd_button">비밀번호 찾기</button>
+		<br>
+		<button type="button" class="like_btn" id="find_pwd_button">find pwd</button>
+		</div>
 </body>
 </html>

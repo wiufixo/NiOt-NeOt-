@@ -699,6 +699,9 @@ body.loading .visual{opacity: 0; filter: blur(8px);}
 .free_board_posting .width_con .content .posting_btn_area{margin: 100px 0 80px 0; text-align: center;}
 .free_board_posting .width_con .content .posting_btn_area a{margin: 0 40px; display: inline-block; padding: 4px 40px; width: 80px; border-radius: 8px; background: #9bc5bb; color: #fff; font-size: 20px;}
 
+/* 비밀번호 찾기 */
+.find_pwd_main {text-align:center;}
+
 /*버튼*/
 .btn2.btn_as:hover,
 .btn2.btn_as:focus{background: #d9e7e7;}
