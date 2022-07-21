@@ -34,7 +34,7 @@ public class ProductController {
 	@Autowired
 	private CategoryService cs;
 	
-	@GetMapping
+	@GetMapping("/list")
 	public String productList(Model model){
 		List<Product> products = p.findProduct();
 		model.addAttribute("products", products);
@@ -42,19 +42,19 @@ public class ProductController {
 	}
 
 	//게시판 등록화면
-	@GetMapping("/product/insert")
+	@GetMapping("/insert")
 	public String insertForm(Model model) {
 		return "product/insert";
 	}
 	
 	//게시판 등록
-	@PostMapping("/product/insert")
+	@PostMapping("/insert")
 	public String insertProduct(@ModelAttribute("product") Product product, Model model) {
 		p.saveProduct(product);
 		return "product/list";
 	}
 	
-	@GetMapping("/product/{pr_no}/update")
+	@GetMapping("/{pr_no}/update")
 	public String updateForm(@PathVariable("pr_no") int pr_no,Model model) {
 		p.findById(pr_no);
 		model.addAttribute("product", p.findById(pr_no));
