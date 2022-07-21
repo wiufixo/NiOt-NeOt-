@@ -57,61 +57,48 @@
                         <div class="c_1212">
                             <div class="left_side">
                                 <div class="product_img">
-                                  <div class="img_post">
+                                    <div class="img_post">
                                         <div class="preview_btn"></div>
                                         <div class="next_btn"></div>
-                                     <!--    <img th:src="${images.pi_url}"> -->
+                                      	<span th:each="image :${images}">
+      									<img  th:src="${image.pi_url}" />
+      									</span>
                                     </div>
-                                    <div class="product_like">7</div>
-                                </div>
-                            </div>
-                         <div class="right_side">
+                            </div><!--
+                         --><div class="right_side">
                                 <div class="fix_delete">
-                                    <a href="|location.href='@{/products/{productNo}/update(productNo=${product.pr_no})}'|">수정</a><!--
+                                    <a th:href="@{/products/{productNo}/update(productNo=${product.pr_no})}">수정</a><!--
                                  -->&nbsp;/&nbsp;<!--
-                                 --><a href="|location.href='@{/products/{productNo}/delete(productNo=${product.pr_no})}'|">삭제</a>
+                                 --><a th:href="@{/products/{productNo}/update(productNo=${product.pr_no})}">삭제</a>
                                 </div>
+                                
                                 <div class="post_user">
                                     <div class="post_user_profile"></div>
                                     <div class="post_user_inform">
-                                        <div class="rigion">지역명</div>
-                                        <div class="nickname" >닉네임</div>
-                                       <!-- 
-                                        <span>
-                                        	<input th:text="${nicknames}">
-                                        </span>
-                                         -->
+                                        <div class="nickname">게시자 이름</div>
                                     </div>
-                                    <div class="rating">4.5&nbsp;/&nbsp;5</div>
                                 </div>
                                 <div class="middle">
-                                    <div class="product_category">카테고리 : <span class="category_name">
-                                    	<input th:text="${products.ca_name}">
-                                    </span></div>
-                                    <div class="rental_or_sale_price">대여가격 <span>
-                                    	<input th:value="${product.pr_cost}">
-                                    </span>원</div>
+                                    <div class="product_category">카테고리 : <span class="category_name">옷</span></div>
+                                    <div class="rental_or_sale_price" >대여가격 <span th:text="${product.pr_cost}">26,000</span>원</div>
                                 </div>
-                                <div class="post_product_inform">
+                                 
+                                <div class="post_product_inform" >
                                     <div>
-                                        <span class="product_left">상품명</span>
-                                        <span class="product_name" th:value="${products.pr_name}">
-                                        	<input th:value="${products.pr_name}">
-                                        </span>
+                                        <span class="product_left" >상품명</span>
+                                        <span class="product_name"  th:text="${product.pr_name}">세미 와이드 데님</span>
                                     </div>
-                                    <div>
+                                    <div >
                                         <span class="product_left">상품설명</span>
-                                        <span class="product_explain" >
-                                        	<input th:text="${products.pr_content}" >
-                                        </span>
+                                        <span class="product_explain"  th:text="${product.pr_content}">상품설명 상태 등등</span>
                                     </div>
                                 </div>
-                                <div class="product_condition">
+                                <div class="product_condition" >
                                     <span class="product_left">상품 상태</span>
-                                    <div class="possible_impossible">
-                                    	<input th:value="${products.pr_deal}">
-                                    </div>
+                                    <div class="possible_impossible"  th:text="${product.pr_deal}">대여가능</div>
                                 </div>
+                                
+                                
                             </div>
                         </div>
                     </div>
