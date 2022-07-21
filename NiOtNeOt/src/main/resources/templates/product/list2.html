@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<nav>
+	<!--  위에 카테고리바 -->
+		<ul th:each ="category :${categories}">
+			<a th:href="@{'/products/categories/'+ ${category.ca_no}}">
+				<li th:text="${category.ca_name}"></li>
+			</a>
+		</ul>
+	</nav>
+	<div class="container">
+		<h2>대여</h2>
+	</div>
+
+
+<div>
+
+	<table class="table">
+		<thead>
+			<tr>
+				
+				<th>프로필사진</th>
+				<th>닉네임</th>
+				<th>카테고리</th>
+				<th>상품이미지</th>
+				<th>대여여부</th>
+				<th>상품명</th>
+				<th>가격</th>
+			</tr>
+		</thead>
+		<tbody>
+				<tr>
+				<td>
+				<div th:text="${nicknames}"></div>
+				</td>
+				</tr>
+
+				<tr th:each ="product :${products}">
+				
+				<td th:text="${product.ca_name}"></td>
+				<td>
+					<a th:href="@{'/products/'+ ${product.pr_no}}" >
+						<img height="30px" width="30px" th:src="${product.pr_image != null ? product.pr_image : ''}" />
+					</a>
+				</td>
+				<td th:text="${product.pr_deal}"></td>
+				<td th:text="${product.pr_name}"></td>
+				<td th:text="${product.pr_cost}"></td>
+			</tr>
+		</tbody>
+		
+	</table>
+	<!-- 상품등록 버튼 -->
+	<div>
+		<button th:onclick="|location.href='@{/products/insert}'|" type="button">상품 등록</button>
+	</div>
+	
+
+</div>
+
+</body>
+</html>
