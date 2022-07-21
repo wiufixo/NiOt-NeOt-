@@ -60,7 +60,7 @@
 					<td th:text="${board.b_no}">1</td>
 					<td><a th:href="@{|/board/detail/${board.b_no}|(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}" th:text="${board.b_title}">1</a></td>
 					<!-- 					<td><a th:href="@{|/board/detail/${board.b_no}|}" th:text="${board.b_title}">1</a></td> -->
-					<td th:text="${board.cu_id}">1</td>
+					<td><a th:text="${board.cu_id}" th:href="@{/customer/pageChoice(user_no=${board.cu_no})}">1</a></td>
 					<td th:text="${board.b_hit}">1</td>
 				</tr>
 

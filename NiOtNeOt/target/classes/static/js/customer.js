@@ -69,10 +69,10 @@ var transExpantionPaging = function(page){
 				$(div).attr("id","product_"+i);
 				$(div).attr("class","product_status");
 				$(div).attr("value",data[i].p_no)
-				div.append($("<span></span>",{text:product.pr_no}));
-				div.append($("<span></span>",{text:product.pr_title}));
-				div.append($("<span></span>",{text:product.pr_content}));
-				div.append($("<span></span>",{text:product.pr_created}));
+				div.append($("<div></div>",{text:product.pr_no}));
+				div.append($("<div></div>",{text:product.pr_title}));
+				div.append($("<div></div>",{text:product.pr_content}));
+				div.append($("<div></div>",{text:product.pr_created}));
 				div.appendTo("#trans_product");
 			}
 		}
@@ -97,10 +97,10 @@ var wishExpantionPaging = function(page){
 				$(div).attr("id","product_"+i);
 				$(div).attr("class","product_status");
 				$(div).attr("value",data[i].p_no)
-				div.append($("<span></span>",{text:product.pr_no}));
-				div.append($("<span></span>",{text:product.pr_title}));
-				div.append($("<span></span>",{text:product.pr_content}));
-				div.append($("<span></span>",{text:product.pr_created}));
+				div.append($("<div></div>",{text:product.pr_no}));
+				div.append($("<div></div>",{text:product.pr_title}));
+				div.append($("<div></div>",{text:product.pr_content}));
+				div.append($("<div></div>",{text:product.pr_created}));
 				div.appendTo("#wish_product");
 			}
 		}
@@ -125,10 +125,10 @@ var productExpantionPaging = function(page){
 				$(div).attr("id","product_"+i);
 				$(div).attr("class","product_status");
 				$(div).attr("value",data[i].p_no)
-				div.append($("<span></span>",{text:data[i].pr_no}));
-				div.append($("<span></span>",{text:data[i].pr_title}));
-				div.append($("<span></span>",{text:data[i].pr_content}));
-				div.append($("<span></span>",{text:data[i].pr_created}));
+				div.append($("<div></div>",{text:data[i].pr_no}));
+				div.append($("<div></div>",{text:data[i].pr_title}));
+				div.append($("<div></div>",{text:data[i].pr_content}));
+				div.append($("<div></div>",{text:data[i].pr_created}));
 				div.appendTo("#product_product");
 			}
 		}
@@ -154,10 +154,10 @@ var feedScroll = function(page){
 				$(div).attr("id","feed_"+i);
 				$(div).attr("class","feed_status");
 				$(div).attr("value",data[i].f_no);
-				div.append($("<span></span>",{text:data[i].f_no}));
-				div.append($("<span></span>",{text:data[i].f_title}));
-				div.append($("<span></span>",{text:data[i].f_content}));
-				div.append($("<span></span>",{text:data[i].f_created}));
+				div.append($("<div></div>",{text:data[i].f_no}));
+				div.append($("<div></div>",{text:data[i].f_title}));
+				div.append($("<div></div>",{text:data[i].f_content}));
+				div.append($("<div></div>",{text:data[i].f_created}));
 				div.appendTo("body");
 			}
 			loading=false;
@@ -186,10 +186,10 @@ var boardScroll = function(page){
 				$(div).attr("id","board_"+i);
 				$(div).attr("class","board_status");
 				$(div).attr("value",data[i].b_no)
-				div.append($("<span></span>",{text:data[i].b_no}));
-				div.append($("<span></span>",{text:data[i].b_title}));
-				div.append($("<span></span>",{text:data[i].b_content}));
-				div.append($("<span></span>",{text:data[i].b_created}));
+				div.append($("<div></div>",{text:data[i].b_no}));
+				div.append($("<div></div>",{text:data[i].b_created}));
+				div.append($("<div></div>",{text:data[i].b_title}));
+				div.append($("<div></div>",{text:data[i].b_content}));
 				div.appendTo("body");
 			}
 			loading=false;
@@ -223,9 +223,9 @@ var followingScroll = function(page){
 				}else{
 					div.append($('<img/>',{src:"/image/customer/"+data[i].cu_no+"/"+data[i].cu_img, class:"profile_img_small"}));
 				}
-				div.append($("<span></span>",{text:data[i].cu_name}));
-				div.append($("<span></span>",{text:data[i].cu_nickname}));
-				div.append($("<span></span>",{text:data[i].cu_email}));
+				div.append($("<div></div>",{text:data[i].cu_name}));
+				div.append($("<div></div>",{text:data[i].cu_nickname}));
+				div.append($("<div></div>",{text:data[i].cu_email}));
 				div.appendTo("body");
 			}
 			loading=false;
@@ -259,9 +259,9 @@ var followerScroll = function(page){
 				}else{
 					div.append($('<img/>',{src:"/image/customer/"+data[i].cu_no+"/"+data[i].cu_img, class:"profile_img_small"}));
 				}
-				div.append($("<span></span>",{text:data[i].cu_name}));
-				div.append($("<span></span>",{text:data[i].cu_nickname}));
-				div.append($("<span></span>",{text:data[i].cu_email}));
+				div.append($("<div></div>",{text:data[i].cu_name}));
+				div.append($("<div></div>",{text:data[i].cu_nickname}));
+				div.append($("<div></div>",{text:data[i].cu_email}));
 				div.appendTo("body");
 			}
 			loading=false;
