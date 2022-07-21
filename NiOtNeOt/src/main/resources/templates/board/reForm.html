@@ -3,6 +3,16 @@
 
 <div th:replace="fragments/common :: head('write board')"></div>
 
+<link type="text/css" rel="stylesheet" href="/css/common.css">
+<script type="text/javascript" src="/js/common.js"></script>
+
+<span class="chat">
+</span>
+<div class="chatting">
+	<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+	</iframe>
+</div>
+	
 <body>
 
 	<div th:replace="fragments/common :: header('list')"></div>

@@ -37,9 +37,16 @@
         <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
     </head>
+    <span class="chat">
+	     </span>
+		    <div class="chatting">
+					<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+					</iframe>
+			</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
 	<div th:replace="fragments/common :: head('mypage')"></div>
     <body class="loading">
-        <span class="chat"></span>
+	     
         <div class="wrap">
             <div th:replace="fragments/common :: header('mypage')"></div>
             
@@ -66,7 +73,7 @@
                                     </ul>
                                 </div>
                                 <div class="profile_indiv_inform">
-                                    <ul>
+                                    <ul class="privateinfo">
                                         <li>00 세</li>
                                         <li id="mypage_height" th:text="${customer.getCu_height}+'cm'"></li>
                                         <li id="mypage_weight" th:text="${customer.getCu_weight}+'kg'"></li>
