@@ -38,7 +38,6 @@ $(function(){
 		console.log("작동");
 		if ($("#authname").val() == null || $("#authname").val() == "anonymousUser") {
 			window.location.href="/customer/login"
->>>>>>> branch 'main' of https://github.com/wiufixo/NiOt-NeOt-
 		} else {
         	$(".chatting").toggleClass("active");
 		}
