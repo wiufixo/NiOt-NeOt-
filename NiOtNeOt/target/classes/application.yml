@@ -13,7 +13,9 @@ spring:
     open-in-view: true
     hibernate:
 
-#      ddl-auto: update
+
+   #   ddl-auto: update
+
 
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl

@@ -1,76 +1,124 @@
-<!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<div class="container">
-		<div>
-			<h2>상품 상세</h2>
-		</div>
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <title>product_inform</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi">
+        <meta name="format-detection" content="telephone=no">
+        <link type="text/css" rel="stylesheet" href="css/reset.css">
+        <link type="text/css" rel="stylesheet" href="css/common.css">
+        <link type="text/css" rel="stylesheet" href="css/main.css">
+        <link type="text/css" rel="stylesheet" href="css/button.css">
+        <link rel="stylesheet" href="css/fontawesome_all.min.css">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript" src="js/main.js"></script>
 
-		<div>
-			<span th:each="customer :${customers}"> <img width="100px"
-				height="100px" th:src="${image.cu_img}" />
-			</span>
-		</div>
-
-		<div>
-			<label for="productName">닉네임</label> <input type="text"
-				id="customerName" name="customerName" class="form-control"
-				th:value="${customer.pr_nickname}" readonly="readonly">
-		</div>
-
-		<div>
-		<label for="productNo"> 상품번호</label>
-			<input type="text" id="productNo" name="productNo" class="from-control"
-			value="1" th:value="${product.pr_no}" readonly="readonly">
-	</div>
-	<div>
-		<label for="productName">상품명</label>
-			<input type="text" id="prodcutName" name="prpdcutName" class="form-control"
-			th:value="${product.pr_name}" readonly="readonly">
-	</div>
-	<div>
-		<label for="productCost">가격</label>
-			<input type="text" id="cost" name="cost" sclass="form-control"
-			th:value="${product.pr_cost}" readonly="readonly">
-	</div>
-	<div>
-		<label for="productContent">상품설명</label>
-			<textarea rows="" cols="" id="content" name="content" sclass="form-control"
-			th:text="${product.pr_content}" readonly="readonly"></textarea>
-	</div>
-	<div>
-		<label for="productStatus">상품 상태</label>
-			<input type="text" id="deal" name="status" sclass="form-control"
-			th:value="${product.pr_deal}" readonly="readonly">
-	</div>
-	
-	
-	<!-- 상품 이미지 -->
-	<div>
-		<span th:each="image :${images}">
-		    
-      		<img width="100px" height="100px" th:src="${image.pi_url}" />
-		</span>
-	</div>
-	
-			
-	<!-- 수정/삭제/목록  (productNo=${product.pr_no})-->
-		<div class="col">
-			<button th:onclick="|location.href='@{/products/{productNo}/update(productNo=${product.pr_no})}'|" type="button">수정</button>
-		</div>
-		
-		<div class="col">
-			<button th:onclick="|location.href='@{/products/{productNo}/delete(productNo=${product.pr_no})}'|" type="button">삭제</button>
-		</div>
-		
-		<div class="col">
-			<button th:onclick="|location.href='@{/products}'|" type="button">목록</button>	
-		</div>
-
-</div>
-</body>
+        <link href="" rel="icon" type="image/x-icon">                                               <!--32 Size .ico/.png (기본 파비콘)-->
+        <link href="" rel="shortcut icon" type="image/x-icon">                                      <!--32 Size .ico/.png (기본 파비콘)-->
+        <meta name="robots" content="index,follow">                                                 <!--사이트 페이지 구분-->
+        <meta name="description" content="">                                                        <!--사이트 설명-->
+        <meta name="author" content="">                                                             <!--사이트 제작자/제작회사-->
+        <meta name="keywords" content="">                                                           <!--사이트 검색엔진 키워드-->
+                                                                                                    <!--검색엔진/SNS 추출 정보-->
+        <meta property="og:site_name" content="">                                                   <!--사이트 이름-->
+        <meta property="og:url" content="">                                                         <!--사이트 주소-->
+        <meta property="og:title" content="">                                                       <!--사이트 제목-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (홈화면 아이콘)-->
+        <meta property="og:image" content="">                                                       <!--144 Size .png (위 이미지 없을 시 보조 이미지)-->
+        <meta property="og:description" content="">                                                 <!--사이트 설명-->
+        <meta property="og:type" content="website">                                                 <!--사이트 페이지 구분-->
+        <link rel="apple-touch-icon" href="">                                                       <!--57 Size .png-->
+        <link rel="apple-touch-icon" sizes="72x72" href="">                                         <!--72 Size .png-->
+        <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
+        <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
+    </head>
+    <body class="loading">
+        <span class="chat"></span>
+        <div class="wrap">
+            <div class="header hide">
+                <div class="width_con">
+                    <div class="btn_nav"><div></div></div>
+                    <ul>
+                        <li><a href="javascript:;">Feed</a></li><!--
+                     --><li><a href="javascript:;">Sale/Rental</a></li><!--
+                     --><li><input id="search" type="text"><!--<i class="far fa-search"></i>--></li><!--
+                     --><li><a href="javascript:;">Community</a></li><!--
+                     --><li><a href="javascript:;">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="product_inform">
+                <div class="width_con">
+                    <div class="content">
+                        <div class="c_1212">
+                            <div class="left_side">
+                                <div class="product_img">
+                                  <div class="img_post">
+                                        <div class="preview_btn"></div>
+                                        <div class="next_btn"></div>
+                                     <!--    <img th:src="${images.pi_url}"> -->
+                                    </div>
+                                    <div class="product_like">7</div>
+                                </div>
+                            </div>
+                         <div class="right_side">
+                                <div class="fix_delete">
+                                    <a href="|location.href='@{/products/{productNo}/update(productNo=${product.pr_no})}'|">수정</a><!--
+                                 -->&nbsp;/&nbsp;<!--
+                                 --><a href="|location.href='@{/products/{productNo}/delete(productNo=${product.pr_no})}'|">삭제</a>
+                                </div>
+                                <div class="post_user">
+                                    <div class="post_user_profile"></div>
+                                    <div class="post_user_inform">
+                                        <div class="rigion">지역명</div>
+                                        <div class="nickname" >닉네임</div>
+                                       <!-- 
+                                        <span>
+                                        	<input th:text="${nicknames}">
+                                        </span>
+                                         -->
+                                    </div>
+                                    <div class="rating">4.5&nbsp;/&nbsp;5</div>
+                                </div>
+                                <div class="middle">
+                                    <div class="product_category">카테고리 : <span class="category_name">
+                                    	<input th:text="${products.ca_name}">
+                                    </span></div>
+                                    <div class="rental_or_sale_price">대여가격 <span>
+                                    	<input th:value="${product.pr_cost}">
+                                    </span>원</div>
+                                </div>
+                                <div class="post_product_inform">
+                                    <div>
+                                        <span class="product_left">상품명</span>
+                                        <span class="product_name" th:value="${products.pr_name}">
+                                        	<input th:value="${products.pr_name}">
+                                        </span>
+                                    </div>
+                                    <div>
+                                        <span class="product_left">상품설명</span>
+                                        <span class="product_explain" >
+                                        	<input th:text="${products.pr_content}" >
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="product_condition">
+                                    <span class="product_left">상품 상태</span>
+                                    <div class="possible_impossible">
+                                    	<input th:value="${products.pr_deal}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="counsel"></div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </body>
 </html>

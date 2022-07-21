@@ -73,6 +73,7 @@ var transExpantionPaging = function(page){
 				div.append($("<div></div>",{text:product.pr_title}));
 				div.append($("<div></div>",{text:product.pr_content}));
 				div.append($("<div></div>",{text:product.pr_created}));
+				div.append("<br>");
 				div.appendTo("#trans_product");
 			}
 		}
@@ -101,6 +102,7 @@ var wishExpantionPaging = function(page){
 				div.append($("<div></div>",{text:product.pr_title}));
 				div.append($("<div></div>",{text:product.pr_content}));
 				div.append($("<div></div>",{text:product.pr_created}));
+				div.append("<br>");
 				div.appendTo("#wish_product");
 			}
 		}
@@ -129,6 +131,7 @@ var productExpantionPaging = function(page){
 				div.append($("<div></div>",{text:data[i].pr_title}));
 				div.append($("<div></div>",{text:data[i].pr_content}));
 				div.append($("<div></div>",{text:data[i].pr_created}));
+				div.append("<br>");
 				div.appendTo("#product_product");
 			}
 		}
@@ -158,6 +161,7 @@ var feedScroll = function(page){
 				div.append($("<div></div>",{text:data[i].f_title}));
 				div.append($("<div></div>",{text:data[i].f_content}));
 				div.append($("<div></div>",{text:data[i].f_created}));
+				div.append("<br>");
 				div.appendTo("body");
 			}
 			loading=false;
@@ -186,10 +190,11 @@ var boardScroll = function(page){
 				$(div).attr("id","board_"+i);
 				$(div).attr("class","board_status");
 				$(div).attr("value",data[i].b_no)
-				div.append($("<div></div>",{text:data[i].b_no}));
-				div.append($("<div></div>",{text:data[i].b_created}));
 				div.append($("<div></div>",{text:data[i].b_title}));
+				div.append($("<div></div>",{text:data[i].b_created}));
+				div.append($("<div></div>",{text:data[i].b_hit}));
 				div.append($("<div></div>",{text:data[i].b_content}));
+				div.append("<br>");
 				div.appendTo("body");
 			}
 			loading=false;
@@ -226,6 +231,7 @@ var followingScroll = function(page){
 				div.append($("<div></div>",{text:data[i].cu_name}));
 				div.append($("<div></div>",{text:data[i].cu_nickname}));
 				div.append($("<div></div>",{text:data[i].cu_email}));
+				div.append("<br>");
 				div.appendTo("body");
 			}
 			loading=false;
@@ -262,6 +268,7 @@ var followerScroll = function(page){
 				div.append($("<div></div>",{text:data[i].cu_name}));
 				div.append($("<div></div>",{text:data[i].cu_nickname}));
 				div.append($("<div></div>",{text:data[i].cu_email}));
+				div.append("<br>");
 				div.appendTo("body");
 			}
 			loading=false;
