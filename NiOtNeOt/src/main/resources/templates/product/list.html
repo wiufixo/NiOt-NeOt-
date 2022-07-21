@@ -1,61 +1,58 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<nav>
+	<!--  위에 카테고리바 -->
+		<ul>
+			<li><a href="/product/list.html">APPAREL</a></li>
+			<li><a href="/product/list.html">BAG</a></li>
+			<li><a href="/product/list.html">SHOES</a></li>
+			<li><a href="/product/list.html">ACC</a></li>
+			<li><a href="/product/list.html">ETC</a></li>
+		</ul>
+	</nav>
+<div class="container">
+	<h2>대여</h2>
+</div>
 
-<div th:replace="fragments/common :: head('product list')"></div>
+<!-- 상품등록 버튼 -->
+<div>
+	<button th:onclick="|location.href='@{/product/insert}'|" type="button">상품 등록</button>
+</div>
 
-<body style="padding-top: 100px;">
-
-	<div th:replace="fragments/common :: header('product')"></div>
-	
-	<div class="container">
-		<nav>
-			<!--  위에 카테고리바 -->
-			<ul>
-				<li><a href="/product/list.html">APPAREL</a></li>
-				<li><a href="/product/list.html">BAG</a></li>
-				<li><a href="/product/list.html">SHOES</a></li>
-				<li><a href="/product/list.html">ACC</a></li>
-				<li><a href="/product/list.html">ETC</a></li>
-			</ul>
-		</nav>
-		<h2>대여</h2>
-
-
-		<!-- 상품등록 버튼 -->
-		<div>
-			<button th:onclick="|location.href='@{/product/insert}'|" type="button">상품 등록</button>
-		</div>
-
-		<div>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>프로필사진</th>
-						<th>지역</th>
-						<th>닉네임</th>
-						<th>상품이미지</th>
-						<th>대여여부</th>
-						<th>상품명</th>
-						<th>좋아요</th>
-						<th>가격</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="product :${products}">
-						<td th:text="${product.user.cu_img}">프로필사진</td>
-						<td>지역</td>
-						<td th:text="${product.user.cu_name}">닉네임</td>
-						<td><a href="detail.html" th:href="@{|/product/detail/{product.productimage.pi_no}|}" th:text="${product.pr_name}">상품이미지</a></td>
-						<td th:text="${product.deal}">대여여부</td>
-						<td th:text="${product.pr_name}">상품명</td>
-						<td th:text="${product.pr_hit}">좋아요</td>
-						<td th:text="${product.pr_cost}">가격</td>
-
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
+<div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>프로필사진</th>
+				<th>지역</th>
+				<th>닉네임</th>
+				<th>상품이미지</th>
+				<th>대여여부</th>
+				<th>상품명</th>
+				<th>좋아요</th>
+				<th>가격</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each ="product :${products}">
+			<td th:text="${product.user.cu_img}">프로필사진</td>
+			<td>지역</td>
+			<td th:text="${product.user.cu_name}">닉네임</td>
+			<td><a href="detail.html" th:href="@{|/product/detail/{product.productimage.pi_no}|}" th:text="${product.pr_name}">상품이미지</a></td>
+			<td th:text="${product.deal}">대여여부</td>
+			<td th:text="${product.pr_name}">상품명</td>
+			<td th:text="${product.pr_hit}">좋아요</td>
+			<td th:text="${product.pr_cost}">가격</td>
+				
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 </body>
 </html>
