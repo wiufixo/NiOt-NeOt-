@@ -11,9 +11,10 @@
 		<span class="profile_and_nickname">
 			<div class="profile" >
 			</div>
-		<span th:if="${#authentication.name} == ${cr.customer.cu_id}"></span>
-		<span th:unless="${#authentication.name} == ${bcu_id}"></span>
 		</span>
+		<span th:if="${#authentication.name} == ${chattingroom.customer.cu_id}" th:text="${bcu_id}"></span>
+		<span th:if="${#authentication.name} != ${chattingroom.customer.cu_id}" th:text="${chattingroom.customer.cu_id}"></span>
+		<span>  님과의 대화</span>
 		<input type='hidden' id='cu_id' th:value="${user.cu_id}">
 		<input type='hidden' id='cr_no' th:value="${chattingroom.cr_no}">
 		<input type='hidden' id='cu_no' th:value="${user.cu_no}">
