@@ -39,9 +39,10 @@
      <span class="chat">
      </span>
 	    <div class="chatting">
-			<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
-			</iframe>
+				<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+				</iframe>
 		</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
 	<div th:replace="fragments/common :: head('index')"></div>
             
 	<div th:replace="fragments/common :: header('index')"></div>
