@@ -52,11 +52,11 @@ public class ProductController {
 		.collect(Collectors.toList());
 		List<Category> categories = categoryService.findAll();
 		
-		//model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
 		model.addAttribute("nicknames",customerService.findByCu_id(auth.getName()).getCu_nickname());
+		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
 		model.addAttribute("products",dtoList);
 		model.addAttribute("categories",categories);
-		return "product/list2";
+		return "product/list";
 	}
 	
 	
