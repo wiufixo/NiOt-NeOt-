@@ -22,9 +22,9 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<!-- 
+				<th>프로필사진</th>
 				<th>닉네임</th>
-				 -->
+				 
 				<th>카테고리</th>
 				<th>상품이미지</th>
 				<th>대여여부</th>
@@ -33,17 +33,22 @@
 			</tr>
 		</thead>
 		<tbody>
-				<tr th:each="cuimage :${cuImage}">
+		<!-- 
+				<tr th:each="cuimage :${cu_images}">
 					<td><span> <img width="100px" height="100px"
 							th:src="${cuimage.cu_img}" />
 					</span>
 					</td>
 					</tr>
+					
+					
 					<tr th:each="nickname : ${nicknames}">
 					<td><label for="customerName">닉네임</label> <input type="text"
 						id="customerName" name="customerName" class="form-control"
 						th:value="${nickname.cu_nickname}" readonly="readonly"></td>
 				</tr>
+				 -->
+				
 
 				<tr th:each ="product :${products}">
 				
