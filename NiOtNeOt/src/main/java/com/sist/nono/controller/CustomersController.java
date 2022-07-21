@@ -123,7 +123,7 @@ public class CustomersController {
 		customer.setCu_img("defaultUserImg.jpg");
 		customerService.saveCustomer(customer);
 		
-		return "/index";
+		return "/customer/joinOK";
 	}
 	
 	@PostMapping("customer/updateOK")

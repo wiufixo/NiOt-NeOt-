@@ -2,7 +2,10 @@
 @import url(../fonts/font-awesome/css/font-awesome.min.css);
 /* @import url(../plugin/bootstrap/css/bootstrap.min.css); */
 
-  
+.my-btn-sm{
+	height: 26px;
+}  
+
 .my-board-btn{
 	border-color: #c3dcd6;
 	

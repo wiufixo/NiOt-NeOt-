@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-<div th:replace="fragments/common :: head('write board')"></div>
+<link type="text/css" rel="stylesheet" href="/css/common.css">
+<script type="text/javascript" src="/js/common.js"></script>
 
+<span class="chat"></span>
+<div class="chatting">
+	<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+	</iframe>
+</div>
+<input id="authname" type="hidden" th:value="${#authentication.name}">
+
+<div th:replace="fragments/common :: head('write board')"></div>
+	
 <body style="padding-top: 100px;">
 
 	<div th:replace="fragments/common :: header('list')"></div>
@@ -44,20 +54,20 @@
 			<!-- 기존파일 있을때 -->
 			<div th:unless="${#lists.isEmpty( fileList )}" class="form-group" id="file-add">
 				<div class="form-group">
-					<button class="btn btn-outline-secondary" style="padding: 3px 6px;" type="button" onclick="addFile()">파일추가</button>
+					<button class="btn btn-outline-secondary my-btn-sm" style="padding: 3px 6px;" type="button" onclick="addFile()">파일추가</button>
 				</div>
 				<div class="file-group" style="padding: 6px 0px;" id="file-list" th:each="row,status : ${fileList}">
 					<input type="hidden" name="fileNo" th:value="${row.bf_no}"> 
 					<input type="text" class="upload-name" th:value="${row.original_name}" readonly /> 
 					<span th:text="|${row.size}kb|"></span>
-					<button type="button" style="padding: 3px 6px;" class="btn-remove btn btn-outline-secondary">삭제</button>
+					<button type="button" style="padding: 3px 6px;" class="btn-remove btn btn-outline-secondary my-btn-sm">삭제</button>
 				</div>
 			</div>
 
 			<div id="btnDiv" class="text-right my-btn">
-				<button type="submit" class="btn btn-primary">확인</button>
-				<button type="reset" class="btn btn-warning">다시작성</button>
-				<a class="btn btn-secondary" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword},recordPerPage=${params.recordPerPage})}">목록으로</a>
+				<button type="submit" class="btn btn-primary my-btn-sm">확인</button>
+				<button type="reset" class="btn btn-warning my-btn-sm">다시작성</button>
+				<a class="btn btn-secondary my-btn-sm" th:href="@{/board/list(page=${params.page},searchType=${params.searchType},keyword=${params.keyword},recordPerPage=${params.recordPerPage})}">목록으로</a>
 				<!-- 				<a class="btn btn-secondary" th:href="@{/board/list}">목록으로</a> -->
 			</div>
 

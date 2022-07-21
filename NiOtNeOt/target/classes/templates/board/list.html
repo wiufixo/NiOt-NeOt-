@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
+<link type="text/css" rel="stylesheet" href="/css/common.css">
+<script type="text/javascript" src="/js/common.js"></script>
+
+<span class="chat"></span>
+<div class="chatting">
+	<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+	</iframe>
+</div>
+<input id="authname" type="hidden" th:value="${#authentication.name}">
+
 <div th:replace="fragments/common :: head('board list')"></div>
 
+
+	
 <body style="padding-top: 100px;">
 
 	<div th:replace="fragments/common :: header('list')"></div>
@@ -48,7 +60,7 @@
 					<td th:text="${board.b_no}">1</td>
 					<td><a th:href="@{|/board/detail/${board.b_no}|(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}" th:text="${board.b_title}">1</a></td>
 					<!-- 					<td><a th:href="@{|/board/detail/${board.b_no}|}" th:text="${board.b_title}">1</a></td> -->
-					<td th:text="${board.cu_id}">1</td>
+					<td><a th:text="${board.cu_id}" th:href="@{/customer/pageChoice(user_no=${board.cu_no})}">1</a></td>
 					<td th:text="${board.b_hit}">1</td>
 				</tr>
 
@@ -56,7 +68,7 @@
 		</table>
 
 		<div class="text-right my-btn" style="margin-top: 0px; margin-right: 0px;">
-			<a class="btn btn-primary my-board-btn" th:href="@{/board/form(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">새글작성</a>
+			<a class="btn btn-primary my-board-btn my-btn-sm" th:href="@{/board/form(page=${response.params.page},searchType=${response.params.searchType},keyword=${response.params.keyword},recordPerPage=${response.params.recordPerPage})}">새글작성</a>
 			<!-- 			<a class="btn btn-primary" th:href="@{/board/form}">새글작성</a> -->
 		</div>
 

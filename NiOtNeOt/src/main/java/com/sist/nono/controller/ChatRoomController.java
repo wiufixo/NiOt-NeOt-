@@ -29,16 +29,14 @@ public class ChatRoomController {
 	
 	@GetMapping("/listChatRoom")
 	public String listchatRoom(Model model, Authentication auth) {
-//		String url = "";
-		
 		model.addAttribute("roomlist", service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
 		System.out.println(service.findAll(service2.findByCu_id(auth.getName()).getCu_no()));
-		
-//		if(auth == null) {
-//			url = "chat/chatRoomList.html";
-//		}
-//		
 		return "chat/chatRoomList.html";
+	}
+	
+	@GetMapping("/testproduct")
+	public String testproduct() {
+		return "chat/testproduct.html";
 	}
 	
 //	@GetMapping("/listChatRoom")

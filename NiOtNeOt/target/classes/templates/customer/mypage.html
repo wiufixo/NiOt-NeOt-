@@ -37,9 +37,16 @@
         <link rel="apple-touch-icon" sizes="114x114" href="">                                       <!--114 Size .png-->
         <link rel="apple-touch-icon" sizes="144x144" href="">                                       <!--144 Size .png-->
     </head>
+    <span class="chat">
+	     </span>
+		    <div class="chatting">
+					<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+					</iframe>
+			</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
 	<div th:replace="fragments/common :: head('mypage')"></div>
     <body class="loading">
-        <span class="chat"></span>
+	     
         <div class="wrap">
             <div th:replace="fragments/common :: header('mypage')"></div>
             
@@ -66,8 +73,7 @@
                                     </ul>
                                 </div>
                                 <div class="profile_indiv_inform">
-                                    <ul>
-                                        <li>00 세</li>
+                                    <ul class="privateinfo">
                                         <li id="mypage_height" th:text="${customer.getCu_height}+'cm'"></li>
                                         <li id="mypage_weight" th:text="${customer.getCu_weight}+'kg'"></li>
                                         <li id="mypage_gender" th:if="${customer.getCu_gender=='0'}">여</li>
@@ -124,10 +130,10 @@
                             <div class="contents_title">Community</div>
                             <ul class="contents_post">
                                 <li  th:each="b,boardNum:${board}" th:if="${boardNum.count<4}" th:id="${'board_'+boardNum.index}" class="board_status" th:value="${b.getB_no}">
-                                    <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="b.getB_content"></span>
+                                    <span class="post_title" th:text="${b.getB_title}">게시물 제목</span>&nbsp;|&nbsp;<span class="post_content" th:text="${b.getB_content}"></span>
                                     <div class="post_now">
-                                        <span class="post_comment" th:text="${b.getB_no}">[51]</span>
-                                        <span class="post_view" th:text="${b.getB_hit}">200</span>
+                                       <span class="post_comment" th:text="|[${b.getB_no}]|"></span>
+                                       <span class="post_view" th:text="|[${b.getB_hit}]|"></span>
                                     </div>
                                 </li>
                             </ul>

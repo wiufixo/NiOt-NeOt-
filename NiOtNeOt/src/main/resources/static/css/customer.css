@@ -41,3 +41,59 @@
 #delete_delete_button{
 	visibility: hidden;
 }
+
+.findpwdform {
+	font-size: 16px;
+	text-align: center;	
+}
+
+.findpwdform input{
+	margin: 10px 0px 10px 00px;
+	width: 20%; /* 원하는 너비 설정 */
+	height: auto; /* 높이값 초기화 */
+	line-height: normal; /* line-height 초기화 */
+	padding: .8em .5em; /* 원하는 여백 설정, 상하단 여백으로 높이를 조절 */
+	font-family: inherit; /* 폰트 상속 */
+	border: 1px solid #999;
+	border-radius: 0; /* iSO 둥근모서리 제거 */
+	outline-style: none; /* 포커스시 발생하는 효과 제거를 원한다면 */
+	-webkit-appearance: none; /* 브라우저별 기본 스타일링 제거 */
+	-moz-appearance: none;
+	appearance: none;
+}
+
+/*버튼*/
+.btn2.btn_as:hover, .btn2.btn_as:focus {
+	background: #d9e7e7;
+}
+
+.btn2.btn_as:hover span, .btn2.btn_as:focus span {
+	color: #fff;
+}
+
+.btn2.btn_as {
+	vertical-align: middle;
+	font-size: 15px;
+}
+
+.btn2 {
+	border-style: none;
+	text-align: center;
+	width: 200px;
+	height: 40px;
+	display: inline-block;
+	*display: inline;
+	*zoom: 1;
+	outline: none;
+	box-sizing: border-box;
+	font-size: 14px;
+	text-align: center;
+	line-height: 40px;
+	text-decoration: none;
+	cursor: pointer;
+	border-radius: 40px;
+	opacity: 0.85;
+	vertical-align: top;
+	transition: all 100ms linear;
+	margin : 20px 0px 20px 0px;
+}
