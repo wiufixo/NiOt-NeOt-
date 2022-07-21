@@ -52,6 +52,8 @@ public class ProductController {
 		.collect(Collectors.toList());
 		List<Category> categories = categoryService.findAll();
 		
+		
+		model.addAttribute("address",customerService.findByCu_id(auth.getName()).getAddress_detail());
 		model.addAttribute("nicknames",customerService.findByCu_id(auth.getName()).getCu_nickname());
 		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
 		model.addAttribute("products",dtoList);
@@ -98,14 +100,14 @@ public class ProductController {
 		return "/product/insert";
 	}
 	@PostMapping("/insert")
-	public String insertProdcut( String ca_name, int pr_cost
+	public String insertProdcut( int pr_no, String ca_name, int pr_cost, String pr_image
 			, String pr_name, String pr_content, String pr_deal
 			, @RequestParam("pr_images") List<MultipartFile> files,Authentication auth) throws IllegalStateException, IOException {
 		if(files.size() < 1) throw new CustomException(ErrorCode.BAD_REQUEST);
 		
 		int cu_no = customerService.findByCu_id(auth.getName()).getCu_no();
 		
-		ProductDTO p = new ProductDTO(-1, ca_name, ""
+		ProductDTO p = new ProductDTO(pr_no, ca_name, pr_image
 				, pr_name, pr_cost, pr_content, pr_deal, cu_no);
 		Product newProduct = this.productService.saveProduct(p);
 		

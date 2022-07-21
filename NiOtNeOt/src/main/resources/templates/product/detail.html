@@ -3,10 +3,21 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
  <div th:replace="fragments/common :: head('product')"></div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
     <body class="loading">
-        <span class="chat"></span>
-        <div class="wrap">
+        <span class="chat" ></span>
+            <span class="chat"></span>
+	<div class="chatting">
+		<iframe class="chatframe" name="chatframe" src="/listChatRoom"
+			frameBorder="0" scrolling="no"> </iframe>
+	</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
+	<div th:replace="fragments/common :: head('index')"></div>
+
+	<div th:replace="fragments/common :: header('index')"></div>
+
+	<div class="wrap">
             <div class="header hide">
                 <div class="width_con">
                     <div class="btn_nav"><div></div></div>
@@ -77,5 +88,6 @@
             <div class="footer"></div>
         </div>
     </body>
+  <script src='/js/product.js'></script>
   </body>
 </html>
