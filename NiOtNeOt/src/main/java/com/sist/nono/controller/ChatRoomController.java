@@ -41,6 +41,11 @@ public class ChatRoomController {
 		return "chat/chatRoomList.html";
 	}
 	
+	@GetMapping("/testproduct")
+	public String testproduct() {
+		return "chat/testproduct.html";
+	}
+	
 //	@GetMapping("/listChatRoom")
 //	public String listchatRoom(Model model) {
 //		model.addAttribute("roomlist", service.findAll(1));
