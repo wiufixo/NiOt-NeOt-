@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -49,4 +50,7 @@ public class ChatRoom {
 
 	@CreationTimestamp
 	private Timestamp cr_created;
+	
+	@ColumnDefault("0")
+	private int trade;
 }

@@ -8,11 +8,15 @@
 	src="https://code.jquery.com/jquery-3.6.0.min.js">
 </script>
 <script type="text/javascript">
-/* $(document).ready(function() {
-    $('#tradecom').click(function() {
-        console.log("asdas");
-    })
-}); */
+function getId(id) {
+	return document.getElementById(id);
+}
+
+var btn = getId('btna');
+
+function complete() {
+	btn.disabled =true;
+}
 </script>
 </head>
 <body>
@@ -21,7 +25,7 @@
 		<hr>
 			<div th:each="cr : ${roomlist}">
 				<div id="room">
-					<span th:text="${cr.cr_created}"></span>&nbsp&nbsp&nbsp&nbsp<button th:onclick="|location.href='@{/products/{productNo}/update(productNo=${product.pr_no})}'|" type="button">거래완료</button><br>
+					<span th:text="${cr.cr_created}"></span>&nbsp&nbsp&nbsp&nbsp<input type="button" id="btna" onclick="complete()" value="거래완료"><br>
 					<div class="circle"></div><br><br>
 					&nbsp&nbsp <a  th:href="@{'/chat/'+${cr.cr_no}}">닉네임</a>
 <!-- 					<span th:if="${#authentication.name} == ${cr.customer.cu_id}"><a id="cr_no" th:href="@{'/chat/'+${cr.cr_no}}" th:text="${bcu_id}"></a></span>

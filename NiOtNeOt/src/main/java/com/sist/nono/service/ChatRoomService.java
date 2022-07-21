@@ -5,8 +5,11 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.sist.nono.dto.ChatRoomDTO;
 import com.sist.nono.model.ChatRoom;
 import com.sist.nono.repository.ChatRoomRepository;
+import com.sist.nono.repository.ChatRoomRepository2;
 
 @Service  
 public class ChatRoomService {
