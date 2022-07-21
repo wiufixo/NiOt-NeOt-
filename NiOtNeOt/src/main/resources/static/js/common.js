@@ -37,7 +37,7 @@ $(function(){
     $(".chat").click(function(){
 		console.log("작동");
 		if ($("#authname").val() == null || $("#authname").val() == "anonymousUser") {
-			alert("로그인이 필요한 서비스입니다");
+			window.location.href="/customer/login"
 		} else {
         	$(".chatting").toggleClass("active");
 		}
