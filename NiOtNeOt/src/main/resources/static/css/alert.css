@@ -1,0 +1,29 @@
+#atype{
+	margin: 0px 0px 0px 60px;
+}
+
+#atitle {
+	margin: 50px 0px 10px 0px;
+}
+
+#back {
+	margin: 00px 0px 0px 60px;
+}
+
+#talk::-webkit-scrollbar,
+#talk::-webkit-scrollbar,
+#talk::-webkit-scrollbar{width: 20px; margin: 0px 0px 0px 3px;}
+
+#talk::-webkit-scrollbar-thumb,
+#talk::-webkit-scrollbar-thumb,
+#talk::-webkit-scrollbar-thumb{background: #fff; border: #c3dcd6 solid 4px; border-radius: 20px;}
+
+#talk::-webkit-scrollbar-thumb:hover,
+#talk::-webkit-scrollbar-thumb:active,
+#talk::-webkit-scrollbar-thumb:hover,
+#talk::-webkit-scrollbar-thumb:active,
+#talk::-webkit-scrollbar-thumb:hover,
+#talk::-webkit-scrollbar-thumb:active{background: #9bc5bb;}
+
+#talk::-webkit-scrollbar-track,
+#talk::-webkit-scrollbar-track
