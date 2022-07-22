@@ -56,7 +56,6 @@ public class BoardController {
 	@Autowired
 	private BoardFileService fileService;
 
-
 	@GetMapping("/download")
 	public void downloadAttachFile(@RequestParam(value = "bf_no", required = false) int bf_no, Model model, HttpServletResponse response) {
 
