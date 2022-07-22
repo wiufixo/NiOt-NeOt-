@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,6 @@ import com.sist.nono.dto.ProductImageDTO;
 import com.sist.nono.exception.CustomException;
 import com.sist.nono.exception.ErrorCode;
 import com.sist.nono.model.Category;
-import com.sist.nono.model.Customer;
 import com.sist.nono.model.Product;
 import com.sist.nono.model.ProductImage;
 import com.sist.nono.service.CategoryService;
@@ -44,7 +42,6 @@ public class ProductController {
 	@Autowired
 	private CustomerService customerService;
 	
-	//리스트
 	@GetMapping("")
 	public String list(HttpSession httpSession, Model model,Authentication auth) {
 		List<Product> list =  productService.findAll();
@@ -77,8 +74,9 @@ public class ProductController {
 		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
 		model.addAttribute("product", dto);
 		model.addAttribute("images", imageDto);
-		return "product/detail2";
+		return "product/detail";
 	}
+	
 	
 	@GetMapping("/categories/{ca_no}")
 	public String productByCategory(Model model, @PathVariable int ca_no  ) {
@@ -100,14 +98,14 @@ public class ProductController {
 		return "/product/insert";
 	}
 	@PostMapping("/insert")
-	public String insertProdcut( int pr_no, String ca_name, int pr_cost, String pr_image
+	public String insertProdcut( String ca_name, int pr_cost
 			, String pr_name, String pr_content, String pr_deal
 			, @RequestParam("pr_images") List<MultipartFile> files,Authentication auth) throws IllegalStateException, IOException {
 		if(files.size() < 1) throw new CustomException(ErrorCode.BAD_REQUEST);
 		
 		int cu_no = customerService.findByCu_id(auth.getName()).getCu_no();
 		
-		ProductDTO p = new ProductDTO(pr_no, ca_name, pr_image
+		ProductDTO p = new ProductDTO(-1, ca_name, ""
 				, pr_name, pr_cost, pr_content, pr_deal, cu_no);
 		Product newProduct = this.productService.saveProduct(p);
 		

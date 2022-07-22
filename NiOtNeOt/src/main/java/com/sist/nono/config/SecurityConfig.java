@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import com.sist.nono.auth.PrincipalDetailService;
 
 
+
 @Configuration // 빈등록
 @EnableWebSecurity //필터로 등록 ==> 시큐리티가 활성화되어있는데 관련된 설정들은 해당 파일에서 할 것이다
 @EnableGlobalMethodSecurity(prePostEnabled = true) // 특정주소로 접근을하면 권한 및 인증을 미리 체크할 것이다
@@ -48,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.csrf().disable() //csrf토큰 비활성화(테스트시 비활성화가편함)
 			.authorizeRequests()
-				.antMatchers("/board/**","/customer/deleteCheck").authenticated()
+				.antMatchers("/board/**","/customer/deleteCheck","/feed/**").authenticated()
 				.anyRequest().permitAll()
 //				.antMatchers("/", "/**").permitAll()
 //				.anyRequest().authenticated()

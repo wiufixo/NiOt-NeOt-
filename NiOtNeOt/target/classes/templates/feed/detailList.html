@@ -63,6 +63,9 @@
 					<label for="inp-type-5" class="col-sm-2 control-label">내용</label>
 					<div class="col-sm-10">
 						<p class="form-control" th:text="*{f_content}"></p>
+						<div th:if="${not #lists.isEmpty( fileList )}" th:each=" file : ${fileList}" class="form-group">
+							<img class="rounded" style="height: 200px;" th:if="${#strings.endsWith(file.save_name,'.jpg')} or ${#strings.endsWith(file.save_name,'.jpeg')} or ${#strings.endsWith(file.save_name,'.png')}" th:src="@{|/boardImage/${file.save_name}|}" />
+						</div>
 					</div>
 				</div>
 

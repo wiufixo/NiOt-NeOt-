@@ -42,6 +42,13 @@
 		</iframe>
 	</div>
 	<input id="authname" type="hidden" th:value="${#authentication.name}">
+	
+    <span class="alerts"></span>
+	<div class="alertss">
+		<iframe class="chatframe" src ="/alertList" frameBorder="0" scrolling="no">
+		</iframe>
+	</div>
+	
 	<div th:replace="fragments/common :: head('index')"></div>
             
 	<div th:replace="fragments/common :: header('index')"></div>

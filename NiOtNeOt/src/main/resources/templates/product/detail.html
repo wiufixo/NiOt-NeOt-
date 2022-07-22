@@ -6,9 +6,8 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body>
     <body class="loading">
-        <span class="chat" ></span>
-            <span class="chat"></span>
-	<div class="chatting">
+        <span class="chat"  type="button" id="starttrade2" value="채팅(거래)하기"></span>
+		<div class="chatting">
 		<iframe class="chatframe" name="chatframe" src="/listChatRoom"
 			frameBorder="0" scrolling="no"> </iframe>
 	</div>
@@ -37,8 +36,6 @@
                             <div class="left_side">
                                 <div class="product_img">
                                     <div class="img_post">
-                                        <div class="preview_btn"></div>
-                                        <div class="next_btn"></div>
                                       	<span th:each="image :${images}">
       									<img  th:src="${image.pi_url}" />
       									</span>

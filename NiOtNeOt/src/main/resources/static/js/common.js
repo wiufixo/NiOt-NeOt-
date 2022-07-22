@@ -42,6 +42,15 @@ $(function(){
         	$(".chatting").toggleClass("active");
 		}
 	});
+	
+	$(".alerts").click(function(){
+		console.log("작동");
+		if ($("#authname").val() == null || $("#authname").val() == "anonymousUser") {
+			window.location.href="/customer/login"
+		} else {
+        	$(".alertss").toggleClass("active");
+		}
+	});
     
 $(window).load(function(){
     $("html, body").animate({scrollTop: 0}, 1, function(){});

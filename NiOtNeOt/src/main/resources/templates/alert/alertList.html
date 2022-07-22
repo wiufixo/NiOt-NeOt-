@@ -3,29 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel='stylesheet' type='text/css' href='/css/alert.css'>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<h2>알림목록</h2>
+	<h2>Notice List</h2>
 	<hr>
-	<table border="1" width="80%">
-		<tr>
-			<th>알림번호</th>
-			<th>알림제목</th>
-			<th>알림내용</th>
-			<th>생성시간</th>
-			<th>알림종류</th>
-		</tr>
-
-		<tr th:each="a : ${alertlist}">
-			<td th:text="${a.al_no}"></td>
-			<td th:text="${a.al_title}"></td>
-			<td th:text="${a.al_content}"></td>
-			<td th:text="${a.al_created}"></td>
-			<td th:text="${a.al_type}"></td>
-		</tr>
-
-	</table>
+			<div th:each="al : ${alertlist}">
+				<div id="room">
+					<span th:text="${al.al_created}"></span>
+					<span id="atype" th:if="${al.al_type} == '거래'">거래</span>
+					<span id="atype" th:if="${al.al_type} == '공지'">공지</span>
+					<br>
+					<br>
+					&nbsp&nbsp <a id="atitle" th:href="@{'/alerts/'+${al.al_no}}" th:text="${al.al_title}"></a>
+					<hr>
+				</div>
+			</div>
 </body>
 </html>
