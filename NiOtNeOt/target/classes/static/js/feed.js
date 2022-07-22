@@ -244,7 +244,7 @@ var fupdate = function() {
 				console.log("resp:" + resp);
 	
 			alert("피드 수정 성공")
-				//location.href = `/feed/detailFeed/${f_no}`
+				location.href = `/feed/detailFeed/${f_no}`
 		}
 	});
 }
