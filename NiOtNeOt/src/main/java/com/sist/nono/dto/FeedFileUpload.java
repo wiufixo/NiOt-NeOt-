@@ -31,6 +31,7 @@ public class FeedFileUpload {
 //	private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
 
 	/** 업로드 경로 */
+	
 	private final String uploadPath = Paths.get("C:", "develop", "upload").toString();
 
 	/**
