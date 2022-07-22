@@ -109,7 +109,7 @@
                             <div class="contents_title">Sale/rental</div>
                             <ul>
                                <li th:each="p,productNum:${product}" th:if="${productNum.count<4}" th:id="${'product_'+productNum.index}" class="product_status" th:value="${p.getPr_no}">
-                                    <div class="s_r_picture"><img src="img/1.png"></div><!--
+                                    <div class="s_r_picture"></div><!--
                                 --><ul>
                                         <li th:text="${p.getPr_name}"></li>
                                         <li th:text="${p.getPr_created}"></li>
