@@ -61,4 +61,4 @@ server:
 itemImgLocation : C:/product/item
 
 #파일 리소스 업로드 경로, uploadPath : file :///저장할 로컬 경로/
-file.dir: C:\Users\SIST\git\NiOt-NeOt-\NiOtNeOt\src\main\resources\static
+file.dir: C:\Users\jiyeon\git\NiOt-NeOt-\NiOtNeOt\src\main\resources\static
