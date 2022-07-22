@@ -4,7 +4,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+    <span class="chat"></span>
+	<div class="chatting">
+		<iframe class="chatframe" src ="/listChatRoom" frameBorder="0" scrolling="no">
+		</iframe>
+	</div>
+	<input id="authname" type="hidden" th:value="${#authentication.name}">
+	<div th:replace="fragments/common :: head('index')"></div>
+            
+	<div th:replace="fragments/common :: header('index')"></div>
 <body>
+<br><br><br><br><br><br><br><br>
 	<nav>
 	<!--  위에 카테고리바 -->
 		<ul th:each ="category :${categories}">

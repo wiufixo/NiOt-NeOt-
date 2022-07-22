@@ -73,11 +73,19 @@ public class ChatRoomController {
 //		return list;
 //	}
 
-	@ResponseBody
-	@RequestMapping("createChatRoom")
+	@PostMapping("/createChatRoom")
 	public String createChatRoom(Authentication auth, int pr_no) {
 		int bcu_no = service4.findById(pr_no).getCu_no();
-		service.create(bcu_no, service2.findByCu_id(auth.getName()).getCu_no(), pr_no);
+		System.out.println("asdasdasdasdzzzzzzzzzzzzzzzzzzzz" +bcu_no);
+		int cu_no = service2.findByCu_id(auth.getName()).getCu_no();
+		System.out.println("ssssssssssssss"+cu_no);
+		service.create(bcu_no, cu_no, pr_no);
 		return "채팅방 생성 완료";
+	}
+	
+	@PostMapping("/updateChatTrade")
+	public void updateChatTrade(Authentication auth, int cr_no) {
+		System.out.println("cr_no = " + cr_no);
+		service.updateRoomTrade(cr_no);
 	}
 }

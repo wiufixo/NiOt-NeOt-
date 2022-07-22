@@ -102,6 +102,10 @@
 	margin: 0px 0px 0px 80px;
 }
 
+#btna{
+	width:80px;
+}
+
 #talk::-webkit-scrollbar,
 #talk::-webkit-scrollbar,
 #talk::-webkit-scrollbar{width: 20px; margin: 0px 0px 0px 3px;}

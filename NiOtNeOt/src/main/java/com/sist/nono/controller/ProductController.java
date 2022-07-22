@@ -77,7 +77,7 @@ public class ProductController {
 		model.addAttribute("cu_images", customerService.findByCu_id(auth.getName()).getCu_img());
 		model.addAttribute("product", dto);
 		model.addAttribute("images", imageDto);
-		return "product/detail";
+		return "product/detail2";
 	}
 	
 	@GetMapping("/categories/{ca_no}")

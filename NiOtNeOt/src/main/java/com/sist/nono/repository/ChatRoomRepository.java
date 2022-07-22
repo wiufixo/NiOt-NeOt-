@@ -18,9 +18,14 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, Integer>{
 	
 	@Transactional
 	@Modifying
-	@Query(value = "insert into chatroom(cu_no, bcu_no, pr_no, cr_created) values(?1, ?2, ?3, now())", nativeQuery = true)
+	@Query(value = "insert into chatroom(cu_no, bcu_no, pr_no, cr_created,trade) values(?1, ?2, ?3, now(),0)", nativeQuery = true)
 	void createChatRoom(int cu_no, int bcu_no, int pr_no);
 	
 	@Query(value = "select cu.cu_id from chatroom cr, customer cu where cr.bcu_no = cu.cu_no and cr_no=:cr_no", nativeQuery = true)
 	String findBcuidByCrno(int cr_no);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "update chatroom set trade=1 where cr_no=:cr_no", nativeQuery = true)
+	void updateRoomTrade(int cr_no);
 }                                                                         
