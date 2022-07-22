@@ -20,6 +20,14 @@ html,body{margin: 0; font-family: 'Poppins'; font-weight: 500;}
 .chatting.active{transform: scale(1);}
 .chatframe{frameborder:0; margin: 20px;  width: 350px; height: 550px; }
 
+/*-------alert button-----------------------------------------------*/
+.alerts{position: fixed; bottom: 60px; left: 60px; width: 48px; height: 48px; background: url(../img/bell.png) no-repeat; background-size: cover; color: #fff; text-align: center; line-height: 48px; cursor: pointer; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
+.alerts:active{color: #aaa; box-shadow: 0 0 0 rgba(0,0,0,1); transform: scale(0.975);}
+.alerts img{width: 100%;}
+.alertss{position: fixed; bottom: 110px; right: 110px; width: 400px; height: 600px; background: #FFFFFF; opacity: 1; border-radius: 8px; transform: scale(0); transition: all 250ms ease-in-out; transform-origin: bottom right; z-index: 999; text-align: center; box-shadow: 0px 0px 20px #999;}
+.alertss.active{transform: scale(1);}
+.chatframe{frameborder:0; margin: 20px;  width: 350px; height: 550px; }
+
 .post_btn{position: fixed; bottom: 60px; left: 60px; width: 48px; height: 48px; text-align: center; line-height: 48px; cursor: pointer; transition: all 150ms linear, opacity 250ms ease-in-out, bottom 250ms ease-in-out; z-index: 999;}
 .post_btn::before,
 .post_btn::after{content: ''; position: absolute; top: 50%; left: 50%; background: #ccc; border-radius: 4px; opacity: 1; transition: all 400ms ease-in-out;}
