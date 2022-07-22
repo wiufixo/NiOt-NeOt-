@@ -28,10 +28,10 @@ public class FeedFileUpload {
 	private FeedRepository feedRepository;
 	
 	/** 오늘 날짜 */
-	private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
+//	private final String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"));
 
 	/** 업로드 경로 */
-	private final String uploadPath = Paths.get("C:", "develop", "upload", today).toString();
+	private final String uploadPath = Paths.get("C:", "develop", "upload").toString();
 
 	/**
 	 * 서버에 생성할 파일명을 처리할 랜덤 문자열 반환
