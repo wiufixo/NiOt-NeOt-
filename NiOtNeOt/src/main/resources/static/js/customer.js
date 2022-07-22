@@ -618,4 +618,7 @@ window.onload = function(){
 	if(location.pathname.includes("/customer/feedExpantion")){
 		feedScroll(scrollPage);
 	}
+	if(location.pathname.includes("/customer/joinOK")){
+		alert("회원가입 성공");
+	}
 }

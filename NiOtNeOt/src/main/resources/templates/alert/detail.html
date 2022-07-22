@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<h2>Notice</h2>
+	<hr>
+			<div th:each="al : ${alert}">
+				<div id="room">
+					<span th:text="${al.al_title}"></span>&nbsp&nbsp&nbsp&nbsp&nbsp
+					<button id="back" onclick='location.href="/alertList";'>뒤로가기</button>
+					<hr>
+					<span th:if="${al.al_type} == '거래'">거래</span>
+					<span th:if="${al.al_type} == '공지'">공지</span>
+					<br>
+					<hr>
+					<span th:text="${al.al_content}"></span>
+				</div>
+			</div>
+</body>
+</html>

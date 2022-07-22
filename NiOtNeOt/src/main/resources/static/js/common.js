@@ -43,12 +43,12 @@ $(function(){
 		}
 	});
 	
-	$(".alert").click(function(){
+	$(".alerts").click(function(){
 		console.log("작동");
 		if ($("#authname").val() == null || $("#authname").val() == "anonymousUser") {
 			window.location.href="/customer/login"
 		} else {
-        	$(".alerts").toggleClass("active");
+        	$(".alertss").toggleClass("active");
 		}
 	});
     

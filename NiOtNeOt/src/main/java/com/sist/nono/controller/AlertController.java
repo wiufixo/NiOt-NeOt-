@@ -27,6 +27,7 @@ public class AlertController {
 	@GetMapping("/alertList")
 	public String listAlert(Model model, Authentication auth) {
 		model.addAttribute("alertlist", service.findAllByCu_no(service2.findByCu_id(auth.getName()).getCu_no()));
+		System.out.println(service.findAllByCu_no(service2.findByCu_id(auth.getName()).getCu_no()));
 		return "alert/alertList.html";
 	}
 	
