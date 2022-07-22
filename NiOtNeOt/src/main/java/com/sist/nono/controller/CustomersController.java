@@ -139,8 +139,8 @@ public class CustomersController {
 		}
 		
 		customerService.saveCustomer(customer);
-		
-		return "/index";
+		model.addAttribute(customer.getCu_no());
+		return "customer/pageChoice";
 	}
 	
 	@GetMapping("customer/update")
