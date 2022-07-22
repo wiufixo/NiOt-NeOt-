@@ -114,7 +114,7 @@
                             <div class="contents_title">Sale/rental</div>
                             <ul>
                                <li id="mypage_product" th:each="p,productNum:${product}" th:if="${productNum.count<4}">
-                                    <div class="s_r_picture"><img src="img/1.png"></div><!--
+                                    <div class="s_r_picture"></div><!--
                                 --><ul>
                                         <li th:text="${p.getPr_name}">글제목</li>
                                         <li th:text="${p.getPr_created}"></li>

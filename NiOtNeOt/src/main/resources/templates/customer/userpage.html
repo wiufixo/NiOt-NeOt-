@@ -68,7 +68,6 @@
                                 </div>
                                 <div class="profile_indiv_inform">
                                     <ul th:if="${user.getPrivacy_agree!=0}">
-                                        <li>00 세</li>
                                         <li id="user_height" th:text="${user.getCu_height}+'cm'"></li>
                                         <li id="user_weight" th:text="${user.getCu_weight}+'kg'"></li>
                                         <li id="user_gender" th:if="${user.getCu_gender=='0'}">여</li>
@@ -109,12 +108,11 @@
                         <div class="sale_rental">
                             <div class="contents_title">Sale/rental</div>
                             <ul>
-                               <li th:id="${'product_'+productNum.index}" class="product_status" th:value="${b.getPr_no}" th:each="p,productNum:${product}" th:if="${productNum.count<4}">
+                               <li th:each="p,productNum:${product}" th:if="${productNum.count<4}" th:id="${'product_'+productNum.index}" class="product_status" th:value="${p.getPr_no}">
                                     <div class="s_r_picture"><img src="img/1.png"></div><!--
                                 --><ul>
-                                        <li th:text="${p.getPr_name}">글제목</li>
+                                        <li th:text="${p.getPr_name}"></li>
                                         <li th:text="${p.getPr_created}"></li>
-                                        <li th:text="${p.getPr_status}"></li>
                                         <li th:text="${p.getPr_cost}"></li>
                                     </ul>
                                 </li>
