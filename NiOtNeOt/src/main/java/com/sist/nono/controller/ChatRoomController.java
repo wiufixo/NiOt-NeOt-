@@ -82,4 +82,10 @@ public class ChatRoomController {
 		service.create(bcu_no, cu_no, pr_no);
 		return "채팅방 생성 완료";
 	}
+	
+	@PostMapping("/updateChatTrade")
+	public void updateChatTrade(Authentication auth, int cr_no) {
+		System.out.println("cr_no = " + cr_no);
+		service.updateRoomTrade(cr_no);
+	}
 }

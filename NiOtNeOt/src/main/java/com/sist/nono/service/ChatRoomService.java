@@ -40,4 +40,8 @@ public class ChatRoomService {
 	public String findBcuidByCrno(int cr_no) {
 		return repository.findBcuidByCrno(cr_no);
 	}
+	
+	public void updateRoomTrade(int cr_no) {
+		repository.updateRoomTrade(cr_no);
+	}
 }

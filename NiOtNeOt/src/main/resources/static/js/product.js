@@ -17,8 +17,8 @@ starttrade3.onclick = (function() {	// 전송 버튼으로 전송 가능
 		url: "/createChatRoom",
 		data: data,
 		dataType: 'json',
-		success: function(message) {
-			console.log(message);
+		success: function() {
+			console.log("asd");
 		}
 		
 	}) 

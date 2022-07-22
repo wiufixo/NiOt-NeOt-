@@ -11,11 +11,52 @@
 function getId(id) {
 	return document.getElementById(id);
 }
+var bcu_no;
+var cu_no;
+var pr_no;
 
-var btn = getId('btna');
-
-function complete() {
-	btn.disabled =true;
+function complete(asd) {
+	bcu_no = getId('bcu_no').value;
+	cu_no = getId('cu_no').value;
+	pr_no = getId('pr_no').value;
+	
+ 	var data = {
+		"cr_no": asd
+	};
+ 	
+ 	var data2 = {
+ 		"sell_no": cu_no,
+ 		"buy_no": bcu_no,
+ 		"pr_no": pr_no
+ 	};
+ 	
+	$.ajax({            
+		type : "POST",
+		url: "/updateChatTrade",
+		data: data,
+		dataType: 'json',
+		success: function() {
+			console.log("asd");
+		}
+		
+	}) 
+	
+	$.ajax({            
+		type : "POST",
+		url: "/customer/transOK",
+		data: data2,
+		dataType: 'json',
+		success: function() {
+			console.log("asd");
+		}
+		
+	}) 
+	
+	setTimeout(function() {
+		location.reload();
+	}, 1000);
+	
+	
 }
 </script>
 </head>
@@ -25,13 +66,16 @@ function complete() {
 		<hr>
 			<div th:each="cr : ${roomlist}">
 				<div id="room">
-					<span th:text="${cr.cr_created}"></span>&nbsp&nbsp&nbsp&nbsp<input type="button" id="btna" onclick="complete()" value="거래완료"><br>
+					<span th:text="${cr.cr_created}"></span>&nbsp&nbsp&nbsp&nbsp
+					<span th:if="${cr.trade} == 0"><input type="button" id="btna" th:onclick="complete([[${cr.cr_no}]])" value="거래완료"></span><br>
 					<div class="circle"></div><br><br>
 					&nbsp&nbsp <a  th:href="@{'/chat/'+${cr.cr_no}}">닉네임</a>
 <!-- 					<span th:if="${#authentication.name} == ${cr.customer.cu_id}"><a id="cr_no" th:href="@{'/chat/'+${cr.cr_no}}" th:text="${bcu_id}"></a></span>
 					<span th:if="${#authentication.name} != ${cr.customer.cu_id}"><a id="cr_no" th:href="@{'/chat/'+${cr.cr_no}}" th:text="${cr.customer.cu_id}"></a></span> -->
 					<span id="pr_name"  th:text="${cr.product.pr_name}"></span>
-					
+					<input type="hidden" id="cu_no" th:value="${cr.customer.cu_no}">
+					<input type="hidden" id="bcu_no" th:value="${cr.bcu_no}">
+					<input type="hidden" id="pr_no" th:value="${cr.product.pr_no}">
 					<hr>
 				</div>
 			</div>
