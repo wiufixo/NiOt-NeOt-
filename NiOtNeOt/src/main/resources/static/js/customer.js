@@ -391,9 +391,8 @@ $(document).on("click","#change_img_confirm",function(){
 			data:formData,
 			type:"post",
 			success:function(data){
-				alert("uploaded");
-				$(opener.document).find("#mypage_my_img").attr("src","/image/customer/"+$(opener.document).find("#mypage_user_no").attr('value')+"/"+data);
 				opener.location.reload();
+				alert("uploaded");
 			},
 			async: false,
 		})
